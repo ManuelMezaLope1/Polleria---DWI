@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xlmns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/css/index/cards.css">
+	<style>
+		img{
+			width:100px;
+		}
+	</style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+		<a class="navbar-brand" href=""><img src="../imagenes/nuevoLogo.png"></a>
+		
+		<div class="collapse navbar-collapse d-flex flex-row-reverse" id="collapsibleNavbar">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link"><i class="bi bi-house-door-fill"></i>Inicio</a></li>
+                <li class="nav-item"><a th:href="@{/carta}" class="nav-link"><i class="bi bi-fork-knife"></i>Carta</a></li>
+                <li class="nav-item"><a class="nav-link"><i class="bi bi-percent"></i>Ofertas</a></li>
+                <li class="nav-item"><a class="nav-link"><i class="bi bi-person-standing"></i>Nosotros</a></li>
+                <li class="nav-item"><a class="nav-link"><i class="bi bi-person-circle"></i>Cuenta</a></li>
+                <li class="nav-item"><a class="nav-link"><i class="bi bi-cart"></i>Carro</a></li>
+                <li class="nav-item"><a th:href="@{/prueba}" class="nav-link">Prueba</a></li>
+			</ul>
+		</div>
+	</nav>
+    <br>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a th:href="@{/}" class="navbar-brand">Registro e inicio de sesión</a>
+            </div>
+        </div>
+    </nav>
+
+    <br><br>
+
+    <div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div th:if=${param.exito}>
+					<div class="alert alert-info">Se ha registrado exitosamente a
+						la aplicación</div>
+				</div>
+
+				<h1>Actualiza los datos</h1>
+				<form th:action="@{/prueba/usuario/{id}(id=${usuario.id})}" method="post" th:object="${usuario}">
+					<div class="form-group">
+						<label class="control-label" for="nombre">Nombre : </label> <input
+							id="nombre" type="text" class="form-control" th:field="*{nombre}"
+							required autofocus="autofocus">
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="apellido">Apellido : </label> <input
+							id="apellido" class="form-control" th:field="*{apellido}"
+							required autofocus="autofocus">
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="email">Email : </label> <input
+							id="email" type="email" class="form-control" th:field="*{email}"
+							required autofocus="autofocus">
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="password">Password : </label> <input
+							type="password" id="password" class="form-control" th:field="*{password}"
+							required autofocus="autofocus">
+					</div>
+
+					<div class="form-group">
+						<button type="submit" class="btn btn-success">Registrar</button>
+						<span>Si estas registrado <a th:href="@{/login}">inicia sesión aqui</a></span>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+</body>

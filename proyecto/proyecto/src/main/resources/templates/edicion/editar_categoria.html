@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Carta</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <style>
+        img {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+		<a class="navbar-brand" href=""><img src="../../imagenes/nuevoLogo.png"></a>
+		
+		<div class="collapse navbar-collapse d-flex flex-row-reverse" id="collapsibleNavbar">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link"><i class="bi bi-house-door-fill"></i>Inicio</a></li>
+                <li class="nav-item"><a class="nav-link"><i class="bi bi-fork-knife"></i>Carta</a></li>
+                <li class="nav-item"><a class="nav-link"><i class="bi bi-percent"></i>Ofertas</a></li>
+                <li class="nav-item"><a class="nav-link"><i class="bi bi-person-standing"></i>Nosotros</a></li>
+                <li class="nav-item"><a class="nav-link"><i class="bi bi-person-circle"></i>Cuenta</a></li>
+                <li class="nav-item"><a class="nav-link"><i class="bi bi-cart"></i>Carro</a></li>
+			</ul>
+		</div>
+	</nav>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-log-6 col-md-6 col-sm6 container justify-content-center card">
+                <h1 class="text-center">Edición de Categorías</h1>
+
+                <div class="card-body">
+                    <form th:action="@{/prueba/categoria/{id}(id=${categoria.id})}" th:object="${categoria}" method="POST">
+                        <div class="form-group">
+                            <label for="nombre">Nombre: </label>
+                            <input type="text" name="nombre" th:field="*{nombre}" class="form-control" placeholder="Ingrese un nombre" required>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="descripcion">Descripcion: </label>
+                            <input type="text" name="descripcion" th:field="*{descripcion}" class="form-control" placeholder="Ingrese una descripción" required>
+                        </div>
+                        <br>
+                        <div class="box-footer">
+                            <button class="btn btn-success">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

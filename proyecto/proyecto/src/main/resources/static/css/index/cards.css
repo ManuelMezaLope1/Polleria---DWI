@@ -1,0 +1,65 @@
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    transition: all 0.4s ease;
+    background: #ffffff;
+    border: 1px solid rgba(255,255,255,0.2);
+    overflow: hidden;
+}
+
+.col-12 .card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.card-header .badge {
+    font-size: 0.75rem;
+    padding: 5px 10px;
+}
+
+.accion-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 3px solid transparent;
+}
+
+.acciones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.accion-icono {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: red;
+    text-align: center;
+}
+
+.accion-titulo {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #2c3e50;
+    text-align: center;
+}
+
+.accion-descripcion {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.accion-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    border-color: #3498db;
+}
