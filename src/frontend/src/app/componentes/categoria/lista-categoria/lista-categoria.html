@@ -1,0 +1,57 @@
+<div class="row">
+    <h1>Categorías</h1>
+</div>
+
+<br>
+
+<div class="container rounded">
+    <div class="row" *ngFor="let cate of categorias$ | async">
+        <div class="col-12 mb-4">
+            <div class="card shadow">
+                
+                <div class="card-header bg-danger text-white">
+                    <h4>{{ cate.nombre }}</h4>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+
+                        <!-- Recorremos platos -->
+                        <div class="col-md-4 mb-3" *ngFor="let plato of cate.plato">
+                            <div class="card h-100 rounded-4 border-transparent">
+                                <div class="card-body">
+                                    
+                                    <p class="text-center fw-bold fs-3">
+                                        {{ plato.nombre }}
+                                    </p>
+
+                                    <p class="text-muted">
+                                        {{ plato.descripcion }}
+                                    </p>
+
+                                    <p class="text-danger fw-bolder fs-5">
+                                        S/. {{ plato.precio }}
+                                    </p>
+
+                                    <div class="d-flex justify-content-center">
+                                        <button type="button" class="btn btn-warning rounded-5">
+                                            Comprar
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Si no hay platos -->
+                        <div *ngIf="!cate.plato || cate.plato.length === 0">
+                            <p>No hay platos en esta categoría.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
