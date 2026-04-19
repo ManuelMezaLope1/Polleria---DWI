@@ -19,10 +19,10 @@ import com.polleria.proyecto.usuario.servicio.UsuarioServicio;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
+
     @Autowired
     private UsuarioServicio usuarioServicio;
 
-    // Bean del proveedor de autenticación
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -31,17 +31,16 @@ public class SecurityConfiguration {
         return authProvider;
     }
 
-    private PasswordEncoder passwordEncoder() {
+    @Bean
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(); 
     }
 
-    // Bean del AuthenticationManager
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
 
-    // Configuración de seguridad HTTP
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -49,13 +48,18 @@ public class SecurityConfiguration {
                 .requestMatchers(
                     "/registro**",
                     "/js/**",
-                    "/css/**",
-                    "/img/**"
+                    "/css/**",           // Permite los estilos
+                    "/imagenes/**",      // Permite las fotos de los combos
+                    "/promociones/**",   // Permite ver la lista de promociones
+                    "/prueba/**",        // Permite tus rutas de prueba
+                    "/nosotros"          // Permite la página informativa
+
                 ).permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/login")
+                .defaultSuccessUrl("/promociones", true) // Te lleva a promos al entrar
                 .permitAll()
             )
             .logout(logout -> logout
