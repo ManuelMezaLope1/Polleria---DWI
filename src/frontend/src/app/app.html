@@ -1,0 +1,101 @@
+<!--<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a routerLink="inicio" routerLinkActive="active" class="nav-link">Inicio</a>
+    </li>
+
+    <li class="nav-item">
+      <a routerLink="categorias" routerLinkActive="active" class="nav-link">Categoria</a>
+    </li>
+
+    <li class="nav-item">
+      <a routerLink="pruebas" routerLinkActive="active" class="nav-link">Prueba</a>
+    </li>
+  </ul>
+</nav>
+-->
+
+<nav class="navbar">
+  <div class="nav-container">
+    <!-- Logo a la izquierda -->
+    <div class="nav-brand">
+      <a routerLink="inicio" class="brand-link">
+        <span class="brand-icon">🍗</span>
+        <span class="brand-text">El Sazón</span>
+      </a>
+    </div>
+
+    <!-- Botón hamburguesa (para móvil) -->
+    <button class="nav-toggle" (click)="toggleMenu()" [class.active]="menuAbierto">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- Menú de navegación -->
+    <ul class="nav-menu" [class.show]="menuAbierto">
+      <!-- Enlaces principales -->
+      <li class="nav-item">
+        <a routerLink="inicio" routerLinkActive="active" class="nav-link" (click)="cerrarMenu()">
+          <i>🏠</i>
+          <span>Inicio</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="carta" routerLinkActive="active" class="nav-link" (click)="cerrarMenu()">
+          <i>👥</i>
+          <span>Carta</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="pruebas" routerLinkActive="active" class="nav-link" (click)="cerrarMenu()">
+          <i>➕</i>
+          <span>Pruebas</span>
+        </a>
+      </li>
+
+      <!-- Separador (solo en desktop) -->
+      <li class="nav-separator"></li>
+
+      <!-- Botones de autenticación -->
+      <li class="nav-item auth-item">
+        <a routerLink="iniciar-sesion" routerLinkActive="active" class="nav-link btn-auth" (click)="cerrarMenu()">
+          <i>🔐</i>
+          <span>Iniciar Sesión</span>
+        </a>
+      </li>
+      <li class="nav-item auth-item">
+        <a routerLink="registrarse" routerLinkActive="active" class="nav-link btn-registro" (click)="cerrarMenu()">
+          <i>📝</i>
+          <span>Registrarse</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-col">
+      <h3>EL SAZÓN</h3>
+      <p>El auténtico sabor del pollo a la brasa</p>
+    </div>
+    <div class="footer-col">
+      <h4>📍 Dirección</h4>
+      <p>Av. Principal 123, Lima</p>
+      <h4>📞 Teléfono</h4>
+      <p>987 654 321</p>
+    </div>
+    <div class="footer-col">
+      <h4>🕒 Horario</h4>
+      <p>Lunes a Domingo: 11am - 11pm</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 El SAZÓN - Todos los derechos reservados</p>
+  </div>
+</footer>

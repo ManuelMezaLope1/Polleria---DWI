@@ -1,0 +1,59 @@
+<div class="col-md-6 offset-md-3">
+    <h3 class="text-center">Registro de Platos</h3>
+    <form (ngSubmit)="onSubmit()" #platoForm="ngForm">
+        <div class="form-group">
+            <label>Nombre : </label>
+            <input type="text" class="form-control" id="nombre" [(ngModel)]="plato.nombre" name="nombre" required
+                minlength="4" maxlength="20" placeholder="Digite su nombre " #nombre="ngModel" />
+            <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                <div *ngIf="nombre.errors?.['required']">
+                    Digite su nombre por favor
+                </div>
+                <div *ngIf="nombre.errors?.['minlength']">
+                    El nombre tiene que contener como mínimo 4 caracteres
+                </div>
+                <div *ngIf="nombre.errors?.['maxlength']">
+                    El nombre tiene que tener como máximo 20 caracteres
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Categoría: </label>
+            <select class="form-control" name="categoria" id="categoria" [(ngModel)]="plato.categoria" #categoria="ngModel" required>
+                <option [ngValue]="null">--Seleccione una categoría</option>
+                <option *ngFor="let cat of categorias" [ngValue]="cat">{{cat.nombre}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Descripcion : </label>
+            <input type="text" class="form-control" id="descripcion" [(ngModel)]="plato.descripcion" name="descripcion" required
+                minlength="4" maxlength="100" placeholder="Digite su descripcion " #descripcion="ngModel" />
+            <div class="alert alert-danger" *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
+                <div *ngIf="descripcion.errors?.['required']">
+                    Digite su descripcion por favor
+                </div>
+                <div *ngIf="descripcion.errors?.['minlength']">
+                    La descripcion tiene que contener como mínimo 4 caracteres
+                </div>
+                <div *ngIf="descripcion.errors?.['maxlength']">
+                    El descripcion tiene que tener como máximo 100 caracteres
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Precio : </label>
+            <input type="number" class="form-control" id="precio" [(ngModel)]="plato.precio" name="precio" required
+                placeholder="Digite su precio" #precio="ngModel" />
+            <div class="alert alert-danger" *ngIf="precio.invalid && (precio.dirty || precio.touched)">
+                <div *ngIf="precio.errors?.['required']">
+                    Digite su precio por favor
+                </div>
+            </div>
+        </div>
+
+        <button class="btn btn-success" [disabled]="!platoForm.form.valid">Guardar</button>
+    </form>
+</div>
