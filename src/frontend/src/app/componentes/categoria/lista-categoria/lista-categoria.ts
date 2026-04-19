@@ -41,7 +41,7 @@ export class ListaCategoria implements OnInit{
     Swal.fire({
       title: '¿Estás seguro?',
       text: "Confirma si deseas eliminar la categoria",
-      icon: 'warning', // Cambiado 'type' a 'icon'
+      icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',

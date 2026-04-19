@@ -3,7 +3,6 @@ package com.springboot.backend.categoria.modelo;
 import java.util.List;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.springboot.backend.plato.modelo.Plato;
 
 import jakarta.persistence.*;
@@ -22,7 +21,6 @@ public class Categoria {
     private String descripcion;
 
     @OneToMany(mappedBy = "categoria", fetch=FetchType.EAGER)
-    @JsonManagedReference
     private List<Plato> plato;
 
     public Categoria(){

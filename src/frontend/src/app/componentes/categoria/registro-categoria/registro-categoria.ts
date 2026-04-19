@@ -9,12 +9,12 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-registro-categoria',
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './registro-categoria.html',
   styleUrl: './registro-categoria.css',
 })
 export class RegistroCategoria {
-  categoria: Categoria=new Categoria();
+  categoria: Categoria = new Categoria();
 
   constructor(private categoriaServicio: CategoriaServicio, private router: Router) { }
 
@@ -37,8 +37,16 @@ export class RegistroCategoria {
   }
 
   irALaListaDeCategorias() {
-    this.router.navigate(['/categorias']);
-    Swal.fire('Categoria registrada', `La categoría ${this.categoria.nombre} ha sido registrada con exito`, `success`);
+    Swal.fire({
+      title: 'Categoria registrada',
+      text: `La categoría ${this.categoria.nombre} ha sido registrada con éxito`,
+      icon: `success`,
+      confirmButtonText: 'Ok'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/pruebas']);
+      }
+    })
   }
 
   onSubmit() {

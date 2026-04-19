@@ -2,6 +2,7 @@ package com.springboot.backend.usuario.modelo;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.springboot.backend.rol.modelo.Rol;
 
 import jakarta.persistence.*;
@@ -24,6 +25,7 @@ public class Usuario {
 
     @ManyToOne
     @JoinColumn(name="rol_id")
+    @JsonIgnoreProperties({"usuario"})
     private Rol rol;
 
     public Usuario(){

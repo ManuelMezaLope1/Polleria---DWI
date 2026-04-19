@@ -2,7 +2,7 @@ package com.springboot.backend.plato.modelo;
 
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.springboot.backend.categoria.modelo.Categoria;
 
 import jakarta.persistence.*;
@@ -25,7 +25,7 @@ public class Plato {
 
     @ManyToOne
     @JoinColumn(name="categoria_id")
-    @JsonBackReference
+    @JsonIgnoreProperties({"plato"})
     private Categoria categoria;
 
     public Plato(){

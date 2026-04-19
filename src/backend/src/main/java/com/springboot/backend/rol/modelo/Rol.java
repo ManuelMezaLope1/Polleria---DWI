@@ -20,6 +20,10 @@ public class Rol {
     @OneToMany(mappedBy = "rol", fetch=FetchType.EAGER)
     private List<Usuario> usuario;
 
+    public Rol(){
+        
+    }
+
     public Rol(Long id, String nombre, List<Usuario> usuario) {
         this.id = id;
         this.nombre = nombre;

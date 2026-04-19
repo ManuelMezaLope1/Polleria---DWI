@@ -23,7 +23,7 @@ export class PlatoServicio {
     return this.HttpClient.put(`${this.baseUrl}/${id}`, plato);
   }
 
-  obtenerPlatoPorId(id:number, plato:Plato): Observable<Object>{
+  obtenerPlatoPorId(id:number): Observable<Object>{
     return this.HttpClient.get<Plato>(`${this.baseUrl}/${id}`);
   }
 

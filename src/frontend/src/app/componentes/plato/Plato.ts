@@ -3,5 +3,5 @@ export class Plato{
     nombre:string;
     precio:string;
     descripcion:string;
-    categoria_id:number;
+    categoria:any;
 }

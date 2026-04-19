@@ -1,10 +1,10 @@
 <div class="col-md-6 offset-md-3">
     <h3 class="text-center">Registro de Categorías</h3>
-    <form (ngSubmit)="onSubmit()" #empleadoForm="ngForm">
+    <form (ngSubmit)="onSubmit()" #categoriaForm="ngForm">
         <div class="form-group">
             <label>Nombre : </label>
             <input type="text" class="form-control" id="nombre" [(ngModel)]="categoria.nombre" name="nombre" required
-                minlength="4" maxlength="10" placeholder="Digite su nombre " #nombre="ngModel" />
+                minlength="4" maxlength="20" placeholder="Digite su nombre " #nombre="ngModel" />
             <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
                 <div *ngIf="nombre.errors?.['required']">
                     Digite su nombre por favor
@@ -13,7 +13,7 @@
                     El nombre tiene que contener como mínimo 4 caracteres
                 </div>
                 <div *ngIf="nombre.errors?.['maxlength']">
-                    El nombre tiene que tener como máximo 10 caracteres
+                    El nombre tiene que tener como máximo 20 caracteres
                 </div>
             </div>
         </div>
@@ -21,7 +21,7 @@
         <div class="form-group">
             <label>Descripcion : </label>
             <input type="text" class="form-control" id="descripcion" [(ngModel)]="categoria.descripcion" name="descripcion" required
-                minlength="4" maxlength="10" placeholder="Digite su descripcion " #descripcion="ngModel" />
+                minlength="4" maxlength="100" placeholder="Digite su descripcion " #descripcion="ngModel" />
             <div class="alert alert-danger" *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
                 <div *ngIf="descripcion.errors?.['required']">
                     Digite su descripcion por favor
@@ -30,11 +30,11 @@
                     La descripcion tiene que contener como mínimo 4 caracteres
                 </div>
                 <div *ngIf="descripcion.errors?.['maxlength']">
-                    El descripcion tiene que tener como máximo 10 caracteres
+                    El descripcion tiene que tener como máximo 100 caracteres
                 </div>
             </div>
         </div>
 
-        <button class="btn btn-success" [disabled]="!empleadoForm.form.valid">Guardar</button>
+        <button class="btn btn-success" [disabled]="!categoriaForm.form.valid">Guardar</button>
     </form>
 </div>
