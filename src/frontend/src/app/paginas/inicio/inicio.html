@@ -1,0 +1,174 @@
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1 class="titulo-principal">EL <span class="destacado">SAZÓN</span></h1>
+    <p class="slogan">El auténtico sabor del pollo a la brasa</p>
+    <p class="descripcion">Disfruta de la mejor experiencia culinaria en El Fogoncito, donde el sabor se encuentra con la tradición.</p>
+    <div class="botones-hero">
+      <button class="btn-pedido" (click)="hacerPedido()">📞 Hacer Pedido</button>
+      <button class="btn-menu" (click)="verMenu()">📋 Ver Menú</button>
+    </div>
+  </div>
+</section>
+
+<!-- Sección: El sabor que nos une -->
+<section class="sabor-section">
+  <div class="container">
+    <h2>El sabor que nos une a todos</h2>
+    <p class="subtitulo">¿Solo, en pareja o en manada? Tenemos el tamaño perfecto para ti.</p>
+    <div class="iconos-sabor">
+      <div class="icono-item">👤 Solo</div>
+      <div class="icono-item">👥 Pareja</div>
+      <div class="icono-item">👨‍👩‍👧‍👦 Familia</div>
+      <div class="icono-item">🎉 Manada</div>
+    </div>
+  </div>
+</section>
+
+<!-- Sección: Pilares del sabor -->
+<section class="pilares-section">
+  <div class="container">
+    <h2>Los pilares de Nuestro Sabor</h2>
+    <p class="subtitulo">Cada ingrediente, técnica y sonrisa está pensado para que vivas una experiencia única</p>
+    <div class="pilares-grid">
+      <div class="pilar-card">
+        <div class="pilar-icon">🥩</div>
+        <h3>Calidad Premium Garantizada</h3>
+        <p>Seleccionamos los mejores pollos y los marinamos con nuestra receta secreta.</p>
+      </div>
+      <div class="pilar-card">
+        <div class="pilar-icon">⚡</div>
+        <h3>Servicio Ultra Rápido</h3>
+        <p>Disfruta de nuestro servicio rápido y eficiente, sin comprometer la calidad.</p>
+      </div>
+      <div class="pilar-card">
+        <div class="pilar-icon">📜</div>
+        <h3>Receta Tradicional Auténtica</h3>
+        <p>Mantenemos la tradición con nuestra receta familiar perfeccionada por generaciones.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sección: Ofertas -->
+<section class="ofertas-section">
+  <div class="container">
+    <h2>Ofertas que Encienden tu Apetito</h2>
+    <p class="subtitulo">¡No te pierdas nuestras promociones exclusivas! Sabor y ahorro en cada bocado.</p>
+
+    <div class="ofertas-grid">
+      <!-- Combo 1 -->
+      <div class="oferta-card">
+        <div class="etiqueta">Más Pedido</div>
+        <div class="ahorro">¡Ahorra S/ 6!</div>
+        <h3>Combo Fogón Personal</h3>
+        <p>1/8 de pollo, papas fritas doraditas, ensalada fresca y nuestras cremas secretas.</p>
+        <div class="precios">
+          <span class="precio-antiguo">S/ 24.20</span>
+          <span class="precio-nuevo">S/ 18.20</span>
+        </div>
+        <button class="btn-oferta" (click)="pedirCombo('Combo Fogón Personal')">Pedir Ahora</button>
+      </div>
+
+      <!-- Combo 2 -->
+      <div class="oferta-card destacada">
+        <div class="etiqueta">Recomendado</div>
+        <div class="ahorro">¡Súper Ahorro!</div>
+        <h3>Combo Banquete Real</h3>
+        <p>1 Pollo entero, chaufa familiar, papas fritas, ensalada, cremas y chicha morada de 500 ml.</p>
+        <div class="precios">
+          <span class="precio-antiguo">S/ 89.90</span>
+          <span class="precio-nuevo">S/ 79.00</span>
+        </div>
+        <button class="btn-oferta" (click)="pedirCombo('Combo Banquete Real')">Pedir Ahora</button>
+      </div>
+
+      <!-- Combo 3 -->
+      <div class="oferta-card">
+        <div class="etiqueta">Favorito</div>
+        <div class="ahorro">¡Súper Ahorro!</div>
+        <h3>Combo Fogón Supremo</h3>
+        <p>1 Pollo entero, 1/4 de pollo, papas fritas, ensalada, cremas y gaseosa 1 L.</p>
+        <div class="precios">
+          <span class="precio-antiguo">S/ 79.90</span>
+          <span class="precio-nuevo">S/ 69.90</span>
+        </div>
+        <button class="btn-oferta" (click)="pedirCombo('Combo Fogón Supremo')">Pedir Ahora</button>
+      </div>
+
+      <!-- Combo 4 -->
+      <div class="oferta-card">
+        <div class="etiqueta">Recomendado</div>
+        <div class="ahorro">¡Ahorra hasta S/ 12!</div>
+        <h3>Combo Mesa Llena</h3>
+        <p>1 Pollo entero, gaseosa 1L.</p>
+        <div class="precios">
+          <span class="precio-antiguo">S/ 87.90</span>
+          <span class="precio-nuevo">S/ 76.00</span>
+        </div>
+        <button class="btn-oferta" (click)="pedirCombo('Combo Mesa Llena')">Pedir Ahora</button>
+      </div>
+
+      <!-- Combo 5 -->
+      <div class="oferta-card">
+        <div class="etiqueta">Favorito</div>
+        <div class="ahorro">¡Súper Ahorro!</div>
+        <h3>Combo Solitario</h3>
+        <p>1/8 de pollo, arroz chaufa, papas fritas, ensalada y cremas de la casa a elegir.</p>
+        <div class="precios">
+          <span class="precio-antiguo">S/ 25.90</span>
+          <span class="precio-nuevo">S/ 22.00</span>
+        </div>
+        <button class="btn-oferta" (click)="pedirCombo('Combo Solitario')">Pedir Ahora</button>
+      </div>
+
+      <!-- Combo 6 -->
+      <div class="oferta-card">
+        <div class="etiqueta">Más Vendido</div>
+        <div class="ahorro">¡Súper Ahorro!</div>
+        <h3>Combo Brasa Suprema</h3>
+        <p>1/4 de pollo, arroz chaufa, papas fritas, ensalada y cremas.</p>
+        <div class="precios">
+          <span class="precio-antiguo">S/ 26.90</span>
+          <span class="precio-nuevo">S/ 23.88</span>
+        </div>
+        <button class="btn-oferta" (click)="pedirCombo('Combo Brasa Suprema')">Pedir Ahora</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Final -->
+<section class="cta-section">
+  <div class="container">
+    <h2>¿Listo para disfrutar del mejor pollo a la brasa?</h2>
+    <p>Haz tu pedido ahora y disfruta de nuestras deliciosas especialidades en la comodidad de tu hogar.</p>
+    <button class="btn-cta" (click)="hacerPedido()">🛵 Pedir Ahora</button>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-col">
+        <h3>EL SAZÓN</h3>
+        <p>El auténtico sabor del pollo a la brasa</p>
+      </div>
+      <div class="footer-col">
+        <h4>📍 Dirección</h4>
+        <p>Av. Principal 123, Lima</p>
+        <h4>📞 Teléfono</h4>
+        <p>987 654 321</p>
+      </div>
+      <div class="footer-col">
+        <h4>🕒 Horario</h4>
+        <p>Lunes a Domingo: 11am - 11pm</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 El SAZÓN - Todos los derechos reservados</p>
+    </div>
+  </div>
+</footer>

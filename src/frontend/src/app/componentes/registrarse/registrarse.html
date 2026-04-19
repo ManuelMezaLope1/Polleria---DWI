@@ -1,0 +1,86 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="logo-icon">📝</div>
+      <h2>Crear una cuenta</h2>
+      <p>Únete a El Sazón y disfruta de beneficios exclusivos</p>
+    </div>
+
+    <form (ngSubmit)="registrarse()" class="auth-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nombre">
+            <i>👤</i> Nombre Completo
+          </label>
+          <input
+            type="text"
+            id="nombre"
+            [(ngModel)]="nombre"
+            name="nombre"
+                        required
+            class="form-control"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="telefono">
+            <i>📱</i> Teléfono
+          </label>
+          <input
+            type="tel"
+            id="telefono"
+            [(ngModel)]="telefono"
+            name="telefono"
+                       class="form-control"
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">
+          <i>📧</i> Correo Electrónico
+        </label>
+        <input
+          type="email"
+          id="email"
+          [(ngModel)]="email"
+          name="email"
+          placeholder="tu@email.com"
+          required
+          class="form-control"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password">
+          <i>🔒</i> Contraseña
+        </label>
+        <input
+          type="password"
+          id="password"
+          [(ngModel)]="password"
+          name="password"
+                 required
+          class="form-control"
+        >
+      </div>
+
+
+
+      <div class="form-group checkbox">
+        <label>
+          <input type="checkbox" [(ngModel)]="aceptaTerminos" name="terminos">
+          Acepto los <a href="#">Términos y Condiciones</a>
+        </label>
+      </div>
+
+      <button type="submit" class="btn-auth">Registrarse</button>
+
+      <div class="auth-footer">
+        <p>¿Ya tienes una cuenta?
+          <a routerLink="/iniciar-sesion">Inicia Sesión aquí</a>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>

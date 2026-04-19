@@ -1,0 +1,751 @@
+/* ============================================
+   VARIABLES GLOBALES
+   ============================================ */
+:root {
+  --naranja-principal: #ff6b35;
+  --naranja-oscuro: #e55a2b;
+  --naranja-claro: #000000;
+  --naranja-suave: #fff0e0;
+  --blanco: #dd0000;
+  --blanco-humo: #ff0000;
+  --gris-claro: #f5f5f5;
+  --gris-medio: #ff0000;
+  --gris-oscuro: #ffffff;
+  --gris-texto: #ffffff;
+  --sombra-pequena: 0 2px 8px rgba(0,0,0,0.05);
+  --sombra-media: 0 5px 20px rgba(0,0,0,0.08);
+  --sombra-grande: 0 20px 40px rgba(0,0,0,0.1);
+  --sombra-naranja: 0 5px 20px rgba(255,107,53,0.2);
+  --border-radius: 20px;
+  --border-radius-pequeno: 12px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ============================================
+   CONTENEDOR PRINCIPAL CON EFECTOS MODERNOS
+   ============================================ */
+.pollería-container {
+  position: relative;
+  background: linear-gradient(135deg, #ffffff 0%, #fffaf5 25%, #ffffff 50%, #fff5eb 75%, #ffffff 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
+  overflow-x: hidden;
+}
+
+/* Animación del gradiente */
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Capa de ondas decorativas */
+.pollería-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(255,107,53,0.04) 0%, transparent 50%),
+    radial-gradient(circle at 100% 100%, rgba(255,107,53,0.04) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(255,107,53,0.02) 0%, transparent 80%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Patrón de puntos moderno */
+.pollería-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(rgba(255,107,53,0.06) 1.5px, transparent 1.5px),
+    radial-gradient(rgba(255,107,53,0.03) 1px, transparent 1px);
+  background-size: 40px 40px, 20px 20px;
+  background-position: 0 0, 10px 10px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Todas las secciones con z-index superior */
+.hero,
+.sabor-section,
+.pilares-section,
+.ofertas-section,
+.cta-section,
+.footer {
+  position: relative;
+  z-index: 2;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+/* ============================================
+   HERO SECTION - VERSIÓN CORREGIDA
+   ============================================ */
+/* ============================================
+   HERO SECTION - COMPLETAMENTE CORREGIDA
+   ============================================ */
+.hero {
+  min-height: 100vh;
+  background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.3) 100%),
+              url('https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=1920');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hero-content {
+  text-align: center;
+  color: var(--blanco);
+  max-width: 900px;
+  padding: 0 20px;
+  animation: fadeInScale 1.2s ease-out;
+}
+
+.titulo-principal {
+  font-size: 5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  letter-spacing: 4px;
+  text-shadow: 3px 3px 8px rgba(0,0,0,0.5);
+  color: #ffffff;
+  background: linear-gradient(135deg, #ffffff, #fff5eb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+}
+
+.destacado {
+  background: linear-gradient(135deg, var(--naranja-principal), #ffcc88);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: block;
+  font-size: 5.5rem;
+  font-weight: 900;
+  text-shadow: 0 0 20px rgba(255,107,53,0.5);
+}
+
+.slogan {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  color: #ffffff;
+}
+
+.descripcion {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  color: #ffffff;
+  font-weight: 500;
+}
+
+/* Botones blancos con sombra elegante */
+.btn-pedido, .btn-menu {
+  background: #ffffff;
+  color: var(--naranja-principal);
+  padding: 16px 38px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border: 1px solid rgba(255,107,53,0.3);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  font-family: inherit;
+}
+
+.btn-pedido:hover, .btn-menu:hover {
+  background: #ffffff;
+  color: var(--naranja-oscuro);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  border-color: var(--naranja-principal);
+}
+
+/* Efecto de brillo en hover */
+.btn-pedido:hover, .btn-menu:hover {
+  box-shadow: 0 5px 20px rgba(255,107,53,0.3);
+}
+/* ============================================
+   SECCIÓN SABOR
+   ============================================ */
+.sabor-section {
+  padding: 100px 20px;
+  text-align: center;
+  background: transparent;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sabor-section h2 {
+  font-size: 2.8rem;
+  color: var(--gris-oscuro);
+  margin-bottom: 1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--gris-oscuro), var(--naranja-principal));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.sabor-section .subtitulo {
+  font-size: 1.2rem;
+  color: var(--gris-texto);
+  margin-bottom: 3rem;
+}
+
+.iconos-sabor {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.icono-item {
+  font-size: 1.1rem;
+  padding: 15px 30px;
+  background: var(--blanco);
+  border-radius: 60px;
+  color: var(--naranja-principal);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: var(--sombra-pequena);
+  border: 1px solid rgba(255,107,53,0.1);
+  cursor: pointer;
+}
+
+.icono-item:hover {
+  background: var(--naranja-principal);
+  color: var(--blanco);
+  transform: translateY(-5px);
+  box-shadow: var(--sombra-naranja);
+}
+
+/* ============================================
+   SECCIÓN PILARES
+   ============================================ */
+.pilares-section {
+  padding: 100px 20px;
+  background: rgba(255, 240, 224, 0.4);
+  backdrop-filter: blur(2px);
+}
+
+.pilares-section h2 {
+  text-align: center;
+  font-size: 2.8rem;
+  color: var(--gris-oscuro);
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.pilares-section .subtitulo {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--gris-texto);
+  margin-bottom: 3rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pilares-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 35px;
+}
+
+.pilar-card {
+  background: var(--blanco);
+  padding: 45px 30px;
+  text-align: center;
+  border-radius: var(--border-radius);
+  box-shadow: var(--sombra-media);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(255,107,53,0.1);
+  backdrop-filter: blur(10px);
+}
+
+.pilar-card:hover {
+  transform: translateY(-12px);
+  box-shadow: var(--sombra-grande);
+  border-color: rgba(255,107,53,0.3);
+}
+
+.pilar-icon {
+  font-size: 3.5rem;
+  margin-bottom: 25px;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.pilar-card:hover .pilar-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.pilar-card h3 {
+  color: var(--naranja-principal);
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.pilar-card p {
+  color: var(--gris-texto);
+  line-height: 1.7;
+}
+
+/* ============================================
+   SECCIÓN OFERTAS
+   ============================================ */
+.ofertas-section {
+  padding: 100px 20px;
+  background: transparent;
+}
+
+.ofertas-section h2 {
+  text-align: center;
+  font-size: 2.8rem;
+  color: var(--gris-oscuro);
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.ofertas-section .subtitulo {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--gris-texto);
+  margin-bottom: 3rem;
+}
+
+.ofertas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 35px;
+}
+
+.oferta-card {
+  background: var(--blanco);
+  border-radius: var(--border-radius);
+  padding: 30px 25px;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid var(--gris-medio);
+  box-shadow: var(--sombra-pequena);
+}
+
+.oferta-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--sombra-grande);
+  border-color: var(--naranja-principal);
+}
+
+.oferta-card.destacada {
+  border: 2px solid var(--naranja-principal);
+  transform: scale(1.02);
+}
+
+.etiqueta {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: linear-gradient(135deg, var(--naranja-principal), var(--naranja-oscuro));
+  color: var(--blanco);
+  padding: 6px 18px;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  box-shadow: var(--sombra-pequena);
+}
+
+.ahorro {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background: #4caf50;
+  color: var(--blanco);
+  padding: 6px 18px;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  box-shadow: var(--sombra-pequena);
+}
+
+.oferta-card h3 {
+  font-size: 1.6rem;
+  color: var(--gris-oscuro);
+  margin: 25px 0 15px;
+  font-weight: 700;
+}
+
+.oferta-card p {
+  color: var(--gris-texto);
+  line-height: 1.6;
+  margin-bottom: 25px;
+  min-height: 80px;
+}
+
+.precios {
+  display: flex;
+  gap: 15px;
+  align-items: baseline;
+  margin-bottom: 25px;
+}
+
+.precio-antiguo {
+  text-decoration: line-through;
+  color: var(--gris-medio);
+  font-size: 1rem;
+}
+
+.precio-nuevo {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--naranja-principal);
+}
+
+.btn-oferta {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--naranja-principal), var(--naranja-claro));
+  color: var(--blanco);
+  border: none;
+  border-radius: var(--border-radius-pequeno);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-oferta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-oferta:hover::before {
+  left: 100%;
+}
+
+.btn-oferta:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-naranja);
+}
+
+/* ============================================
+   CTA SECTION
+   ============================================ */
+.cta-section {
+  padding: 100px 20px;
+  background: linear-gradient(135deg, var(--naranja-principal), var(--naranja-oscuro));
+  text-align: center;
+  color: var(--blanco);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(circle at 20% 40%, rgba(255,255,255,0.1) 2px, transparent 2px);
+  background-size: 30px 30px;
+  pointer-events: none;
+}
+
+.cta-section h2 {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-section p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+  position: relative;
+  z-index: 1;
+}
+
+.btn-cta {
+  padding: 16px 45px;
+  font-size: 1.2rem;
+  background: var(--blanco);
+  color: var(--naranja-principal);
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+.btn-cta:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+  background: linear-gradient(135deg, hsl(39, 100%, 78%), #f18022);
+  color: var(--blanco);
+  padding: 60px 20px 30px;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 50px;
+  margin-bottom: 50px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer-col h3, .footer-col h4 {
+  color: var(--naranja-principal);
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+}
+
+.footer-col p {
+  line-height: 1.8;
+  color: #000000;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 30px;
+  border-top: 1px solid #000000;
+  color: #000000;
+  font-size: 0.9rem;
+}
+
+/* ============================================
+   ANIMACIONES
+   ============================================ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animaciones escalonadas para cards */
+.card, .oferta-card, .pilar-card {
+  animation: fadeInUp 0.7s ease-out backwards;
+}
+
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+
+.oferta-card:nth-child(1) { animation-delay: 0.05s; }
+.oferta-card:nth-child(2) { animation-delay: 0.1s; }
+.oferta-card:nth-child(3) { animation-delay: 0.15s; }
+.oferta-card:nth-child(4) { animation-delay: 0.2s; }
+.oferta-card:nth-child(5) { animation-delay: 0.25s; }
+.oferta-card:nth-child(6) { animation-delay: 0.3s; }
+
+.pilar-card:nth-child(1) { animation-delay: 0.1s; }
+.pilar-card:nth-child(2) { animation-delay: 0.2s; }
+.pilar-card:nth-child(3) { animation-delay: 0.3s; }
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 992px) {
+  .titulo-principal {
+    font-size: 3.5rem;
+  }
+
+  .destacado {
+    font-size: 4rem;
+  }
+
+  .slogan {
+    font-size: 1.4rem;
+  }
+
+  .sabor-section h2,
+  .pilares-section h2,
+  .ofertas-section h2,
+  .cta-section h2 {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 90vh;
+    background-attachment: scroll;
+  }
+
+  .titulo-principal {
+    font-size: 2.5rem;
+  }
+
+  .destacado {
+    font-size: 3rem;
+  }
+
+  .slogan {
+    font-size: 1.1rem;
+  }
+
+  .descripcion {
+    font-size: 0.9rem;
+  }
+
+  .botones-hero {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .btn-pedido, .btn-menu {
+    width: 220px;
+    padding: 12px 25px;
+  }
+
+  .ofertas-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .pilares-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .iconos-sabor {
+    gap: 15px;
+  }
+
+  .icono-item {
+    font-size: 0.85rem;
+    padding: 10px 20px;
+  }
+
+  .sabor-section,
+  .pilares-section,
+  .ofertas-section,
+  .cta-section {
+    padding: 60px 20px;
+  }
+
+  .oferta-card h3 {
+    font-size: 1.3rem;
+  }
+
+  .precio-nuevo {
+    font-size: 1.5rem;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .titulo-principal {
+    font-size: 2rem;
+  }
+
+  .destacado {
+    font-size: 2.5rem;
+  }
+
+  .slogan {
+    font-size: 1rem;
+  }
+
+  .oferta-card {
+    padding: 20px;
+  }
+
+  .etiqueta, .ahorro {
+    font-size: 0.7rem;
+    padding: 4px 12px;
+  }
+}
+
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--gris-claro);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--naranja-principal);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--naranja-oscuro);
+}
+
+
+::selection {
+  background: var(--naranja-principal);
+  color: var(--blanco);
+}
+
+::-moz-selection {
+  background: var(--naranja-principal);
+  color: var(--blanco);
+}
