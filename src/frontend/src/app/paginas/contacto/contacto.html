@@ -1,1 +1,53 @@
-<p>contacto works!</p>
+<section class="contacto">
+  <h2 class="titulo">Contáctanos</h2>
+<link rel="stylesheet" href="contacto.css">
+ 
+  <div class="contacto-info">
+    <div class="info-card">
+      <h3>📍 Ubicación</h3>
+      <p>Av. Principal 123, Lima</p>
+    </div>
+
+    <div class="info-card">
+      <h3>📞 Teléfono</h3>
+      <p>987 654 321</p>
+    </div>
+
+    <div class="info-card">
+      <h3>🕒 Horario</h3>
+      <p>12:00 PM - 11:00 PM</p>
+    </div>
+
+    <div class="info-card">
+      <h3>✉️ Email</h3>
+      <p>elsazon@gmail.com</p>
+    </div>
+  </div>
+
+  <div class="contacto-form">
+    <form action="https://formsubmit.co/cm4995907@gmail.com" method="POST">
+
+      <div class="input-group">
+        <input type="text" name="nombre" required>
+        <label>Nombre</label>
+      </div>
+
+      <div class="input-group">
+        <input type="email" name="email" required>
+        <label>Correo</label>
+      </div>
+
+      <div class="input-group">
+        <textarea name="mensaje" rows="5" required></textarea>
+        <label>Mensaje</label>
+      </div>
+
+      <button type="submit">Enviar mensaje</button>
+
+      
+      <input type="hidden" name="_next" value="gracias.html">
+      <input type="hidden" name="_captcha" value="false">
+
+    </form>
+  </div>
+</section>
