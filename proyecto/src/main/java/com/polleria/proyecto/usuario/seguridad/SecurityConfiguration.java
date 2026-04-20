@@ -14,27 +14,24 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.polleria.proyecto.usuario.modelo.Usuario;
 import com.polleria.proyecto.usuario.servicio.UsuarioServicio;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-    @Autowired
-    private UsuarioServicio usuarioServicio;
+    
+    
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
+    public DaoAuthenticationProvider authenticationProvider(UsuarioServicio usuarioServicio, PasswordEncoder passwordEncoder) {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(usuarioServicio);
-        authProvider.setPasswordEncoder(passwordEncoder());
+        authProvider.setPasswordEncoder(passwordEncoder);
         return authProvider;
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); 
-    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
@@ -70,7 +67,7 @@ public class SecurityConfiguration {
                 .permitAll()
             );
 
-        http.authenticationProvider(authenticationProvider());
+        
 
         return http.build();
     }

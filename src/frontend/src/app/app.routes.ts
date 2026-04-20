@@ -11,12 +11,14 @@ import { RegistroPlato } from './componentes/plato/registro-plato/registro-plato
 import { ActualizacionRol } from './componentes/rol/actualizacion-rol/actualizacion-rol';
 import { RegistroRol } from './componentes/rol/registro-rol/registro-rol';
 import { ActualizacionUsuario } from './componentes/usuario/actualizacion-usuario/actualizacion-usuario';
+import { Promocion } from './paginas/promocion/promocion';
 
 export const routes: Routes = [
     {path: '', redirectTo:'inicio', pathMatch:'full'},
     {path: 'inicio', component: Inicio},
     {path: 'carta', component: ListaCategoria},
     {path: 'pruebas', component: Prueba},
+    {path: 'promocion', component: Promocion},
 
     { path: 'actualizacion-categoria/:id', component: ActualizacionCategoria },
     { path: 'actualizacion-plato/:id', component: ActualizacionPlato },

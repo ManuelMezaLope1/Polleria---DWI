@@ -29,4 +29,10 @@ public class PruebaControlador {
     public String pruebaRol() {
         return "extra/usuario";
     }
+
+    @GetMapping("/promociones")
+    public String pruebaPromocion() {
+        return "extra/promociones";
+    }
+    
 }
