@@ -7,7 +7,7 @@ import { Rol } from '../../componentes/rol/Rol';
   providedIn: 'root',
 })
 export class RolServicio {
-  private baseUrl="http://localhost:8080/api/v1/roles";
+  private baseUrl="empowering-optimism-production-1bee.up.railway.app/api/v1/roles";
 
   constructor(private HttpClient:HttpClient){}
 

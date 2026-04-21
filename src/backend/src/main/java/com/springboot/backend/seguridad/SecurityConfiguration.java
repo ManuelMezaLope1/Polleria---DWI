@@ -43,6 +43,7 @@ public class SecurityConfiguration {
         config.setAllowedOrigins(List.of(
             "http://localhost:4200",
             "http://localhost:3000",
+            "https://polleria-dwi.vercel.app/",
             "https://*.vercel.app"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));

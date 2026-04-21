@@ -7,7 +7,7 @@ import { Categoria } from '../../componentes/categoria/Categoria';
   providedIn: 'root',
 })
 export class Prueba {
-  private baseURL="http://localhost:8080/api/v1/categorias";
+  private baseURL="empowering-optimism-production-1bee.up.railway.app/api/v1/categorias";
 
   constructor(private HttpClient: HttpClient){}
 

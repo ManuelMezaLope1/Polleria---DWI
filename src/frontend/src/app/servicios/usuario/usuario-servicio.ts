@@ -7,7 +7,7 @@ import { Usuario } from '../../componentes/usuario/Usuario';
   providedIn: 'root',
 })
 export class UsuarioServicio {
-  private baseURL="http://localhost:8080/api/v1/usuarios";
+  private baseURL="empowering-optimism-production-1bee.up.railway.app/api/v1/usuarios";
 
   constructor(private HttpClient: HttpClient){}
 
