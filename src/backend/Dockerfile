@@ -1,6 +1,7 @@
 FROM maven:3.9.9-eclipse-temurin-17 AS build
 WORKDIR /app
-COPY src/backend/ .
+COPY src/backend/pom.xml .
+COPY src/backend/src ./src
 
 RUN mvn clean package -Dmaven.test.skip=true
 
