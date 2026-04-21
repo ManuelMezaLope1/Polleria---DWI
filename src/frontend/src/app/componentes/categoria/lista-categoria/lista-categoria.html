@@ -1,65 +1,38 @@
 <div class="menu-container">
 
-  <h1 class="titulo">🍗 Nuestra Carta</h1>
+    <h1 class="titulo">🍗 Nuestra Carta</h1>
 
-  <h2 class="categoria">🔥 Pollos a la Brasa</h2>
+    <div *ngFor="let cate of categorias$ | async">
+        <br>
+        <h2 class="categoria">🔥 {{cate.nombre}}</h2>
 
-  <div class="menu-grid">
+        <div class="menu-grid row">
+            <div class="row">
+                <div class="col-md-4 mb-3" *ngFor="let plato of cate.plato">
+                    <!-- CARD -->
+                    <div class="card">
+                        <div class="img-container">
+                            <img
+                                src="https://buenazo.cronosmedia.glr.pe/original/2023/07/10/64ac3243f4f7c015c440d901.jpg">
+                            <span class="tag">🔥 Más pedido</span>
+                        </div>
 
-    <!-- CARD -->
-    <div class="card">
-      <div class="img-container">
-        <img src="https://buenazo.cronosmedia.glr.pe/original/2023/07/10/64ac3243f4f7c015c440d901.jpg">
-        <span class="tag">🔥 Más pedido</span>
-      </div>
+                        <div class="card-body">
+                            <h3>{{plato.nombre}}</h3>
+                            <p>{{plato.descripcion}}</p>
 
-      <div class="card-body">
-        <h3>1 Pollo a la Brasa</h3>
-        <p>Jugoso, crocante y acompañado con papas y ensalada</p>
-
-        <div class="bottom">
-          <span class="precio">S/ 55.90</span>
-          <button>🛒</button>
+                            <div class="bottom">
+                                <span class="precio">S/ {{plato.precio}}</span>
+                                <button>🛒</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <!-- CARD -->
-    <div class="card">
-      <div class="img-container">
-        <img src="https://djm2.github.io/CartaDigitalPikol/img/medio-pollo-a-la-brasa-pikol.png">
-        <span class="tag recomendado">⭐ Recomendado</span>
-      </div>
-
-      <div class="card-body">
-        <h3>1/2 Pollo</h3>
-        <p>Perfecto para una persona, incluye papas fritas</p>
-
-        <div class="bottom">
-          <span class="precio">S/ 32.90</span>
-          <button>🛒</button>
+        <div *ngIf="!cate.plato || cate.plato.length === 0">
+            <p>No hay platos en esta categoría.</p>
         </div>
-      </div>
     </div>
-
-    <!-- CARD -->
-    <div class="card">
-      <div class="img-container">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRRFiIrwE2Ndw4Bvp3acn7aVgwXVUpCKlyFg&s">
-        <span class="tag oferta">💥 Oferta</span>
-      </div>
-
-      <div class="card-body">
-        <h3>1/4 Pollo</h3>
-        <p>Porción individual deliciosa con papas</p>
-
-        <div class="bottom">
-          <span class="precio">S/ 18.90</span>
-          <button>🛒</button>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
 </div>

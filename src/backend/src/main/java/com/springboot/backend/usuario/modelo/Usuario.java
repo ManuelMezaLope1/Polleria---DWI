@@ -12,21 +12,21 @@ import jakarta.persistence.*;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public Long id;
 
     @Column(name="nombre", nullable = false, length=60)
-    private String nombre;
+    public String nombre;
 
     @Column(name="apellido", nullable = false, length=60)
-    private String apellido;
+    public String apellido;
 
-    private String email;
-    private String password;
+    public String email;
+    public String password;
 
     @ManyToOne
     @JoinColumn(name="rol_id")
     @JsonIgnoreProperties({"usuario"})
-    private Rol rol;
+    public Rol rol;
 
     public Usuario(){
 
@@ -95,6 +95,14 @@ public class Usuario {
 
     public void setRol(Rol rol) {
         this.rol = rol;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(this==o) return true;
+        if(o==null || getClass()!=o.getClass()) return false;
+        Usuario usuario=(Usuario) o;
+        return Objects.equals(id, usuario.id) && Objects.equals(nombre, usuario.nombre);
     }
 
     @Override

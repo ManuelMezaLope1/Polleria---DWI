@@ -12,21 +12,21 @@ import jakarta.persistence.*;
 public class Plato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public Long id;
 
     @Column(name="nombre", nullable = false, length=60)
-    private String nombre;
+    public String nombre;
 
     @Column(name="precio", nullable = false)
-    private double precio;
+    public double precio;
 
     @Column(name="descripcion", nullable = false, length=60)
-    private String descripcion;
+    public String descripcion;
 
     @ManyToOne
     @JoinColumn(name="categoria_id")
     @JsonIgnoreProperties({"plato"})
-    private Categoria categoria;
+    public Categoria categoria;
 
     public Plato(){
         
@@ -45,6 +45,10 @@ public class Plato {
         this.categoria = categoria;
         this.precio=precio;
         this.descripcion=descripcion;
+    }
+
+    public Plato(Long id2, String nombre2, String categoria2, String descripcion2, double precio2) {
+        //TODO Auto-generated constructor stub
     }
 
     public Long getId() {

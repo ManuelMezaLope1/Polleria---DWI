@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';  // ← Agrega RouterLink
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';  // ← Agrega RouterLink
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Usuario } from '../usuario/Usuario';
+import { UsuarioServicio } from '../../servicios/usuario/usuario-servicio';
+import { catchError, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-iniciar-sesion',
@@ -11,27 +14,12 @@ import { CommonModule } from '@angular/common';
   styleUrl: './iniciar-sesion.css'
 })
 export class IniciarSesionComponent {
-  email = '';
-  password = '';
+  email:string;
+  usuario: Usuario[]=[];
 
-  constructor(private router: Router) {}
+  constructor(private usuarioServicio: UsuarioServicio, private router: Router, private route: ActivatedRoute){}
 
-  iniciarSesion() {
-    if (this.email && this.password) {
-      console.log('Iniciando sesión con:', this.email);
-      localStorage.setItem('usuario', this.email);
-      alert('✅ ¡Sesión iniciada correctamente!');
-      this.router.navigate(['/inicio']);
-    } else {
-      alert('❌ Por favor, completa todos los campos');
-    }
-  }
-
-  loginWithGoogle() {
-    alert('🔐 Próximamente: Inicio de sesión con Google');
-  }
-
-  loginWithFacebook() {
-    alert('🔐 Próximamente: Inicio de sesión con Facebook');
+  ngOnInit(): void{
+    
   }
 }

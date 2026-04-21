@@ -12,6 +12,7 @@ import { ActualizacionRol } from './componentes/rol/actualizacion-rol/actualizac
 import { RegistroRol } from './componentes/rol/registro-rol/registro-rol';
 import { ActualizacionUsuario } from './componentes/usuario/actualizacion-usuario/actualizacion-usuario';
 import { Promocion } from './paginas/promocion/promocion';
+import { Contacto } from './paginas/contacto/contacto';
 
 export const routes: Routes = [
     {path: '', redirectTo:'inicio', pathMatch:'full'},
@@ -19,6 +20,7 @@ export const routes: Routes = [
     {path: 'carta', component: ListaCategoria},
     {path: 'pruebas', component: Prueba},
     {path: 'promocion', component: Promocion},
+    {path: 'contacto', component: Contacto},
 
     { path: 'actualizacion-categoria/:id', component: ActualizacionCategoria },
     { path: 'actualizacion-plato/:id', component: ActualizacionPlato },

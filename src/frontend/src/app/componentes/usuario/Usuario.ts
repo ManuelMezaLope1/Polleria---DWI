@@ -4,5 +4,5 @@ export class Usuario{
     apellido:string;
     email:string;
     password:string;
-    rol:any
+    rol:any;
 }

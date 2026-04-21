@@ -37,7 +37,6 @@ public class UsuarioControlador {
         Usuario usuario=repositorio.findById(id).orElseThrow(()->new ResourceNotFoundException("No existe el usuario con el id: "+id));
         return ResponseEntity.ok(usuario);
     }
-    
 
     @PutMapping("/usuarios/{id}")
     public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Long id, @RequestBody Usuario detallesUsuario) {

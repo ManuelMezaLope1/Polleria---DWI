@@ -12,16 +12,16 @@ import jakarta.persistence.*;
 public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public Long id;
 
     @Column(name="nombre", nullable = false, length=60)
-    private String nombre;
+    public String nombre;
 
     @Column(name="descripcion", nullable = false, length=200)
-    private String descripcion;
+    public String descripcion;
 
     @OneToMany(mappedBy = "categoria", fetch=FetchType.EAGER)
-    private List<Plato> plato;
+    public List<Plato> plato;
 
     public Categoria(){
 
