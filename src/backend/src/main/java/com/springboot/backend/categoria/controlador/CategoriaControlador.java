@@ -18,7 +18,7 @@ public class CategoriaControlador {
     @Autowired
     private CategoriaRepositorio repositorio;
 
-    @GetMapping({"/","","/inicio"}
+    @GetMapping({"/","","/inicio"})
     public String mostrarInicio(){
         return "inicio";
     }
