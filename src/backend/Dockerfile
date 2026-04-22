@@ -3,6 +3,7 @@ WORKDIR /app
 COPY src/backend/pom.xml .
 COPY src/backend/src ./src
 
+RUN ls -R
 RUN mvn clean package -Dmaven.test.skip=true
 
 FROM eclipse-temurin:17-jdk-alpine
