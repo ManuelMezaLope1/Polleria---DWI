@@ -1,12 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { Component, AfterViewInit } from '@angular/core';
+import { Auth } from '../../servicios/auth/auth';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './inicio.html',
   styleUrl: './inicio.css',
 })
 export class Inicio implements AfterViewInit {
+  constructor(public authServicio: Auth, private router: Router){}
 
   hacerPedido() {
     window.open('https://wa.me/51987654321?text=Hola%2C%20quiero%20hacer%20un%20pedido', '_blank');
@@ -23,6 +27,14 @@ export class Inicio implements AfterViewInit {
   // Estos métodos ahora están DENTRO de la clase
   ngAfterViewInit() {
     this.crearParticulas();
+  }
+
+  ngOnInit(): void{
+    this.router.events.subscribe(event=>{
+      if(event instanceof NavigationEnd){
+        window.scrollTo(0,0);
+      }
+    })
   }
 
   crearParticulas() {

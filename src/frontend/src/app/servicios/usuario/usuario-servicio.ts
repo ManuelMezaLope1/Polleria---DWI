@@ -1,33 +1,49 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import axios from 'axios';
 import { Usuario } from '../../componentes/usuario/Usuario';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioServicio {
-  private baseURL="empowering-optimism-production-1bee.up.railway.app/api/v1/usuarios";
+  private usuBaseUrl = "http://localhost:8080/api/v1/usuarios";
 
-  constructor(private HttpClient: HttpClient){}
-
-  obtenerListaDeUsuarios(): Observable<Usuario[]>{
-    return this.HttpClient.get<Usuario[]>(`${this.baseURL}`);
+  constructor(private HttpClient: HttpClient) {
+    axios.defaults.baseURL = 'http://localhost:8080';
+    axios.defaults.headers.post['Content-Type'] = 'application/json';
   }
 
-  registrarUsuario(usuario: Usuario): Observable<Object>{
-    return this.HttpClient.post(`${this.baseURL}`, usuario);
+  obtenerListaDePlatos(): Observable<Usuario[]> {
+    return this.HttpClient.get<Usuario[]>(`${this.usuBaseUrl}`);
   }
 
-  actualizarUsuario(id:number, usuario:Usuario): Observable<Object>{
-    return this.HttpClient.put(`${this.baseURL}/${id}`,usuario);
+  getAuthToken(): string | null {
+    return window.localStorage.getItem("auth_token");
   }
 
-  obtenerUsuarioPorId(id:number): Observable<Usuario>{
-    return this.HttpClient.get<Usuario>(`${this.baseURL}/${id}`);
+  setAuthToken(token: string | null): void {
+    if (token !== null) {
+      window.localStorage.setItem("auth_token", token);
+    } else {
+      window.localStorage.removeItem("auth_token");
+    }
   }
 
-  eliminarUsuario(id:number): Observable<Object>{
-    return this.HttpClient.delete(`${this.baseURL}/${id}`);
+
+  request(method: string, url: string, data: any): Promise<any> {
+    let headers: any = {};
+
+    if (this.getAuthToken() !== null) {
+      headers = { "Authorization": "Bearer " + this.getAuthToken() };
+    }
+
+    return axios({
+      method: method,
+      url: url,
+      data: data,
+      headers: headers
+    });
   }
 }

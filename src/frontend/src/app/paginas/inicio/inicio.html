@@ -4,7 +4,8 @@
   <div class="hero-content">
     <h1 class="titulo-principal">EL <span class="destacado">SAZÓN</span></h1>
     <p class="slogan">El auténtico sabor del pollo a la brasa</p>
-    <p class="descripcion">Disfruta de la mejor experiencia culinaria en El Fogoncito, donde el sabor se encuentra con la tradición.</p>
+    <p class="descripcion">Disfruta de la mejor experiencia culinaria en El Fogoncito, donde el sabor se encuentra con
+      la tradición.</p>
     <div class="botones-hero">
       <button class="btn-pedido" (click)="hacerPedido()">📞 Hacer Pedido</button>
       <button class="btn-menu" (click)="verMenu()">📋 Ver Menú</button>
@@ -25,6 +26,14 @@
     </div>
   </div>
 </section>
+
+<div *ngIf="authServicio.hasRole('ROLE_ADMIN')">
+  <p>Administrador</p>
+</div>
+
+<div *ngIf="authServicio.hasRole('ROLE_USER')">
+  <p>Usuario</p>
+</div>
 
 <!-- Sección: Pilares del sabor -->
 <section class="pilares-section">

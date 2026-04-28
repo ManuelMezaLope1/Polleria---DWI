@@ -1,0 +1,128 @@
+<div class="row justify-content-center">
+    <div class="col-6">
+        <div class="tab-content">
+            <div [ngClass]="active == 'login' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                <div class="auth-container">
+                    <div class="auth-card">
+                        <div class="auth-header">
+                            <div class="div logo-icon">🍗</div>
+                            <h2>Bienvenido de vuelta</h2>
+                            <p>Inicia sesión para disfrutar de nuestras promociones</p>
+                        </div>
+
+                        <form (ngSubmit)="login()" #loginForm="ngForm" class="auth-form">
+
+                            <div class="form-group form-outline mb-4">
+                                <label class="form-label" for="username">Username</label>
+                                <input type="email" id="username" name="username" class="form-control"
+                                    [(ngModel)]="form.username" required />
+                            </div>
+
+                            <div class="form-group form-outline mb-4">
+                                <label class="form-label" for="loginPassword">Password</label>
+                                <input type="password" id="password" name="password" class="form-control"
+                                    [(ngModel)]="form.password" required />
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block mb-4">Inicia sesión</button>
+
+                            <div class="auth-footer">
+                                <p>¿No tienes una cuenta?
+                                    <a [ngClass]="active == 'registro' ? 'nav-link active' : 'nav-link'"
+                                        id="tab-registro" (click)="onRegistroTab()">Regístrate aquí</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div [ngClass]="active == 'registro' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                <div class="auth-container">
+                    <div class="auth-card">
+                        <div class="auth-header">
+                            <div class="logo-icon">📝</div>
+                            <h2>Crea una cuenta</h2>
+                            <p>Únete a El Sazón y disfruta de beneficios exclusivos</p>
+                        </div>
+
+                        <form (ngSubmit)="registro()" #registroForm="ngForm" class="auth-form">
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-outline mb-4 form-group">
+                                        <label class="form-label" for="nombre">Nombre</label>
+                                        <input type="text" id="nombre" name="nombre" class="form-control"
+                                            [(ngModel)]="nombre" required minlength="4" maxlength="25"
+                                            placeholder="Digite su nombre" />
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-outline mb-4 form-group">
+                                        <label class="form-label" for="apellido">Apellido</label>
+                                        <input type="text" id="apellido" name="apellido" class="form-control"
+                                            [(ngModel)]="apellido" required minlength="4" maxlength="25"
+                                            placeholder="Digite su apellido" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-outline mb-4 form-group">
+                                        <label for="direccion" class="form-label">Dirección</label>
+                                        <input type="text" id="direccion" name="direccion" class="form-control"
+                                            [(ngModel)]="direccion" required placeholder="Digite su dirección">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-outline mb-4 form-group">
+                                        <label for="telefono" class="form-label">Teléfono</label>
+                                        <input type="text" id="telefono" name="telefono" class="form-control"
+                                            [(ngModel)]="telefono" required placeholder="Digite su télefono">
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-outline mb-4 form-group">
+                                        <label for="zonaId" class="form-label">Zona</label>
+                                        <select name="zonaId" id="zonaId" class="form-control" [(ngModel)]="zonaId" required>
+                                            <option [ngValue]="null">--Seleccione su zona--</option>
+                                            <option *ngFor="let zon of zonas" [ngValue]="zon.id">{{zon.nombre}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-outline mb-4 form-group">
+                                <label class="form-label" for="correo">Correo</label>
+                                <input type="text" id="correo" name="correo" class="form-control" [(ngModel)]="correo"
+                                    required pattern="^[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@gmail\.com$" minlength="4"
+                                    maxlength="25" placeholder="Digite su correo" />
+                            </div>
+
+                            <div class="form-outline mb-4 form-group">
+                                <label class="form-label" for="registroPassword">Contraseña</label>
+                                <input type="password" id="registroPassword" name="registroPassword"
+                                    class="form-control" [(ngModel)]="registroPassword" required minlength="4"
+                                    maxlength="25" placeholder="Digite su contraseña" />
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block btn-auth mb-3">Registrarse</button>
+
+                            <div class="auth-footer">
+                                <p>¿Ya tienes una cuenta?
+                                    <a [ngClass]="active == 'login' ? 'nav-link active' : 'nav-link'" id="tab-login"
+                                        (click)="onLoginTab()">Inicia Sesión aquí</a>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

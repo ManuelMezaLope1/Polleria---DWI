@@ -1,8 +1,9 @@
 export class Usuario{
-    id:number;
     nombre:string;
     apellido:string;
-    email:string;
-    password:string;
+    direccion:string;
+    telefono:string;
+    username:string;
     rol:any;
+    zona:any;
 }

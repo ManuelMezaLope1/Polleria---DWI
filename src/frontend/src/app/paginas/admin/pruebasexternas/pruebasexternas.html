@@ -1,0 +1,80 @@
+<div class="container">
+    <div>
+        <div class="row">
+            <h1>Listado de Zonas</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-log-3">
+                <button (click)="registrarZona()" class="btn btn-primary btn-sm-3">Agregar zonas</button>
+            </div>
+        </div>
+        <br>
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th>Departamento</th>
+                    <th>Provincia</th>
+                    <th>Distrito</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let zon of zonas$ | async">
+                    <td>{{zon.nombre}}</td>
+                    <td>{{zon.departamento}}</td>
+                    <td>{{zon.provincia}}</td>
+                    <td>{{zon.distrito}}</td>
+                    <td>
+                        <button class="btn btn-info">Actualizar</button>
+                        <button (click)="eliminarZona(zon.id)" class="btn btn-danger" style="margin-left : 10px;">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <div class="row">
+            <h1>Listado de Usuarios</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-log-3">
+                <button (click)="registrarZona()" class="btn btn-primary btn-sm-3">Agregar zonas</button>
+            </div>
+        </div>
+        <br>
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col">Teléfono</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Rol</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let usu of usuarios$ | async">
+                    <td>{{usu.nombre}}</td>
+                    <td>{{usu.apellido}}</td>
+                    <td>{{usu.direccion}}</td>
+                    <td>{{usu.telefono}}</td>
+                    <td>{{usu.username}}</td>
+                    <td>{{usu.rol?.nombre}}</td>
+                    <td>{{usu.zona?.nombre}}</td>
+                    <td>
+                        <button class="btn btn-info">Actualizar</button>
+                        <button class="btn btn-danger" style="margin-left : 10px;">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

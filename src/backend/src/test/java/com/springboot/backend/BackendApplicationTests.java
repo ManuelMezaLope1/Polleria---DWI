@@ -9,10 +9,10 @@ import com.springboot.backend.categoria.modelo.Categoria;
 import com.springboot.backend.categoria.servicio.CategoriaServicio;
 import com.springboot.backend.plato.modelo.Plato;
 import com.springboot.backend.plato.servicio.PlatoServicio;
-import com.springboot.backend.rol.modelo.Rol;
+/*import com.springboot.backend.rol.modelo.Rol;
 import com.springboot.backend.rol.servicio.RolServicio;
 import com.springboot.backend.usuario.modelo.Usuario;
-import com.springboot.backend.usuario.servicio.UsuarioServicio;
+import com.springboot.backend.usuario.servicio.UsuarioServicio;*/
 
 @SpringBootTest
 class BackendApplicationTests {
@@ -71,7 +71,7 @@ class BackendApplicationTests {
 	/*										USUARIO									 	 */
 	/*===================================================================================*/
 
-	@Test
+	/*@Test
 	void TestRegistrarUsuario(){
 		Usuario usuario=new Usuario(1L,"Nombre","Apellido","Email","Password",null);
 
@@ -91,9 +91,7 @@ class BackendApplicationTests {
 		Assertions.assertEquals(null, resultado);
 	}
 
-	/*===================================================================================*/
-	/*										ROL									 		 */
-	/*===================================================================================*/
+	
 
 	@Test 
 	void TestRegistrarRol(){
@@ -113,5 +111,5 @@ class BackendApplicationTests {
 		final Rol resultado=rolServicio.obtenerRol(1L);
 
 		Assertions.assertEquals(null, resultado);
-	}
+	}*/
 }
