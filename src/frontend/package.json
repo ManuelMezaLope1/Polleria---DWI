@@ -24,8 +24,8 @@
   "packageManager": "npm@10.9.3",
   "dependencies": {
     "@angular/common": "^21.0.0",
-    "@angular/compiler": "^21.0.0",
-    "@angular/core": "^21.0.0",
+    "@angular/compiler": "^21.2.10",
+    "@angular/core": "^21.2.10",
     "@angular/forms": "^21.0.0",
     "@angular/platform-browser": "^21.0.0",
     "@angular/router": "^21.2.9",
@@ -40,7 +40,7 @@
     "@angular/cli": "^21.0.3",
     "@angular/compiler-cli": "^21.0.0",
     "jsdom": "^27.1.0",
-    "typescript": "~5.9.2",
+    "typescript": "^6.0.3",
     "vitest": "^4.0.8"
   }
 }

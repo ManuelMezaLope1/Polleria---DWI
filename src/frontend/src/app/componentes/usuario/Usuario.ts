@@ -4,6 +4,6 @@ export class Usuario{
     direccion:string;
     telefono:string;
     username:string;
-    rol:any;
+    roles:any;
     zona:any;
 }
