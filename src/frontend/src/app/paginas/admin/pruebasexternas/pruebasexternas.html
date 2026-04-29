@@ -56,6 +56,7 @@
                     <th scope="col">Teléfono</th>
                     <th scope="col">Correo</th>
                     <th scope="col">Rol</th>
+                    <th scope="col">Zona</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
@@ -67,11 +68,52 @@
                     <td>{{usu.direccion}}</td>
                     <td>{{usu.telefono}}</td>
                     <td>{{usu.username}}</td>
-                    <td>{{usu.rol?.nombre}}</td>
+                    <td>
+                        <div *ngFor="let rol of usu.roles">
+                            <span *ngIf="rol.nombre==='ROLE_USER'">
+                                Usuario
+                            </span>
+                            
+                            <span *ngIf="rol.nombre==='ROLE_ADMIN'">
+                                Administrador
+                            </span>
+                        </div>
+                    </td>
                     <td>{{usu.zona?.nombre}}</td>
                     <td>
                         <button class="btn btn-info">Actualizar</button>
                         <button class="btn btn-danger" style="margin-left : 10px;">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <div class="row">
+            <h1>Listado de Métodos de Pago</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-log-3">
+                <button (click)="registrarMetodoPago()" class="btn btn-primary btn-sm-3">Agregar zonas</button>
+            </div>
+        </div>
+        <br>
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let mepa of metodopagos$ | async">
+                    <td>{{mepa.nombre}}</td>
+                    <td>
+                        <button (click)="actualizarMetodoPago(mepa.id)" class="btn btn-info">Actualizar</button>
+                        <button (click)="eliminarZona(mepa.id)" class="btn btn-danger" style="margin-left : 10px;">Eliminar</button>
                     </td>
                 </tr>
             </tbody>

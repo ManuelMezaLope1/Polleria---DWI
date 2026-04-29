@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.springboot.backend.usuario.servicio.JwtUtil;
-import com.springboot.backend.usuario.servicio.UserDetailsServicio;
+import com.springboot.backend.tabla.usuario.servicio.JwtUtil;
+import com.springboot.backend.tabla.usuario.servicio.UserDetailsServicio;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

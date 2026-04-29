@@ -10,7 +10,7 @@
             </div>
         </div>
         <br>
-        <table class="table text-center">
+        <table class="table text-center table-striped table-bordered table-hover">
             <thead>
                 <tr>
                     <th scope="col">Nombre</th>
@@ -21,13 +21,13 @@
 
             <tbody>
                 <tr *ngFor="let cate of categorias$ | async">
-                    <td>{{cate.nombre}}</td>
-                    <td>
+                    <td class="align-middle">{{cate.nombre}}</td>
+                    <td class="align-middle">
                         <div *ngFor="let plato of cate.plato">
                             {{ plato.nombre }}
                         </div>
                     </td>
-                    <td>
+                    <td class="align-middle">
                         <button (click)="actualizarCategoria(cate.id)" class="btn btn-info">Editar</button>
                         <button (click)="eliminarCategoria(cate.id)" class="btn btn-danger"
                             style="margin-left : 10px;">Eliminar</button>
@@ -48,7 +48,7 @@
             </div>
         </div>
         <br>
-        <table class="table text-center">
+        <table class="table text-center table-striped table-bordered table-hover">
             <thead>
                 <tr>
                     <th scope="col">Nombre</th>

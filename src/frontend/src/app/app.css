@@ -132,6 +132,10 @@
   background: rgba(255, 255, 255, 0.15);
 }
 
+.btn-auth{
+  background-color: #ff8c42;
+}
+
 .btn-registro {
   background: white;
   color: #ff6b35 !important;

@@ -21,7 +21,6 @@
         <div class="form-group">
             <label>Categoría: </label>
             <select class="form-control" name="categoria" id="categoria" [(ngModel)]="plato.categoria" #categoria="ngModel" [compareWith]="compararCategorias" required>
-                <option [ngValue]="null">--Seleccione una categoría</option>
                 <option *ngFor="let cat of categorias" [ngValue]="cat">{{cat.nombre}}</option>
             </select>
         </div>

@@ -10,7 +10,7 @@
 
         <div class="form-group">
             <label for="departamento">Departamento: </label>
-            <select class="form-select" formControlName="departamento" id="departamento">
+            <select class="form-control" formControlName="departamento" id="departamento">
                 <option [ngValue]="null">--Seleccione el departamento--</option>
                 <option *ngFor="let d of departamentos" [ngValue]="d">{{d}}</option>
             </select>
@@ -18,7 +18,7 @@
 
         <div class="form-group">
             <label for="provincia">Provincia: </label>
-            <select class="form-select" formControlName="provincia" id="provincia">
+            <select class="form-control" formControlName="provincia" id="provincia">
                 <option [ngValue]="null">--Seleccione la provincia--</option>
                 <option *ngFor="let pro of provinciasFiltradas" [ngValue]="pro">{{pro}}</option>
             </select>
