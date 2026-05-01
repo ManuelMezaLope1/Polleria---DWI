@@ -7,7 +7,7 @@ import { Zona } from '../../componentes/zona/Zona';
   providedIn: 'root',
 })
 export class ZonaServicio {
-  private baseUrl="http://localhost:8080/api/v1/zonas";
+  private baseUrl="http://localhost:8080/api/v1/public/zonas";
 
   constructor(private HttpClient: HttpClient){}
 

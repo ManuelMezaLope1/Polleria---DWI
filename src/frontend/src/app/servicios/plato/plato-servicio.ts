@@ -7,7 +7,7 @@ import { Plato } from '../../componentes/plato/Plato';
   providedIn: 'root',
 })
 export class PlatoServicio {
-  private baseUrl="http://localhost:8080/api/v1/platos";
+  private baseUrl="http://localhost:8080/api/v1/public/platos";
 
   constructor(private HttpClient: HttpClient){}
 

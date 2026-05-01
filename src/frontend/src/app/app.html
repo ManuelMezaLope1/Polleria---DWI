@@ -45,10 +45,10 @@
         </a>
       </li>
 
-      <li class="nav-item">
-        <a routerLink="pruebas" routerLinkActive="active" class="nav-link" (click)="cerrarMenu()">
+      <li *ngIf="authService.logueado()" class="nav-item">
+        <a routerLink="cuenta" routerLinkActive="active" class="nav-link" (click)="cerrarMenu()">
           <i>➕</i>
-          <span>Pruebas</span>
+          <span>Cuenta</span>
         </a>
       </li>
 

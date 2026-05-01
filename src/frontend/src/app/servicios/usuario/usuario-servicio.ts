@@ -8,11 +8,20 @@ import { Usuario } from '../../componentes/usuario/Usuario';
   providedIn: 'root',
 })
 export class UsuarioServicio {
-  private usuBaseUrl = "http://localhost:8080/api/v1/usuarios";
+  private usuBaseUrl = "http://localhost:8080/api/v1/public/usuarios";
+  private usuPerfilUrl = "http://localhost:8080/api/v1/private/micuenta";
 
   constructor(private HttpClient: HttpClient) {
     axios.defaults.baseURL = 'http://localhost:8080';
     axios.defaults.headers.post['Content-Type'] = 'application/json';
+  }
+
+  obtenerPerfil() {
+    return this.HttpClient.get(`${this.usuPerfilUrl}`);
+  }
+
+  actualizarUsuario(usuario: Usuario): Observable<Usuario> {
+    return this.HttpClient.put<Usuario>(this.usuPerfilUrl, usuario);
   }
 
   obtenerListaDePlatos(): Observable<Usuario[]> {

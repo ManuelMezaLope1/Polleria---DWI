@@ -15,7 +15,7 @@ import com.springboot.backend.tabla.plato.repositorio.PlatoRepositorio;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/public")
 public class PlatoControlador {
     @Autowired
     private PlatoRepositorio repositorio;

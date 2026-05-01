@@ -15,11 +15,20 @@ import { Pruebasexternas } from './paginas/admin/pruebasexternas/pruebasexternas
 import { RegistroZona } from './componentes/zona/registro-zona/registro-zona';
 import { ActualizacionMetodopago } from './componentes/metodopago/actualizacion-metodopago/actualizacion-metodopago';
 import { RegistroMetodopago } from './componentes/metodopago/registro-metodopago/registro-metodopago';
+import { Cuenta } from './paginas/usuario/cuenta/cuenta';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'inicio', pathMatch: 'full' },
     { path: 'inicio', component: Inicio },
     { path: 'carta', component: ListaCategoria },
+
+    {
+        path: 'cuenta',
+        component: Cuenta,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_USER', 'ROLE_ADMIN'] }
+    },
+
     {
         path: 'pruebas',
         component: Prueba,

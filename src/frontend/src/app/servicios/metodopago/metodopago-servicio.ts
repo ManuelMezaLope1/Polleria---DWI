@@ -8,7 +8,7 @@ import { MetodoPago } from '../../componentes/metodopago/MetodoPago';
   providedIn: 'root',
 })
 export class MetodopagoServicio {
-  private baseUrl="http://localhost:8080/api/v1/metodopago";
+  private baseUrl="http://localhost:8080/api/v1/public/metodopago";
 
   constructor(private HttpClient: HttpClient){}
 
