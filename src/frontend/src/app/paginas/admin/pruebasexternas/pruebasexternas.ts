@@ -26,6 +26,10 @@ export class Pruebasexternas {
     this.metodopagos$=this.metodoPagoServicio.obtenerListaDeMetodoPago();
   }
 
+  volverDashboard(){
+    this.router.navigate(['dashboard']);
+  }
+
   /*========================================================================================*/
   /*                                   Para Zonas                                           */
   /*========================================================================================*/

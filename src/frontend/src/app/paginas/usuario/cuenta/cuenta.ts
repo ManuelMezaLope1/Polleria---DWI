@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 })
 export class Cuenta {
   usuario: any;
-  username:string;
+  username: string;
   zonas: Zona[] = [];
 
   constructor(private usuarioServicio: UsuarioServicio, private zonaServicio: ZonaServicio, private cd: ChangeDetectorRef, private router: Router) { }
@@ -32,6 +32,8 @@ export class Cuenta {
   }
 
   ngOnInit(): void {
+    this.zonaServicio.obtenerListaDeZonas().subscribe(dato => { this.zonas = dato })
+
     this.usuarioServicio.obtenerPerfil().pipe(
       tap(data => {
         this.usuario = data;
@@ -42,27 +44,25 @@ export class Cuenta {
         return of(null);
       })
     ).subscribe()
-
-    this.zonaServicio.obtenerListaDeZonas().subscribe(dato => { this.zonas = dato })
   }
 
   compararZonas(c1: any, c2: any): boolean {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
-  irALaCuenta(){
+  irALaCuenta() {
     this.router.navigate(['/cuenta']);
-    Swal.fire('Usuario actualizado','El usuario se actualizó correctamente','success');
+    Swal.fire('Usuario actualizado', 'El usuario se actualizó correctamente', 'success');
   }
 
-  onSubmit(): void{
-    if(this.usuario){
+  onSubmit(): void {
+    if (this.usuario) {
       this.usuarioServicio.actualizarUsuario(this.usuario).pipe(
-        tap(dato=>{
+        tap(dato => {
           this.irALaCuenta();
         }),
-        catchError(error=>{
-          console.error("Error al actualizar el usuario: ",error);
+        catchError(error => {
+          console.error("Error al actualizar el usuario: ", error);
           return of(null);
         })
       ).subscribe()
