@@ -7,7 +7,7 @@ import { Categoria } from '../../componentes/categoria/Categoria';
   providedIn: 'root',
 })
 export class CategoriaServicio {
-  private baseURL="http://localhost:8080/api/v1/categorias";
+  private baseURL="http://localhost:8080/api/v1/public/categorias";
 
   constructor(private HttpClient: HttpClient){}
 

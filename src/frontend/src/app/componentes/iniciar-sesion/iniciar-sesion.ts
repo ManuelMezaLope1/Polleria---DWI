@@ -6,6 +6,7 @@ import { Auth } from '../../servicios/auth/auth';
 import { HttpClient } from '@angular/common/http';
 import { ZonaServicio } from '../../servicios/zona/zona-servicio';
 import { Zona } from '../zona/Zona';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-iniciar-sesion',
@@ -51,9 +52,19 @@ export class IniciarSesionComponent {
     this.authService.login(this.form).subscribe({
       next: res => {
         this.authService.guardarToken(res.token);
-        this.router.navigate(['/dashboard']);
+        Swal.fire({
+          title:'Login éxitoso',
+          text:'Inicio sesión correctamente',
+          icon:'success',
+          confirmButtonText: 'Ok'
+        }).then((result)=>{
+          if(result.isConfirmed){
+            this.router.navigate(['/dashboard']);
+          }
+        })
       },
       error: err => {
+        Swal.fire('Oops...','Usuario o contraseña incorrecto','warning');
         this.error = 'Credenciales incorrectas';
       }
     });

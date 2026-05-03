@@ -8,6 +8,7 @@ import { Categoria } from '../../../componentes/categoria/Categoria';
 import { Plato } from '../../../componentes/plato/Plato';
 import { PlatoServicio } from '../../../servicios/plato/plato-servicio';
 import { UsuarioServicio } from '../../../servicios/usuario/usuario-servicio';
+import { ThemeServicio } from '../../../servicios/global/theme-servicio';
 
 @Component({
   selector: 'app-prueba',
@@ -19,13 +20,17 @@ import { UsuarioServicio } from '../../../servicios/usuario/usuario-servicio';
 export class Prueba {
   data: string[] = [];
 
-  constructor(private axiosService: UsuarioServicio, private categoriaServicio: CategoriaServicio, private platoServicio: PlatoServicio,private usuarioServicio: UsuarioServicio, private router: Router) { }
+  constructor(public themeServicio: ThemeServicio,private axiosService: UsuarioServicio, private categoriaServicio: CategoriaServicio, private platoServicio: PlatoServicio,private usuarioServicio: UsuarioServicio, private router: Router) { }
 
   ngOnInit(): void {
     console.log('ENTRÓ AL COMPONENTE');
 
     this.categorias$ = this.categoriaServicio.obtenerListaDeCategorias();
     this.platos$ = this.platoServicio.obtenerListaDePlatos();
+  }
+
+  volverDashboard(){
+    this.router.navigate(['dashboard']);
   }
 
   /*========================================================================================*/

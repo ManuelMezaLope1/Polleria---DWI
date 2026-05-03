@@ -37,8 +37,11 @@ public class SecurityConfiguration {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(auth -> auth
                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-               .requestMatchers("/auth/**","/api/v1/**").permitAll()
-               .requestMatchers("/pruebas").hasAuthority("ROLE_ADMIN")
+               .requestMatchers("/auth/**").permitAll()
+               .requestMatchers("/api/v1/public/**").permitAll()
+               .requestMatchers("/api/v1/private/cuenta").hasAuthority("ROLE_ADMIN")
+               .requestMatchers("/api/v1/private/**").authenticated()
+               .requestMatchers("/pruebas").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
                .requestMatchers("/inicio","/contacto","/promocion","/carta").hasAnyRole("USER","ADMIN")
                .anyRequest().authenticated()
             )

@@ -168,7 +168,6 @@
 /* Botones blancos con sombra elegante */
 .btn-pedido, .btn-menu {
   background: #ffffff;
-  color: var(--naranja-principal);
   padding: 16px 38px;
   font-size: 1.2rem;
   font-weight: 700;

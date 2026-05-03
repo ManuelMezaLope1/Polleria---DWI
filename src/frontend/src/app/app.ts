@@ -4,30 +4,21 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Auth } from './servicios/auth/auth';
 import { CommonModule } from '@angular/common';
+import { Header } from './paginas/shared/header/header';
+import { Footer } from './paginas/shared/footer/footer';
+import { ThemeServicio } from './servicios/global/theme-servicio';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HttpClientModule, RouterLink, FormsModule, CommonModule],
+  imports: [Header,Footer,RouterOutlet, HttpClientModule, FormsModule, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 
 export class App {
-  title = '🍗 Pollería El Sazón';
-  menuAbierto = false;
+  constructor(public themeServicio: ThemeServicio){}
 
-  constructor(public authService: Auth, private router: Router) { }
-
-  toggleMenu() {
-    this.menuAbierto = !this.menuAbierto;
-  }
-
-  cerrarMenu() {
-    this.menuAbierto = false;
-  }
-
-  logout() {
-    this.authService.logout();
-    this.router.navigate(['/iniciar-sesion']);
+  ngOnInit(){
+    this.themeServicio.setTheme(this.themeServicio.getTheme());
   }
 }

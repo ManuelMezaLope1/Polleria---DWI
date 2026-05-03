@@ -1,6 +1,18 @@
 .contacto {
   padding: 60px 40px;
+  
+}
+
+.dark .contacto{
   background: linear-gradient(180deg, #fff 0%, #fff3e6 100%);
+}
+
+.dark .texto{
+  color:white;
+}
+
+.light .texto{
+  color:#121212
 }
 
 .contacto-info {
@@ -11,7 +23,6 @@
 }
 
 .info-card {
-  background: white;
   padding: 25px;
   border-radius: 12px;
   text-align: center;
