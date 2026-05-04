@@ -94,18 +94,3 @@
   color: #ff5a00;
   font-size: 18px;
 }
-
-button {
-  background: #ff5a00;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  font-size: 18px;
-}
-
-button:hover {
-  background: #e14a00;
-}

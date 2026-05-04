@@ -45,7 +45,7 @@ export class RegistroMetodopago {
   irALaListaDeMetodoPago(){
     Swal.fire({
       title: 'Método de pago registrado',
-      text: `El método de pago ${this.metodopago.nombre} ha sido registrado con éxito`,
+      text: `El método de pago ha sido registrado con éxito`,
       icon: 'success'
     }).then((result)=>{
       if(result.isConfirmed){

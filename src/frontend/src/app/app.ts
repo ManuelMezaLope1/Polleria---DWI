@@ -16,9 +16,13 @@ import { ThemeServicio } from './servicios/global/theme-servicio';
 })
 
 export class App {
-  constructor(public themeServicio: ThemeServicio){}
+  constructor(public themeServicio: ThemeServicio, public authServicio: Auth, private router: Router){}
 
   ngOnInit(){
     this.themeServicio.setTheme(this.themeServicio.getTheme());
+  }
+
+  venta(){
+    this.router.navigate(['/carro']);
   }
 }

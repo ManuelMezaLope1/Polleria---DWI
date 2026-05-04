@@ -16,6 +16,9 @@ import { RegistroZona } from './componentes/zona/registro-zona/registro-zona';
 import { ActualizacionMetodopago } from './componentes/metodopago/actualizacion-metodopago/actualizacion-metodopago';
 import { RegistroMetodopago } from './componentes/metodopago/registro-metodopago/registro-metodopago';
 import { Cuenta } from './paginas/usuario/cuenta/cuenta';
+import { RegistroOferta } from './componentes/oferta/registro-oferta/registro-oferta';
+import { ActualizacionOferta } from './componentes/oferta/actualizacion-oferta/actualizacion-oferta';
+import { Carro } from './paginas/usuario/carro/carro';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -27,6 +30,13 @@ export const routes: Routes = [
         component: Cuenta,
         canActivate: [AuthGuard],
         data: { roles: ['ROLE_USER', 'ROLE_ADMIN'] }
+    },
+
+    {
+        path: 'carro',
+        component: Carro,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_USER', 'ROLE_ADMIN']}
     },
 
     {
@@ -72,6 +82,13 @@ export const routes: Routes = [
         data: { roles: ['ROLE_ADMIN']}
     },
 
+    {
+        path: 'actualizacion-oferta/:id',
+        component: ActualizacionOferta,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN']}
+    },
+
     { 
         path: 'creacion-categoria', 
         component: RegistroCategoria,
@@ -94,6 +111,13 @@ export const routes: Routes = [
     {
         path: 'creacion-metodopago',
         component: RegistroMetodopago,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN']}
+    },
+
+    {
+        path: 'creacion-oferta',
+        component: RegistroOferta,
         canActivate: [AuthGuard],
         data: { roles: ['ROLE_ADMIN']}
     },
