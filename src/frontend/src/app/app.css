@@ -23,6 +23,25 @@
   font-size: 18px;
 }
 
-button:hover {
+.boton-venta:hover {
   background: #e14a00;
+}
+
+.dashboard{
+  position: fixed;
+  bottom: 20px; /* 👈 sube el botón por encima del footer */
+  left: 20px;
+  z-index: 1000;
+  width: 70px;
+  height: 70px;
+  background: rgb(68, 68, 174);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.dashboard:hover{
+  background: #1d1242;
 }
