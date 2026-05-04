@@ -1,0 +1,86 @@
+<div class="col-md-6 offset-md-3">
+    <h3 class="text-center">Registro de Ofertas</h3>
+    <form (ngSubmit)="onSubmit()" #ofertaForm="ngForm">
+        <div class="form-group">
+            <div class="row">
+                <div class="col">
+                    <label>Nombre: </label>
+                    <input type="text" class="form-control" id="nombre" [(ngModel)]="oferta.nombre" name="nombre"
+                        required pattern="^[A-Z][a-zA-ZáéíóúÁÉÍÓÚÑñ\s]+$" minlength="10" maxlength="50"
+                        placeholder="Digite el nombre" #nombre="ngModel">
+                    <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                        <div *ngIf="nombre.errors?.['required']">
+                            Digite su nombre por favor
+                        </div>
+                        <div *ngIf="nombre.errors?.['minlength']">
+                            El nombre tiene que contener como mínimo 10 caracteres
+                        </div>
+                        <div *ngIf="nombre.errors?.['maxlength']">
+                            El nombre tiene que tener como máximo 20 caracteres
+                        </div>
+                        <div *ngIf="nombre.errors?.['pattern']">
+                            El nombre debe tener sólamente letras.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <label>Descripcion : </label>
+                    <input type="text" class="form-control" id="descripcion" [(ngModel)]="oferta.descripcion"
+                        name="descripcion" readonly minlength="4" maxlength="100" placeholder="Digite su descripcion"
+                        #descripcion="ngModel" />
+                    <div class="alert alert-danger"
+                        *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
+                        <div *ngIf="descripcion.errors?.['required']">
+                            Digite su descripcion por favor
+                        </div>
+                        <div *ngIf="descripcion.errors?.['minlength']">
+                            La descripcion tiene que contener como mínimo 4 caracteres
+                        </div>
+                        <div *ngIf="descripcion.errors?.['maxlength']">
+                            El descripcion tiene que tener como máximo 100 caracteres
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <label>Cantidad de Platos: </label>
+                        <input class="form-control" type="number" [(ngModel)]="oferta.cantidad" min="1" max="5" (change)="generarSelects()"
+                            id="cantidad" name="cantidad" required>
+                    </div>
+
+                    <div class="col">
+                        <div *ngFor="let p of platosSeleccionados; let i = index">
+                            <label>Plato {{ i + 1 }}</label>
+
+                            <select class="form-control" [(ngModel)]="platosSeleccionados[i]" (change)="actualizarDescripcion(); actualizarPrecio()" name="plato">
+                                <option [ngValue]="null">-- Seleccione --</option>
+                                <option *ngFor="let plato of platosDisponibles" [ngValue]="plato">
+                                    {{ plato.nombre }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <label>Precio Actual:</label>
+                        <input type="text" class="form-control" name="precio_actual" [(ngModel)]="oferta.precio_actual" readonly
+                            placeholder="Ingrese el precio actual">
+                    </div>
+
+                    <div class="col">
+                        <label>Precio Nuevo: </label>
+                        <input type="number" class="form-control" name="precio_nuevo" [(ngModel)]="oferta.precio_nuevo" placeholder="Ingrese el nuevo precio" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-success" [disabled]="!ofertaForm.form.valid">Guardar</button>
+    </form>
+</div>

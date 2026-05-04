@@ -7,3 +7,22 @@
   background: #121212;
   color: white;
 }
+
+.boton-venta{
+  position: fixed;
+  bottom: 20px; /* 👈 sube el botón por encima del footer */
+  right: 20px;
+  z-index: 1000;
+  width: 70px;
+  height: 70px;
+  background: #ff5a00;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+button:hover {
+  background: #e14a00;
+}

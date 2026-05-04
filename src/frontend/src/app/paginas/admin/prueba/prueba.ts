@@ -9,6 +9,8 @@ import { Plato } from '../../../componentes/plato/Plato';
 import { PlatoServicio } from '../../../servicios/plato/plato-servicio';
 import { UsuarioServicio } from '../../../servicios/usuario/usuario-servicio';
 import { ThemeServicio } from '../../../servicios/global/theme-servicio';
+import { OfertaServicio } from '../../../servicios/oferta/oferta-servicio';
+import { Oferta } from '../../../componentes/oferta/Oferta';
 
 @Component({
   selector: 'app-prueba',
@@ -20,13 +22,14 @@ import { ThemeServicio } from '../../../servicios/global/theme-servicio';
 export class Prueba {
   data: string[] = [];
 
-  constructor(public themeServicio: ThemeServicio,private axiosService: UsuarioServicio, private categoriaServicio: CategoriaServicio, private platoServicio: PlatoServicio,private usuarioServicio: UsuarioServicio, private router: Router) { }
+  constructor(public themeServicio: ThemeServicio,private axiosService: UsuarioServicio, private categoriaServicio: CategoriaServicio, private platoServicio: PlatoServicio,private usuarioServicio: UsuarioServicio, private ofertaServicio: OfertaServicio,private router: Router) { }
 
   ngOnInit(): void {
     console.log('ENTRÓ AL COMPONENTE');
 
     this.categorias$ = this.categoriaServicio.obtenerListaDeCategorias();
     this.platos$ = this.platoServicio.obtenerListaDePlatos();
+    this.ofertas$=this.ofertaServicio.obtenerListaDeOfertas();
   }
 
   volverDashboard(){
@@ -126,4 +129,50 @@ export class Prueba {
       }
     });
   }
+
+  /*========================================================================================*/
+  /*                                      PARA OFERTAS                                      */
+  /*========================================================================================*/
+  ofertas: Oferta[]=[];
+  ofertas$!: Observable<Oferta[]>;
+
+  registrarOferta(){
+    this.router.navigate(['creacion-oferta']);
+  }
+
+  actualizarOferta(){
+    this.router.navigate(['actualizacion-oferta']);
+  }
+
+  private obtenerOferta(){
+    this.ofertaServicio.obtenerListaDeOfertas().subscribe(dato=>{
+      this.ofertas=dato;
+    })
+  }
+
+  eliminarOferta(id: number) {
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: "Confirma si deseas eliminar la oferta",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, elimínalo',
+        cancelButtonText: 'No, cancelar',
+        buttonsStyling: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.ofertaServicio.eliminarOferta(id).subscribe(dato => {
+            console.log(dato);
+            this.obtenerOferta();
+            Swal.fire(
+              'Oferta eliminada',
+              'La oferta ha sido eliminada con éxito',
+              'success'
+            )
+          })
+        }
+      });
+    }
 }
