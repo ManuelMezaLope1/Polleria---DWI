@@ -4,7 +4,17 @@
   <div class="container">
     <router-outlet></router-outlet>
     <div *ngIf="authServicio.logueado()">
-      <button (click)="venta()" class="boton-venta">🛒</button>
+      <div *ngIf="usuario">
+        <div *ngIf="esAdmin">
+          <button (click)="irDashboard()" class="dashboard">D</button>
+
+          <button (click)="venta()" class="boton-venta">🛒</button>
+        </div>
+      </div>
+
+      <div *ngIf="!esAdmin">
+        <button (click)="venta()" class="boton-venta">🛒</button>
+      </div>
     </div>
   </div>
 
