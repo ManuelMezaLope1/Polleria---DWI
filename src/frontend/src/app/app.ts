@@ -9,10 +9,19 @@ import { Footer } from './paginas/shared/footer/footer';
 import { ThemeServicio } from './servicios/global/theme-servicio';
 import { UsuarioServicio } from './servicios/usuario/usuario-servicio';
 import { tap, catchError, of } from 'rxjs';
+import { ChatbotComponent } from './componentes/chatbot/chatbot.component'; // 👈 IMPORTAR CHATBOT
 
 @Component({
   selector: 'app-root',
-  imports: [Header, Footer, RouterOutlet, HttpClientModule, FormsModule, CommonModule],
+  imports: [
+    Header,
+    Footer,
+    RouterOutlet,
+    HttpClientModule,
+    FormsModule,
+    CommonModule,
+    ChatbotComponent // 👈 AGREGAR CHATBOT AQUÍ
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
