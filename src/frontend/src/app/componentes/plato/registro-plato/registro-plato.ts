@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Plato } from '../Plato';
 import { PlatoServicio } from '../../../servicios/plato/plato-servicio';
 import { Router } from '@angular/router';
@@ -11,29 +11,33 @@ import { Categoria } from '../../categoria/Categoria';
 
 @Component({
   selector: 'app-registro-plato',
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './registro-plato.html',
   styleUrl: './registro-plato.css',
 })
 export class RegistroPlato {
-  plato: Plato=new Plato();
-  categorias: Categoria[]=[];
+  plato: Plato = new Plato();
+  categorias: Categoria[] = [];
 
-  constructor(private platoServicio: PlatoServicio, private categoriaServicio: CategoriaServicio, private router:Router){}
+  constructor(private cd: ChangeDetectorRef, private platoServicio: PlatoServicio, private categoriaServicio: CategoriaServicio, private router: Router) { }
 
-  ngOnInit(): void{
-    this.categoriaServicio.obtenerListaDeCategorias().subscribe(dato=>{
-      this.categorias=dato;
+  platoCate: any = {
+    categoria: null
+  }
+  ngOnInit(): void {
+    this.categoriaServicio.obtenerListaDeCategorias().subscribe(dato => {
+      this.categorias = dato;
+      this.cd.detectChanges();
     });
   }
 
-  guardarPlato(){
+  guardarPlato() {
     this.platoServicio.registrarPlato(this.plato).pipe(
-      tap(dato=>{
+      tap(dato => {
         console.log(dato);
         this.IrALaListaDePlatos();
       }),
-      catchError(err=>{
+      catchError(err => {
         console.log("ERROR COMPLETO:", err);
         console.log("STATUS:", err.status);
         console.log("BODY:", err.error);
@@ -42,12 +46,12 @@ export class RegistroPlato {
     ).subscribe()
   }
 
-  IrALaListaDePlatos(){
+  IrALaListaDePlatos() {
     this.router.navigate(['/pruebas']);
-    Swal.fire('Plato registrado',`El plato ${this.plato.nombre} ha sido registrado correctamente`,'success');
+    Swal.fire('Plato registrado', `El plato ${this.plato.nombre} ha sido registrado correctamente`, 'success');
   }
 
-  onSubmit(){
+  onSubmit() {
     this.guardarPlato();
   }
 }

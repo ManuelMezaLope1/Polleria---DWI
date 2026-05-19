@@ -1,0 +1,133 @@
+<div class="container">
+    <div>
+        <div class="row">
+            <div class="col-6">
+                <h1>Listado de Categorías</h1>
+            </div>
+
+            <div class="col-2"></div>
+            <div class="col-2"></div>
+
+            <div class="col-2 btn btn-sm-3 d-flex justify-content-end">
+                <button (click)="volverDashboard()" class="btn btn-primary">Dashboard</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-3">
+                <button (click)="registrarCategoria()" class="btn btn-primary btm-sm-3">Agregar categoría</button>
+            </div>
+        </div>
+        <br>
+        <table class="table text-center table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center" scope="col">Nombre</th>
+                    <th class="text-center" scope="col">Plato</th>
+                    <th class="text-center" scope="col">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let cate of categorias$ | async">
+                    <td class="align-middle text-center">{{cate.nombre}}</td>
+                    <td class="align-middle text-center">
+                        <div *ngFor="let plato of cate.plato">
+                            {{ plato.nombre }}
+                        </div>
+                    </td>
+                    <td class="align-middle text-center">
+                        <button (click)="actualizarCategoria(cate.id)" class="btn btn-info">Editar</button>
+                        <button (click)="eliminarCategoria(cate.id)" class="btn btn-danger"
+                            style="margin-left : 10px;">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <hr><br>
+    <div>
+        <div class="row">
+            <h1>Listado de Platos</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-log-3">
+                <button (click)="registrarPlato()" class="btn btn-primary btm-sm-3">Agregar Plato</button>
+            </div>
+        </div>
+        <br>
+        <table class="table table-container text-center table-striped table-bordered table-hover responsive">
+            <thead>
+                <tr>
+                    <th class="text-center" scope="col">Nombre</th>
+                    <th class="text-center" scope="col">Categoría</th>
+                    <th class="text-center" scope="col">Descripcion</th>
+                    <th class="text-center" scope="col">Precio</th>
+                    <th class="text-center" scope="col">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let pla of platos$ | async">
+                    <td class="text-center">{{pla.nombre}}</td>
+                    <td class="text-center">
+                        <div>
+                            {{ pla.categoria?.nombre }}
+                        </div>
+                    </td>
+                    <td class="text-center">{{pla.descripcion}}</td>
+                    <td class="text-center">{{pla.precio}}</td>
+                    <td class="text-center">
+                        <button (click)="actualizarPlato(pla.id)" class="btn btn-info">Editar</button>
+                        <button (click)="eliminarPlato(pla.id)" class="btn btn-danger"
+                            style="margin-left : 10px;">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <hr><br>
+    <div>
+        <div class="row">
+            <div class="col-6">
+                <h1>Listado de Ofertas</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-log-3">
+                <button (click)="registrarOferta()" class="btn btn-primary btn-sm-3">Agregar ofertas</button>
+            </div>
+        </div>
+        <br>
+        <table class="table table-container text-center table-striped table-bordered table-hover text-center">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio Actual</th>
+                    <th scope="col">Precio Nuevo</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let ofe of ofertas$ | async">
+                    <td>{{ofe.nombre}}</td>
+                    <td>{{ofe.descripcion}}</td>
+                    <td>{{ofe.cantidad}}</td>
+                    <td>{{ofe.precio_actual}}</td>
+                    <td>{{ofe.precio_nuevo}}</td>
+                    <td>
+                        <button (click)="actualizarOferta()" class="btn btn-info">Actualizar</button>
+                        <button (click)="eliminarOferta(ofe.id)" class="btn btn-danger" style="margin-left: 10px;">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

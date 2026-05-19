@@ -1,0 +1,3 @@
+.dark :host ::ng-deep .table {
+  color: white !important;
+}

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Categoria } from '../Categoria';
 import { CategoriaServicio } from '../../../servicios/categoria/categoria-servicio';
@@ -15,37 +15,38 @@ import Swal from 'sweetalert2';
 })
 
 export class ActualizacionCategoria {
-  id:number;
-  categoria: Categoria=new Categoria();
+  id: number;
+  categoria: Categoria = new Categoria();
 
-  constructor(private categoriaServicio: CategoriaServicio, private router: Router, private route: ActivatedRoute){};
+  constructor(private cd: ChangeDetectorRef, private categoriaServicio: CategoriaServicio, private router: Router, private route: ActivatedRoute) { };
 
-  ngOnInit(): void{
-    this.id=this.route.snapshot.params['id'];
+  ngOnInit(): void {
+    this.id = this.route.snapshot.params['id'];
 
     this.categoriaServicio.obtenerCategoriaPorId(this.id).pipe(
-      tap(dato=>{
-        Object.assign(this.categoria, dato);
+      tap(dato => {
+        this.categoria = dato;
+        this.cd.detectChanges();
       }),
-      catchError(error=>{
+      catchError(error => {
         console.error(error);
         return of(null);
       })
     ).subscribe()
   }
 
-  irALaListaDeCategorias(){
-    this.router.navigate(['/categorias']);
-    Swal.fire('Categoria actualizada', `La categoria ${this.categoria.nombre} ha sido actualizada con éxito`,'success');
+  irALaListaDeCategorias() {
+    this.router.navigate(['/pruebas']);
+    Swal.fire('Categoria actualizada', `La categoria ${this.categoria.nombre} ha sido actualizada con éxito`, 'success');
   }
 
-  onSubmit(): void{
-    if(this.categoria){
+  onSubmit(): void {
+    if (this.categoria) {
       this.categoriaServicio.actualizarCategoria(this.id, this.categoria).pipe(
-        tap(dato=>{
+        tap(dato => {
           this.irALaListaDeCategorias();
         }),
-        catchError(error=>{
+        catchError(error => {
           console.error("Error al actualizar la categoria: ", error);
           return of(null);
         })

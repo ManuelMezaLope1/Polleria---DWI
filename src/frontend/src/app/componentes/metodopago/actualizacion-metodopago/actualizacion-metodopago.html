@@ -1,0 +1,14 @@
+<div class="col-md-6 offset-md-3">
+    <h3 class="text-center">Edición de Métodos de Pagos</h3>
+
+    <form (ngSubmit)="onSubmit()" #metodoPagoForm="ngForm">
+
+        <div class="form-group">
+            <label for="nombre">Nombre: </label>
+            <input type="text" class="form-control" [(ngModel)]="metodopago.nombre" name="nombre">
+        </div>
+
+        <button class="btn btn-success">Guardar</button>
+
+    </form>
+</div>

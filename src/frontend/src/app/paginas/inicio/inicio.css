@@ -168,7 +168,6 @@
 /* Botones blancos con sombra elegante */
 .btn-pedido, .btn-menu {
   background: #ffffff;
-  color: var(--naranja-principal);
   padding: 16px 38px;
   font-size: 1.2rem;
   font-weight: 700;
@@ -258,6 +257,7 @@
   padding: 100px 20px;
   background: rgba(255, 240, 224, 0.4);
   backdrop-filter: blur(2px);
+  border-radius: 20px;
 }
 
 .pilares-section h2 {
@@ -293,6 +293,7 @@
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border: 1px solid rgba(255,107,53,0.1);
   backdrop-filter: blur(10px);
+  border-radius: 20px;
 }
 
 .pilar-card:hover {
@@ -329,7 +330,6 @@
    ============================================ */
 .ofertas-section {
   padding: 100px 20px;
-  background: transparent;
 }
 
 .ofertas-section h2 {
@@ -354,29 +354,23 @@
 }
 
 .oferta-card {
-  background: var(--blanco);
   border-radius: var(--border-radius);
   padding: 30px 25px;
   position: relative;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  border: 1px solid var(--gris-medio);
+  border: 2px solid var(--gris-medio);
   box-shadow: var(--sombra-pequena);
 }
 
 .oferta-card:hover {
+  border: 2px solid var(--naranja-principal);
   transform: translateY(-8px);
   box-shadow: var(--sombra-grande);
-  border-color: var(--naranja-principal);
-}
-
-.oferta-card.destacada {
-  border: 2px solid var(--naranja-principal);
-  transform: scale(1.02);
 }
 
 .etiqueta {
   position: absolute;
-  top: -12px;
+  top: +10px;
   left: 20px;
   background: linear-gradient(135deg, var(--naranja-principal), var(--naranja-oscuro));
   color: var(--blanco);
@@ -389,7 +383,7 @@
 
 .ahorro {
   position: absolute;
-  top: -12px;
+  top: +10px;
   right: 20px;
   background: #4caf50;
   color: var(--blanco);

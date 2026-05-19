@@ -1,36 +1,130 @@
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { ListaCategoria } from './componentes/categoria/lista-categoria/lista-categoria';
-import { Prueba } from './paginas/prueba/prueba';
+import { Prueba } from './paginas/admin/prueba/prueba';
 import { ActualizacionCategoria } from './componentes/categoria/actualizacion-categoria/actualizacion-categoria';
 import { RegistroCategoria } from './componentes/categoria/registro-categoria/registro-categoria';
 import { Inicio } from './paginas/inicio/inicio';
-import { RegistrarseComponent } from './componentes/usuario/registrarse/registrarse';
 import { IniciarSesionComponent } from './componentes/iniciar-sesion/iniciar-sesion';
 import { ActualizacionPlato } from './componentes/plato/actualizacion-plato/actualizacion-plato';
 import { RegistroPlato } from './componentes/plato/registro-plato/registro-plato';
-import { ActualizacionRol } from './componentes/rol/actualizacion-rol/actualizacion-rol';
-import { RegistroRol } from './componentes/rol/registro-rol/registro-rol';
-import { ActualizacionUsuario } from './componentes/usuario/actualizacion-usuario/actualizacion-usuario';
 import { Promocion } from './paginas/promocion/promocion';
 import { Contacto } from './paginas/contacto/contacto';
+import { AuthGuard } from './guards/auth-guard';
+import { Dashboard } from './paginas/admin/dashboard/dashboard';
+import { Pruebasexternas } from './paginas/admin/pruebasexternas/pruebasexternas';
+import { RegistroZona } from './componentes/zona/registro-zona/registro-zona';
+import { ActualizacionMetodopago } from './componentes/metodopago/actualizacion-metodopago/actualizacion-metodopago';
+import { RegistroMetodopago } from './componentes/metodopago/registro-metodopago/registro-metodopago';
+import { Cuenta } from './paginas/usuario/cuenta/cuenta';
+import { RegistroOferta } from './componentes/oferta/registro-oferta/registro-oferta';
+import { ActualizacionOferta } from './componentes/oferta/actualizacion-oferta/actualizacion-oferta';
+import { Carro } from './paginas/usuario/carro/carro';
 
 export const routes: Routes = [
-    {path: '', redirectTo:'inicio', pathMatch:'full'},
-    {path: 'inicio', component: Inicio},
-    {path: 'carta', component: ListaCategoria},
-    {path: 'pruebas', component: Prueba},
-    {path: 'promocion', component: Promocion},
-    {path: 'contacto', component: Contacto},
+    { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+    { path: 'inicio', component: Inicio },
+    { path: 'carta', component: ListaCategoria },
 
-    { path: 'actualizacion-categoria/:id', component: ActualizacionCategoria },
-    { path: 'actualizacion-plato/:id', component: ActualizacionPlato },
-    { path: 'actualizacion-rol/:id', component: ActualizacionRol },
-    { path: 'actualizacion-usuario/:id', component: ActualizacionUsuario },
+    {
+        path: 'cuenta',
+        component: Cuenta,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_USER', 'ROLE_ADMIN'] }
+    },
 
-    { path: 'creacion-categoria', component: RegistroCategoria },
-    { path: 'creacion-plato', component: RegistroPlato },
-    { path: 'creacion-rol', component: RegistroRol },
+    {
+        path: 'carro',
+        component: Carro,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_USER', 'ROLE_ADMIN']}
+    },
 
-    {path: 'iniciar-sesion', component: IniciarSesionComponent},
-    {path: 'registrarse', component: RegistrarseComponent}
+    {
+        path: 'pruebas',
+        component: Prueba,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN']}
+    },
+
+    {
+        path: 'pruebasexternas',
+        component: Pruebasexternas,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN']}
+    },
+
+    { path: 'promocion', component: Promocion },
+    { path: 'contacto', component: Contacto },
+    { 
+        path: 'dashboard', 
+        component: Dashboard ,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN']}
+    },
+
+    { 
+        path: 'actualizacion-categoria/:id', 
+        component: ActualizacionCategoria,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN']}
+    },
+    { 
+        path: 'actualizacion-plato/:id', 
+        component: ActualizacionPlato,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN']}
+    },
+
+    {
+        path: 'actualizacion-metodopago/:id',
+        component: ActualizacionMetodopago,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN']}
+    },
+
+    {
+        path: 'actualizacion-oferta/:id',
+        component: ActualizacionOferta,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN']}
+    },
+
+    { 
+        path: 'creacion-categoria', 
+        component: RegistroCategoria,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN']}
+    },
+    { 
+        path: 'creacion-plato', 
+        component: RegistroPlato,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN']}
+    },
+    { 
+        path: 'creacion-zona', 
+        component: RegistroZona,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN']}
+    },
+
+    {
+        path: 'creacion-metodopago',
+        component: RegistroMetodopago,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN']}
+    },
+
+    {
+        path: 'creacion-oferta',
+        component: RegistroOferta,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN']}
+    },
+
+    { path: 'iniciar-sesion', component: IniciarSesionComponent },
 ];
+
+RouterModule.forRoot(routes, {
+  scrollPositionRestoration: 'enabled'
+})

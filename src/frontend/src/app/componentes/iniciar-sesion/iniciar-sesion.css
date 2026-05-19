@@ -1,9 +1,12 @@
+.dark .auth-container{
+  background: linear-gradient(135deg, #fff5eb 0%, #ffe6cc 100%);
+}
+
 .auth-container {
   min-height: calc(100vh - 70px);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #fff5eb 0%, #ffe6cc 100%);
   padding: 2rem;
 }
 
@@ -60,7 +63,6 @@
 }
 
 .form-control {
-  padding: 12px 15px;
   border: 2px solid #e0e0e0;
   border-radius: 10px;
   font-size: 1rem;

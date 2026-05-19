@@ -1,6 +1,9 @@
+.dark .menu-container{
+  background: #fff7f0;
+}
+
 .menu-container {
   padding: 40px;
-  background: #fff7f0;
   min-height: 100vh;
   font-family: 'Segoe UI', sans-serif;
 }
@@ -90,19 +93,4 @@
   font-weight: bold;
   color: #ff5a00;
   font-size: 18px;
-}
-
-button {
-  background: #ff5a00;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  font-size: 18px;
-}
-
-button:hover {
-  background: #e14a00;
 }
