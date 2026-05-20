@@ -89,9 +89,73 @@
       </div>
 
       <div [ngClass]="active == 'historial' ? 'tab-pane fade show active' : 'tab-pane fade'">
-        <h1 class="text-center">Historial</h1>
+        <div class="container py-4">
+          <div class="ventas-header mb-4">
+            <h2>📋 Historial de Ventas</h2>
+            <p>Resumen de compras realizadas</p>
+          </div>
 
-        <p>Próximamente</p>
+          <div class="card" style="border: none;">
+            <div class="venta-card" *ngFor="let venta of ventas">
+              <div class="venta-top">
+                <div>
+                  <h4>Venta #{{venta.id}}</h4>
+                  <span class="fecha">{{venta.fecha}}</span>
+                </div>
+
+                <div class="estado">✔ Completado</div>
+              </div>
+
+              <div class="venta-body">
+                <div class="info-item">
+                  <span class="label">Usuario</span>
+                  <span class="value">{{venta.username}}</span>
+                </div>
+
+                <div class="info-item">
+                  <span class="label">Método de Pago</span>
+                  <div *ngIf="venta.metodopago.nombre==='Efectivo'">
+                    <span class="value" style="color: #0aa007;">{{venta.metodopago.nombre}}</span>  
+                  </div>
+
+                  <div *ngIf="venta.metodopago.nombre==='Yape'">
+                    <span class="value" style="color: #730dd3;">{{venta.metodopago.nombre}}</span>
+                  </div>
+
+                  <div *ngIf="venta.metodopago.nombre==='Plin'">
+                    <span class="value" style="color: #16A3A4;">{{venta.metodopago.nombre}}</span>
+                  </div>
+                </div>
+
+                <div class="info-item">
+                  <span class="label">Cantidad</span>
+                  <span class="value">{{venta.detalleVenta.cantidad}}</span>
+                </div>
+
+                <div class="info-item">
+                  <span class="label">Descripción</span>
+                  <span class="value descripcion">{{venta.detalleVenta.descripcion}}</span>
+                </div>
+              </div>
+
+              <div class="venta-footer">
+                <span class="total-text">Total Pagado</span>
+
+                <span class="total-precio">S/. {{venta.detalleVenta.total}}</span>
+              </div>
+            </div>
+
+            <div *ngIf="ventas.length===0">
+              <div class="card" style="width: 600px; height: 250px">
+                <div class="d-flex justify-content-center">
+                  <div style="margin-top: 100px;">
+                    <h4 style="color: #635555">Realice una compra primero</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

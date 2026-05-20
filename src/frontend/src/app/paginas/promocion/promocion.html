@@ -6,19 +6,33 @@
 <div class="container mt-5">
     <h2 class="titulo text-center mb-5 fw-bold text-uppercase">Nuestras Promociones</h2>
 
-    <div class="row g-4">
-        <div class="col-md-4" *ngFor="let ofe of ofertas$ | async">
-            <div class="card shadow-sm h-100 text-center">
-                <img src="../imagenes/promociones/promotueliges.png" class="card-img-top" alt="Promo"
-                    style="height: 220px; object-fit: cover;">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold text-danger">{{ofe.nombre}}</h5>
-                    <p class="card-text text-muted small">{{ofe.descripcion}}</p>
-                    <p class="precio-nuevo">Ahora a tan solo: S/. {{ofe.precio_nuevo}}</p>
-                    <div class="badge bg-danger fs-6 p-2 mb-3">{{getDescuento(ofe)}}% DCTO</div>
-                </div>
-                <div class="card-footer bg-transparent border-0 pb-3">
-                    <button class="btn btn-warning w-100 fw-bold">Pedir Ahora</button>
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="titulo-promos">🔥 Promociones Especiales</h2>
+
+            <p class="subtitulo-promos">Aprovecha nuestras mejores ofertas del día</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6" *ngFor="let ofe of ofertas$ | async">
+                <div class="promo-card h-100">
+                    <div class="descuento-badge">{{getDescuento(ofe)}}% OFF</div>
+
+                    <div class="img-container">
+                        <img src="../imagenes/promociones/promotueliges.png" class="promo-img" alt="Promo">
+                    </div>
+
+                    <div class="promo-body">
+                        <h4 class="promo-title">{{ofe.nombre}}</h4>
+                        <p class="promo-desc">{{ofe.descripcion}}</p>
+
+                        <div class="precio-box">
+                            <span class="precio-antiguo">S/. {{ofe.precio_actual}}</span>
+                            <span class="precio-nuevo">S/. {{ofe.precio_nuevo}}</span>
+                        </div>
+
+                        <button class="btn-pedir" (click)="realizarCompra(ofe.id)">🛒 Pedir Ahora</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -26,6 +26,7 @@ export class ActualizacionCategoria {
     this.categoriaServicio.obtenerCategoriaPorId(this.id).pipe(
       tap(dato => {
         this.categoria = dato;
+        console.log(this.categoria);
         this.cd.detectChanges();
       }),
       catchError(error => {

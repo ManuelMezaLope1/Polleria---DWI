@@ -4,16 +4,17 @@
 
     <div *ngFor="let cate of categorias$ | async">
         <br>
-        <h2 class="categoria">🔥 {{cate.nombre}}</h2>
-
-        <div class="menu-grid row">
+        <div class="alpha-header">
+            <h2 class="categoria">🔥 {{cate.nombre}}</h2>
+        </div>
+        
+        <div class="menu-grid">
             <div class="row">
-                <div class="col-md-4 mb-3" *ngFor="let plato of cate.plato">
+                <div class="col-md-4 mb-3" *ngFor="let plato of cate.plato?.sort((a,b) => a.nombre.localeCompare(b.nombre))">
                     <!-- CARD -->
                     <div class="card">
                         <div class="img-container">
-                            <img
-                                src="https://buenazo.cronosmedia.glr.pe/original/2023/07/10/64ac3243f4f7c015c440d901.jpg">
+                            <img [src]="plato.imagen" style="width: 50%; margin-left: 80px;">
                             <span class="tag">🔥 Más pedido</span>
                         </div>
 
@@ -23,6 +24,9 @@
 
                             <div class="bottom">
                                 <span class="precio">S/ {{plato.precio}}</span>
+                                <div *ngIf="cate.nombre!=='Cremas' && cate.nombre!=='Bebidas'">
+                                    <button class="btn btn-success" (click)="realizarCompra(plato.id)">Comprar</button>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -4,7 +4,7 @@
         <div class="form-group">
             <label>Nombre : </label>
             <input type="text" class="form-control" id="nombre" [(ngModel)]="plato.nombre" name="nombre" required
-                pattern="^[A-Z][a-zA-ZáéíóúÁÉÍÓÚÑñ\s]+$" minlength="4" maxlength="50" placeholder="Digite su nombre" #nombre="ngModel" />
+                minlength="4" maxlength="500" placeholder="Digite su nombre" #nombre="ngModel" />
             <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
                 <div *ngIf="nombre.errors?.['required']">
                     Digite su nombre por favor
@@ -13,10 +13,7 @@
                     El nombre tiene que contener como mínimo 4 caracteres
                 </div>
                 <div *ngIf="nombre.errors?.['maxlength']">
-                    El nombre tiene que tener como máximo 50 caracteres
-                </div>
-                <div *ngIf="nombre.errors?.['pattern']">
-                    El nombre debe tener sólamente letras.
+                    El nombre tiene que tener como máximo 500 caracteres
                 </div>
             </div>
         </div>
@@ -31,7 +28,7 @@
         <div class="form-group">
             <label>Descripcion : </label>
             <input type="text" class="form-control" id="descripcion" [(ngModel)]="plato.descripcion" name="descripcion" required
-                minlength="4" maxlength="80" placeholder="Digite su descripcion" #descripcion="ngModel" />
+                minlength="4" maxlength="500" placeholder="Digite su descripcion" #descripcion="ngModel" />
             <div class="alert alert-danger" *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
                 <div *ngIf="descripcion.errors?.['required']">
                     Digite su descripcion por favor
@@ -40,7 +37,7 @@
                     La descripcion tiene que contener como mínimo 4 caracteres
                 </div>
                 <div *ngIf="descripcion.errors?.['maxlength']">
-                    La descripcion tiene que tener como máximo 80 caracteres
+                    La descripcion tiene que tener como máximo 500 caracteres
                 </div>
             </div>
         </div>

@@ -1,32 +1,122 @@
 <style>
+  .contenedor-ofertas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    padding: 20px;
+  }
+
   .oferta-card {
-    border-radius: 20px;
-    padding: 30px 25px;
     position: relative;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 2px solid #ff0000;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    background: #ffffff;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: 0.3s ease;
+    border: 1px solid #f0f0f0;
   }
 
   .oferta-card:hover {
-    border: 2px solid #ff6b35;
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
   }
 
-  .btn-oferta {
-    width: 100%;
-    padding: 14px;
-    background: linear-gradient(135deg, #ff6b35, #000000);
-    color: var(--blanco);
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
+  /* CONTENIDO */
+  .contenido {
+    padding: 28px;
+  }
+
+  .oferta-card h3 {
+    font-size: 1.5rem;
     font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+
+  .oferta-card p {
+    color: #7f8c8d;
+    font-size: 0.95rem;
+    min-height: 50px;
+  }
+
+  .badge-top {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: linear-gradient(135deg, #ff9800, #ff5722);
+    color: white;
+    padding: 8px 14px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+  }
+
+  .badge-ahorro {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 8px 14px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+
+  .badge-ahorro.super {
+    background: linear-gradient(135deg, #00c853, #64dd17);
+    color: white;
+  }
+
+  .badge-ahorro.normal {
+    background: #ecfdf3;
+    color: #16a34a;
+  }
+
+  .precios {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+  }
+
+  .precio-antiguo {
+    text-decoration: line-through;
+    color: #b0b0b0;
     font-size: 1rem;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+  }
+
+  .precio-nuevo {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #27ae60;
+  }
+
+  .btn-comprar {
+    width: 100%;
+    border: none;
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    padding: 14px;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: 0.3s;
+  }
+
+  .btn-comprar:hover {
+    transform: scale(1.02);
+    opacity: 0.95;
+  }
+
+  @media(max-width: 768px) {
+    .contenedor-ofertas {
+      grid-template-columns: 1fr;
+      padding: 10px;
+    }
+
+    .contenido {
+      padding: 22px;
+    }
   }
 </style>
 <!-- Hero Section -->
@@ -35,7 +125,7 @@
   <div class="hero-content">
     <h1 class="titulo-principal">EL <span class="destacado">SAZÓN</span></h1>
     <p class="slogan">El auténtico sabor del pollo a la brasa</p>
-    <p class="descripcion">Disfruta de la mejor experiencia culinaria en El Fogoncito, donde el sabor se encuentra con
+    <p class="descripcion">Disfruta de la mejor experiencia culinaria en El Sazón, donde el sabor se encuentra con
       la tradición.</p>
     <div class="botones-hero">
       <button class="btn-pedido" (click)="hacerPedido()">📞 Hacer Pedido</button>
@@ -89,26 +179,23 @@
     <h2>Ofertas que Encienden tu Apetito</h2>
     <p class="subtitulo">¡No te pierdas nuestras promociones exclusivas! Sabor y ahorro en cada bocado.</p>
 
-    <div class="ofertas-grid">
+    <div class="contenedor-ofertas">
       <div class="oferta-card" *ngFor="let ofe of ofertas$ | async">
-        <div class="etiqueta">Más Pedido</div>
-        <div *ngIf="getAhorro(ofe)>=11">
-          <div class="ahorro">¡SuperAhorro!</div>
-        </div>
+        <div class="badge-top">🔥 Más Pedido</div>
 
-        <div *ngIf="getAhorro(ofe) <= 10">
-          <div class="ahorro">¡Ahorra hasta S/.{{getAhorro(ofe)}}!</div>
-        </div>
-        <h3>{{ofe.nombre}}</h3>
-        <p>{{ofe.descripcion}}</p>
-        <div class="precios">
-          <span class="precio-antiguo">
-            S/. {{ofe.precio_actual}}
-          </span>
+        <div class="badge-ahorro super" *ngIf="getAhorro(ofe) >= 11">¡SuperAhorro!</div>
 
-          <span class="precio-nuevo">
-            S/. {{ofe.precio_nuevo}}
-          </span>
+        <div class="badge-ahorro normal" *ngIf="getAhorro(ofe) <= 10">Ahorras S/.{{getAhorro(ofe)}}</div>
+
+        <div class="contenido">
+          <h3>{{ofe.nombre}}</h3>
+          <p>{{ofe.descripcion}}</p>
+          <div class="precios">
+            <span class="precio-antiguo">S/. {{ofe.precio_actual}}</span>
+            <span class="precio-nuevo">S/. {{ofe.precio_nuevo}}</span>
+          </div>
+
+          <button class="btn-comprar" (click)="realizarCompra(ofe.id)">Comprar Ahora</button>
         </div>
       </div>
     </div>

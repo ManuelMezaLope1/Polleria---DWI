@@ -3,6 +3,7 @@ import { OfertaServicio } from '../../servicios/oferta/oferta-servicio';
 import { Observable } from 'rxjs';
 import { Oferta } from '../../componentes/oferta/Oferta';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-promocion',
@@ -11,7 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './promocion.css',
 })
 export class Promocion {
-  constructor(private ofertaServicio: OfertaServicio) { }
+  constructor(private ofertaServicio: OfertaServicio, private router: Router) { }
 
   ofertas$!: Observable<Oferta[]>;
 
@@ -23,5 +24,9 @@ export class Promocion {
 
   ngOnInit(): void {
     this.ofertas$ = this.ofertaServicio.obtenerListaDeOfertas();
+  }
+
+  realizarCompra(id: number){
+    this.router.navigate(['carro/oferta',id]);
   }
 }

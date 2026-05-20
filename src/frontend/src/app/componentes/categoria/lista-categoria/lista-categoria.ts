@@ -4,7 +4,7 @@ import { Categoria } from '../Categoria';
 import { CategoriaServicio } from '../../../servicios/categoria/categoria-servicio';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-lista-categoria',
@@ -22,7 +22,14 @@ export class ListaCategoria implements OnInit{
 
   ngOnInit(): void{
     console.log('ENTRÓ AL COMPONENTE');
-    this.categorias$=this.categoriaServicio.obtenerListaDeCategorias();
+
+    this.categorias$ = this.categoriaServicio.obtenerListaDeCategorias().pipe(
+      map(categorias =>
+        categorias.sort((a, b) =>
+          a.nombre.localeCompare(b.nombre)
+        )
+      )
+    );
   }
 
   actualizarCategoria(id:number){
@@ -36,6 +43,10 @@ export class ListaCategoria implements OnInit{
       
     })
   }*/
+
+  realizarCompra(id: number){
+    this.router.navigate(['carro/plato',id]);
+  }
 
   eliminarCategoria(id: number) {
     Swal.fire({
