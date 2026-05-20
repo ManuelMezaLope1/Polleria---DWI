@@ -1,9 +1,12 @@
 package com.springboot.backend.tabla.plato.modelo;
 
+import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.springboot.backend.tabla.categoria.modelo.Categoria;
+import com.springboot.backend.tabla.ingrediente.modelo.Ingrediente;
 
 import jakarta.persistence.*;
 
@@ -20,7 +23,7 @@ public class Plato {
     @Column(name="precio", nullable = false)
     public double precio;
 
-    @Column(name="descripcion", nullable = false, length=60)
+    @Column(name="descripcion", nullable = false, length=500)
     public String descripcion;
 
     @ManyToOne
@@ -28,27 +31,34 @@ public class Plato {
     @JsonIgnoreProperties({"plato"})
     public Categoria categoria;
 
+    @Column(name="imagen", nullable = false)
+    private String imagen;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "platos", fetch = FetchType.EAGER)
+    private List<Ingrediente> ingredientes;
+
     public Plato(){
         
     }
 
-    public Plato(Long id, String nombre, Categoria categoria, double precio, String descripcion) {
+    public Plato(Long id, String nombre, double precio, String descripcion, Categoria categoria, String imagen, List<Ingrediente> ingredientes) {
         this.id = id;
         this.nombre = nombre;
+        this.precio = precio;
+        this.descripcion = descripcion;
         this.categoria = categoria;
-        this.precio=precio;
-        this.descripcion=descripcion;
+        this.imagen = imagen;
+        this.ingredientes = ingredientes;
     }
 
-    public Plato(String nombre, Categoria categoria, double precio, String descripcion) {
+    public Plato(String nombre, double precio, String descripcion, Categoria categoria, String imagen, List<Ingrediente> ingredientes) {
         this.nombre = nombre;
+        this.precio = precio;
+        this.descripcion = descripcion;
         this.categoria = categoria;
-        this.precio=precio;
-        this.descripcion=descripcion;
-    }
-
-    public Plato(Long id2, String nombre2, String categoria2, String descripcion2, double precio2) {
-        //TODO Auto-generated constructor stub
+        this.imagen = imagen;
+        this.ingredientes = ingredientes;
     }
 
     public Long getId() {
@@ -67,14 +77,6 @@ public class Plato {
         this.nombre = nombre;
     }
 
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
     public double getPrecio() {
         return precio;
     }
@@ -89,6 +91,30 @@ public class Plato {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public List<Ingrediente> getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(List<Ingrediente> ingredientes) {
+        this.ingredientes = ingredientes;
     }
 
     @Override

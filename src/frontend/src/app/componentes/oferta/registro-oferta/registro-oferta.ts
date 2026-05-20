@@ -77,11 +77,11 @@ export class RegistroOferta {
       .reduce((precio_actual, p) => precio_actual + Number(p.precio), 0);
   }
 
-  generarSelects() {  
+  generarSelects() {
     const cantidad = Number(this.oferta.cantidad) || 0;
 
-  this.platosSeleccionados = Array.from({ length: cantidad }, () => null);
+    this.platosSeleccionados = Array.from({ length: cantidad }, () => null);
 
-  this.actualizarDescripcion();
+    this.actualizarDescripcion();
   }
 }

@@ -19,11 +19,10 @@ export class RegistroPlato {
   plato: Plato = new Plato();
   categorias: Categoria[] = [];
 
-  constructor(private cd: ChangeDetectorRef, private platoServicio: PlatoServicio, private categoriaServicio: CategoriaServicio, private router: Router) { }
-
-  platoCate: any = {
-    categoria: null
+  constructor(private cd: ChangeDetectorRef, private platoServicio: PlatoServicio, private categoriaServicio: CategoriaServicio, private router: Router) {
+    this.plato.categoria = null;
   }
+
   ngOnInit(): void {
     this.categoriaServicio.obtenerListaDeCategorias().subscribe(dato => {
       this.categorias = dato;
@@ -31,8 +30,28 @@ export class RegistroPlato {
     });
   }
 
-  guardarPlato() {
-    this.platoServicio.registrarPlato(this.plato).pipe(
+  IrALaListaDePlatos() {
+    this.router.navigate(['/pruebas']);
+    Swal.fire('Plato registrado', `El plato ${this.plato.nombre} ha sido registrado correctamente`, 'success');
+  }
+
+  onSubmit() {
+    const formData=new FormData();
+
+    formData.append(
+      'plato',
+      new Blob(
+        [JSON.stringify(this.plato)],
+        { type: 'application/json' }
+      )
+    );
+
+    formData.append(
+      'imagen',
+      this.imagenSeleccionada
+    )
+
+    this.platoServicio.registrarPlato(formData).pipe(
       tap(dato => {
         console.log(dato);
         this.IrALaListaDePlatos();
@@ -46,12 +65,18 @@ export class RegistroPlato {
     ).subscribe()
   }
 
-  IrALaListaDePlatos() {
-    this.router.navigate(['/pruebas']);
-    Swal.fire('Plato registrado', `El plato ${this.plato.nombre} ha sido registrado correctamente`, 'success');
-  }
+  imagenSeleccionada!: File;
+  imagenPreview: any;
 
-  onSubmit() {
-    this.guardarPlato();
+  seleccionarImagen(event: any): void {
+    this.imagenSeleccionada = event.target.files[0];
+    if (this.imagenSeleccionada) {
+      const reader = new FileReader();
+      reader.readAsDataURL(this.imagenSeleccionada);
+      reader.onload = () => {
+        this.imagenPreview = reader.result;
+        this.cd.detectChanges();
+      }; 
+    }
   }
 }

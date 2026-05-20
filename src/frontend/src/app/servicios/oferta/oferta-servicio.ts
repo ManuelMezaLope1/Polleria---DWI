@@ -24,7 +24,7 @@ export class OfertaServicio {
   }
 
   obtenerOfertaPorId(id:number): Observable<Oferta>{
-    return this.HttpClient.get<Oferta>(`${this.baseUrl}`);
+    return this.HttpClient.get<Oferta>(`${this.baseUrl}/${id}`);
   }
 
   eliminarOferta(id:number): Observable<Object>{

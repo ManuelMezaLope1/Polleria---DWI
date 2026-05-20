@@ -1,4 +1,4 @@
-.dark .menu-container{
+.dark .menu-container {
   background: #fff7f0;
 }
 
@@ -6,6 +6,15 @@
   padding: 40px;
   min-height: 100vh;
   font-family: 'Segoe UI', sans-serif;
+}
+
+.alpha-header {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  color: white;
+  padding: 5px;
+  z-index: 1000;
 }
 
 .titulo {
@@ -24,14 +33,13 @@
 .menu-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
 }
 
 .card {
   background: white;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   transition: 0.3s;
 }
 

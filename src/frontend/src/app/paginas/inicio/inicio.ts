@@ -63,4 +63,8 @@ export class Inicio implements AfterViewInit {
       }
     }
   }
+
+  realizarCompra(id: number){
+    this.router.navigate(['carro/oferta',id]);
+  }
 }

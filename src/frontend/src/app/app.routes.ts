@@ -19,6 +19,9 @@ import { Cuenta } from './paginas/usuario/cuenta/cuenta';
 import { RegistroOferta } from './componentes/oferta/registro-oferta/registro-oferta';
 import { ActualizacionOferta } from './componentes/oferta/actualizacion-oferta/actualizacion-oferta';
 import { Carro } from './paginas/usuario/carro/carro';
+import { Mensaje } from './paginas/admin/mensaje/mensaje';
+import { RegistroIngrediente } from './componentes/ingrediente/registro-ingrediente/registro-ingrediente';
+import { ActualizacionIngrediente } from './componentes/ingrediente/actualizacion-ingrediente/actualizacion-ingrediente';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -33,7 +36,7 @@ export const routes: Routes = [
     },
 
     {
-        path: 'carro',
+        path: 'carro/:tipo/:id',
         component: Carro,
         canActivate: [AuthGuard],
         data: { roles: ['ROLE_USER', 'ROLE_ADMIN']}
@@ -49,6 +52,13 @@ export const routes: Routes = [
     {
         path: 'pruebasexternas',
         component: Pruebasexternas,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN']}
+    },
+
+    {
+        path: 'mensajes',
+        component: Mensaje,
         canActivate: [AuthGuard],
         data: { roles: ['ROLE_ADMIN']}
     },
@@ -89,6 +99,13 @@ export const routes: Routes = [
         data: { roles: ['ROLE_ADMIN']}
     },
 
+    {
+        path: 'actualizacion-ingrediente/:id',
+        component: ActualizacionIngrediente,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN'] }
+    },
+
     { 
         path: 'creacion-categoria', 
         component: RegistroCategoria,
@@ -120,6 +137,13 @@ export const routes: Routes = [
         component: RegistroOferta,
         canActivate: [AuthGuard],
         data: { roles: ['ROLE_ADMIN']}
+    },
+
+    {
+        path: 'creacion-ingrediente',
+        component: RegistroIngrediente,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN'] }
     },
 
     { path: 'iniciar-sesion', component: IniciarSesionComponent },

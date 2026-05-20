@@ -1,7 +1,6 @@
 <section class="contacto">
   <h2 class="titulo">Contáctanos</h2>
-<link rel="stylesheet" href="contacto.css">
- 
+
   <div class="contacto-info">
     <div class="info-card">
       <h3>📍 Ubicación</h3>
@@ -25,29 +24,41 @@
   </div>
 
   <div class="contacto-form">
-    <form action="https://formsubmit.co/cm4995907@gmail.com" method="POST">
-
+    <form (ngSubmit)="onSubmit()" #mensajeForm="ngForm">
       <div class="input-group">
-        <input type="text" name="nombre" required>
+        <input type="text" name="nombre" id="nombre" [(ngModel)]="mensaje.nombre" #nombre="ngModel" required>
         <label>Nombre</label>
+        <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+          <div *ngIf="nombre.errors?.['required']">
+            Digite su nombre por favor
+          </div>
+        </div>
       </div>
 
       <div class="input-group">
-        <input type="email" name="email" required>
+        <input type="email" name="correo" id="correo" [(ngModel)]="mensaje.correo" #correo="ngModel" pattern="^[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@gmail\.com$" required>
         <label>Correo</label>
+        <div class="alert alert-danger" *ngIf="correo.invalid && (correo.dirty || correo.touched)">
+          <div *ngIf="correo.errors?.['required']">
+            Digite su correo por favor
+          </div>
+          <div *ngIf="correo.errors?.['pattern']">
+            Digite correctamente el correo. Por ejemplo, ejemplo@gmail.com
+          </div>
+        </div>
       </div>
 
       <div class="input-group">
-        <textarea name="mensaje" rows="5" required></textarea>
+        <textarea name="descripcion" rows="5" id="descripcion" [(ngModel)]="mensaje.descripcion" #descripcion="ngModel" required></textarea>
         <label>Mensaje</label>
+        <div class="alert alert-danger" *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
+          <div *ngIf="descripcion.errors?.['required']">
+            Digite el mensaje
+          </div>
+        </div>
       </div>
 
-      <button type="submit">Enviar mensaje</button>
-
-      
-      <input type="hidden" name="_next" value="gracias.html">
-      <input type="hidden" name="_captcha" value="false">
-
+      <button type="submit" [disabled]="!mensajeForm.form.valid">Enviar mensaje</button>
     </form>
   </div>
 </section>

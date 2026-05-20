@@ -28,6 +28,7 @@ export class ActualizacionPlato {
     this.platoServicio.obtenerPlatoPorId(this.id).pipe(
       tap(dato => {
         Object.assign(this.plato, dato);
+        console.log(this.plato);
         this.cd.detectChanges();
       }),
       catchError(error => {
@@ -38,6 +39,7 @@ export class ActualizacionPlato {
 
     this.categoriaServicio.obtenerListaDeCategorias().subscribe(dato => {
       this.categorias = dato;
+      this.cd.detectChanges();
     });
 
 

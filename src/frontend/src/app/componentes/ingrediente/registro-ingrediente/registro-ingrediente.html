@@ -1,0 +1,33 @@
+<div class="col-md-6 offset-md-3">
+    <h3 class="text-center">Registro de Platos</h3>
+    <form (ngSubmit)="onSubmit()" #platoForm="ngForm">
+        <div class="form-group">
+            <label>Nombre : </label>
+            <input type="text" class="form-control" id="nombre" [(ngModel)]="ingrediente.nombre" name="nombre" required
+                minlength="4" maxlength="60" placeholder="Digite su nombre" #nombre="ngModel" />
+            <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                <div *ngIf="nombre.errors?.['required']">
+                    Digite su nombre por favor
+                </div>
+                <div *ngIf="nombre.errors?.['minlength']">
+                    El nombre tiene que contener como mínimo 4 caracteres
+                </div>
+                <div *ngIf="nombre.errors?.['maxlength']">
+                    El nombre tiene que tener como máximo 60 caracteres
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Categoría: </label>
+            <select class="form-control" name="plato" id="plato" [(ngModel)]="ingrediente.platos"
+                #categoria="ngModel" required>
+                <option [ngValue]="null">--Seleccione un plato--</option>
+                <option *ngFor="let pla of platos.sort((a,b) => a.nombre.localeCompare(b.nombre))" [ngValue]="pla">{{pla.nombre}}</option>
+            </select>
+        </div>
+        <br>
+        <button class="btn btn-success" [disabled]="!platoForm.form.valid">Guardar</button>
+    </form>
+    <br>
+</div>

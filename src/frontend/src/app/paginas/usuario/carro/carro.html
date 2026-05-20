@@ -1,1 +1,605 @@
-<p>carro works!</p>
+<div class="container py-5">
+    <div class="titulo-compra mb-4">
+        <h2>🛒 Compra</h2>
+        <p>Agrega y administra los productos seleccionados</p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <div class="card compra-card shadow-sm border-0">
+                <div class="card-header bg-white border-0 pt-4">
+                    <h4 class="mb-0 text-center fw-bold">Producto/s</h4>
+                </div>
+
+                <div class="card-body">
+                    <form class="form">
+                        <div class="producto-box mb-4">
+                            <div class="row g-3 align-items-center">
+                                <ng-container *ngIf="oferta || plato">
+                                    <div class="col-md-8">
+                                        <label class="form-label">Nombre</label>
+                                        <input type="text" class="form-control"
+                                            [value]="oferta?.nombre || plato?.nombre" readonly>
+
+                                        <label class="form-label mt-3">Descripción</label>
+                                        <input type="text" class="form-control"
+                                            [value]="oferta?.descripcion || plato?.descripcion" readonly>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class="form-label">Cantidad</label>
+                                        <input type="text" class="form-control text-center"
+                                            [value]="oferta?.cantidad || 1" readonly>
+
+                                        <label class="form-label mt-3">Precio</label>
+                                        <input type="text" class="form-control text-center"
+                                            [value]="oferta?.precio_nuevo || plato.precio" readonly>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+
+                        <div class="producto-agregado" *ngFor="let item of platosAgregados; let i = index">
+                            <div class="row g-3 align-items-center">
+                                <div class="col-md-8">
+                                    <label class="form-label">Producto</label>
+                                    <input type="text" class="form-control" [(ngModel)]="item.nombre"
+                                        [name]="'plato' + i" readonly>
+
+                                    <label class="form-label mt-3">Descripción</label>
+                                    <input type="text" class="form-control" [(ngModel)]="item.descripcion"
+                                        [name]="'plato1' + i" readonly>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="form-label">Cantidad</label>
+                                    <input type="text" class="form-control text-center" [(ngModel)]="item.cantidad"
+                                        [name]="'plato3+i'" readonly>
+
+                                    <label class="form-label mt-3">Precio</label>
+                                    <input type="text" class="form-control text-center" [(ngModel)]="item.precio"
+                                        [name]="'plato2' + i" readonly>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <button class="btn btn-success w-100" (click)="restarProducto(i)">-</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="producto-agregado" *ngFor="let item of bebidasAgregadas; let j = index">
+                            <div class="row g-3 align-items-center">
+                                <div class="col-md-8">
+                                    <label class="form-label">Producto</label>
+                                    <input type="text" class="form-control" [value]="item.nombre" [name]="'bebida' + j"
+                                        readonly>
+
+                                    <label class="form-label mt-3">Descripción</label>
+                                    <input type="text" class="form-control" [value]="item.descripcion"
+                                        [name]="'bebida1' + j" readonly>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="form-label">Cantidad</label>
+                                    <input type="text" class="form-control text-center" [value]="item.cantidad"
+                                        [name]="'bebida2 + j'" readonly>
+
+                                    <label class="form-label mt-3">Precio</label>
+                                    <input type="text" class="form-control text-center" [value]="item.precio"
+                                        [name]="'bebida3' + j" readonly>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <button class="btn btn-success w-100" (click)="restarBebida(j)">-</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="producto-agregado" *ngFor="let item of broastersAgregados; let k = index">
+                            <div class="row g-3 align-items-center">
+                                <div class="col-md-8">
+                                    <label class="form-label">Producto</label>
+                                    <input type="text" class="form-control" [value]="item.nombre"
+                                        [name]="'broaster' + k" readonly>
+
+                                    <label class="form-label mt-3">Descripción</label>
+                                    <input type="text" class="form-control" [value]="item.descripcion"
+                                        [name]="'broaster1' + k" readonly>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="form-label">Cantidad</label>
+                                    <input type="text" class="form-control text-center" [value]="item.cantidad"
+                                        [name]="'broaster2 + k'" readonly>
+
+                                    <label class="form-label mt-3">Precio</label>
+                                    <input type="text" class="form-control text-center" [value]="item.precio"
+                                        [name]="'broaster3' + k" readonly>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <button class="btn btn-success w-100" (click)="restarBroaster(k)">-</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="producto-agregado" *ngFor="let item of cremaAgregada; let l = index">
+                            <div class="row g-3 align-items-center">
+                                <div class="col-md-8">
+                                    <label class="form-label">Producto</label>
+                                    <input type="text" class="form-control" [value]="item.nombre" [name]="'crema' + l"
+                                        readonly>
+
+                                    <label class="form-label mt-3">Descripción</label>
+                                    <input type="text" class="form-control" [value]="item.descripcion"
+                                        [name]="'crema1' + l" readonly>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="form-label">Cantidad</label>
+                                    <input type="text" class="form-control text-center" [value]="item.cantidad"
+                                        [name]="'crema2 + l'" readonly>
+
+                                    <label class="form-label mt-3">Precio</label>
+                                    <input type="text" class="form-control text-center" [value]="item.precio"
+                                        [name]="'crema3' + l" readonly>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <button class="btn btn-success w-100" (click)="restarCrema(l)">-</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="producto-agregado" *ngFor="let item of ensaladaAgregada; let m = index">
+                            <div class="row g-3 align-items-center">
+                                <div class="col-md-8">
+                                    <label class="form-label">Producto</label>
+                                    <input type="text" class="form-control" [value]="item.nombre"
+                                        [name]="'ensalada' + m" readonly>
+
+                                    <label class="form-label mt-3">Descripción</label>
+                                    <input type="text" class="form-control" [value]="item.descripcion"
+                                        [name]="'ensalada1' + m" readonly>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="form-label">Cantidad</label>
+                                    <input type="text" class="form-control text-center" [value]="item.cantidad"
+                                        [name]="'ensalada2 + m'" readonly>
+
+                                    <label class="form-label mt-3">Precio</label>
+                                    <input type="text" class="form-control text-center" [value]="item.precio"
+                                        [name]="'ensalada3' + m" readonly>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <button class="btn btn-success w-100" (click)="restarEnsalada(m)">-</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="producto-agregado" *ngFor="let item of guarnicionAgregada; let n = index">
+                            <div class="row g-3 align-items-center">
+                                <div class="col-md-8">
+                                    <label class="form-label">Producto</label>
+                                    <input type="text" class="form-control" [value]="item.nombre"
+                                        [name]="'guarnicion' + n" readonly>
+
+                                    <label class="form-label mt-3">Descripción</label>
+                                    <input type="text" class="form-control" [value]="item.descripcion"
+                                        [name]="'guarnicion1' + n" readonly>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="form-label">Cantidad</label>
+                                    <input type="text" class="form-control text-center" [value]="item.cantidad"
+                                        [name]="'guarnicion2 + n'" readonly>
+
+                                    <label class="form-label mt-3">Precio</label>
+                                    <input type="text" class="form-control text-center" [value]="item.precio"
+                                        [name]="'guarnicion3' + n" readonly>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <button class="btn btn-success w-100" (click)="restarGuarnicion(n)">-</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="producto-agregado" *ngFor="let item of hamburguesaAgregada; let o = index">
+                            <div class="row g-3 align-items-center">
+                                <div class="col-md-8">
+                                    <label class="form-label">Producto</label>
+                                    <input type="text" class="form-control" [value]="item.nombre"
+                                        [name]="'hamburguesa' + o" readonly>
+
+                                    <label class="form-label mt-3">Descripción</label>
+                                    <input type="text" class="form-control" [value]="item.descripcion"
+                                        [name]="'hamburguesa1' + o" readonly>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="form-label">Cantidad</label>
+                                    <input type="text" class="form-control text-center" [value]="item.cantidad"
+                                        [name]="'hamburguesa2 + o'" readonly>
+
+                                    <label class="form-label mt-3">Precio</label>
+                                    <input type="text" class="form-control text-center" [value]="item.precio"
+                                        [name]="'hamburguesa3' + o" readonly>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <button class="btn btn-success w-100" (click)="restarHamburguesa(o)">-</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="producto-agregado" *ngFor="let item of parrillaAgregada; let p = index">
+                            <div class="row g-3 align-items-center">
+                                <div class="col-md-8">
+                                    <label class="form-label">Producto</label>
+                                    <input type="text" class="form-control" [value]="item.nombre"
+                                        [name]="'parrilla' + p" readonly>
+
+                                    <label class="form-label mt-3">Descripción</label>
+                                    <input type="text" class="form-control" [value]="item.descripcion"
+                                        [name]="'parrila1' + p" readonly>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="form-label">Cantidad</label>
+                                    <input type="text" class="form-control text-center" [value]="item.cantidad"
+                                        [name]="'parrilla2 + p'" readonly>
+
+                                    <label class="form-label mt-3">Precio</label>
+                                    <input type="text" class="form-control text-center" [value]="item.precio"
+                                        [name]="'parrilla3' + p" readonly>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <button class="btn btn-success w-100" (click)="restarParrilla(p)">-</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="producto-agregado" *ngFor="let item of postreAgregado; let q = index">
+                            <div class="row g-3 align-items-center">
+                                <div class="col-md-8">
+                                    <label class="form-label">Producto</label>
+                                    <input type="text" class="form-control" [value]="item.nombre" [name]="'postre' + q"
+                                        readonly>
+
+                                    <label class="form-label mt-3">Descripción</label>
+                                    <input type="text" class="form-control" [value]="item.descripcion"
+                                        [name]="'postre1' + q" readonly>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="form-label">Cantidad</label>
+                                    <input type="text" class="form-control text-center" [value]="item.cantidad"
+                                        [name]="'postre2 + q'" readonly>
+
+                                    <label class="form-label mt-3">Precio</label>
+                                    <input type="text" class="form-control text-center" [value]="item.precio"
+                                        [name]="'postre3' + q" readonly>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <button class="btn btn-success w-100" (click)="restarPostre(q)">-</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card shadow-sm border-0 compra-card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+
+                        </div>
+                        <h4 class="text-center fw-bold mb-4">Añadir más</h4>
+
+                        <div class="col">
+                            <button class="btn btn-secondary" (click)="limpiarSeleccion()">Limpiar</button>
+                        </div>
+                    </div>
+
+                    <label class="form-label">Selecciona una bebida</label>
+                    <select class="form-control" name="plato" id="plato" [(ngModel)]="bebidaSeleccionada">
+                        <option [ngValue]="null">--Seleccione una bebida--</option>
+                        <ng-container *ngFor="let cate of categorias$ | async">
+                            <ng-container *ngIf="cate.nombre.startsWith('Bebidas')">
+                                <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                            </ng-container>
+                        </ng-container>
+                    </select>
+                    <br>
+                    <label class="form-label">Seleccione las cremas</label>
+                    <select name="plato" id="plato" class="form-control" [(ngModel)]="cremaSeleccionada">
+                        <option [ngValue]="null">--Seleccione crema--</option>
+                        <ng-container *ngFor="let cate of categorias$ | async">
+                            <ng-container *ngIf="cate.nombre.startsWith('Cremas')">
+                                <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                            </ng-container>
+                        </ng-container>
+                    </select>
+                    <br>
+                    <label class="form-label">Selecciona otro plato</label>
+                    <select class="form-control" name="plato" id="plato" [(ngModel)]="platoSeleccionado">
+                        <option [ngValue]="null">--Seleccione brasa--</option>
+                        <ng-container *ngFor="let cate of categorias$ | async">
+                            <ng-container *ngIf="cate.nombre.startsWith('Brasas')">
+                                <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                            </ng-container>
+                        </ng-container>
+                    </select>
+                    <br>
+                    <select name="plato" id="plato" class="form-control" [(ngModel)]="broasterSeleccionado">
+                        <option [ngValue]="null">--Seleccione broaster--</option>
+                        <ng-container *ngFor="let cate of categorias$ | async">
+                            <ng-container *ngIf="cate.nombre.startsWith('Broasters')">
+                                <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                            </ng-container>
+                        </ng-container>
+                    </select>
+                    <br>
+                    <select name="plato" id="plato" class="form-control" [(ngModel)]="ensaladaSeleccionada">
+                        <option [ngValue]="null">--Seleccione ensalada--</option>
+                        <ng-container *ngFor="let cate of categorias$ | async">
+                            <ng-container *ngIf="cate.nombre.startsWith('Ensaladas')">
+                                <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                            </ng-container>
+                        </ng-container>
+                    </select>
+                    <br>
+                    <select name="plato" id="plato" class="form-control" [(ngModel)]="guarnicionSeleccionada">
+                        <option [ngValue]="null">--Seleccione guarnición--</option>
+                        <ng-container *ngFor="let cate of categorias$ | async">
+                            <ng-container *ngIf="cate.nombre.startsWith('Guarniciones')">
+                                <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                            </ng-container>
+                        </ng-container>
+                    </select>
+                    <br>
+                    <select name="plato" id="plato" class="form-control" [(ngModel)]="hamburguesaSeleccionada">
+                        <option [ngValue]="null">--Seleccione hamburguesa--</option>
+                        <ng-container *ngFor="let cate of categorias$ | async">
+                            <ng-container *ngIf="cate.nombre.startsWith('Hamburguesas')">
+                                <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                            </ng-container>
+                        </ng-container>
+                    </select>
+                    <br>
+                    <select name="plato" id="plato" class="form-control" [(ngModel)]="parrillaSeleccionada">
+                        <option [ngValue]="null">--Seleccione parrilla--</option>
+                        <ng-container *ngFor="let cate of categorias$ | async">
+                            <ng-container *ngIf="cate.nombre.startsWith('Parrillas')">
+                                <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                            </ng-container>
+                        </ng-container>
+                    </select>
+                    <br>
+                    <select name="plato" id="plato" class="form-control" [(ngModel)]="postreSeleccionado">
+                        <option [ngValue]="null">--Seleccione postre--</option>
+                        <ng-container *ngFor="let cate of categorias$ | async">
+                            <ng-container *ngIf="cate.nombre.startsWith('Postres')">
+                                <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                            </ng-container>
+                        </ng-container>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+
+    <p class="form-label">Seleccione el método de pago:</p>
+    <br>
+    <div class="row">
+        <div class="card col" style="width:200px; margin-left: 5px; border: none;" *ngFor="let met of metodopagos$ | async"
+            (click)="seleccionarItem(met)">
+            <div class="opcion align-middle" style="cursor: pointer; color: white">
+                <div *ngIf="met.nombre==='Yape'" style="background: #730dd3; border-radius: 20px;">
+                    <img src="yape.png" style="width:20%;">
+                    {{met.nombre}}
+                </div>
+
+                <div *ngIf="met.nombre==='Efectivo'" style="background: #0aa007; border-radius: 20px;">
+                    <img src="efectivo.png" style="width:20%">
+                    {{met.nombre}}
+                </div>
+
+                <div *ngIf="met.nombre==='Plin'" style="background: #16A3A4;">
+                    <img src="plin.png" style="width:20%; background: transparent;">
+                    {{met.nombre}}
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4" *ngIf="platoSeleccionado">
+            <div class="card producto-preview mt-4 border-0" style="height:65vh">
+                <div class="img-container">
+                    <img [src]="platoSeleccionado.imagen" style="width: 50%; margin-left: 80px;">
+                </div>
+
+                <div class="card-body">
+                    <h4 class="fw-bold">{{platoSeleccionado.nombre}}</h4>
+                    <p class="text-muted mb-2">{{platoSeleccionado.descripcion}}</p>
+                    <h5 class="precio">S/. {{platoSeleccionado.precio}}</h5>
+
+                    <button class="btn btn-success w-100 mt-3" (click)="agregarInput()">Agregar
+                        Producto</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4" *ngIf="bebidaSeleccionada">
+            <div class="card producto-preview mt-4 border-0" style="height:65vh">
+                <div class="img-container">
+                    <img [src]="bebidaSeleccionada.imagen" style="width: 50%; margin-left: 80px;">
+                </div>
+
+                <div class="card-body">
+                    <h4 class="fw-bold">{{bebidaSeleccionada.nombre}}</h4>
+                    <p class="text-muted mb-2">{{bebidaSeleccionada.descripcion}}</p>
+                    <br>
+                    <h5 class="precio">S/. {{bebidaSeleccionada.precio}}</h5>
+
+                    <button class="btn btn-success w-100 mt-3" (click)="agregarBebida()">Agregar
+                        Producto</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4" *ngIf="broasterSeleccionado">
+            <div class="card producto-preview mt-4 border-0" style="height:65vh">
+                <div class="img-container">
+                    <img [src]="broasterSeleccionado.imagen" style="width: 50%; margin-left: 80px;">
+                </div>
+
+                <div class="card-body">
+                    <h4 class="fw-bold">{{broasterSeleccionado.nombre}}</h4>
+                    <p class="text-muted mb-2">{{broasterSeleccionado.descripcion}}</p>
+                    <h5 class="precio">S/. {{broasterSeleccionado.precio}}</h5>
+
+                    <button class="btn btn-success w-100 mt-3" (click)="agregarBroaster()">Agregar
+                        Producto</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4" *ngIf="cremaSeleccionada">
+            <div class="card producto-preview mt-4 border-0" style="height:65vh">
+                <div class="img-container">
+                    <img [src]="cremaSeleccionada.imagen" style="width: 50%; margin-left: 80px;">
+                </div>
+
+                <div class="card-body">
+                    <h4 class="fw-bold">{{cremaSeleccionada.nombre}}</h4>
+                    <p class="text-muted mb-2">{{cremaSeleccionada.descripcion}}</p>
+                    <h5 class="precio">S/. {{cremaSeleccionada.precio}}</h5>
+
+                    <button class="btn btn-success w-100 mt-3" (click)="agregarCrema()">Agregar
+                        Producto</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4" *ngIf="ensaladaSeleccionada">
+            <div class="card producto-preview mt-4 border-0" style="height:65vh">
+                <div class="img-container">
+                    <img [src]="ensaladaSeleccionada.imagen" style="width: 50%; margin-left: 80px;">
+                </div>
+
+                <div class="card-body">
+                    <h4 class="fw-bold">{{ensaladaSeleccionada.nombre}}</h4>
+                    <p class="text-muted mb-2">{{ensaladaSeleccionada.descripcion}}</p>
+                    <h5 class="precio">S/. {{ensaladaSeleccionada.precio}}</h5>
+
+                    <button class="btn btn-success w-100 mt-3" (click)="agregarEnsalada()">Agregar
+                        Producto</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4" *ngIf="guarnicionSeleccionada">
+            <div class="card producto-preview mt-4 border-0" style="height:65vh">
+                <div class="img-container">
+                    <img [src]="guarnicionSeleccionada.imagen" style="width: 50%; margin-left: 80px;">
+                </div>
+
+                <div class="card-body">
+                    <h4 class="fw-bold">{{guarnicionSeleccionada.nombre}}</h4>
+                    <p class="text-muted mb-2">{{guarnicionSeleccionada.descripcion}}</p>
+                    <h5 class="precio">S/. {{guarnicionSeleccionada.precio}}</h5>
+
+                    <button class="btn btn-success w-100 mt-3" (click)="agregarGuarnicion()">Agregar
+                        Producto</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4" *ngIf="hamburguesaSeleccionada">
+            <div class="card producto-preview mt-4 border-0" style="height:72vh">
+                <div class="img-container">
+                    <img [src]="hamburguesaSeleccionada.imagen" style="width: 50%; margin-left: 80px;">
+                </div>
+
+                <div class="card-body">
+                    <h4 class="fw-bold">{{hamburguesaSeleccionada.nombre}}</h4>
+                    <p class="text-muted mb-2">{{hamburguesaSeleccionada.descripcion}}</p>
+                    <h5 class="precio">S/. {{hamburguesaSeleccionada.precio}}</h5>
+
+                    <button class="btn btn-success w-100 mt-3" (click)="agregarHamburguesa()">Agregar
+                        Producto</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4" *ngIf="parrillaSeleccionada">
+            <div class="card producto-preview mt-4 border-0" style="height:65vh">
+                <div class="img-container">
+                    <img [src]="parrillaSeleccionada.imagen" style="width: 50%; margin-left: 80px;">
+                </div>
+
+                <div class="card-body">
+                    <h4 class="fw-bold">{{parrillaSeleccionada.nombre}}</h4>
+                    <p class="text-muted mb-2">{{parrillaSeleccionada.descripcion}}</p>
+                    <h5 class="precio">S/. {{parrillaSeleccionada.precio}}</h5>
+
+                    <button class="btn btn-success w-100 mt-3" (click)="agregarParrilla()">Agregar
+                        Producto</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card producto-preview mt-4 border-0" style="height:65vh" *ngIf="postreSeleccionado">
+                <div class="img-container">
+                    <img [src]="postreSeleccionado.imagen" style="width: 50%; margin-left: 80px;">
+                </div>
+
+                <div class="card-body">
+                    <h4 class="fw-bold">{{postreSeleccionado.nombre}}</h4>
+                    <p class="text-muted mb-2">{{postreSeleccionado.descripcion}}</p>
+                    <h5 class="precio">S/. {{postreSeleccionado.precio}}</h5>
+
+                    <button class="btn btn-success w-100 mt-3" (click)="agregarPostre()">Agregar
+                        Producto</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <form (ngSubmit)="onSubmit()">
+        <ng-container *ngIf="oferta || plato">
+            <input type="hidden" class="form-control" id="total" name="total" [(ngModel)]="detalleVenta.total" readonly>
+            <input type="hidden" class="form-control" id="descripcion" name="descripcion" [(ngModel)]="detalleVenta.descripcion"
+                readonly>
+            <input type="hidden" class="form-control" id="cantidad" name="cantidad" [(ngModel)]="detalleVenta.cantidad" readonly>
+            <div *ngIf="usuario">
+                <input type="hidden" class="form-control" id="usuario" name="usuario" [(ngModel)]="venta.usuario"
+                    readonly>
+                <input type="hidden" class="form-control" id="nombre" name="nombre" [(ngModel)]="venta.nombre"
+                    readonly>
+                <input type="hidden" class="form-control" id="username" name="username"
+                    [(ngModel)]="venta.username" readonly>
+                <input type="hidden" class="form-control" id="zona" name="zona" [(ngModel)]="venta.zona" readonly>
+                <input type="hidden" class="form-control" id="fecha" name="fecha" [(ngModel)]="venta.fecha" readonly>
+                <input type="hidden" class="form-control" id="metodopago" name="metodopago" [(ngModel)]="venta.metodopago" readonly>
+            </div>
+        </ng-container>
+        <br>
+        <button class="btn btn-success" [disabled]="!metodoPagoSeleccionado">Guardar</button>
+    </form>
+</div>

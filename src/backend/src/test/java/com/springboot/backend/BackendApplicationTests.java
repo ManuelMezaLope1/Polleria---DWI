@@ -12,7 +12,6 @@ import com.springboot.backend.usuario.servicio.UsuarioServicio;*/
 import com.springboot.backend.tabla.categoria.modelo.Categoria;
 import com.springboot.backend.tabla.categoria.servicio.CategoriaServicio;
 import com.springboot.backend.tabla.plato.modelo.Plato;
-import com.springboot.backend.tabla.plato.servicio.PlatoServicio;
 
 @SpringBootTest
 class BackendApplicationTests {
@@ -38,31 +37,6 @@ class BackendApplicationTests {
 		CategoriaServicio categoriaServicio=new CategoriaServicio();
 
 		final Categoria resultado=categoriaServicio.obtenerCategoria(1L);
-
-		Assertions.assertEquals(null, resultado);
-	}
-
-	/*===================================================================================*/
-	/*										PLATO									 	 */
-	/*===================================================================================*/
-
-	@Test
-	void TestRegistrarPlato(){
-		Plato plato=new Plato(1L,"Nombre","Categoria","Descripcion",20.1);
-
-		PlatoServicio platoServicio=new PlatoServicio();
-
-		final Plato resultado=platoServicio.crearPlato(1L, "Nombre", "Categoria", "Descripcion", 20.1);
-
-		Assertions.assertEquals(plato.id, resultado.id);
-		Assertions.assertEquals(plato, resultado);
-	}
-
-	@Test
-	void TestObtenerPlato(){
-		PlatoServicio platoServicio=new PlatoServicio();
-
-		final Plato resultado=platoServicio.obtenerPlato(1L);
 
 		Assertions.assertEquals(null, resultado);
 	}

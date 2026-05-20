@@ -3,7 +3,9 @@ package com.springboot.backend.tabla.zona.modelo;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.springboot.backend.tabla.usuario.modelo.Usuario;
+import com.springboot.backend.tabla.venta.modelo.Venta;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,26 +35,41 @@ public class Zona {
     @Column(name="distrito", nullable = false, length=60)
     private String distrito;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "zona", fetch = FetchType.EAGER)
     public List<Usuario> usuario;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "zona", fetch = FetchType.EAGER)
+    private List<Venta> venta;
+
     public Zona(){}
 
-    public Zona(Long id, String nombre, String departamento, String provincia, String distrito, List<Usuario> usuario) {
+    public Zona(Long id, String nombre, String departamento, String provincia, String distrito, List<Usuario> usuario, List<Venta> venta) {
         this.id = id;
         this.nombre = nombre;
         this.departamento = departamento;
         this.provincia = provincia;
         this.distrito = distrito;
         this.usuario = usuario;
+        this.venta = venta;
     }
 
-    public Zona(String nombre, String departamento, String provincia, String distrito, List<Usuario> usuario) {
+    public List<Venta> getVenta() {
+        return venta;
+    }
+
+    public void setVenta(List<Venta> venta) {
+        this.venta = venta;
+    }
+
+    public Zona(String nombre, String departamento, String provincia, String distrito, List<Usuario> usuario, List<Venta> venta) {
         this.nombre = nombre;
         this.departamento = departamento;
         this.provincia = provincia;
         this.distrito = distrito;
         this.usuario = usuario;
+        this.venta = venta;
     }
 
     public Long getId() {
