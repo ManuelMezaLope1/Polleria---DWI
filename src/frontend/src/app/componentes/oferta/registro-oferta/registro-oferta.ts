@@ -48,7 +48,14 @@ export class RegistroOferta {
       confirmButtonText: 'Ok'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.router.navigate(['/pruebas'])
+        this.router.navigate(['/pruebas']).then(() => {
+          setTimeout(() => {
+            const element = document.getElementById("ofertas");
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth' });
+            }
+          }, 100);
+        });
       }
     })
   }

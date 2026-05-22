@@ -1,13 +1,13 @@
-<section id="actualizacion-categoria">
-    <br>
-    <div class="col-md-6 offset-md-3" *ngIf="categoria">
-        <h3 class="text-center">Edición de Categoria</h3>
-        <form (ngSubmit)="onSubmit()" #categoriaForm="ngForm">
+<section id="creacion-categoria">
+    <div class="col-md-6 offset-md-3">
+        <br>
+        <h3 class="text-center">Registro de Alergias</h3>
+        <form (ngSubmit)="onSubmit()" #alergiaForm="ngForm">
             <div class="form-group">
                 <label>Nombre : </label>
-                <input type="text" class="form-control" id="nombre" [(ngModel)]="categoria.nombre" name="nombre"
-                    required pattern="^[A-Z][a-zA-ZáéíóúÁÉÍÓÚÑñ\s]+$" minlength="4" maxlength="40"
-                    placeholder="Digite su nombre" #nombre="ngModel" />
+                <input type="text" class="form-control" id="nombre" [(ngModel)]="alergia.nombre" name="nombre"
+                    required pattern="^[A-Z][a-zA-ZáéíóúÁÉÍÓÚÑñ\s]+$" minlength="4" maxlength="600"
+                    placeholder="Digite su nombre " #nombre="ngModel" />
                 <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
                     <div *ngIf="nombre.errors?.['required']">
                         Digite su nombre por favor
@@ -16,7 +16,7 @@
                         El nombre tiene que contener como mínimo 4 caracteres
                     </div>
                     <div *ngIf="nombre.errors?.['maxlength']">
-                        El nombre tiene que tener como máximo 40 caracteres
+                        El nombre tiene que tener como máximo 60 caracteres
                     </div>
                     <div *ngIf="nombre.errors?.['pattern']">
                         El nombre debe tener sólamente letras.
@@ -24,7 +24,7 @@
                 </div>
             </div>
 
-            <button class="btn btn-success" [disabled]="!categoriaForm.form.valid">Guardar</button>
+            <button class="btn btn-success" [disabled]="!alergiaForm.form.valid">Guardar</button>
             <br><br>
         </form>
     </div>

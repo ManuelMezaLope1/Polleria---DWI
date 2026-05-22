@@ -15,6 +15,8 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { IIngrediente } from '../../../componentes/ingrediente/IIngrediente';
 import { IngredienteServicio } from '../../../servicios/ingrediente/ingrediente-servicio';
+import { AlergiaServicio } from '../../../servicios/alergia/alergia-servicio';
+import { Alergia } from '../../../componentes/alergia/Alergia';
 
 @Component({
   selector: 'app-prueba',
@@ -26,7 +28,7 @@ import { IngredienteServicio } from '../../../servicios/ingrediente/ingrediente-
 export class Prueba {
   data: string[] = [];
 
-  constructor(public themeServicio: ThemeServicio, private cd: ChangeDetectorRef, private categoriaServicio: CategoriaServicio, private platoServicio: PlatoServicio, private usuarioServicio: UsuarioServicio, private ofertaServicio: OfertaServicio, private ingredienteServicio: IngredienteServicio, private router: Router) { }
+  constructor(public themeServicio: ThemeServicio, private cd: ChangeDetectorRef, private categoriaServicio: CategoriaServicio, private platoServicio: PlatoServicio, private usuarioServicio: UsuarioServicio, private ofertaServicio: OfertaServicio, private ingredienteServicio: IngredienteServicio, private alergiaServicio: AlergiaServicio, private router: Router) { }
 
   ngOnInit(): void {
     console.log('ENTRÓ AL COMPONENTE');
@@ -52,14 +54,29 @@ export class Prueba {
         );
       });
 
-
       this.cd.detectChanges();
-    })
+    });
 
     this.platoServicio.obtenerListaDePlatos().subscribe(dato => {
       this.dataSourcePlato.data = dato;
 
       this.cd.detectChanges();
+    });
+
+    this.ingredienteServicio.obtenerTodosLosIngredientes().subscribe(dato => {
+      this.dataSourceIngrediente.data = dato;
+
+      this.dataSourceIngrediente.data.forEach(ing => {
+        ing.platos = ing.platos?.sort((a, b) =>
+          a.nombre.localeCompare(b.nombre)
+        );
+      });
+
+      this.cd.detectChanges();
+    });
+
+    this.alergiaServicio.obtenerTodasLasAlergias().subscribe(dato=>{
+      this.dataSourceAlergia.data=dato;
     })
 
     this.ofertas$ = this.ofertaServicio.obtenerListaDeOfertas();
@@ -67,9 +84,9 @@ export class Prueba {
 
   ngAfterViewInit() {
     this.dataSourceCategoria.paginator = this.paginadorCate;
-
-
     this.dataSourcePlato.paginator = this.paginadorPlato;
+    this.dataSourceIngrediente.paginator = this.paginadorIngrediente;
+    this.dataSourceAlergia.paginator=this.paginadorAlergia;
   }
 
   volverDashboard() {
@@ -96,11 +113,25 @@ export class Prueba {
   ];
 
   actualizarCategoria(id: number) {
-    this.router.navigate(['actualizacion-categoria', id]);
+    this.router.navigate(['actualizacion-categoria', id]).then(() => {
+      setTimeout(() => {
+        const element = document.getElementById("actualizacion-categoria");
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    });
   }
 
   registrarCategoria() {
-    this.router.navigate(['creacion-categoria']);
+    this.router.navigate(['creacion-categoria']).then(() => {
+      setTimeout(() => {
+        const element = document.getElementById("creacion-categoria");
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    });
   }
 
   private obtenerCategoria() {
@@ -128,7 +159,7 @@ export class Prueba {
           this.obtenerCategoria();
           Swal.fire(
             'Categoría eliminada',
-            'La categoría ha sido eliminada con exito',
+            'La categoría ha sido eliminada con éxito',
             'success'
           )
         })
@@ -143,11 +174,25 @@ export class Prueba {
   platos$!: Observable<Plato[]>;
 
   actualizarPlato(id: number) {
-    this.router.navigate(['actualizacion-plato', id]);
+    this.router.navigate(['actualizacion-plato', id]).then(() => {
+      setTimeout(() => {
+        const element = document.getElementById("actualizacion-plato");
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    });
   }
 
   registrarPlato() {
-    this.router.navigate(['creacion-plato']);
+    this.router.navigate(['creacion-plato']).then(() => {
+      setTimeout(() => {
+        const element = document.getElementById("creacion-plato");
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    });
   }
 
   private obtenerPlato() {
@@ -205,11 +250,25 @@ export class Prueba {
   ofertas$!: Observable<Oferta[]>;
 
   registrarOferta() {
-    this.router.navigate(['creacion-oferta']);
+    this.router.navigate(['creacion-oferta']).then(() => {
+      setTimeout(() => {
+        const element = document.getElementById("creacion-oferta");
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    });
   }
 
-  actualizarOferta() {
-    this.router.navigate(['actualizacion-oferta']);
+  actualizarOferta(id: number) {
+    this.router.navigate(['actualizacion-oferta',id]).then(() => {
+      setTimeout(() => {
+        const element = document.getElementById("actualizacion-oferta");
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    });
   }
 
   private obtenerOferta() {
@@ -245,17 +304,64 @@ export class Prueba {
   }
 
   /*========================================================================================*/
-  /*                                 Para Ingrediente                                       */
+  /*                                 PARA INGREDIENTES                                      */
   /*========================================================================================*/
   ingredientes: IIngrediente[] = [];
   ingredientes$!: Observable<IIngrediente>;
 
+  displayedColumnsIngrediente: string[] = ['nombre', 'platos', 'acciones'];
+
+  dataSourceIngrediente = new MatTableDataSource<IIngrediente>();
+
+  @ViewChild('paginadorIngrediente')
+  paginadorIngrediente!: MatPaginator;
+
+  columnasIngrediente: string[] = [
+    'nombre',
+    'platos',
+    'acciones'
+  ];
+
+  agruparIngredientes(ingredientes: any[]) {
+    return ingredientes.reduce((acc: any[], ingrediente: any) => {
+
+      const existe = acc.find(
+        item => item.nombre === ingrediente.nombre
+      );
+
+      if (existe) {
+        existe.platos.push(...ingrediente.platos);
+      } else {
+        acc.push({
+          nombre: ingrediente.nombre,
+          platos: [...ingrediente.platos]
+        });
+      }
+
+      return acc;
+    }, []);
+  }
+
   registrarIngrediente() {
-    this.router.navigate(['creacion-ingrediente']);
+    this.router.navigate(['creacion-ingrediente']).then(() => {
+      setTimeout(() => {
+        const element = document.getElementById("creacion-ingrediente");
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    });
   }
 
   actualizarIngrediente(id: number) {
-    this.router.navigate(['actualizacion-ingrediente', id]);
+    this.router.navigate(['actualizacion-ingrediente', id]).then(() => {
+      setTimeout(() => {
+        const element = document.getElementById("actualizacion-ingrediente");
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    });
   }
 
   private obtenerIngredientes() {
@@ -283,6 +389,73 @@ export class Prueba {
           Swal.fire(
             'Ingrediente eliminado',
             'El ingrediente ha sido eliminado con éxito',
+            'success'
+          )
+        })
+      }
+    });
+  }
+
+  /*========================================================================================*/
+  /*                                      PARA ALERGIAS                                     */
+  /*========================================================================================*/
+  alergias: Alergia[]=[];
+  alergia$!: Observable<Alergia[]>;
+
+  displayedColumnsAlergia: string[]=['nombre','ingredientes','acciones'];
+
+  dataSourceAlergia=new MatTableDataSource<Alergia>();
+
+  @ViewChild('paginadorAlergia')
+  paginadorAlergia!: MatPaginator;
+
+  columnasAlergia:string[]=[
+    'nombre',
+    'ingredientes',
+    'acciones'
+  ];
+
+  registrarAlergia(){
+    this.router.navigate(['creacion-alergia']).then(() => {
+      setTimeout(() => {
+        const element = document.getElementById("creacion-alergia");
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    });
+  }
+
+  actualizarAlergia(id: number){
+    this.router.navigate(['actualizacion-alergia', id]).then(() => {
+      setTimeout(() => {
+        const element = document.getElementById("actualizacion-alergia");
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    });
+  }
+
+  eliminarAlergia(id: number) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "Confirma si deseas eliminar la alergía",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, elimínalo',
+      cancelButtonText: 'No, cancelar',
+      buttonsStyling: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.alergiaServicio.eliminarAlergia(id).subscribe(dato => {
+          console.log(dato);
+          this.alergiaServicio.obtenerTodasLasAlergias();
+          Swal.fire(
+            'Alergía eliminada',
+            'La alergía ha sido eliminada con éxito',
             'success'
           )
         })

@@ -2,16 +2,164 @@
 
     <h1 class="titulo">🍗 Nuestra Carta</h1>
 
+    <p style="font-size: 16px;">Si tiene alguna alergía, revise la carta:
+        <button type="button" class="btn btn-primary" style="border-radius: 50%;" data-bs-toggle="modal"
+            data-bs-target="#exampleModal">Carta</button>
+    </p>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Carta de Alérgenos</h1>
+                    <button type="button" class="btn-close btn-primary" style="border-radius: 50px; width: 25px;"
+                        data-bs-dismiss="modal" aria-label="Close">X</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div *ngFor="let ale of alergias.sort((a,b) => a.nombre.localeCompare(b.nombre))">
+                            <div *ngIf="ale.nombre!=='No tiene'">
+                                <div class="alergia-grid">
+                                    <div class="col-lg-4">
+                                        <ng-container *ngIf="ale.nombre==='Ajo '">
+                                            <a href="" type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                                data-bs-target="#platoModal" (click)="alergiaSeleccionada(ale.nombre)">
+                                                <br>
+                                                <div class="d-flex justify-content-center">
+                                                    <img class="imagen-alergia" src="ajo.png" alt="Imagen de un ajo">
+                                                </div>
+                                                <p class="text-center text-decoration-none" style="color: black;">
+                                                    {{ale.nombre}}</p>
+                                            </a>
+                                        </ng-container>
+
+                                        <ng-container *ngIf="ale.nombre==='Chocolate'">
+                                            <a type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                                data-bs-target="#platoModal" (click)="alergiaSeleccionada(ale.nombre)">
+                                                <br>
+                                                <div class="d-flex justify-content-center">
+                                                    <img class="imagen-alergia" src="chocolate.png"
+                                                        alt="Imagen de un chocolate">
+                                                </div>
+                                                <p class="text-center">{{ale.nombre}}</p>
+                                            </a>
+                                        </ng-container>
+
+                                        <ng-container *ngIf="ale.nombre==='Gluten'">
+                                            <a type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                                data-bs-target="#platoModal" (click)="alergiaSeleccionada(ale.nombre)">
+                                                <br>
+                                                <div class="d-flex justify-content-center">
+                                                    <img class="imagen-alergia" src="trigo.png"
+                                                        alt="Imagen de un trigo">
+                                                </div>
+                                                <p class="text-center">{{ale.nombre}}</p>
+                                            </a>
+                                        </ng-container>
+
+                                        <ng-container *ngIf="ale.nombre==='Huevo'">
+                                            <a type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                                data-bs-target="#platoModal" (click)="alergiaSeleccionada(ale.nombre)">
+                                                <br>
+                                                <div class="d-flex justify-content-center">
+                                                    <img class="imagen-alergia" src="huevo.png"
+                                                        alt="Imagen de un huevo">
+                                                </div>
+                                                <p class="text-center">{{ale.nombre}}</p>
+                                            </a>
+                                        </ng-container>
+
+                                        <ng-container *ngIf="ale.nombre==='Lácteos'">
+                                            <a type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                                data-bs-target="#platoModal" (click)="alergiaSeleccionada(ale.nombre)">
+                                                <br>
+                                                <div class="d-flex justify-content-center">
+                                                    <img class="imagen-alergia" src="leche.png"
+                                                        alt="Imagen de un leche">
+                                                </div>
+                                                <p class="text-center">{{ale.nombre}}</p>
+                                            </a>
+                                        </ng-container>
+
+                                        <ng-container *ngIf="ale.nombre==='Soya'">
+                                            <a type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                                data-bs-target="#platoModal" (click)="alergiaSeleccionada(ale.nombre)">
+                                                <br>
+                                                <div class="d-flex justify-content-center">
+                                                    <img class="imagen-alergia" src="soya.png" alt="Imagen de una soya">
+                                                </div>
+                                                <p class="text-center">{{ale.nombre}}</p>
+                                            </a>
+                                        </ng-container>
+                                    </div>
+                                    <br>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="platoModal" tabindex="-1" aria-labelledby="platoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Carta de Alérgenos</h1>
+                    <button type="button" class="btn-close btn-primary" style="border-radius: 50px; width: 25px;"
+                        data-bs-dismiss="modal" aria-label="Close">X</button>
+                </div>
+                <div class="modal-body">
+                    <div *ngFor="let ale of alergias">
+                        <div *ngIf="ale.nombre === nombreAlergia">
+                            <ng-container *ngFor="let ing of agruparIngredientes(ale.ingredientes)">
+                                <h3>{{ing.nombre}}</h3>
+                                <br>
+                                <div class="alergia-plato-grid">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-3" *ngFor="let pla of ing.platos">
+                                            <div class="card">
+                                                <div class="img-container">
+                                                    <img [src]="pla.imagen" class="imagen-plato">
+                                                    <span class="tag">🔥 Más pedido</span>
+                                                </div>
+
+                                                <div class="card-body">
+                                                    <h3>{{ pla.nombre }}</h3>
+                                                    <p>{{ pla.descripcion }}</p>
+                                                    <div class="bottom">
+                                                        <span class="precio">S/ {{ pla.precio }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div *ngFor="let cate of categorias$ | async">
         <br>
         <div class="alpha-header">
             <h2 class="categoria">🔥 {{cate.nombre}}</h2>
         </div>
-        
+
         <div class="menu-grid">
             <div class="row">
-                <div class="col-md-4 mb-3" *ngFor="let plato of cate.plato?.sort((a,b) => a.nombre.localeCompare(b.nombre))">
-                    <!-- CARD -->
+                <div class="col-md-4 mb-3"
+                    *ngFor="let plato of cate.plato?.sort((a,b) => a.nombre.localeCompare(b.nombre))">
                     <div class="card">
                         <div class="img-container">
                             <img [src]="plato.imagen" style="width: 50%; margin-left: 80px;">

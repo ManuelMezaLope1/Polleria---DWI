@@ -34,8 +34,8 @@ public class Plato {
     @Column(name="imagen", nullable = false)
     private String imagen;
 
-    @JsonIgnore
     @ManyToMany(mappedBy = "platos", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"platos"})
     private List<Ingrediente> ingredientes;
 
     public Plato(){
