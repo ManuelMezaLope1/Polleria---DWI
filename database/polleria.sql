@@ -16,6 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `alergias`
+--
+
+DROP TABLE IF EXISTS `alergias`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `alergias` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `alergias`
+--
+
+LOCK TABLES `alergias` WRITE;
+/*!40000 ALTER TABLE `alergias` DISABLE KEYS */;
+INSERT INTO `alergias` VALUES (1,'Lácteos'),(2,'Huevo'),(3,'No tiene'),(4,'Gluten'),(5,'Soya'),(7,'Ajo '),(8,'Chocolate');
+/*!40000 ALTER TABLE `alergias` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `categorias`
 --
 
@@ -92,6 +116,7 @@ CREATE TABLE `ingrediente_plato` (
 
 LOCK TABLES `ingrediente_plato` WRITE;
 /*!40000 ALTER TABLE `ingrediente_plato` DISABLE KEYS */;
+INSERT INTO `ingrediente_plato` VALUES (4,43),(3,42),(5,42),(2,29),(6,42),(7,42),(8,42),(9,42),(10,43),(11,43),(12,43),(13,43),(14,43),(15,43),(16,43),(17,37),(18,38),(19,39),(20,40),(21,41),(22,37),(23,38),(24,39),(25,40),(26,41),(27,37),(28,38),(29,39),(30,40),(31,41),(32,47),(33,50),(34,47),(35,50),(36,47),(37,50),(38,47),(39,50),(40,47),(41,50),(42,47),(43,50),(44,48),(45,48),(46,48),(47,48),(48,48),(49,56),(50,57),(51,60),(52,61),(53,56),(54,57),(55,60),(56,61),(57,56),(58,57),(59,60),(60,61),(61,56),(62,57),(63,60),(64,61),(65,61),(66,61),(67,65),(68,65),(69,65),(70,65),(71,65),(72,65),(73,62),(74,62),(75,67),(76,67),(77,67),(78,67),(79,67),(80,67),(81,67),(82,67),(83,66),(84,66),(85,66),(87,66),(88,66),(89,66),(90,66),(91,66),(92,66),(93,68),(95,68),(96,68),(97,68),(98,68),(99,68),(100,68),(101,68),(102,68),(103,68);
 /*!40000 ALTER TABLE `ingrediente_plato` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -105,8 +130,11 @@ DROP TABLE IF EXISTS `ingredientes`;
 CREATE TABLE `ingredientes` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `alergia_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKgo21c08m9ub4dar0p7w6q8tqd` (`alergia_id`),
+  CONSTRAINT `FKgo21c08m9ub4dar0p7w6q8tqd` FOREIGN KEY (`alergia_id`) REFERENCES `alergias` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,6 +143,7 @@ CREATE TABLE `ingredientes` (
 
 LOCK TABLES `ingredientes` WRITE;
 /*!40000 ALTER TABLE `ingredientes` DISABLE KEYS */;
+INSERT INTO `ingredientes` VALUES (2,'Limón',3),(3,'Huevo',2),(4,'Huevo',2),(5,'Lechuga',3),(6,'Limón',3),(7,'Queso Parmesano',1),(8,'Pollo',3),(9,'Aceite de Oliva',3),(10,'Lechuga',3),(11,'Tomate',3),(12,'Tocino',3),(13,'Palta',3),(14,'Queso Azul',1),(15,'Pollo',3),(16,'Cebolla',3),(17,'Trigo',4),(18,'Trigo',4),(19,'Trigo',4),(20,'Trigo',4),(21,'Trigo',4),(22,'Huevo',2),(23,'Huevo',2),(24,'Huevo',2),(25,'Huevo',2),(26,'Huevo',2),(27,'Ajo ',7),(28,'Ajo ',7),(29,'Ajo ',7),(30,'Ajo ',7),(31,'Ajo ',7),(32,'Huevo',2),(33,'Huevo',2),(34,'Cebolla China',3),(35,'Cebolla China',3),(36,'Sillao',5),(37,'Sillao',5),(38,'Ajo ',7),(39,'Ajo ',7),(40,'Kion',3),(41,'Kion',3),(42,'Pollo',3),(43,'Pollo',3),(44,'Cebolla',3),(45,'Tomate',3),(46,'Ajo ',7),(47,'Sillao',5),(48,'Vinagre',3),(49,'Trigo',4),(50,'Trigo',4),(51,'Trigo',4),(52,'Trigo',4),(53,'Lechuga',3),(54,'Lechuga',3),(55,'Lechuga',3),(56,'Lechuga',3),(57,'Tomate',3),(58,'Tomate',3),(59,'Tomate',3),(60,'Tomate',3),(61,'Huevo',2),(62,'Huevo',2),(63,'Huevo',2),(64,'Huevo',2),(65,'Queso Chédar',1),(66,'Tocino',3),(67,'Ajo ',7),(68,'Vinagre',3),(69,'Comino',3),(70,'Orégano',3),(71,'Ají Panca',3),(72,'Limón',3),(73,'Ajo ',7),(74,'Pollo',3),(75,'Trigo',4),(76,'Mantequilla',1),(77,'Azúcar',3),(78,'Leche',1),(79,'Huevo',2),(80,'Limón',3),(81,'Manzana',3),(82,'Canela',3),(83,'Trigo',4),(84,'Cacao en Polvo',8),(85,'Azúcar',3),(87,'Huevo',2),(88,'Mantequilla',1),(89,'Leche',1),(90,'Vainilla',3),(91,'Chocolate',8),(92,'Polvo de Hornear',3),(93,'Trigo',4),(95,'Huevo',2),(96,'Azúcar',3),(97,'Vainilla',3),(98,'Leche Evaporada',1),(99,'Leche Condensada',1),(100,'Nata',1),(101,'Polvo de Hornear',3),(102,'Chantilly',3),(103,'Canela',3);
 /*!40000 ALTER TABLE `ingredientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -383,4 +412,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-05-20  1:22:17
+-- Dump completed on 2026-05-22 16:09:58
