@@ -15,15 +15,15 @@ export class PlatoServicio {
     return this.HttpClient.get<Plato[]>(`${this.baseUrl}`);
   }
 
-  registrarPlato(plato: Plato): Observable<Object>{
-    return this.HttpClient.post(`${this.baseUrl}`, plato);
+  registrarPlato(formData: FormData): Observable<Object>{
+    return this.HttpClient.post(`${this.baseUrl}`, formData);
   }
 
   actualizarPlato(id:number, plato: Plato): Observable<Object>{
     return this.HttpClient.put(`${this.baseUrl}/${id}`, plato);
   }
 
-  obtenerPlatoPorId(id:number): Observable<Object>{
+  obtenerPlatoPorId(id:number): Observable<Plato>{
     return this.HttpClient.get<Plato>(`${this.baseUrl}/${id}`);
   }
 

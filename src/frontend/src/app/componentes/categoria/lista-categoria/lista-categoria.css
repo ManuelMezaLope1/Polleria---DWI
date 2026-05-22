@@ -1,4 +1,4 @@
-.dark .menu-container{
+.dark .menu-container {
   background: #fff7f0;
 }
 
@@ -6,6 +6,29 @@
   padding: 40px;
   min-height: 100vh;
   font-family: 'Segoe UI', sans-serif;
+}
+
+.btn-warning{
+  border-radius: 50px;
+  width: 100px;
+}
+
+.card{
+  width: 100%;
+}
+
+.imagen-alergia{
+  align-items: center;
+  width: 30px;
+}
+
+.alpha-header {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  color: white;
+  padding: 5px;
+  z-index: 1000;
 }
 
 .titulo {
@@ -24,14 +47,25 @@
 .menu-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
+}
+
+.alergia-plato{
+  display:grid;
+  grid-template-columns: repeat(1,3fr);
+  gap:20px;
+}
+
+.alergia-plato-grid{
+  display: grid;
+  grid-template-columns: repeat(1, 4fr);
+  gap: 20px;
 }
 
 .card {
   background: white;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   transition: 0.3s;
 }
 

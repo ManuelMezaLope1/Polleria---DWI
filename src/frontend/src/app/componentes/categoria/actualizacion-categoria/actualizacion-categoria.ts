@@ -26,6 +26,7 @@ export class ActualizacionCategoria {
     this.categoriaServicio.obtenerCategoriaPorId(this.id).pipe(
       tap(dato => {
         this.categoria = dato;
+        console.log(this.categoria);
         this.cd.detectChanges();
       }),
       catchError(error => {
@@ -36,7 +37,14 @@ export class ActualizacionCategoria {
   }
 
   irALaListaDeCategorias() {
-    this.router.navigate(['/pruebas']);
+    this.router.navigate(['/pruebas']).then(() => {
+      setTimeout(() => {
+        const element = document.getElementById("categorias");
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    });
     Swal.fire('Categoria actualizada', `La categoria ${this.categoria.nombre} ha sido actualizada con éxito`, 'success');
   }
 

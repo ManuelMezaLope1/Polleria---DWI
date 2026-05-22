@@ -5,9 +5,11 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.springboot.backend.tabla.rol.modelo.Rol;
+import com.springboot.backend.tabla.venta.modelo.Venta;
 import com.springboot.backend.tabla.zona.modelo.Zona;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,6 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -34,6 +37,9 @@ public class Usuario {
     @JsonIgnoreProperties({"usuario"})
     private Zona zona;
 
+    @OneToMany(mappedBy = "usuario", fetch=FetchType.EAGER)
+    public List<Venta> venta;
+
     @ManyToMany
     @JoinTable(
         name = "usuario_rol", 
@@ -49,25 +55,27 @@ public class Usuario {
     public Usuario(){}
 
     public Usuario(Long id, String nombre, String apellido, String direccion, String telefono, Zona zona,
-            List<Rol> roles, String username, String password) {
+            List<Venta> venta, List<Rol> roles, String username, String password) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.direccion = direccion;
         this.telefono = telefono;
         this.zona = zona;
+        this.venta = venta;
         this.roles = roles;
         this.username = username;
         this.password = password;
     }
 
-    public Usuario(String nombre, String apellido, String direccion, String telefono, Zona zona, List<Rol> roles,
-            String username, String password) {
+    public Usuario(String nombre, String apellido, String direccion, String telefono, Zona zona, List<Venta> venta,
+            List<Rol> roles, String username, String password) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.direccion = direccion;
         this.telefono = telefono;
         this.zona = zona;
+        this.venta = venta;
         this.roles = roles;
         this.username = username;
         this.password = password;
@@ -77,109 +85,81 @@ public class Usuario {
         return id;
     }
 
-
-
     public void setId(Long id) {
         this.id = id;
     }
-
-
 
     public String getNombre() {
         return nombre;
     }
 
-
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-
 
     public String getApellido() {
         return apellido;
     }
 
-
-
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-
-
 
     public String getDireccion() {
         return direccion;
     }
 
-
-
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-
-
 
     public String getTelefono() {
         return telefono;
     }
 
-
-
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
-
 
     public Zona getZona() {
         return zona;
     }
 
-
-
     public void setZona(Zona zona) {
         this.zona = zona;
     }
 
+    public List<Venta> getVenta() {
+        return venta;
+    }
 
+    public void setVenta(List<Venta> venta) {
+        this.venta = venta;
+    }
 
     public List<Rol> getRoles() {
         return roles;
     }
 
-
-
     public void setRoles(List<Rol> roles) {
         this.roles = roles;
     }
-
-
 
     public String getUsername() {
         return username;
     }
 
-
-
     public void setUsername(String username) {
         this.username = username;
     }
-
-
 
     public String getPassword() {
         return password;
     }
 
-
-
     public void setPassword(String password) {
         this.password = password;
     }
-
-
 
     @Override
     public boolean equals(Object o){

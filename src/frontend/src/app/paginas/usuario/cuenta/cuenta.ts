@@ -7,6 +7,8 @@ import { ZonaServicio } from '../../../servicios/zona/zona-servicio';
 import { Zona } from '../../../componentes/zona/Zona';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { VentaServicio } from '../../../servicios/venta/venta-servicio';
+import { Venta } from '../../../componentes/venta/Venta';
 
 @Component({
   selector: 'app-cuenta',
@@ -18,9 +20,13 @@ export class Cuenta {
   usuario: any;
   username: string;
   zonas: Zona[] = [];
+  ventas: Venta[] = [];
 
-  constructor(private usuarioServicio: UsuarioServicio, private zonaServicio: ZonaServicio, private cd: ChangeDetectorRef, private router: Router) { }
+  constructor(private usuarioServicio: UsuarioServicio, private zonaServicio: ZonaServicio, private ventaServicio: VentaServicio, private cd: ChangeDetectorRef, private router: Router) { }
 
+  /*#################################################################################################################################################
+  ##                                                                    PARA CUENTA                                                                 #
+  #################################################################################################################################################*/
   active: string = "informacion";
 
   onInformacionTab(): void {
@@ -43,7 +49,24 @@ export class Cuenta {
         console.error(error);
         return of(null);
       })
-    ).subscribe()
+    ).subscribe();
+
+    this.ventaServicio.obtenerVentas().subscribe(data => {
+      this.ventas = data;
+      this.ventas.sort((a, b) => {
+        const diff = new Date(b.fecha).getTime() - new Date(a.fecha).getTime();
+        return diff !== 0 ? diff : b.id - a.id;
+      });
+      console.log(data);
+    });
+  }
+
+  parseFecha(fecha: string): Date {
+    const [datePart, timePart] = fecha.split(', ');
+
+    const [day, month, year] = datePart.split('/');
+
+    return new Date(`${year}-${month}-${day}T${timePart}`);
   }
 
   compararZonas(c1: any, c2: any): boolean {

@@ -1,0 +1,26 @@
+<div class="container">
+    <h1 class="text-center">Mensajes</h1>
+    <br>
+    <div *ngFor="let men of mensajes$ | async">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <p>{{men.nombre}}</p>
+                    </div>
+                    
+                    <div class="barra"></div>
+
+                    <div class="col">
+                        <p>{{men.correo}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <p>{{men.descripcion}}</p>
+            </div>
+        </div>
+        <br>
+    </div>
+</div>

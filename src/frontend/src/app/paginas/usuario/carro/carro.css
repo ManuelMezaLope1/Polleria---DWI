@@ -1,0 +1,94 @@
+body{
+    background: #f5f7fb;
+}
+
+.titulo-compra h2{
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.titulo-compra p{
+    color: #7f8c8d;
+    margin: 0;
+}
+
+.compra-card{
+    border-radius: 18px;
+    max-height: 700px;
+    overflow-y: auto;
+}
+
+.img-container {
+  position: relative;
+  margin-left: 40px; 
+}
+
+.img-container img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.producto-box{
+    background: #f8f9fc;
+    padding: 20px;
+    border-radius: 14px;
+}
+
+.producto-agregado{
+    background: white;
+    border: 1px solid #ececec;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 18px;
+    transition: 0.3s;
+}
+
+.producto-agregado:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.form-label{
+    font-weight: 600;
+    color: #34495e;
+}
+
+.form-control{
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #dcdde1;
+}
+
+.form-control:focus{
+    box-shadow: none;
+    border-color: #4CAF50;
+}
+
+.btn-success{
+    border-radius: 10px;
+    font-weight: 600;
+    padding: 10px;
+}
+
+.btn-danger{
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.producto-preview{
+    background: linear-gradient(135deg, #ffffff, #f4f6f9);
+    border-radius: 16px;
+}
+
+.precio{
+    color: #27ae60;
+    font-weight: bold;
+}
+
+@media(max-width: 768px){
+    .producto-agregado,
+    .producto-box{
+        padding: 15px;
+    }
+}

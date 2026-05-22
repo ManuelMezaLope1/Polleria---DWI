@@ -39,6 +39,7 @@ public class SecurityConfiguration {
                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                .requestMatchers("/auth/**").permitAll()
                .requestMatchers("/api/v1/public/**").permitAll()
+               .requestMatchers("/api/v1/private/detalles-ventas").permitAll()
                .requestMatchers("/api/v1/private/cuenta").hasAuthority("ROLE_ADMIN")
                .requestMatchers("/api/v1/private/**").authenticated()
                .requestMatchers("/pruebas").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
