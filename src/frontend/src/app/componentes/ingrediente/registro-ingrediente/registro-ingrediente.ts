@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { PlatoServicio } from '../../../servicios/plato/plato-servicio';
 import Swal from 'sweetalert2';
 import { catchError, tap, throwError } from 'rxjs';
+import { Alergia } from '../../alergia/Alergia';
+import { AlergiaServicio } from '../../../servicios/alergia/alergia-servicio';
 
 @Component({
   selector: 'app-registro-ingrediente',
@@ -18,9 +20,11 @@ import { catchError, tap, throwError } from 'rxjs';
 export class RegistroIngrediente {
   ingrediente: IIngrediente = new IIngrediente();
   platos: Plato[] = [];
+  platoSeleccionado: any = null;
+  alergias: Alergia[]=[];
 
-  constructor(private cd: ChangeDetectorRef, private ingredienteServicio: IngredienteServicio, private platoServicio: PlatoServicio, private router: Router) {
-    this.ingrediente.platos=[];
+  constructor(private cd: ChangeDetectorRef, private ingredienteServicio: IngredienteServicio, private platoServicio: PlatoServicio, private alergiaServicio: AlergiaServicio, private router: Router) {
+    this.ingrediente.alergia=null;
   }
 
   ngOnInit(): void {
@@ -28,9 +32,16 @@ export class RegistroIngrediente {
       this.platos = dato;
       this.cd.detectChanges();
     });
+
+    this.alergiaServicio.obtenerTodasLasAlergias().subscribe(dato=>{
+      this.alergias=dato;
+      this.cd.detectChanges();
+    })
   }
 
   onSubmit() {
+    this.ingrediente.platos = [this.platoSeleccionado];
+
     this.ingredienteServicio.registrarIngrediente(this.ingrediente).pipe(
       tap(dato => {
         this.irALaListaDeIngredientes();
@@ -45,7 +56,14 @@ export class RegistroIngrediente {
   }
 
   irALaListaDeIngredientes() {
+    this.router.navigate(['/pruebas']).then(() => {
+      setTimeout(() => {
+        const element = document.getElementById("ingredientes");
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    });
     Swal.fire('Ingrediente registrado', 'El ingrediente ha sido registrado éxitosamente', 'success')
-    this.router.navigate(['/pruebas']);
   }
 }

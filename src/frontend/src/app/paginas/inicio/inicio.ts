@@ -65,6 +65,13 @@ export class Inicio implements AfterViewInit {
   }
 
   realizarCompra(id: number){
-    this.router.navigate(['carro/oferta',id]);
+    this.router.navigate(['carro/oferta',id]).then(() => {
+      setTimeout(() => {
+        const element = document.getElementById("compras");
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    });
   }
 }

@@ -22,6 +22,8 @@ import { Carro } from './paginas/usuario/carro/carro';
 import { Mensaje } from './paginas/admin/mensaje/mensaje';
 import { RegistroIngrediente } from './componentes/ingrediente/registro-ingrediente/registro-ingrediente';
 import { ActualizacionIngrediente } from './componentes/ingrediente/actualizacion-ingrediente/actualizacion-ingrediente';
+import { ActualizacionAlergia } from './componentes/alergia/actualizacion-alergia/actualizacion-alergia';
+import { RegistroAlergia } from './componentes/alergia/registro-alergia/registro-alergia';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -106,6 +108,13 @@ export const routes: Routes = [
         data: { roles: ['ROLE_ADMIN'] }
     },
 
+    {
+        path: 'actualizacion-alergia/:id',
+        component: ActualizacionAlergia,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN'] }
+    },
+
     { 
         path: 'creacion-categoria', 
         component: RegistroCategoria,
@@ -142,6 +151,13 @@ export const routes: Routes = [
     {
         path: 'creacion-ingrediente',
         component: RegistroIngrediente,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN'] }
+    },
+
+    {
+        path: 'creacion-alergia',
+        component: RegistroAlergia,
         canActivate: [AuthGuard],
         data: { roles: ['ROLE_ADMIN'] }
     },

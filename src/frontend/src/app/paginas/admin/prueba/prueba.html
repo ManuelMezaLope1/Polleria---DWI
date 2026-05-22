@@ -1,5 +1,6 @@
 <div class="container">
-    <div>
+    <br>
+    <section id="categorias">
         <!--##############################################################################################################################
         ####                                                Categorías                                                                ####
         ###############################################################################################################################-->
@@ -23,7 +24,8 @@
         </div>
         <br>
 
-        <table mat-table [dataSource]="dataSourceCategoria" matSort class="table table-container text-center table-striped table-bordered table-hover">
+        <table mat-table [dataSource]="dataSourceCategoria"
+            class="table table-container text-center table-striped table-bordered table-hover">
 
             <ng-container matColumnDef="nombre">
                 <th mat-header-cell *matHeaderCellDef class="text-center"> Nombre </th>
@@ -62,10 +64,10 @@
         </table>
 
         <mat-paginator #paginadorCate [pageSize]="3" [pageSizeOptions]="[3,5,9]" showFirstLastButtons></mat-paginator>
-    </div>
+    </section>
     <br>
     <hr><br>
-    <div>
+    <section id="platos">
         <!--##############################################################################################################################
         ####                                                   Platos                                                                 ####
         ###############################################################################################################################-->
@@ -79,46 +81,49 @@
             </div>
         </div>
         <br>
-        <table mat-table [dataSource]="dataSourcePlato"
-            class="table table-container text-center table-striped table-bordered table-hover responsive">
-            <ng-container matColumnDef="nombre">
-                <th mat-header-cell *matHeaderCellDef> Nombre </th>
-                <td mat-cell *matCellDef="let pla">{{ pla.nombre }}</td>
-            </ng-container>
+        <div class="table-responsive">
+            <table mat-table [dataSource]="dataSourcePlato"
+                class="table table-container text-center table-striped table-bordered table-hover responsive">
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                    <td mat-cell *matCellDef="let pla">{{ pla.nombre }}</td>
+                </ng-container>
 
-            <ng-container matColumnDef="categoria">
-                <th mat-header-cell *matHeaderCellDef> Categoría </th>
-                <td mat-cell *matCellDef="let pla">{{ pla.categoria?.nombre }}</td>
-            </ng-container>
+                <ng-container matColumnDef="categoria">
+                    <th mat-header-cell *matHeaderCellDef> Categoría </th>
+                    <td mat-cell *matCellDef="let pla">{{ pla.categoria?.nombre }}</td>
+                </ng-container>
 
-            <ng-container matColumnDef="descripcion">
-                <th mat-header-cell *matHeaderCellDef> Descripción </th>
-                <td mat-cell *matCellDef="let pla">{{ pla.descripcion }}</td>
-            </ng-container>
+                <ng-container matColumnDef="descripcion">
+                    <th mat-header-cell *matHeaderCellDef> Descripción </th>
+                    <td mat-cell *matCellDef="let pla">{{ pla.descripcion }}</td>
+                </ng-container>
 
-            <ng-container matColumnDef="precio">
-                <th mat-header-cell *matHeaderCellDef> Precio </th>
-                <td mat-cell *matCellDef="let pla">{{ pla.precio }}</td>
-            </ng-container>
+                <ng-container matColumnDef="precio">
+                    <th mat-header-cell *matHeaderCellDef> Precio </th>
+                    <td mat-cell *matCellDef="let pla">{{ pla.precio }}</td>
+                </ng-container>
 
-            <ng-container matColumnDef="acciones">
-                <th mat-header-cell *matHeaderCellDef> Acciones </th>
-                <td mat-cell *matCellDef="let pla">
-                    <button (click)="actualizarPlato(pla.id)" class="btn btn-info">Editar</button>
-                    <button (click)="eliminarPlato(pla.id)" class="btn btn-danger"
-                        style="margin-left: 10px;">Eliminar</button>
-                </td>
-            </ng-container>
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                    <td mat-cell *matCellDef="let pla">
+                        <button (click)="actualizarPlato(pla.id)" class="btn btn-info">Editar</button>
+                        <button (click)="eliminarPlato(pla.id)" class="btn btn-danger"
+                            style="margin-left: 10px;">Eliminar</button>
+                    </td>
+                </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="columnas"></tr>
-            <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
-        </table>
+                <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+            </table>
+        </div>
 
-        <mat-paginator #paginadorPlato [pageSize]="5" [pageSizeOptions]="[5,10,20]" showFirstLastButtons></mat-paginator>
-    </div>
+        <mat-paginator #paginadorPlato [pageSize]="5" [pageSizeOptions]="[5,10,20]"
+            showFirstLastButtons></mat-paginator>
+    </section>
     <br>
     <hr><br>
-    <div>
+    <section id="ofertas">
         <!--##############################################################################################################################
         ####                                                   Ofertas                                                                ####
         ###############################################################################################################################-->
@@ -134,36 +139,39 @@
             </div>
         </div>
         <br>
-        <table class="table table-container text-center table-striped table-bordered table-hover text-center">
-            <thead>
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Descripcion</th>
-                    <th scope="col">Cantidad</th>
-                    <th scope="col">Precio Actual</th>
-                    <th scope="col">Precio Nuevo</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
+        <div class="table-responsive">
+            <table class="table table-container text-center table-striped table-bordered table-hover text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio Actual</th>
+                        <th scope="col">Precio Nuevo</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                <tr *ngFor="let ofe of ofertas$ | async">
-                    <td>{{ofe.nombre}}</td>
-                    <td>{{ofe.descripcion}}</td>
-                    <td>{{ofe.cantidad}}</td>
-                    <td>{{ofe.precio_actual}}</td>
-                    <td>{{ofe.precio_nuevo}}</td>
-                    <td>
-                        <button (click)="actualizarOferta()" class="btn btn-info">Actualizar</button>
-                        <button (click)="eliminarOferta(ofe.id)" class="btn btn-danger"
-                            style="margin-left: 10px;">Eliminar</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                <tbody>
+                    <tr *ngFor="let ofe of ofertas$ | async">
+                        <td>{{ofe.nombre}}</td>
+                        <td>{{ofe.descripcion}}</td>
+                        <td>{{ofe.cantidad}}</td>
+                        <td>{{ofe.precio_actual}}</td>
+                        <td>{{ofe.precio_nuevo}}</td>
+                        <td>
+                            <button (click)="actualizarOferta(ofe.id)" class="btn btn-info">Actualizar</button>
+                            <button (click)="eliminarOferta(ofe.id)" class="btn btn-danger"
+                                style="margin-left: 10px;">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
     <br>
-    <div>
+    <hr><br>
+    <section id="ingredientes">
         <!--##############################################################################################################################
         ####                                              Ingrediente                                                                 ####
         ###############################################################################################################################-->
@@ -179,5 +187,95 @@
             </div>
         </div>
         <br>
-    </div>
+        <table mat-table [dataSource]="dataSourceIngrediente"
+            class="table table-container text-center table-striped table-bordered table-hover responsive">
+            <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef class="text-center"> Nombre </th>
+                <td mat-cell *matCellDef="let ing" class="text-center align-middle">{{ ing.nombre }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="platos">
+                <th mat-header-cell *matHeaderCellDef class="text-center"> Plato </th>
+                <td mat-cell *matCellDef="let ing" class="text-center align-middle">
+                    <div *ngFor="let plato of ing.platos">
+                        {{ plato.nombre }}
+                    </div>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef class="text-center"> Acciones </th>
+                <td mat-cell *matCellDef="let ing" class="text-center align-middle">
+                    <button (click)="actualizarIngrediente(ing.id)" class="btn btn-info">Editar</button>
+                    <button (click)="eliminarIngrediente(ing.id)" class="btn btn-danger"
+                        style="margin-left: 10px;">Eliminar</button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnasIngrediente"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnasIngrediente;"></tr>
+        </table>
+
+        <mat-paginator #paginadorIngrediente [pageSize]="5" [pageSizeOptions]="[5,10,20]"
+            showFirstLastButtons></mat-paginator>
+    </section>
+    <br>
+    <hr><br>
+    <section id="alergias">
+        <!--##############################################################################################################################
+        ####                                                  Alergia                                                                 ####
+        ###############################################################################################################################-->
+        <div class="row">
+            <div class="col-6">
+                <h1>Listado de Alergias</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-log-3">
+                <button (click)="registrarAlergia()" class="btn btn-primary btn-sm-3">Agregar alergia</button>
+            </div>
+        </div>
+        <br>
+        <table mat-table [dataSource]="dataSourceAlergia"
+            class="table table-container text-center table-striped table-bordered table-hover">
+
+            <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef class="text-center"> Nombre </th>
+                <td mat-cell *matCellDef="let ale" class="text-center align-middle">{{ ale.nombre }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="ingredientes">
+                <th mat-header-cell *matHeaderCellDef class="text-center align-middle"> Ingredientes </th>
+                <td mat-cell *matCellDef="let ale" class="text-center align-middle">
+
+                    <div *ngFor="let ing of agruparIngredientes(ale.ingredientes)">
+                        {{ ing.nombre }}
+                    </div>
+
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="acciones">
+                <th mat-header-cell *matHeaderCellDef class="text-center"> Acciones </th>
+                <td mat-cell *matCellDef="let ale" class="text-center align-middle">
+
+                    <button (click)="actualizarAlergia(ale.id)" class="btn btn-info">
+                        Editar
+                    </button>
+
+                    <button (click)="eliminarAlergia(ale.id)" class="btn btn-danger" style="margin-left:10px;">
+                        Eliminar
+                    </button>
+
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnasAlergia"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnasAlergia;"></tr>
+        </table>
+
+        <mat-paginator #paginadorAlergia [pageSize]="5" [pageSizeOptions]="[5,10,20]"
+            showFirstLastButtons></mat-paginator>
+    </section>
 </div>

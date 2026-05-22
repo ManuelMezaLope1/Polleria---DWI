@@ -31,7 +31,14 @@ export class RegistroPlato {
   }
 
   IrALaListaDePlatos() {
-    this.router.navigate(['/pruebas']);
+    this.router.navigate(['/pruebas']).then(() => {
+      setTimeout(() => {
+        const element = document.getElementById("platos");
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    });
     Swal.fire('Plato registrado', `El plato ${this.plato.nombre} ha sido registrado correctamente`, 'success');
   }
 

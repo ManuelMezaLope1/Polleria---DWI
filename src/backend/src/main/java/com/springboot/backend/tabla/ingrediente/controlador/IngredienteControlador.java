@@ -49,6 +49,7 @@ public class IngredienteControlador {
 
         ingredienteExistente.setNombre(detallesIngrediente.getNombre());
         ingredienteExistente.setPlatos(detallesIngrediente.getPlatos());
+        ingredienteExistente.setAlergia(detallesIngrediente.getAlergia());
 
         Ingrediente ingredienteActualizado=ingredienteRepositorio.save(ingredienteExistente);
         
