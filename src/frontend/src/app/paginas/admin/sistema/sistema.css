@@ -1,0 +1,8 @@
+.dark :host ::ng-deep .table{
+    transition: 1s;
+    color: #fff !important;
+}
+
+.light :host ::ng-deep .table{
+    transition: 1s;
+}

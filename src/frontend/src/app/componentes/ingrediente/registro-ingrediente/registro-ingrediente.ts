@@ -56,7 +56,7 @@ export class RegistroIngrediente {
   }
 
   irALaListaDeIngredientes() {
-    this.router.navigate(['/pruebas']).then(() => {
+    this.router.navigate(['/ingredientes']).then(() => {
       setTimeout(() => {
         const element = document.getElementById("ingredientes");
         if (element) {

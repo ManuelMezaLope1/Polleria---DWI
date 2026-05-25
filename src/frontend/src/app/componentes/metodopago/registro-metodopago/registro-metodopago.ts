@@ -49,7 +49,14 @@ export class RegistroMetodopago {
       icon: 'success'
     }).then((result)=>{
       if(result.isConfirmed){
-        this.router.navigate(['/pruebasexternas']);
+        this.router.navigate(['/sistema']).then(() => {
+      setTimeout(() => {
+        const element = document.getElementById("metodopagos");
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    });
       }
     })
   }

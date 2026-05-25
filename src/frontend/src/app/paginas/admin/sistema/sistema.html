@@ -1,0 +1,124 @@
+<div class="container">
+    <br>
+    <section id="roles">
+        <!--##############################################################################################################################
+        ####                                                     Roles                                                                ####
+        ###############################################################################################################################-->
+        <div class="row">
+            <div class="col-6">
+                <h1>Listado de Roles</h1>
+            </div>
+
+            <div class="col-2"></div>
+            <div class="col-2"></div>
+
+            <div class="col-2 btn btn-sm-3 d-flex justify-content-end">
+                <button (click)="volverDashboard()" class="btn btn-primary">Dashboard</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-3">
+                <button (click)="registrarRol()" class="btn btn-primary btm-sm-3">Agregar rol</button>
+            </div>
+        </div>
+        <br>
+        <table class="table table-container text-center table-striped table-bordered table-hover text-center">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let rol of roles$ | async">
+                    <td>
+                        <span *ngIf="rol.nombre==='ROLE_USER'">Usuario</span>
+                        <span *ngIf="rol.nombre==='ROLE_ADMIN'">Administrador</span>
+                        <span *ngIf="rol.nombre==='ROLE_COCINERO'">Cocinero</span>
+                    </td>
+                    <td>
+                        <button (click)="actualizarRol(rol.id)" class="btn btn-info">Actualizar</button>
+                        <button (click)="eliminarRol(rol.id)" class="btn btn-danger"
+                            style="margin-left: 10px;">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <br><hr><br>
+    <section id="metodopagos">
+        <div class="row">
+            <h1>Listado de Métodos de Pago</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-log-3">
+                <button (click)="registrarMetodoPago()" class="btn btn-primary btn-sm-3">Agregar zonas</button>
+            </div>
+        </div>
+        <br>
+        <table class="table table-container text-center table-striped table-bordered table-hover text-center">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let mepa of metodopagos$ | async">
+                    <td>{{mepa.nombre}}</td>
+                    <td>
+                        <button (click)="actualizarMetodoPago(mepa.id)" class="btn btn-info">Actualizar</button>
+                        <button (click)="eliminarMetodoPago(mepa.id)" class="btn btn-danger"
+                            style="margin-left : 10px;">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <br><hr><br>
+    <section id="zonas">
+        <div class="row">
+            <div class="col-6">
+                <h1>Listado de Zonas</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-log-3">
+                <button (click)="registrarZona()" class="btn btn-primary btn-sm-3">Agregar zonas</button>
+            </div>
+        </div>
+        <br>
+        <div class="table-responsive">
+            <table class="table table-container text-center table-striped table-bordered table-hover text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Departamento</th>
+                        <th scope="col">Provincia</th>
+                        <th scope="col">Distrito</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let zon of zonas$ | async">
+                        <td>{{zon.nombre}}</td>
+                        <td>{{zon.departamento}}</td>
+                        <td>{{zon.provincia}}</td>
+                        <td>{{zon.distrito}}</td>
+                        <td>
+                            <button (click)="actualizarZona(zon.id)" class="btn btn-info">Actualizar</button>
+                            <button (click)="eliminarZona(zon.id)" class="btn btn-danger"
+                                style="margin-left : 10px;">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>

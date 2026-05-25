@@ -1,5 +1,24 @@
-.dark :host ::ng-deep .precio-nuevo {
-  color: #121212 !important;
+.dark :host ::ng-deep .promo-card{
+  transition: 1s;
+  border: 1px solid #fff;
+}
+
+.dark :host ::ng-deep .titulo-promos{
+  transition: 1s;
+  color: #fff !important;
+}
+
+.dark :host ::ng-deep .subtitulo-promos{
+  transition: 1s;
+  color: #fff !important;
+}
+
+.light :host ::ng-deep .titulo-promos{
+  transition: 1s;
+}
+
+.light :host ::ng-deep .subtitulo-promos{
+  transition: 1s;
 }
 
 .card {

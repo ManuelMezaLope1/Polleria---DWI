@@ -1,31 +1,58 @@
 .dark :host ::ng-deep .texto {
+    transition: 1s;
     color: white !important;
 }
 
 .light :host ::ng-deep .texto {
+    transition: 1s;
     color: #121212 !important;
 }
 
 .dark :host ::ng-deep .card-body {
+    transition: 1s;
     background: #121212 !important;
 }
 
+.light :host ::ng-deep .card-body {
+    transition: 1s;
+}
+
 .dark :host ::ng-deep .accion-card {
+    transition: 1s;
     border-color: white;
 }
 
+.light :host ::ng-deep .accion-card {
+    transition: 1s;
+}
+
 .dark :host ::ng-deep .accion-card:hover {
+    transition: 1s;
     transform: translateY(-5px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     border-color: white;
 }
 
+.light :host ::ng-deep .accion-card:hover {
+    transition: 1s;
+}
+
 .dark :host ::ng-deep .accion-descripcion {
+    transition: 1s;
     color: white;
 }
 
+.light :host ::ng-deep .accion-descripcion {
+    transition: 1s;
+}
+
 .dark :host ::ng-deep .accion-titulo {
+    transition: 1s;
     color: white;
+}
+
+.light :host ::ng-deep .accion-titulo {
+    transition: 1s;
 }
 
 .card {

@@ -44,7 +44,7 @@ export class RegistroAlergia {
       confirmButtonText: 'Ok'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.router.navigate(['/pruebas']).then(() => {
+        this.router.navigate(['/ingredientes']).then(() => {
           setTimeout(() => {
             const element = document.getElementById("alergias");
             if (element) {

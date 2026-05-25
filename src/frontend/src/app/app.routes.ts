@@ -24,11 +24,18 @@ import { RegistroIngrediente } from './componentes/ingrediente/registro-ingredie
 import { ActualizacionIngrediente } from './componentes/ingrediente/actualizacion-ingrediente/actualizacion-ingrediente';
 import { ActualizacionAlergia } from './componentes/alergia/actualizacion-alergia/actualizacion-alergia';
 import { RegistroAlergia } from './componentes/alergia/registro-alergia/registro-alergia';
+import { Chatbot } from './componentes/chatbot/chatbot';
+import { Sistema } from './paginas/admin/sistema/sistema';
+import { ActualizacionRol } from './componentes/rol/actualizacion-rol/actualizacion-rol';
+import { RegistroRol } from './componentes/rol/registro-rol/registro-rol';
+import { ActualizacionZona } from './componentes/zona/actualizacion-zona/actualizacion-zona';
+import { Ingrediente } from './paginas/admin/ingrediente/ingrediente';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'inicio', pathMatch: 'full' },
     { path: 'inicio', component: Inicio },
     { path: 'carta', component: ListaCategoria },
+    { path: 'chatbot', component: Chatbot },
 
     {
         path: 'cuenta',
@@ -45,14 +52,21 @@ export const routes: Routes = [
     },
 
     {
-        path: 'pruebas',
+        path: 'platos',
         component: Prueba,
         canActivate: [AuthGuard],
         data: { roles: ['ROLE_ADMIN']}
     },
 
     {
-        path: 'pruebasexternas',
+        path: 'ingredientes',
+        component: Ingrediente,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN'] }
+    },
+
+    {
+        path: 'usuarios',
         component: Pruebasexternas,
         canActivate: [AuthGuard],
         data: { roles: ['ROLE_ADMIN']}
@@ -63,6 +77,13 @@ export const routes: Routes = [
         component: Mensaje,
         canActivate: [AuthGuard],
         data: { roles: ['ROLE_ADMIN']}
+    },
+
+    {
+        path: 'sistema',
+        component: Sistema,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN'] }
     },
 
     { path: 'promocion', component: Promocion },
@@ -85,6 +106,13 @@ export const routes: Routes = [
         component: ActualizacionPlato,
         canActivate: [AuthGuard],
         data: { roles: ['ROLE_ADMIN']}
+    },
+
+    {
+        path: 'actualizacion-zona/:id',
+        component: ActualizacionZona,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN'] }
     },
 
     {
@@ -111,6 +139,13 @@ export const routes: Routes = [
     {
         path: 'actualizacion-alergia/:id',
         component: ActualizacionAlergia,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN'] }
+    },
+
+    {
+        path: 'actualizacion-rol/:id',
+        component: ActualizacionRol,
         canActivate: [AuthGuard],
         data: { roles: ['ROLE_ADMIN'] }
     },
@@ -158,6 +193,13 @@ export const routes: Routes = [
     {
         path: 'creacion-alergia',
         component: RegistroAlergia,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN'] }
+    },
+
+    {
+        path: 'creacion-rol',
+        component: RegistroRol,
         canActivate: [AuthGuard],
         data: { roles: ['ROLE_ADMIN'] }
     },
