@@ -18,12 +18,10 @@ import { MetodoPago } from '../../../componentes/metodopago/MetodoPago';
   styleUrl: './pruebasexternas.css',
 })
 export class Pruebasexternas {
-  constructor(private zonaServicio: ZonaServicio, private usuarioServicio: UsuarioServicio, private metodoPagoServicio: MetodopagoServicio, private router: Router) { }
+  constructor(private zonaServicio: ZonaServicio, private usuarioServicio: UsuarioServicio, private router: Router) { }
 
   ngOnInit(): void {
-    this.zonas$ = this.zonaServicio.obtenerListaDeZonas();
     this.usuarios$=this.usuarioServicio.obtenerListaDePlatos();
-    this.metodopagos$=this.metodoPagoServicio.obtenerListaDeMetodoPago();
   }
 
   volverDashboard(){
@@ -31,94 +29,7 @@ export class Pruebasexternas {
   }
 
   /*========================================================================================*/
-  /*                                   Para Zonas                                           */
-  /*========================================================================================*/
-  zonas: Zona[] = [];
-  zonas$!: Observable<Zona[]>;
-
-  registrarZona() {
-    this.router.navigate(['creacion-zona']);
-  }
-
-  private obtenerZona() {
-    this.zonaServicio.obtenerListaDeZonas().subscribe(dato => {
-      this.zonas = dato;
-    })
-  }
-
-  eliminarZona(id: number) {
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: "Confirma si deseas eliminar la zona",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, elimínalo',
-      cancelButtonText: 'No, cancelar',
-      buttonsStyling: true
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.zonaServicio.eliminarZona(id).subscribe(dato => {
-          console.log(dato);
-          this.obtenerZona();
-          Swal.fire(
-            'Zona eliminada',
-            'La zona ha sido eliminada con éxito',
-            'success'
-          )
-        })
-      }
-    });
-  }
-
-  /*========================================================================================*/
   /*                                   Para Usuarios                                        */
   /*========================================================================================*/
   usuarios$!: Observable<Usuario[]>;
-
-  /*========================================================================================*/
-  /*                                  Para Método Pago                                      */
-  /*========================================================================================*/
-  metodopagos: MetodoPago[]=[];
-  metodopagos$!: Observable<MetodoPago[]>;
-
-  registrarMetodoPago(){
-    this.router.navigate(['creacion-metodopago']);
-  }
-
-  actualizarMetodoPago(id:number){
-    this.router.navigate(['actualizacion-metodopago', id]);
-  }
-
-  private obtenerMetodoPago(){
-    this.metodoPagoServicio.obtenerListaDeMetodoPago().subscribe(data=>{
-      this.metodopagos=data;
-    })
-  }
-
-  eliminarMetodoPago(id:number){
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: "Confirma si deseas eliminar la zona",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, elimínalo',
-      cancelButtonText: 'No, cancelar',
-      buttonsStyling: true
-    }).then((result)=>{
-      if(result.isConfirmed){
-        this.metodoPagoServicio.eliminarMetodoPago(id).subscribe(dato=>{
-          this.obtenerMetodoPago();
-          Swal.fire(
-            'Método pago eliminado',
-            'El método de pago ha sido eliminado con éxito',
-            'success'
-          )
-        })
-      }
-    })
-  }
 }

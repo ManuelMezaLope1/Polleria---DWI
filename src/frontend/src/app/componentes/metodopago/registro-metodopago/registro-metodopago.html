@@ -1,14 +1,18 @@
 <div class="col-md-6 offset-md-3">
-    <h3 class="text-center">Registro de Métodos de Pagos</h3>
+    <br>
+    <section id="creacion-metodopago">
+        <h3 class="text-center">Registro de Métodos de Pagos</h3>
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-        <div class="form-group">
-            <label for="nombre">Nombre: </label>
-            <input type="text" class="form-control" formControlName="nombre">
-        </div>
+            <div class="form-group">
+                <label for="nombre">Nombre: </label>
+                <input type="text" class="form-control" formControlName="nombre">
+            </div>
 
-        <button class="btn btn-success">Guardar</button>
+            <button class="btn btn-success">Guardar</button>
 
-    </form>
+        </form>
+    </section>
+    <br>
 </div>

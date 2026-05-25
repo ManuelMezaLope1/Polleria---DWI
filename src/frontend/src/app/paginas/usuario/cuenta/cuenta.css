@@ -2,6 +2,39 @@
     background: white;
 }
 
+.light :host ::ng-deep .card{
+    transition:1s;
+    background: white;
+}
+
+.dark :host ::ng-deep .card{
+    transition: 1s;
+    background: #121212
+}
+
+.dark :host ::ng-deep label{
+    transition: 1s;
+    color:#fff !important;
+}
+
+.light :host ::ng-deep label{
+    transition: 1s;
+}
+
+.dark :host ::ng-deep .texto-historial{
+    transition: 1s;
+    color: #fff !important;
+}
+
+.light :host ::ng-deep .texto-historial{
+    transition: 1s;
+}
+
+.dark ::host ::ng-deep .resumen{
+    transition: 1s;
+    color: #fff !important;
+}
+
 .light .contenedor-cuenta {
     background: #121212;
 }

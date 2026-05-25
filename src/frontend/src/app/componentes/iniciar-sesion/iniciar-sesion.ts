@@ -16,7 +16,9 @@ import Swal from 'sweetalert2';
   styleUrl: './iniciar-sesion.css'
 })
 export class IniciarSesionComponent {
-  zonas: Zona[]=[];
+  zonas: Zona[] | null;
+
+  constructor(private authService: Auth, private router: Router, private http: HttpClient, private zonaServicio: ZonaServicio) {}
 
   ngOnInit(): void{
     this.zonaServicio.obtenerListaDeZonas().subscribe(dato=>{
@@ -40,13 +42,6 @@ export class IniciarSesionComponent {
   };
 
   error = '';
-
-  constructor(
-    private authService: Auth,
-    private router: Router,
-    private http: HttpClient,
-    private zonaServicio: ZonaServicio
-  ) {}
 
   login() {
     this.authService.login(this.form).subscribe({
@@ -76,7 +71,7 @@ export class IniciarSesionComponent {
   registroPassword:string='';
   direccion:string='';
   telefono:string='';
-  zonaId:string='';
+  zonaId: string | null = null;
 
   registro(){
     const usuario={

@@ -34,8 +34,15 @@ export class ActualizacionMetodopago {
   }
 
   irALaListaDeMetodoPago(){
-    this.router.navigate(['/pruebasexternas'])
-    Swal.fire('Método de Pago actualizado',`El método de pago ha sido actualziado actualizado con éxito`,'success');
+    this.router.navigate(['/sistema'])
+    Swal.fire('Método de Pago actualizado',`El método de pago ha sido actualizado actualizado con éxito`,'success').then(() => {
+      setTimeout(() => {
+        const element = document.getElementById("metodopagos");
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    });
   }
 
   onSubmit(): void{

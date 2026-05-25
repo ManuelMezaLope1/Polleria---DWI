@@ -3,17 +3,34 @@
 
   <div class="container">
     <router-outlet></router-outlet>
-    <div *ngIf="authServicio.logueado()">
-      <div *ngIf="usuario">
-        <div *ngIf="esAdmin">
-          <button (click)="irDashboard()" class="dashboard">D</button>
 
-          <button (click)="venta()" class="boton-venta">🛒</button>
-        </div>
+    <div class="chat-flotante">
+      <div class="chat-boton" (click)="toggleChat()" *ngIf="!chatAbierto">
+        💬
       </div>
 
-      <div *ngIf="!esAdmin">
-        <button (click)="venta()" class="boton-venta">🛒</button>
+      <div class="chat-ventana" *ngIf="chatAbierto">
+        <div class="chat-header">
+          <span>🤖 Asistente El Sazón</span>
+          <button (click)="toggleChat()">✖</button>
+        </div>
+
+        <div class="chat-mensajes">
+          <div *ngFor="let m of mensajes" class="mensaje" [ngClass]="m.role">
+            <div class="contenedor-mensaje">
+              <span class="nombre">{{m.role=='user' ? 'Tú:' : '🤖 Asistente:'}}</span>
+
+              <div class="burbuja">
+                <div [innerHTML]="m.content"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-input">
+          <input type="text" [(ngModel)]="mensaje" (keyup.enter)="enviar()" placeholder="Escriba un mensaje">
+          <button (click)="enviar()">Enviar</button>
+        </div>
       </div>
     </div>
   </div>

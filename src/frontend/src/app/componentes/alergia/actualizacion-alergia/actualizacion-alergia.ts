@@ -49,7 +49,7 @@ export class ActualizacionAlergia {
   }
 
   irALaListaDeAlergias() {
-    this.router.navigate(['/pruebas']).then(() => {
+    this.router.navigate(['/ingredientes']).then(() => {
       setTimeout(() => {
         const element = document.getElementById("alergias");
         if (element) {

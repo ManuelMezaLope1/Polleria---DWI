@@ -38,6 +38,7 @@ public class SecurityConfiguration {
             .authorizeHttpRequests(auth -> auth
                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                .requestMatchers("/auth/**").permitAll()
+               .requestMatchers("/api/chat/**").permitAll()
                .requestMatchers("/api/v1/public/**").permitAll()
                .requestMatchers("/api/v1/private/detalles-ventas").permitAll()
                .requestMatchers("/api/v1/private/cuenta").hasAuthority("ROLE_ADMIN")
@@ -63,6 +64,7 @@ public class SecurityConfiguration {
 
         config.setAllowedOrigins(List.of(
             "http://localhost:4200",
+            "http://localhost:5000",
             "http://localhost:3000",
             "https://polleria-frontend.vercel.app/",
             "https://*.vercel.app"

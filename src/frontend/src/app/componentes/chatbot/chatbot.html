@@ -1,0 +1,30 @@
+<div class="chat-flotante">
+  <!-- Botón flotante -->
+  <div class="chat-boton" (click)="toggleChat()" *ngIf="!chatAbierto">
+    💬
+  </div>
+
+  <!-- Ventana del chat -->
+  <div class="chat-ventana" *ngIf="chatAbierto">
+    <div class="chat-header">
+      <span>🤖 Asistente El Sazón</span>
+      <button (click)="toggleChat()">✖</button>
+    </div>
+
+    <div class="chat-mensajes">
+      <div *ngFor="let msg of mensajes" [class.usuario]="msg.esUsuario">
+        <strong>{{ msg.esUsuario ? 'Tú' : 'Bot' }}:</strong>
+        <p>{{ msg.texto }}</p>
+      </div>
+    </div>
+
+    <div class="chat-input">
+      <input
+        type="text"
+        [(ngModel)]="nuevoMensaje"
+        (keyup.enter)="enviarMensaje()"
+        placeholder="Escribe tu mensaje...">
+      <button (click)="enviarMensaje()">Enviar</button>
+    </div>
+  </div>
+</div>
