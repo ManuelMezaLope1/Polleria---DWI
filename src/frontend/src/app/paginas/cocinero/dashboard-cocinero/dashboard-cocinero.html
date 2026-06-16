@@ -1,0 +1,462 @@
+<div class="dashboard-container">
+    <aside class="sidebar">
+        <div class="logo">
+            🍗 Pollería
+        </div>
+
+        <div class="menu">
+            <button class="menu-item" (click)="onInicioTab()">
+                <i class="material-icons">home</i>
+                <span>Inicio</span>
+            </button>
+
+            <button class="menu-item" (click)="onPedidosTab()">
+                <i class="material-icons">restaurant</i>
+                <span>Pedidos</span>
+            </button>
+
+            <button class="menu-item" (click)="onPreparacionTab()">
+                <i class="material-icons">schedule</i>
+                <span>En preparación</span>
+            </button>
+
+            <button class="menu-item" (click)="onListoTab()">
+                <i class="material-icons">check</i>
+                <span>Listos</span>
+            </button>
+
+            <button class="menu-item" (click)="onIngredientesTab()">
+                <i class="material-icons">inventory_2</i>
+                <span>Ingredientes</span>
+            </button>
+
+            <button class="menu-item" (click)="onPlatosPrepararTab()">
+                <i class="material-icons">leaderboard</i>
+                <span>Platos a Preparar</span>
+            </button>
+
+            <button class="menu-item" (click)="onEstadisticasTab()">
+                <i class="material-icons">analytics</i>
+                <span>Estadísticas</span>
+            </button>
+        </div>
+    </aside>
+
+    <main class="contenido">
+        <div class="tab-content">
+            <div [ngClass]="active == 'inicio' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                <h1>Inicio</h1>
+                <br>
+                <div class="kpi-grid">
+                    <div class="kpi-card kpi-pendiente">
+                        <i class="material-icons">tag</i>
+                        <h3>{{cantidadPedidosPendientes}}</h3>
+                        <span>pedidos pendiente</span>
+                    </div>
+
+                    <div class="kpi-card kpi-preparado">
+                        <i class="material-icons">tag</i>
+                        <h3>{{cantidadPedidosPreparados}}</h3>
+                        <span>pedidos preparandose</span>
+                    </div>
+
+                    <div class="kpi-card kpi-listo">
+                        <i class="material-icons">tag</i>
+                        <h3>{{cantidadPedidosListos}}</h3>
+                        <span>pedidos listos</span>
+                    </div>
+                </div>
+
+                <div class="kpi-grid">
+                    <div class="kpi-card kpi-pendiente">
+                        <i class="material-icons">tag</i>
+                        <h3>{{cantidadPlatosPendientes}}</h3>
+                        <span>platos pendiente</span>
+                    </div>
+
+                    <div class="kpi-card kpi-preparado">
+                        <i class="material-icons">tag</i>
+                        <h3>{{cantidadPlatosPreparados}}</h3>
+                        <span>platos preparandose</span>
+                    </div>
+
+                    <div class="kpi-card kpi-listo">
+                        <i class="material-icons">tag</i>
+                        <h3>{{cantidadPlatosListos}}</h3>
+                        <span>platos listos</span>
+                    </div>
+                </div>
+
+                <div class="kpi-grid" style="height: 400px;">
+                    <div class="kpi-card plato-estrella">
+                        <div *ngFor="let pla of mejorPlatoPedidoHoy">
+                            <div *ngIf="pla.cantidad>0">
+                                <div class="trofeo">
+                                    <i class="material-icons">workspace_premium</i>
+                                </div>
+
+                                <img [src]="pla.imagen" alt="Plato estrella" class="plato-img">
+                                <h5 style="color: #222;">{{pla.nombre}}</h5>
+                                <br>
+                                <div class="contador">🍗 {{pla.cantidad}}</div>
+                                <br>
+                                <span style="color: #222; font-size: 20px;">Plato estrella de hoy</span>
+                            </div>
+                        </div>
+
+                        <div *ngIf="mejorPlatoPedidoHoyCantidad===0">
+                            <div class="pedido-vacio">
+                                <i class="material-icons icono">info</i>
+                                <h4>Sin plato estrella hoy</h4>
+                                <p>Todavía no se han ordenado platos</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card oferta-estrella">
+                        <div *ngFor="let ofe of mejorOfertaPedidoHoy">
+                            <div *ngIf="ofe.cantidad>0">
+                                <div class="trofeo">
+                                    <i class="material-icons">workspace_premium</i>
+                                </div>
+
+                                <img src="../imagenes/promociones/promotueliges.png" alt="Plato estrella"
+                                    class="plato-img">
+                                <h5 style="color: #fff;">{{ofe.nombre}}</h5>
+                                <br>
+                                <div class="contador">🍗 {{ofe.cantidad}}</div>
+                                <br>
+                                <span style="color: #fff; font-size: 20px;">Oferta estrella de hoy</span>
+                            </div>
+                        </div>
+
+                        <div *ngIf="mejorOfertaPedidoHoyCantidad===0">
+                            <div class="pedido-vacio">
+                                <i class="material-icons icono" style="color: #fff;">info</i>
+                                <h4 style="color: #fff;">Sin oferta estrella hoy</h4>
+                                <p style="color: #fff;">Todavía no se han ordenado ofertas</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card ingrediente-estrella">
+                        <div *ngFor="let ing of mejorIngredientePedidoHoy">
+                            <div *ngIf="ing.cantidad>0">
+                                <div class="trofeo">
+                                    <i class="material-icons">workspace_premium</i>
+                                </div>
+
+                                <img src="../imagenes/promociones/promotueliges.png" alt="Ingrediente estrella"
+                                    class="plato-img">
+                                <h5 style="color: #fff;">{{ing.nombre}}</h5>
+                                <br>
+                                <div class="contador">🍗 {{ing.cantidad}}</div>
+                                <br>
+                                <span style="color: #fff; font-size: 20px;">Ingrediente estrella de hoy</span>
+                            </div>
+                        </div>
+
+                        <div *ngIf="mejorIngredientePedidoHoyCantidad===0">
+                            <div class="pedido-vacio">
+                                <i class="material-icons icono" style="color: #fff;">info</i>
+                                <h4 style="color: #fff;">Sin ingrediente estrella hoy</h4>
+                                <p style="color: #fff;">Todavía no se han ordenado pedidos</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="kpi-observacion-grid">
+                    <div class="alertas-container">
+                        <div class="alerta-card" *ngFor="let ped of pedidosObservaciones">
+                            <ng-container *ngIf="ped.observacion">
+                                <div class="alerta-header">
+                                    <div class="hora">
+                                        <i class="material-icons">schedule</i>
+                                        {{ped.hora_inicio}}
+                                    </div>
+
+                                    <span class="badge-alerta">⚠ Atención</span>
+                                </div>
+
+                                <div class="alerta-body">
+                                    <h5>Pedido {{ped.estado_pedido}}</h5>
+                                    <p class="descripcion">{{ped.descripcion}}</p>
+
+                                    <div class="observacion">
+                                        <i class="material-icons">warning</i>
+                                        <span>{{ped.observacion}}</span>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div [ngClass]="active == 'pedidos' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                <h1>Pedidos</h1>
+                <br>
+                <div class="pedido-card card-pendiente" *ngFor="let ped of pedidosPendientes">
+                    <div class="pedido-header">
+                        <div class="pedido-hora">
+                            <i class="material-icons">schedule</i>
+                            {{ped.hora_inicio}}
+                        </div>
+
+                        <div class="pedido-estado"
+                            [ngClass]="{'pendiente': ped.estado_pedido === 'Pendiente', 'preparacion': ped.estado_pedido === 'Preparando', 'listo': ped.estado_pedido === 'Listo'}">
+                            {{ped.estado_pedido}}
+                        </div>
+                    </div>
+
+                    <div class="pedido-body">
+                        <div class="pedido-info">
+                            <strong>📅 Fecha:</strong>
+                            {{ped.fecha}}
+                        </div>
+
+                        <div class="pedido-info">
+                            <strong>🍗 Cantidad:</strong>
+                            {{ped.cantidad}}
+                        </div>
+
+                        <div class="pedido-descripcion">
+                            <strong>Pedido:</strong>
+                            <p>{{ped.descripcion}}</p>
+                        </div>
+
+                        <div class="pedido-observacion" *ngIf="ped.observacion">
+                            <strong>📝 Observaciones:</strong>
+                            <p>{{ped.observacion}}</p>
+                        </div>
+                    </div>
+
+                    <div class="pedido-footer">
+                        <form>
+                            <input type="hidden" id="usuario" name="usuario" [(ngModel)]="pedido.usuario">
+                            <input type="hidden" id="username" name="username" [(ngModel)]="pedido.username">
+
+                            <button class="btn btn-warning btn-sm p-2" style="border-radius: 20px;"
+                                (click)="actualizarPedidoPendiente(ped.id)">Preparar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div [ngClass]="active == 'preparacion' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                <h1>En preparación</h1>
+                <br>
+                <div *ngIf="pedidosPreparados.length>0">
+                    <div class="pedido-card card-preparado" *ngFor="let ped of pedidosPreparados">
+                        <div class="pedido-header">
+                            <div class="pedido-hora">
+                                <i class="material-icons">schedule</i>
+                                {{ped.hora_inicio}}
+                            </div>
+
+                            <div class="pedido-estado"
+                                [ngClass]="{'pendiente': ped.estado_pedido === 'Pendiente', 'preparacion': ped.estado_pedido === 'Preparando', 'listo': ped.estado_pedido === 'Listo'}">
+                                {{ped.estado_pedido}}
+                            </div>
+                        </div>
+
+                        <div class="pedido-body">
+                            <div class="pedido-info">
+                                <strong>📅 Fecha:</strong>
+                                {{ped.fecha}}
+                            </div>
+
+                            <div class="pedido-info">
+                                <strong>🍗 Cantidad:</strong>
+                                {{ped.cantidad}}
+                            </div>
+
+                            <div class="pedido-descripcion">
+                                <strong>Pedido:</strong>
+                                <p>{{ped.descripcion}}</p>
+                            </div>
+
+                            <div class="pedido-observacion" *ngIf="ped.observacion">
+                                <strong>📝 Observaciones:</strong>
+                                <p>{{ped.observacion}}</p>
+                            </div>
+                        </div>
+
+                        <div class="pedido-footer">
+                            <form>
+                                <input type="hidden" id="usuario" name="usuario" [(ngModel)]="pedido.usuario">
+                                <input type="hidden" id="username" name="username" [(ngModel)]="pedido.username">
+
+                                <button class="btn btn-success btn-sm p-2" style="border-radius: 20px;"
+                                    (click)="actualizarPedidoPreparado(ped.id)">Listo</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div *ngIf="pedidosPreparados.length===0">
+                    <div class="seleccion-vacia">
+                        <i class="material-icons icono">info</i>
+                        <h4>Sin pedidos siendo preparados</h4>
+                        <p>Haga click a preparar en la sección "Pedidos".
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div [ngClass]="active == 'listo' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                <h1>Listos</h1>
+                <br>
+                <div *ngIf="pedidosListos.length>0">
+                    <div class="pedido-card card-listo" *ngFor="let ped of pedidosListos">
+                        <div class="pedido-header">
+                            <div class="pedido-hora">
+                                <i class="material-icons">schedule</i>
+                                {{ped.hora_entrega}}
+                            </div>
+
+                            <div class="pedido-estado"
+                                [ngClass]="{'pendiente': ped.estado_pedido === 'Pendiente', 'preparacion': ped.estado_pedido === 'Preparando', 'listo': ped.estado_pedido === 'Listo'}">
+                                {{ped.estado_pedido}}
+                            </div>
+                        </div>
+
+                        <div class="pedido-body">
+                            <div class="pedido-info">
+                                <strong>📅 Fecha:</strong>
+                                {{ped.fecha}}
+                            </div>
+
+                            <div class="pedido-info">
+                                <strong>🍗 Cantidad:</strong>
+                                {{ped.cantidad}}
+                            </div>
+
+                            <div class="pedido-descripcion">
+                                <strong>Pedido:</strong>
+                                <p>{{ped.descripcion}}</p>
+                            </div>
+
+                            <div class="pedido-observacion" *ngIf="ped.observacion">
+                                <strong>📝 Observaciones:</strong>
+                                <p>{{ped.observacion}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="pedidosListos.length===0">
+                    <div class="seleccion-vacia">
+                        <i class="material-icons icono">info</i>
+                        <h4>Sin pedidos terminados</h4>
+                        <p>Haga click a listo en la sección "En preparación".
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div [ngClass]="active == 'ingredientes' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                <h1>Ingredientes</h1>
+                <br>
+                <div class="ingredientes-grid">
+                    <div class="ingrediente-card mt-3" *ngFor="let ing of ingredientes">
+                        <div class="d-flex justify-content-center">
+                            <img [src]="ing.imagen" alt="Ingrediente" class="ingrediente-img">
+                        </div>
+                        
+                        <div class="ingrediente-body">
+                            <h5>{{ing.nombre}}</h5>
+                            <span class="categoria-badge">{{ing.categoria}}</span>
+                            <div class="ingrediente-info">
+                                <div class="info-item">
+                                    <span>🍽️ Presente en</span>
+                                    <strong>{{ing.cantidad}} platos</strong>
+                                </div>
+
+                                <div class="info-item">
+                                    <span>⚠️ Alergia</span>
+                                    <strong>{{ing.alergia}}</strong>
+                                </div>
+
+                                <div class="info-item">
+                                    <span>📌 Estado</span>
+                                    <strong>{{ing.estado}}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div [ngClass]="active == 'platosPreparar' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                <h1>Platos a Preparar</h1>
+                <br>
+                <div class="produccion-grid">
+                    <div class="plato-produccion-card" *ngFor="let p of platosPreparar">
+                        <div *ngIf="p.cantidad_platos_pendientes>0">
+                            <div class="imagen-container">
+                                <img [src]="p.imagen" alt="Imagen del plato a preparar">
+                            </div>
+
+                            <div class="card-body">
+                                <span class="categoria">{{p.categoria}}</span>
+                                <h4>{{p.nombre}}</h4>
+                                <p class="descripcion">{{p.descripcion}}</p>
+                                <div class="datos">
+                                    <div class="dato">
+                                        <span>🧂 Ingredientes</span>
+                                        <strong>{{p.cantidad_ingredientes}}</strong>
+                                    </div>
+
+                                    <div class="dato platos"
+                                        [ngClass]="{'alto': p.cantidad_platos_pendientes > 20, 'medio': p.cantidad_platos_pendientes >= 10 && p.cantidad_platos_pendientes <= 20, 'bajo': p.cantidad_platos_pendientes < 10}">
+                                        <span>🍗 Por preparar</span>
+                                        <strong>{{p.cantidad_platos_pendientes}}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div [ngClass]="active == 'estadisticas' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                <h1>Estadísticas</h1>
+                <br>
+                <div class="graficos-grid">
+                    <div class="card dashboard-card">
+                        <h5>Pedidos Por Estado</h5>
+                        <canvas id="cantidadEstadoPedidoChart"></canvas>
+                    </div>
+
+                    <div class="card dashboard-card">
+                        <h5>Pedidos Por Franja</h5>
+                        <canvas id="franjaPedidosChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="graficos-grid">
+                    <div class="card dashboard-card">
+                        <h5>Pedidos Por Dia</h5>
+                        <canvas id="diaPedidosChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="graficos-grid">
+                    <div class="card dashboard-card">
+                        <h5>Cantidad Platos Mañana</h5>
+                        <canvas id="historicoPlatosChart"></canvas>
+                    </div>
+
+                    <div class="card dashboard-card">
+                        <h5>Cantidad Franja Mañana</h5>
+                        <canvas id="historicoFranjaPedidosChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

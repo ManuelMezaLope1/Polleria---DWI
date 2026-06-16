@@ -1,41 +1,43 @@
-<section class="banner">
-    <img src="../imagenes/promociones/combo.png" alt="Banner Promo" class="img-fluid"
-        style="height: 350px; object-fit: cover;">
-</section>
+<div class="container">
+    <section class="banner">
+        <img src="../imagenes/promociones/combo.png" alt="Banner Promo" class="img-fluid"
+            style="height: 350px; object-fit: cover;">
+    </section>
 
-<div class="container mt-5">
-    <h2 class="titulo text-center mb-5 fw-bold text-uppercase">Nuestras Promociones</h2>
+    <div class="container mt-5">
+        <h2 class="titulo text-center mb-5 fw-bold text-uppercase">Nuestras Promociones</h2>
 
-    <div class="container py-5">
-        <div class="text-center mb-5">
-            <h2 class="titulo-promos">🔥 Promociones Especiales</h2>
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="titulo-promos">🔥 Promociones Especiales</h2>
 
-            <p class="subtitulo-promos">Aprovecha nuestras mejores ofertas del día</p>
-        </div>
+                <p class="subtitulo-promos">Aprovecha nuestras mejores ofertas del día</p>
+            </div>
 
-        <div class="row g-4">
-            <div class="col-lg-4 col-md-6" *ngFor="let ofe of ofertas$ | async">
-                <div class="promo-card h-100">
-                    <div class="descuento-badge">{{getDescuento(ofe)}}% OFF</div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6 mb-4" *ngFor="let ofe of ofertas$ | async" [hidden]="ofe.nombre == 'Sin promoción'">
+                    <div class="promo-card h-100">
+                        <div class="descuento-badge">{{getDescuento(ofe)}}% OFF</div>
 
-                    <div class="img-container">
-                        <img src="../imagenes/promociones/promotueliges.png" class="promo-img" alt="Promo">
-                    </div>
-
-                    <div class="promo-body">
-                        <h4 class="promo-title">{{ofe.nombre}}</h4>
-                        <p class="promo-desc">{{ofe.descripcion}}</p>
-
-                        <div class="precio-box">
-                            <span class="precio-antiguo">S/. {{ofe.precio_actual}}</span>
-                            <span class="precio-nuevo">S/. {{ofe.precio_nuevo}}</span>
+                        <div class="img-container">
+                            <img src="../imagenes/promociones/promotueliges.png" class="promo-img" alt="Promo">
                         </div>
 
-                        <button class="btn-pedir" (click)="realizarCompra(ofe.id)">🛒 Pedir Ahora</button>
+                        <div class="promo-body">
+                            <h4 class="promo-title">{{ofe.nombre}}</h4>
+                            <p class="promo-desc">{{ofe.descripcion}}</p>
+
+                            <div class="precio-box">
+                                <span class="precio-antiguo">S/. {{ ofe.precio_actual ?? 0 | number:'1.2-2' }}</span>
+                                <span class="precio-nuevo">S/. {{ ofe.precio_nuevo?? 0 | number:'1.2-2' }}</span>
+                            </div>
+
+                            <button class="btn-pedir" (click)="realizarCompra(ofe.id)">🛒 Pedir Ahora</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <br>
     </div>
-    <br>
 </div>

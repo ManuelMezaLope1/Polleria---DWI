@@ -1,155 +1,161 @@
-<div class="contenedor-principal">
-  <div class="contenedor-cuenta">
-    <div class="panel-lateral">
-      <div class="info-usuario" *ngIf="usuario">
-        <div class="avatar">
-          <span class="material-icons">person</span>
-        </div>
-        <h2>{{usuario.nombre}}</h2>
-        <p>{{usuario.username}}</p>
-      </div>
-
-      <ul class="menu-cuenta">
-        <li class="border border-light rounded">
-          <a [ngClass]="active == 'informacion' ? 'nav-link active' : 'nav-link'" id="tab-registro"
-            (click)="onInformacionTab()"><span class="material-icons">person</span>Información Personal</a>
-        </li>
-
-        <li class="border border-light rounded">
-          <a [ngClass]="active == 'historial' ? 'nav-link active' : 'nav-link'" id="tab-historial"
-            (click)="onHistorialTab()"><span class="material-icons">list</span>Historial</a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="contenedor-principal tab-content">
-      <div [ngClass]="active == 'informacion' ? 'tab-pane fade show active' : 'tab-pane fade'">
-        <div *ngIf="usuario">
-          <h1 class="text-center">Mi Cuenta</h1>
-          <form (ngSubmit)="onSubmit()">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="grupo-formulario">
-                  <label>Nombre: </label>
-                  <input type="text" class="form-control" id="nombre" [(ngModel)]="usuario.nombre" name="nombre"
-                    required>
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="grupo-formulario">
-                  <label>Apellido: </label>
-                  <input type="text" class="form-control" id="apellido" [(ngModel)]="usuario.apellido" name="apellido"
-                    required>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-6">
-                <div class="grupo-formulario">
-                  <label>Dirección: </label>
-                  <input type="text" class="form-control" id="direccion" [(ngModel)]="usuario.direccion"
-                    name="direccion" required>
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="grupo-formulario">
-                  <label>Teléfono</label>
-                  <input type="text" class="form-control" id="telefono" [(ngModel)]="usuario.telefono" name="telefono"
-                    required>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-6">
-                <div class="grupo-formulario">
-                  <label>Correo: </label>
-                  <input type="text" class="form-control" id="username" [(ngModel)]="usuario.username" name="username"
-                    required>
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="grupo-formulario">
-                  <label>Zona:</label>
-                  <select class="form-control" name="zona" id="zona" [(ngModel)]="usuario.zona"
-                    [compareWith]="compararZonas" required>
-                    <option *ngFor="let zon of zonas" [ngValue]="zon">{{zon.nombre}}</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <button type="submit" class="btn btn-guardar">Guardar</button>
-          </form>
-        </div>
-      </div>
-
-      <div [ngClass]="active == 'historial' ? 'tab-pane fade show active' : 'tab-pane fade'">
-        <div class="container py-4">
-          <div class="ventas-header mb-4">
-            <h2 class="texto-historial">📋 Historial de Ventas</h2>
-            <p class="resumen">Resumen de compras realizadas</p>
+<div class="container">
+  <div class="contenedor-principal">
+    <div class="contenedor-cuenta">
+      <div class="panel-lateral">
+        <div class="info-usuario" *ngIf="usuario">
+          <div class="avatar">
+            <span class="material-icons">person</span>
           </div>
+          <h2>{{usuario.nombre}}</h2>
+          <p>{{usuario.username}}</p>
+        </div>
 
-          <div class="card" style="border: none;">
-            <div class="venta-card" *ngFor="let venta of ventas">
-              <div class="venta-top">
-                <div>
-                  <h4>Venta #{{venta.id}}</h4>
-                  <span class="fecha">{{venta.fecha}}</span>
-                </div>
+        <ul class="menu-cuenta">
+          <li class="border border-light rounded">
+            <a [ngClass]="active == 'informacion' ? 'nav-link active' : 'nav-link'" id="tab-registro"
+              (click)="onInformacionTab()"><span class="material-icons">person</span>Información Personal</a>
+          </li>
 
-                <div class="estado">✔ Completado</div>
-              </div>
+          <li class="border border-light rounded">
+            <a [ngClass]="active == 'historial' ? 'nav-link active' : 'nav-link'" id="tab-historial"
+              (click)="onHistorialTab()"><span class="material-icons">list</span>Historial</a>
+          </li>
+        </ul>
+      </div>
 
-              <div class="venta-body">
-                <div class="info-item">
-                  <span class="label">Usuario</span>
-                  <span class="value">{{venta.username}}</span>
-                </div>
-
-                <div class="info-item">
-                  <span class="label">Método de Pago</span>
-                  <div *ngIf="venta.metodopago.nombre==='Efectivo'">
-                    <span class="value" style="color: #0aa007;">{{venta.metodopago.nombre}}</span>  
-                  </div>
-
-                  <div *ngIf="venta.metodopago.nombre==='Yape'">
-                    <span class="value" style="color: #730dd3;">{{venta.metodopago.nombre}}</span>
-                  </div>
-
-                  <div *ngIf="venta.metodopago.nombre==='Plin'">
-                    <span class="value" style="color: #16A3A4;">{{venta.metodopago.nombre}}</span>
+      <div class="contenedor-principal tab-content">
+        <div [ngClass]="active == 'informacion' ? 'tab-pane fade show active' : 'tab-pane fade'">
+          <div *ngIf="usuario">
+            <h1 class="text-center">Mi Cuenta</h1>
+            <form (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="grupo-formulario">
+                    <label>Nombre: </label>
+                    <input type="text" class="form-control" id="nombre" [(ngModel)]="usuario.nombre" name="nombre"
+                      required>
                   </div>
                 </div>
 
-                <div class="info-item">
-                  <span class="label">Cantidad</span>
-                  <span class="value">{{venta.detalleVenta.cantidad}}</span>
-                </div>
-
-                <div class="info-item">
-                  <span class="label">Descripción</span>
-                  <span class="value descripcion">{{venta.detalleVenta.descripcion}}</span>
+                <div class="col-md-6">
+                  <div class="grupo-formulario">
+                    <label>Apellido: </label>
+                    <input type="text" class="form-control" id="apellido" [(ngModel)]="usuario.apellido" name="apellido"
+                      required>
+                  </div>
                 </div>
               </div>
 
-              <div class="venta-footer">
-                <span class="total-text">Total Pagado</span>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="grupo-formulario">
+                    <label>Dirección: </label>
+                    <input type="text" class="form-control" id="direccion" [(ngModel)]="usuario.direccion"
+                      name="direccion" required>
+                  </div>
+                </div>
 
-                <span class="total-precio">S/. {{venta.detalleVenta.total}}</span>
+                <div class="col-md-6">
+                  <div class="grupo-formulario">
+                    <label>Teléfono</label>
+                    <input type="text" class="form-control" id="telefono" [(ngModel)]="usuario.telefono" name="telefono"
+                      required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="grupo-formulario">
+                    <label>Correo: </label>
+                    <input type="text" class="form-control" id="username" [(ngModel)]="usuario.username" name="username"
+                      required>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="grupo-formulario">
+                    <label>Zona:</label>
+                    <select class="form-control" name="zona" id="zona" [(ngModel)]="usuario.zona"
+                      [compareWith]="compararZonas" required>
+                      <option *ngFor="let zon of zonas" [ngValue]="zon">{{zon.nombre}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-guardar">Guardar</button>
+            </form>
+          </div>
+        </div>
+
+        <div [ngClass]="active == 'historial' ? 'tab-pane fade show active' : 'tab-pane fade'">
+          <div class="container py-4">
+            <div *ngIf="ventas.length>0">
+              <div class="ventas-header mb-4">
+                <h2 class="texto-historial">📋 Historial de Ventas</h2>
+                <p class="resumen">Resumen de compras realizadas</p>
               </div>
             </div>
 
-            <div *ngIf="ventas.length===0">
-              <div class="card" style="width: 600px; height: 250px">
-                <div class="d-flex justify-content-center">
-                  <div style="margin-top: 100px;">
-                    <h4 style="color: #635555">Realice una compra primero</h4>
+            <div class="card" style="border: none;">
+              <div class="venta-card" *ngFor="let venta of ventas">
+                <div class="venta-top">
+                  <div>
+                    <h4>Venta #{{venta.id}}</h4>
+                    <span class="fecha">{{venta.fecha}}</span>
+                  </div>
+
+                  <div class="estado">✔ Completado</div>
+                </div>
+
+                <div class="venta-body">
+                  <div class="info-item">
+                    <span class="label">Usuario</span>
+                    <span class="value">{{venta.username}}</span>
+                  </div>
+
+                  <div class="info-item">
+                    <span class="label">Método de Pago</span>
+                    <div *ngIf="venta.metodopago.nombre==='Efectivo'">
+                      <span class="value" style="color: #0aa007;">{{venta.metodopago.nombre}}</span>
+                    </div>
+
+                    <div *ngIf="venta.metodopago.nombre==='Yape'">
+                      <span class="value" style="color: #730dd3;">{{venta.metodopago.nombre}}</span>
+                    </div>
+
+                    <div *ngIf="venta.metodopago.nombre==='Plin'">
+                      <span class="value" style="color: #16A3A4;">{{venta.metodopago.nombre}}</span>
+                    </div>
+                  </div>
+
+                  <div class="info-item">
+                    <span class="label">Cantidad</span>
+                    <span class="value">{{venta.detalleVenta.cantidad}}</span>
+                  </div>
+
+                  <div class="info-item">
+                    <span class="label">Descripción</span>
+                    <span class="value descripcion">{{venta.detalleVenta.descripcion}}</span>
+                  </div>
+                </div>
+
+                <div class="venta-footer">
+                  <span class="total-text">Total Pagado</span>
+
+                  <span class="total-precio">S/. {{venta.detalleVenta.total}}</span>
+                </div>
+              </div>
+
+              <div *ngIf="ventas.length===0">
+                <div style="width: 600px; height: 350px">
+                  <div class="historial-vacio">
+                    <div class="conte">
+                      <i class="material-icons icono">history</i>
+                      <h4>Historial vacío</h4>
+                      <p>Complete un test para que se rellene esta parte.</p>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -2,14 +2,15 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IIngrediente } from '../IIngrediente';
-import { Plato } from '../../plato/Plato';
 import { IngredienteServicio } from '../../../servicios/ingrediente/ingrediente-servicio';
 import { Router } from '@angular/router';
-import { PlatoServicio } from '../../../servicios/plato/plato-servicio';
 import Swal from 'sweetalert2';
 import { catchError, tap, throwError } from 'rxjs';
 import { Alergia } from '../../alergia/Alergia';
 import { AlergiaServicio } from '../../../servicios/alergia/alergia-servicio';
+import { CategoriaIngrediente } from '../../categoriaingrediente/CategoriaIngrediente';
+import { EstadoIngrediente } from '../EstadoIngrediente';
+import { CategoriaIngredienteServicio } from '../../../servicios/categoriaingrediente/categoria-ingrediente-servicio';
 
 @Component({
   selector: 'app-registro-ingrediente',
@@ -19,37 +20,42 @@ import { AlergiaServicio } from '../../../servicios/alergia/alergia-servicio';
 })
 export class RegistroIngrediente {
   ingrediente: IIngrediente = new IIngrediente();
-  platos: Plato[] = [];
-  platoSeleccionado: any = null;
   alergias: Alergia[]=[];
+  categorias: CategoriaIngrediente[]=[];
+  estados: EstadoIngrediente[]=[];
 
-  constructor(private cd: ChangeDetectorRef, private ingredienteServicio: IngredienteServicio, private platoServicio: PlatoServicio, private alergiaServicio: AlergiaServicio, private router: Router) {
+  constructor(private cd: ChangeDetectorRef, private ingredienteServicio: IngredienteServicio, private alergiaServicio: AlergiaServicio, private categoriaIngredienteServicio: CategoriaIngredienteServicio, private router: Router) {
     this.ingrediente.alergia=null;
+    this.ingrediente.categoriaIngrediente = null;
   }
 
   ngOnInit(): void {
-    this.platoServicio.obtenerListaDePlatos().subscribe(dato => {
-      this.platos = dato;
-      this.cd.detectChanges();
-    });
-
     this.alergiaServicio.obtenerTodasLasAlergias().subscribe(dato=>{
       this.alergias=dato;
       this.cd.detectChanges();
     })
+
+    this.categoriaIngredienteServicio.obtenerTodasLasCategorias().subscribe(dato=>{
+      this.categorias=dato;
+      this.cd.detectChanges();
+    })
+
+    this.ingredienteServicio.obtenerTodosLosEstados().subscribe(dato=>{
+      this.estados=dato;
+      this.ingrediente.estadoIngrediente = this.estados.find(e => e.id === 1);
+      this.cd.detectChanges;
+    })
   }
 
   onSubmit() {
-    this.ingrediente.platos = [this.platoSeleccionado];
-
     this.ingredienteServicio.registrarIngrediente(this.ingrediente).pipe(
       tap(dato => {
         this.irALaListaDeIngredientes();
       }),
       catchError(err => {
-        console.log("ERROR COMPLETO:", err);
-        console.log("STATUS:", err.status);
-        console.log("BODY:", err.error);
+        console.error("ERROR COMPLETO:", err);
+        console.error("STATUS:", err.status);
+        console.error("BODY:", err.error);
         return throwError(() => err);
       })
     ).subscribe()

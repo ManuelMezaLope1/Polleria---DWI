@@ -1,13 +1,20 @@
 package com.springboot.backend.tabla.ingrediente.controlador;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.springboot.backend.excepcion.ResourceNotFoundException;
 import com.springboot.backend.tabla.ingrediente.modelo.Ingrediente;
@@ -32,7 +39,12 @@ public class IngredienteControlador {
     }
     
     @PostMapping("/ingredientes")
-    public Ingrediente guardarIngrediente(@RequestBody Ingrediente ingrediente) {
+    public Ingrediente guardarIngrediente(@RequestPart("ingrediente") Ingrediente ingrediente, @RequestPart("imagen") MultipartFile imagen) throws IOException{
+        String ruta="";
+        String nombreImagen=UUID.randomUUID().toString()+"_"+imagen.getOriginalFilename();
+        Files.copy(imagen.getInputStream(),Paths.get(ruta+nombreImagen),StandardCopyOption.REPLACE_EXISTING);
+        ingrediente.setImagen(nombreImagen);
+
         return ingredienteRepositorio.save(ingrediente);
     }
     
@@ -48,8 +60,9 @@ public class IngredienteControlador {
         Ingrediente ingredienteExistente=ingredienteRepositorio.findById(id).orElseThrow(()->new ResourceNotFoundException("No existe el ingrediente con el id: "+id));
 
         ingredienteExistente.setNombre(detallesIngrediente.getNombre());
-        ingredienteExistente.setPlatos(detallesIngrediente.getPlatos());
         ingredienteExistente.setAlergia(detallesIngrediente.getAlergia());
+        ingredienteExistente.setCategoriaIngrediente(detallesIngrediente.getCategoriaIngrediente());
+        ingredienteExistente.setEstadoIngrediente(detallesIngrediente.getEstadoIngrediente());
 
         Ingrediente ingredienteActualizado=ingredienteRepositorio.save(ingredienteExistente);
         

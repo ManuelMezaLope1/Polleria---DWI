@@ -1,0 +1,181 @@
+<br>
+<div class="container">
+    <div class="">
+        <h1 class="text-center">Registro de Ingredientes y Platos</h1>
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-primary" (click)="volverDashboard()">Dashboard</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <br>
+            <label class="form-label">Seleccione un plato</label>
+            <select class="form-control" name="plato" id="plato" [(ngModel)]="platoSeleccionado">
+                <option [ngValue]="null">--Seleccione un plato--</option>
+                <option *ngFor="let pla of platos$ | async" [ngValue]="pla">{{pla.nombre}}</option>
+            </select>
+            <br>
+            <div class="plato-detalle-card" *ngIf="platoSeleccionado">
+                <div class="imagen-contenedor d-flex justify-content-center">
+                    <img [src]="platoSeleccionado.imagen" alt="Imagen del plato">
+                </div>
+
+                <div class="contenido">
+                    <h3>{{platoSeleccionado.nombre}} - {{platoSeleccionado.id}}</h3>
+                    <div class="descripcion">{{platoSeleccionado.descripcion}}</div>
+
+                    <div class="info-extra">
+                        <div class="info-item">
+                            <span>🍽 Categoría</span>
+                            <strong class="categoria-badge">{{platoSeleccionado.categoria.nombre}}</strong>
+                        </div>
+
+                        <div class="info-item">
+                            <span>💰 Precio</span>
+                            <strong class="precio">S/. {{platoSeleccionado.precio}}</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button class="btn btn-success w-100" (click)="agregarPlato()">Agregar</button>
+                </div>
+            </div>
+
+            <div *ngIf="!platoSeleccionado">
+                <div class="ingrediente-vacio">
+                    <i class="material-icons icono">menu_book</i>
+                    <h4>Ningun plato seleccionado</h4>
+                    <p>Seleccione un plato de la lista para visualizar su información, precio y categoría.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <br>
+            <label class="form-label">Seleccione un ingrediente</label>
+            <select class="form-control" name="ingrediente" id="ingrediente" [(ngModel)]="ingredienteSeleccionado">
+                <option [ngValue]="null">--Seleccione un ingrediente--</option>
+                <option *ngFor="let ing of ingredientes$ | async" [ngValue]="ing">{{ing.nombre}}</option>
+            </select>
+            <br>
+            <div class="ingrediente-detalle-card" *ngIf="ingredienteSeleccionado">
+                <div class="imagen-container d-flex justify-content-center">
+                    <img [src]="ingredienteSeleccionado.imagen" alt="Imagen del ingrediente">
+                </div>
+
+                <div class="contenido">
+                    <h3>{{ingredienteSeleccionado.nombre}} - {{ingredienteSeleccionado.id}}</h3>
+                    <div class="info-item">
+                        <span>⚠️ Alergia</span>
+                        <strong>{{ingredienteSeleccionado.alergia.nombre}}</strong>
+                    </div>
+
+                    <div class="info-item">
+                        <span>📂 Categoría</span>
+                        <strong>{{ingredienteSeleccionado.categoriaIngrediente.nombre}}</strong>
+                    </div>
+
+                    <div class="info-item">
+                        <span>📌 Estado</span>
+                        <span class="estado"
+                            [ngClass]="{'activo': ingredienteSeleccionado.estadoIngrediente.nombre === 'Activo', 'inactivo': ingredienteSeleccionado.estadoIngrediente.nombre === 'Inactivo'}">
+                            {{ingredienteSeleccionado.estadoIngrediente.nombre}}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button class="btn btn-success w-100" (click)="agregarIngrediente()">Agregar</button>
+                </div>
+            </div>
+
+            <div *ngIf="!ingredienteSeleccionado">
+                <div class="ingrediente-vacio">
+                    <i class="material-icons icono">food_bank</i>
+                    <h4>Ningun ingrediente seleccionado</h4>
+                    <p>Seleccione un ingrediente de la lista para visualizar su información, alergia, categoria y
+                        estado.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <h1 class="text-center">Relación</h1>
+    <br>
+    <div class="row">
+        <div class="col plato-detalle-card mb-5" *ngIf="platoAgregado">
+            <div class="imagen-contenedor d-flex justify-content-center">
+                <img [src]="platoAgregado.imagen" alt="Imagen del plato">
+            </div>
+
+            <div class="contenido">
+                <h3>{{platoAgregado.nombre}}</h3>
+                <div class="descripcion">{{platoAgregado.descripcion}}</div>
+
+                <div class="info-extra">
+                    <div class="info-item">
+                        <span>🍽 Categoría</span>
+                        <strong class="categoria-badge">{{platoAgregado.categoria.nombre}}</strong>
+                    </div>
+
+                    <div class="info-item">
+                        <span>💰 Precio</span>
+                        <strong class="precio">S/. {{platoAgregado.precio}}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ingrediente-grid ml-3 mr-3">
+            <div class="ingrediente-detalle-card" *ngFor="let item of ingredienteAgregado, let i= index">
+                <div class="imagen-container d-flex justify-content-center">
+                    <img [src]="item.imagen" alt="Imagen del ingrediente">
+                </div>
+
+                <div class="contenido">
+                    <h3>{{item.nombre}}</h3>
+                    <div class="info-item">
+                        <span>⚠️ Alergia</span>
+                        <strong>{{item.alergia.nombre}}</strong>
+                    </div>
+
+                    <div class="info-item">
+                        <span>📂 Categoría</span>
+                        <strong>{{item.categoriaIngrediente.nombre}}</strong>
+                    </div>
+
+                    <div class="info-item">
+                        <span>📌 Estado</span>
+                        <span class="estado"
+                            [ngClass]="{'activo': item.estadoIngrediente.nombre === 'Activo', 'inactivo': item.estadoIngrediente.nombre === 'Inactivo'}">
+                            {{item.estadoIngrediente.nombre}}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <button class="btn btn-danger" (click)="quitarIngrediente(i)">Eliminar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12" *ngIf="!ingredienteAgregado || !platoAgregado">
+            <div class="seleccion-vacia">
+                <div class="icono">🎯</div>
+                <br>
+                <h4>Sin resultados seleccionados</h4>
+                <p>Selecciona al menos un plato o un ingrediente para visualizar la información agregada.</p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <hr>
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-success" (click)="guardarRelaciones()">Registrar</button>
+    </div>
+    <br>
+</div>

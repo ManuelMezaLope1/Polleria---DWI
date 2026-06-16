@@ -3,10 +3,10 @@ package com.springboot.backend.tabla.plato.modelo;
 import java.util.List;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.springboot.backend.tabla.categoria.modelo.Categoria;
 import com.springboot.backend.tabla.ingrediente.modelo.Ingrediente;
+import com.springboot.backend.tabla.ingredienteplatos.modelo.IngredientePlatos;
 
 import jakarta.persistence.*;
 
@@ -34,31 +34,31 @@ public class Plato {
     @Column(name="imagen", nullable = false)
     private String imagen;
 
-    @ManyToMany(mappedBy = "platos", fetch = FetchType.EAGER)
-    @JsonIgnoreProperties({"platos"})
-    private List<Ingrediente> ingredientes;
+    @OneToMany(mappedBy = "plato", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"plato"})
+    private List<IngredientePlatos> ingredientePlatos;
 
-    public Plato(){
-        
-    }
+    public Plato(){}
 
-    public Plato(Long id, String nombre, double precio, String descripcion, Categoria categoria, String imagen, List<Ingrediente> ingredientes) {
+    public Plato(Long id, String nombre, double precio, String descripcion, Categoria categoria, String imagen,
+            List<IngredientePlatos> ingredientePlatos) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.descripcion = descripcion;
         this.categoria = categoria;
         this.imagen = imagen;
-        this.ingredientes = ingredientes;
+        this.ingredientePlatos = ingredientePlatos;
     }
 
-    public Plato(String nombre, double precio, String descripcion, Categoria categoria, String imagen, List<Ingrediente> ingredientes) {
+    public Plato(String nombre, double precio, String descripcion, Categoria categoria, String imagen,
+            List<IngredientePlatos> ingredientePlatos) {
         this.nombre = nombre;
         this.precio = precio;
         this.descripcion = descripcion;
         this.categoria = categoria;
         this.imagen = imagen;
-        this.ingredientes = ingredientes;
+        this.ingredientePlatos = ingredientePlatos;
     }
 
     public Long getId() {
@@ -109,12 +109,12 @@ public class Plato {
         this.imagen = imagen;
     }
 
-    public List<Ingrediente> getIngredientes() {
-        return ingredientes;
+    public List<IngredientePlatos> getIngredientePlatos() {
+        return ingredientePlatos;
     }
 
-    public void setIngredientes(List<Ingrediente> ingredientes) {
-        this.ingredientes = ingredientes;
+    public void setIngredientePlatos(List<IngredientePlatos> ingredientePlatos) {
+        this.ingredientePlatos = ingredientePlatos;
     }
 
     @Override

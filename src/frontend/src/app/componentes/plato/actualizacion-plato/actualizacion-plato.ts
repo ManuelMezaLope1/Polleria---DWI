@@ -1,3 +1,4 @@
+
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -31,7 +32,7 @@ export class ActualizacionPlato {
         this.cd.detectChanges();
       }),
       catchError(error => {
-        console.log(error);
+        console.error(error);
         return of(null);
       })
     ).subscribe()

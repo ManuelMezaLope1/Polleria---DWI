@@ -18,23 +18,23 @@ import Swal from 'sweetalert2';
 export class IniciarSesionComponent {
   zonas: Zona[] | null;
 
-  constructor(private authService: Auth, private router: Router, private http: HttpClient, private zonaServicio: ZonaServicio) {}
+  constructor(private authService: Auth, private router: Router, private http: HttpClient, private zonaServicio: ZonaServicio) { }
 
-  ngOnInit(): void{
-    this.zonaServicio.obtenerListaDeZonas().subscribe(dato=>{
-      this.zonas=dato;
+  ngOnInit(): void {
+    this.zonaServicio.obtenerListaDeZonas().subscribe(dato => {
+      this.zonas = dato;
     });
   }
 
   active: string = "login";
 
-	onLoginTab(): void {
-		this.active = "login";
-	}
+  onLoginTab(): void {
+    this.active = "login";
+  }
 
-	onRegistroTab(): void {
-		this.active = "registro";
-	}
+  onRegistroTab(): void {
+    this.active = "registro";
+  }
 
   form = {
     username: '',
@@ -47,62 +47,69 @@ export class IniciarSesionComponent {
     this.authService.login(this.form).subscribe({
       next: res => {
         this.authService.guardarToken(res.token);
+        const payload = JSON.parse(atob(res.token.split('.')[1]));
+        const rol = payload.roles[0];
+        
         Swal.fire({
-          title:'Login éxitoso',
-          text:'Inicio sesión correctamente',
-          icon:'success',
+          title: 'Login éxitoso',
+          text: 'Inicio sesión correctamente',
+          icon: 'success',
           confirmButtonText: 'Ok'
-        }).then((result)=>{
-          if(result.isConfirmed){
-            this.router.navigate(['/dashboard']);
+        }).then((result) => {
+          if (result.isConfirmed) {
+            if(rol==='ROLE_ADMIN'){
+              this.router.navigate(['/dashboard']);
+            } else if(rol==='ROLE_COCINERO'){
+              this.router.navigate(['/dashboard-cocinero'])
+            }
           }
         })
       },
       error: err => {
-        Swal.fire('Oops...','Usuario o contraseña incorrecto','warning');
+        Swal.fire('Oops...', 'Usuario o contraseña incorrecto', 'warning');
         this.error = 'Credenciales incorrectas';
       }
     });
   }
 
-  nombre: string='';
-  apellido:string='';
-  correo:string='';
-  registroPassword:string='';
-  direccion:string='';
-  telefono:string='';
+  nombre: string = '';
+  apellido: string = '';
+  correo: string = '';
+  registroPassword: string = '';
+  direccion: string = '';
+  telefono: string = '';
   zonaId: string | null = null;
 
-  registro(){
-    const usuario={
-      nombre:this.nombre,
-      apellido:this.apellido,
-      username:this.correo,
-      password:this.registroPassword,
-      direccion:this.direccion,
-      telefono:this.telefono,
-      zona:{
-        id:this.zonaId
+  registro() {
+    const usuario = {
+      nombre: this.nombre,
+      apellido: this.apellido,
+      username: this.correo,
+      password: this.registroPassword,
+      direccion: this.direccion,
+      telefono: this.telefono,
+      zona: {
+        id: this.zonaId
       }
     };
 
     this.http.post('http://localhost:8080/auth/registro', usuario)
       .subscribe({
-        next:()=>{
+        next: () => {
           alert('Usuario registrado correctamente');
 
-          this.active='login';
+          this.active = 'login';
 
-          this.nombre='';
-          this.apellido='';
-          this.correo='';
-          this.registroPassword='';
-          this.direccion='';
-          this.telefono='';
+          this.nombre = '';
+          this.apellido = '';
+          this.correo = '';
+          this.registroPassword = '';
+          this.direccion = '';
+          this.telefono = '';
 
           this.router.navigate(['/iniciar-sesion']);
         },
-        error:()=>{
+        error: () => {
           alert('Error al registrar el usuario');
         }
       })

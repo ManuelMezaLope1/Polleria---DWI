@@ -3,6 +3,8 @@ import { Plato } from "../plato/Plato";
 export class IIngrediente{
     id: number;
     nombre: string;
-    platos: Plato[];
+    ingredientePlatos: any[];
+    categoriaIngrediente: any;
+    estadoIngrediente: any;
     alergia: any;
 }

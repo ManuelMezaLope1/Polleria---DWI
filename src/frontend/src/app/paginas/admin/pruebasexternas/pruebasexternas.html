@@ -6,8 +6,8 @@
         </div>
 
         <div class="row">
-            <div class="col-log-3">
-                <button class="btn btn-primary btn-sm-3">Agregar zonas</button>
+            <div class="col-log-3 mr-4">
+                <button class="btn btn-primary" (click)="volverDashboard()">Dashboard</button>
             </div>
         </div>
         <br>
@@ -42,11 +42,15 @@
                                 <span *ngIf="rol.nombre==='ROLE_ADMIN'">
                                     Administrador
                                 </span>
+
+                                <span *ngIf="rol.nombre==='ROLE_COCINERO'">
+                                    Cocinero
+                                </span>
                             </div>
                         </td>
                         <td>{{usu.zona?.nombre}}</td>
                         <td>
-                            <button class="btn btn-info">Actualizar</button>
+                            <button class="btn btn-info" (click)="actualizarUsuario(usu.id)">Actualizar</button>
                             <button class="btn btn-danger" style="margin-left : 10px;">Eliminar</button>
                         </td>
                     </tr>

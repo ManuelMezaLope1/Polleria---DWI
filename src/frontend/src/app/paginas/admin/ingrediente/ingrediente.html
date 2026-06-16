@@ -1,12 +1,12 @@
 <div class="container">
     <br>
-    <section id="ingredientes">
+    <section id="categoria-ingredientes">
         <!--##############################################################################################################################
-        ####                                              Ingrediente                                                                 ####
+        ####                                         Categoría de Ingrediente                                                         ####
         ###############################################################################################################################-->
         <div class="row">
             <div class="col-6">
-                <h1>Listado de Ingredientes</h1>
+                <h1>Listado de Categoría de Ingredientes</h1>
             </div>
 
             <div class="col-2"></div>
@@ -19,7 +19,59 @@
 
         <div class="row">
             <div class="col-log-3">
+                <button (click)="registrarCategoriaIngrediente()" class="btn btn-primary btn-sm-3">Agregar
+                    categoría</button>
+            </div>
+        </div>
+        <br>
+        <div class="table-responsive">
+            <table mat-table [dataSource]="dataSourceCategoriaIngrediente"
+                class="table table-container text-center table-striped table-bordered table-hover">
+                <ng-container matColumnDef="nombre">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Nombre </th>
+                    <td mat-cell *matCellDef="let cate" class="text-center align-middle">{{ cate.nombre }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="ingrediente">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Ingrediente </th>
+                    <td mat-cell *matCellDef="let cate" class="text-center align-middle">
+                        <div *ngFor="let ing of agruparIngredientes(cate.ingrediente)">
+                            {{ ing.nombre }}
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef class="text-center"> Acciones </th>
+                    <td mat-cell *matCellDef="let cat" class="text-center align-middle">
+
+                        <button (click)="actualizarCategoria(cat.id)" class="btn btn-info">
+                            Editar
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsCategoriaIngrediente"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsCategoriaIngrediente;"></tr>
+            </table>
+        </div>
+        <mat-paginator #paginadorCategoriaIngrediente [pageSize]="3" [pageSizeOptions]="[3,5,9]"
+            showFirstLastButtons></mat-paginator>
+    </section>
+    <br>
+    <section id="ingredientes">
+        <!--##############################################################################################################################
+        ####                                              Ingrediente                                                                 ####
+        ###############################################################################################################################-->
+        <h1>Listado de Ingredientes</h1>
+
+        <div class="row">
+            <div class="col-log-3">
                 <button (click)="registrarIngrediente()" class="btn btn-primary btn-sm-3">Agregar ingrediente</button>
+            </div>
+
+            <div class="col log-3">
+                <button (click)="unirIngredientesPlatos()" class="btn btn-primary">Unir a platos</button>
             </div>
         </div>
         <br>
@@ -33,10 +85,20 @@
             <ng-container matColumnDef="platos">
                 <th mat-header-cell *matHeaderCellDef class="text-center"> Plato </th>
                 <td mat-cell *matCellDef="let ing" class="text-center align-middle">
-                    <div *ngFor="let plato of ing.platos">
-                        {{ plato.nombre }}
+                    <div *ngFor="let pla of ing.ingredientePlatos">
+                        {{ pla.plato.nombre }}
                     </div>
                 </td>
+            </ng-container>
+
+            <ng-container matColumnDef="categoria">
+                <th mat-header-cell *matHeaderCellDef class="text-center"> Categoría </th>
+                <td mat-cell *matCellDef="let ing" class="text-center align-middle">{{ ing.categoriaIngrediente.nombre }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="estado">
+                <th mat-header-cell *matHeaderCellDef class="text-center"> Estado </th>
+                <td mat-cell *matCellDef="let ing" class="text-center align-middle">{{ ing.estadoIngrediente.nombre }}</td>
             </ng-container>
 
             <ng-container matColumnDef="acciones">

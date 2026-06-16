@@ -60,13 +60,12 @@ export class RegistroPlato {
 
     this.platoServicio.registrarPlato(formData).pipe(
       tap(dato => {
-        console.log(dato);
         this.IrALaListaDePlatos();
       }),
       catchError(err => {
-        console.log("ERROR COMPLETO:", err);
-        console.log("STATUS:", err.status);
-        console.log("BODY:", err.error);
+        console.error("ERROR COMPLETO:", err);
+        console.error("STATUS:", err.status);
+        console.error("BODY:", err.error);
         return throwError(() => err);
       })
     ).subscribe()

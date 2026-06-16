@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Oferta } from '../Oferta';
 import { OfertaServicio } from '../../../servicios/oferta/oferta-servicio';
 import { Router } from '@angular/router';
-import { catchError, of, tap } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 import Swal from 'sweetalert2';
 import { PlatoServicio } from '../../../servicios/plato/plato-servicio';
 import { Plato } from '../../plato/Plato';
@@ -48,7 +48,7 @@ export class RegistroOferta {
       confirmButtonText: 'Ok'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.router.navigate(['/pruebas']).then(() => {
+        this.router.navigate(['/platos']).then(() => {
           setTimeout(() => {
             const element = document.getElementById("ofertas");
             if (element) {
@@ -78,7 +78,6 @@ export class RegistroOferta {
   }
 
   actualizarPrecio() {
-    console.log(this.platosSeleccionados.map(p => p?.precio));
     this.oferta.precio_actual = this.platosSeleccionados
       .filter(p => p != null)
       .reduce((precio_actual, p) => precio_actual + Number(p.precio), 0);
