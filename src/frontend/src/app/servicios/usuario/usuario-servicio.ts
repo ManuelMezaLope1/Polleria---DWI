@@ -24,6 +24,14 @@ export class UsuarioServicio {
     return this.HttpClient.put<Usuario>(this.usuPerfilUrl, usuario);
   }
 
+  obtenerUsuarioPorId(id: number): Observable<Usuario>{
+    return this.HttpClient.get<Usuario>(`${this.usuBaseUrl}/${id}`);
+  }
+
+  actualizarUsuarios(id: number, usuario: Usuario): Observable<Object>{
+    return this.HttpClient.put(`${this.usuBaseUrl}/${id}`,usuario);
+  }
+
   obtenerListaDePlatos(): Observable<Usuario[]> {
     return this.HttpClient.get<Usuario[]>(`${this.usuBaseUrl}`);
   }

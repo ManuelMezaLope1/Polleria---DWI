@@ -31,8 +31,6 @@ export class ListaCategoria implements OnInit {
   constructor(private categoriaServicio: CategoriaServicio, private ingredienteServicio: IngredienteServicio, private alergiaServicio: AlergiaServicio, private router: Router, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    console.log('ENTRÓ AL COMPONENTE');
-
     this.categorias$ = this.categoriaServicio.obtenerListaDeCategorias().pipe(
       map(categorias =>
         categorias.sort((a, b) =>
@@ -59,17 +57,17 @@ export class ListaCategoria implements OnInit {
 
   agruparIngredientes(ingredientes: any[]) {
     return ingredientes.reduce((acc: any[], ingrediente: any) => {
-
+ 
       const existe = acc.find(
         item => item.nombre === ingrediente.nombre
       );
 
       if (existe) {
-        existe.platos.push(...ingrediente.platos);
+        existe.platos.push(...ingrediente.ingredientePlatos);
       } else {
         acc.push({
           nombre: ingrediente.nombre,
-          platos: [...ingrediente.platos]
+          platos: [...ingrediente.ingredientePlatos]
         });
       }
 
@@ -106,7 +104,6 @@ export class ListaCategoria implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.categoriaServicio.eliminarCategoria(id).subscribe(dato => {
-          console.log(dato);
           this.categoriaServicio.obtenerListaDeCategorias()
           Swal.fire(
             'Empleado eliminado',

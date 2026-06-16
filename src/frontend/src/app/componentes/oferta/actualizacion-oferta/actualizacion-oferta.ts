@@ -30,7 +30,7 @@ export class ActualizacionOferta {
         this.cd.detectChanges();
       }),
       catchError(error => {
-        console.log(error);
+        console.error(error);
         return of(null);
       })
     ).subscribe()
@@ -56,7 +56,7 @@ export class ActualizacionOferta {
   }
 
   irALaListaDeOfertas() {
-    this.router.navigate(['/pruebas']).then(() => {
+    this.router.navigate(['/platos']).then(() => {
       setTimeout(() => {
         const element = document.getElementById("platos");
         if (element) {
@@ -82,7 +82,6 @@ export class ActualizacionOferta {
   }
 
   actualizarPrecio() {
-    console.log(this.platosSeleccionados.map(p => p?.precio));
     this.oferta.precio_actual = this.platosSeleccionados
       .filter(p => p != null)
       .reduce((precio_actual, p) => precio_actual + Number(p.precio), 0);

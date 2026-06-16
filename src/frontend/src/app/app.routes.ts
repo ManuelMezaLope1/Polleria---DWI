@@ -30,6 +30,11 @@ import { ActualizacionRol } from './componentes/rol/actualizacion-rol/actualizac
 import { RegistroRol } from './componentes/rol/registro-rol/registro-rol';
 import { ActualizacionZona } from './componentes/zona/actualizacion-zona/actualizacion-zona';
 import { Ingrediente } from './paginas/admin/ingrediente/ingrediente';
+import { ActualizacionUsuario } from './componentes/usuario/actualizacion-usuario/actualizacion-usuario';
+import { DashboardCocinero } from './paginas/cocinero/dashboard-cocinero/dashboard-cocinero';
+import { ActualizacionCategoriaIngrediente } from './componentes/categoriaingrediente/actualizacion-categoria-ingrediente/actualizacion-categoria-ingrediente';
+import { RegistroCategoriaIngrediente } from './componentes/categoriaingrediente/registro-categoria-ingrediente/registro-categoria-ingrediente';
+import { Ingredienteplatos } from './paginas/admin/ingredienteplatos/ingredienteplatos';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -41,14 +46,14 @@ export const routes: Routes = [
         path: 'cuenta',
         component: Cuenta,
         canActivate: [AuthGuard],
-        data: { roles: ['ROLE_USER', 'ROLE_ADMIN'] }
+        data: { roles: ['ROLE_USER', 'ROLE_ADMIN','ROLE_COCINERO'] }
     },
 
     {
         path: 'carro/:tipo/:id',
         component: Carro,
         canActivate: [AuthGuard],
-        data: { roles: ['ROLE_USER', 'ROLE_ADMIN']}
+        data: { roles: ['ROLE_USER', 'ROLE_ADMIN','ROLE_COCINERO']}
     },
 
     {
@@ -86,11 +91,25 @@ export const routes: Routes = [
         data: { roles: ['ROLE_ADMIN'] }
     },
 
+    {
+        path: 'unir-ingrediente-platos',
+        component: Ingredienteplatos,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN'] }
+    },
+
     { path: 'promocion', component: Promocion },
     { path: 'contacto', component: Contacto },
     { 
         path: 'dashboard', 
         component: Dashboard ,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN']}
+    },
+
+    { 
+        path: 'actualizacion-usuario/:id', 
+        component: ActualizacionUsuario,
         canActivate: [AuthGuard],
         data: { roles: ['ROLE_ADMIN']}
     },
@@ -151,6 +170,13 @@ export const routes: Routes = [
     },
 
     { 
+        path: 'actualizacion-categoria-ingrediente/:id', 
+        component: ActualizacionCategoriaIngrediente,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN']}
+    },
+
+    { 
         path: 'creacion-categoria', 
         component: RegistroCategoria,
         canActivate: [AuthGuard],
@@ -204,7 +230,16 @@ export const routes: Routes = [
         data: { roles: ['ROLE_ADMIN'] }
     },
 
+    {
+        path: 'creacion-categoria-ingrediente',
+        component: RegistroCategoriaIngrediente,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN'] }
+    },
+
     { path: 'iniciar-sesion', component: IniciarSesionComponent },
+
+    { path: 'dashboard-cocinero', component: DashboardCocinero, canActivate: [AuthGuard], data: { roles: ['ROLE_COCINERO'] } }
 ];
 
 RouterModule.forRoot(routes, {

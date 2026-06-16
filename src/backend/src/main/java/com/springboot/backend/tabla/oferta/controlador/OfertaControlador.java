@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.backend.excepcion.ResourceNotFoundException;
-import com.springboot.backend.tabla.oferta.OfertaRepositorio;
 import com.springboot.backend.tabla.oferta.modelo.Oferta;
+import com.springboot.backend.tabla.oferta.repositorio.OfertaRepositorio;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

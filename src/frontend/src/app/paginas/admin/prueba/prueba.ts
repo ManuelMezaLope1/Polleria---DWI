@@ -31,16 +31,6 @@ export class Prueba {
   constructor(public themeServicio: ThemeServicio, private cd: ChangeDetectorRef, private categoriaServicio: CategoriaServicio, private platoServicio: PlatoServicio, private usuarioServicio: UsuarioServicio, private ofertaServicio: OfertaServicio, private ingredienteServicio: IngredienteServicio, private alergiaServicio: AlergiaServicio, private router: Router) { }
 
   ngOnInit(): void {
-    console.log('ENTRÓ AL COMPONENTE');
-
-    this.categorias$ = this.categoriaServicio.obtenerListaDeCategorias().pipe(
-      map(categorias =>
-        categorias.sort((a, b) =>
-          a.nombre.localeCompare(b.nombre)
-        )
-      )
-    );
-
     this.categoriaServicio.obtenerListaDeCategorias().subscribe(dato => {
       this.dataSourceCategoria.data = dato;
 
@@ -58,12 +48,19 @@ export class Prueba {
     });
 
     this.platoServicio.obtenerListaDePlatos().subscribe(dato => {
+      dato.sort((a, b) =>
+        a.nombre.localeCompare(b.nombre)
+      );
+
       this.dataSourcePlato.data = dato;
 
       this.cd.detectChanges();
     });
 
-    this.ofertas$ = this.ofertaServicio.obtenerListaDeOfertas();
+    this.ofertaServicio.obtenerListaDeOfertas().subscribe(dato=>{
+      this.ofertas=dato;
+      this.cd.detectChanges();
+    });
   }
 
   ngAfterViewInit() {
@@ -119,7 +116,6 @@ export class Prueba {
   private obtenerCategoria() {
     this.categoriaServicio.obtenerListaDeCategorias().subscribe(dato => {
       this.categorias = dato;
-      console.log(this.categorias);
     })
   }
 
@@ -137,7 +133,6 @@ export class Prueba {
     }).then((result) => {
       if (result.isConfirmed) {
         this.categoriaServicio.eliminarCategoria(id).subscribe(dato => {
-          console.log(dato);
           this.obtenerCategoria();
           Swal.fire(
             'Categoría eliminada',
@@ -180,7 +175,6 @@ export class Prueba {
   private obtenerPlato() {
     this.platoServicio.obtenerListaDePlatos().subscribe(dato => {
       this.plato = dato;
-      console.log(this.plato);
     })
   }
 
@@ -198,7 +192,6 @@ export class Prueba {
     }).then((result) => {
       if (result.isConfirmed) {
         this.platoServicio.eliminarPlato(id).subscribe(dato => {
-          console.log(dato);
           this.obtenerPlato();
           Swal.fire(
             'Plato eliminado',
@@ -243,7 +236,7 @@ export class Prueba {
   }
 
   actualizarOferta(id: number) {
-    this.router.navigate(['actualizacion-oferta',id]).then(() => {
+    this.router.navigate(['actualizacion-oferta', id]).then(() => {
       setTimeout(() => {
         const element = document.getElementById("actualizacion-oferta");
         if (element) {
@@ -273,7 +266,6 @@ export class Prueba {
     }).then((result) => {
       if (result.isConfirmed) {
         this.ofertaServicio.eliminarOferta(id).subscribe(dato => {
-          console.log(dato);
           this.obtenerOferta();
           Swal.fire(
             'Oferta eliminada',

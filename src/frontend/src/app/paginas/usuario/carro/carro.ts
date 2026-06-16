@@ -18,6 +18,10 @@ import { MetodopagoServicio } from '../../../servicios/metodopago/metodopago-ser
 import { VentaServicio } from '../../../servicios/venta/venta-servicio';
 import { DetalleVentaServicio } from '../../../servicios/detalleventa/detalle-venta-servicio';
 import Swal from 'sweetalert2';
+import { DetalleVentaPlatosServicio } from '../../../servicios/detalleventaplatos/detalle-venta-platos-servicio';
+import { DetalleVentaOfertasServicio } from '../../../servicios/detalleventaofertas/detalle-venta-ofertas-servicio';
+import { PedidoServicio } from '../../../servicios/pedido/pedido-servicio';
+import { Pedido } from '../../../componentes/pedido/Pedido';
 
 @Component({
   selector: 'app-carro',
@@ -31,6 +35,7 @@ export class Carro {
   plato: Plato = new Plato();
   venta: Venta = new Venta();
   detalleVenta: DetalleVenta = new DetalleVenta();
+  pedido: Pedido = new Pedido();
 
   platos: Plato[] = [];
   platos$!: Observable<Plato[]>;
@@ -54,6 +59,8 @@ export class Carro {
   totPla: number = 0;
   descPla: string = '';
   cantPla: number = 0;
+  idPla: number = 0;
+  cantOferta: number = 0;
 
   preDis: number = 0;
   preProd: number = 0;
@@ -65,12 +72,19 @@ export class Carro {
   prePar: number = 0;
   prePos: number = 0;
 
+  decisionObservacion: any;
+  observacionEscrita: any;
+  pedidoObservacion: string = '';
+
   constructor(private ofertaServicio: OfertaServicio, private platoServicio: PlatoServicio, private categoriaServicio: CategoriaServicio, private router: Router,
-    private route: ActivatedRoute, private cd: ChangeDetectorRef, private usuarioServicio: UsuarioServicio, private metodoPagoServicio: MetodopagoServicio, private ventaServicio: VentaServicio, private detalleVentaServicio: DetalleVentaServicio) { }
+    private route: ActivatedRoute, private cd: ChangeDetectorRef, private usuarioServicio: UsuarioServicio, private metodoPagoServicio: MetodopagoServicio,
+    private ventaServicio: VentaServicio, private detalleVentaServicio: DetalleVentaServicio, private detalleVentaPlatoServicio: DetalleVentaPlatosServicio,
+    private detalleVentaOfertaServicio: DetalleVentaOfertasServicio, private pedidoServicio: PedidoServicio) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     const tipo = this.route.snapshot.params['tipo'];
+    this.decisionObservacion = 'No';
 
     if (tipo === "oferta") {
       this.ofertaServicio.obtenerOfertaPorId(this.id).pipe(
@@ -81,6 +95,8 @@ export class Carro {
 
           this.detalleVenta.descripcion = this.oferta.nombre;
           this.descPla = this.oferta.nombre;
+          this.idPla = this.oferta.id;
+          this.cantOferta = 1;
 
           this.detalleVenta.cantidad = Number(this.oferta.cantidad);
           this.cantPla = Number(this.oferta.cantidad);
@@ -100,6 +116,8 @@ export class Carro {
 
           this.detalleVenta.descripcion = this.plato.nombre;
           this.descPla = this.plato.nombre;
+          this.idPla = 3;
+          this.cantOferta = 0;
 
           this.detalleVenta.cantidad = 1;
           this.cantPla = 1;
@@ -127,6 +145,12 @@ export class Carro {
         this.venta.username = this.usuario.username;
         this.venta.zona = this.usuario.zona;
         this.venta.fecha = new Date().toLocaleString();
+
+        this.pedido.usuario = {
+          id: this.usuario.id
+        }
+        this.pedido.username = this.usuario.username;
+
         this.cd.detectChanges();
       }),
       catchError(err => {
@@ -135,6 +159,16 @@ export class Carro {
       })
     ).subscribe()
   }
+
+  decisionObservacionSi() {
+    this.decisionObservacion = 'Si';
+  }
+
+  decisionObservacionNo() {
+    this.decisionObservacion = 'No';
+  }
+
+
 
   limpiarSeleccion() {
     this.bebidaSeleccionada = null;
@@ -880,6 +914,59 @@ export class Carro {
     this.venta.metodopago = this.metodoPagoSeleccionado;
   }
 
+  //#####################################################################################################################################################
+  //#                                                                  GUARDAR RELACIÓN                                                                 #
+  //#####################################################################################################################################################
+
+  detallesAgregados: any[] = [];
+  ofertasAgredadas: any[] = [];
+  detalleVentaRelacion: any;
+
+  guardarRelaciones() {
+    const lista: { id: number, cantidad: number }[] = [];
+
+    const agregar = (arr?: any[]) => {
+      arr?.filter(x => x.id != null)
+        .forEach(x => {
+          lista.push({
+            id: x.id,
+            cantidad: x.cantidad || 1
+          });
+        });
+    };
+
+    agregar(this.platosAgregados);
+    agregar(this.bebidasAgregadas);
+    agregar(this.cremaAgregada);
+    agregar(this.broastersAgregados);
+    agregar(this.ensaladaAgregada);
+    agregar(this.guarnicionAgregada);
+    agregar(this.hamburguesaAgregada);
+    agregar(this.parrillaAgregada);
+    agregar(this.postreAgregado);
+
+    const relacionesPlatos = lista.map(item => ({
+      detalleVentaId: this.detalleVentaRelacion,
+      platoId: item.id,
+      cantidad_platos: item.cantidad,
+    }));
+
+    this.ofertasAgredadas.push({
+      detalleVentaId: this.detalleVentaRelacion,
+      ofertaId: this.idPla,
+      cantidad_oferta: this.cantOferta
+    })
+
+    this.detalleVentaPlatoServicio.guardarLote(relacionesPlatos).subscribe({
+      next: () => console.log(''),
+      error: err => console.error(err)
+    });
+
+    this.detalleVentaOfertaServicio.guardarLote(this.ofertasAgredadas).subscribe({
+      next: () => console.log(''),
+      error: err => console.error(err)
+    })
+  }
 
   onSubmit() {
     this.ventaServicio.registrarVenta(this.venta).pipe(
@@ -887,9 +974,11 @@ export class Carro {
         this.detalleVenta.venta = {
           id: ventaGuardada.id
         };
-        console.log(ventaGuardada);
-        console.log(this.detalleVenta.venta);
-        console.log(this.detalleVenta);
+
+        this.pedido.venta = {
+          id: ventaGuardada.id
+        };
+
         this.confirmarCompra();
       })
     ).subscribe()
@@ -903,17 +992,47 @@ export class Carro {
       confirmButtonText: 'Ok'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.registrarDetalleVenta();
+        this.mostrarPedido();
       }
     })
   }
 
+  mostrarPedido() {
+    if (this.decisionObservacion === 'Si') {
+      this.pedidoObservacion = this.observacionEscrita;
+    } else if (this.decisionObservacion === 'No') {
+      this.pedidoObservacion = 'Sin observación';
+    }
+
+    this.pedido.observacion = this.pedidoObservacion;
+    this.registrarPedido();
+  }
+
+  registrarPedido() {
+    this.pedido.fecha_creacion = new Date().toLocaleString();
+    this.pedido.estado_pedido = 'Pendiente';
+    this.pedido.fecha_entrega=new Date().toLocaleString();
+
+    this.pedidoServicio.registrarPedido(this.pedido).pipe(
+      tap(dato => {
+        console.log(this.pedido);
+        this.registrarDetalleVenta();
+      }),
+      catchError(err=>{
+        console.error(err);
+        return of(null);
+      })
+    ).subscribe()
+  }
+
   registrarDetalleVenta() {
     this.detalleVentaServicio.registrarDetalleVenta(this.detalleVenta).pipe(
-      tap(data => {
-        this.detalleVenta.cantidad=Number(this.detalleVenta.cantidad);
-        this.detalleVenta.total=Number(this.detalleVenta.total);
-        console.log(this.detalleVenta);
+      tap((detalleVentaGuardada: any) => {
+        this.detalleVentaRelacion = detalleVentaGuardada.id;
+        this.detalleVenta.cantidad = Number(this.detalleVenta.cantidad);
+        this.detalleVenta.total = Number(this.detalleVenta.total);
+
+        this.guardarRelaciones();
         this.irAInicio();
       })
     ).subscribe()

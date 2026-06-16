@@ -28,6 +28,10 @@ export class Pruebasexternas {
     this.router.navigate(['dashboard']);
   }
 
+  actualizarUsuario(id: number){
+    this.router.navigate(['actualizacion-usuario',id])
+  }
+
   /*========================================================================================*/
   /*                                   Para Usuarios                                        */
   /*========================================================================================*/

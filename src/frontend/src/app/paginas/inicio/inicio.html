@@ -120,93 +120,97 @@
   }
 </style>
 <!-- Hero Section -->
-<section class="hero">
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <h1 class="titulo-principal">EL <span class="destacado">SAZÓN</span></h1>
-    <p class="slogan">El auténtico sabor del pollo a la brasa</p>
-    <p class="descripcion">Disfruta de la mejor experiencia culinaria en El Sazón, donde el sabor se encuentra con
-      la tradición.</p>
-    <div class="botones-hero">
-      <button class="btn-pedido" (click)="hacerPedido()">📞 Hacer Pedido</button>
-      <button class="btn-menu" (click)="verMenu()">📋 Ver Menú</button>
-    </div>
-  </div>
-</section>
-
-<!-- Sección: El sabor que nos une -->
-<section class="sabor-section">
-  <div class="container">
-    <h2>El sabor que nos une a todos</h2>
-    <p class="subtitulo">¿Solo, en pareja o en manada? Tenemos el tamaño perfecto para ti.</p>
-    <div class="iconos-sabor">
-      <div class="icono-item">👤 Solo</div>
-      <div class="icono-item">👥 Pareja</div>
-      <div class="icono-item">👨‍👩‍👧‍👦 Familia</div>
-      <div class="icono-item">🎉 Manada</div>
-    </div>
-  </div>
-</section>
-
-<!-- Sección: Pilares del sabor -->
-<section class="pilares-section">
-  <div class="container">
-    <h2>Los pilares de Nuestro Sabor</h2>
-    <p class="subtitulo">Cada ingrediente, técnica y sonrisa está pensado para que vivas una experiencia única</p>
-    <div class="pilares-grid">
-      <div class="pilar-card">
-        <div class="pilar-icon">🥩</div>
-        <h3>Calidad Premium Garantizada</h3>
-        <p>Seleccionamos los mejores pollos y los marinamos con nuestra receta secreta.</p>
-      </div>
-      <div class="pilar-card">
-        <div class="pilar-icon">⚡</div>
-        <h3>Servicio Ultra Rápido</h3>
-        <p>Disfruta de nuestro servicio rápido y eficiente, sin comprometer la calidad.</p>
-      </div>
-      <div class="pilar-card">
-        <div class="pilar-icon">📜</div>
-        <h3>Receta Tradicional Auténtica</h3>
-        <p>Mantenemos la tradición con nuestra receta familiar perfeccionada por generaciones.</p>
+<div class="container">
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="titulo-principal">EL <span class="destacado">SAZÓN</span></h1>
+      <p class="slogan">El auténtico sabor del pollo a la brasa</p>
+      <p class="descripcion">Disfruta de la mejor experiencia culinaria en El Sazón, donde el sabor se encuentra con
+        la tradición.</p>
+      <div class="botones-hero">
+        <button class="btn-pedido" (click)="hacerPedido()">📞 Hacer Pedido</button>
+        <button class="btn-menu" (click)="verMenu()">📋 Ver Menú</button>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Sección: Ofertas -->
-<section class="ofertas-section">
-  <div class="container">
-    <h2>Ofertas que Encienden tu Apetito</h2>
-    <p class="subtitulo">¡No te pierdas nuestras promociones exclusivas! Sabor y ahorro en cada bocado.</p>
+  <!-- Sección: El sabor que nos une -->
+  <section class="sabor-section">
+    <div class="container">
+      <h2>El sabor que nos une a todos</h2>
+      <p class="subtitulo">¿Solo, en pareja o en manada? Tenemos el tamaño perfecto para ti.</p>
+      <div class="iconos-sabor">
+        <div class="icono-item">👤 Solo</div>
+        <div class="icono-item">👥 Pareja</div>
+        <div class="icono-item">👨‍👩‍👧‍👦 Familia</div>
+        <div class="icono-item">🎉 Manada</div>
+      </div>
+    </div>
+  </section>
 
-    <div class="contenedor-ofertas">
-      <div class="oferta-card" *ngFor="let ofe of ofertas$ | async">
-        <div class="badge-top">🔥 Más Pedido</div>
-
-        <div class="badge-ahorro super" *ngIf="getAhorro(ofe) >= 11">¡SuperAhorro!</div>
-
-        <div class="badge-ahorro normal" *ngIf="getAhorro(ofe) <= 10">Ahorras S/.{{getAhorro(ofe)}}</div>
-
-        <div class="contenido">
-          <h3>{{ofe.nombre}}</h3>
-          <p>{{ofe.descripcion}}</p>
-          <div class="precios">
-            <span class="precio-antiguo">S/. {{ofe.precio_actual}}</span>
-            <span class="precio-nuevo">S/. {{ofe.precio_nuevo}}</span>
-          </div>
-          <br>
-          <button class="btn-comprar" (click)="realizarCompra(ofe.id)">Comprar Ahora</button>
+  <!-- Sección: Pilares del sabor -->
+  <section class="pilares-section">
+    <div class="container">
+      <h2>Los pilares de Nuestro Sabor</h2>
+      <p class="subtitulo">Cada ingrediente, técnica y sonrisa está pensado para que vivas una experiencia única</p>
+      <div class="pilares-grid">
+        <div class="pilar-card">
+          <div class="pilar-icon">🥩</div>
+          <h3>Calidad Premium Garantizada</h3>
+          <p>Seleccionamos los mejores pollos y los marinamos con nuestra receta secreta.</p>
+        </div>
+        <div class="pilar-card">
+          <div class="pilar-icon">⚡</div>
+          <h3>Servicio Ultra Rápido</h3>
+          <p>Disfruta de nuestro servicio rápido y eficiente, sin comprometer la calidad.</p>
+        </div>
+        <div class="pilar-card">
+          <div class="pilar-icon">📜</div>
+          <h3>Receta Tradicional Auténtica</h3>
+          <p>Mantenemos la tradición con nuestra receta familiar perfeccionada por generaciones.</p>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- CTA Final -->
-<section class="cta-section">
-  <div class="container">
-    <h2>¿Listo para disfrutar del mejor pollo a la brasa?</h2>
-    <p>Haz tu pedido ahora y disfruta de nuestras deliciosas especialidades en la comodidad de tu hogar.</p>
-    <button class="btn-cta" (click)="hacerPedido()">🛵 Pedir Ahora</button>
-  </div>
-</section>
+  <!-- Sección: Ofertas -->
+  <section class="ofertas-section">
+    <div class="container">
+      <h2>Ofertas que Encienden tu Apetito</h2>
+      <p class="subtitulo">¡No te pierdas nuestras promociones exclusivas! Sabor y ahorro en cada bocado.</p>
+
+      <div class="contenedor-ofertas">
+        <div *ngFor="let ofe of ofertas$ | async" [hidden]="ofe.nombre == 'Sin promoción'">
+          <div class="oferta-card">
+            <div class="badge-top">🔥 Más Pedido</div>
+
+            <div class="badge-ahorro super" *ngIf="getAhorro(ofe) >= 11">¡SuperAhorro!</div>
+
+            <div class="badge-ahorro normal" *ngIf="getAhorro(ofe) <= 10">Ahorras S/.{{getAhorro(ofe)}}</div>
+
+            <div class="contenido">
+              <h3>{{ofe.nombre}}</h3>
+              <p>{{ofe.descripcion}}</p>
+              <div class="precios">
+                <span class="precio-antiguo">S/. {{ ofe.precio_actual ?? 0 | number:'1.2-2' }}</span>
+                <span class="precio-nuevo">S/. {{ ofe.precio_nuevo?? 0 | number:'1.2-2' }}</span>
+              </div>
+              <br>
+              <button class="btn-comprar" (click)="realizarCompra(ofe.id)">Comprar Ahora</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Final -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>¿Listo para disfrutar del mejor pollo a la brasa?</h2>
+      <p>Haz tu pedido ahora y disfruta de nuestras deliciosas especialidades en la comodidad de tu hogar.</p>
+      <button class="btn-cta" (click)="hacerPedido()">🛵 Pedir Ahora</button>
+    </div>
+  </section>
+</div>

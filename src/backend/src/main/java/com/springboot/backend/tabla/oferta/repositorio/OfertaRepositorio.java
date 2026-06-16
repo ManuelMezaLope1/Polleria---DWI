@@ -1,4 +1,4 @@
-package com.springboot.backend.tabla.oferta;
+package com.springboot.backend.tabla.oferta.repositorio;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

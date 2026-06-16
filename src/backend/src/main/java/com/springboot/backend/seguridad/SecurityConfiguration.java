@@ -40,6 +40,7 @@ public class SecurityConfiguration {
                .requestMatchers("/auth/**").permitAll()
                .requestMatchers("/api/chat/**").permitAll()
                .requestMatchers("/api/v1/public/**").permitAll()
+               .requestMatchers("/prediccion/**").permitAll()
                .requestMatchers("/api/v1/private/detalles-ventas").permitAll()
                .requestMatchers("/api/v1/private/cuenta").hasAuthority("ROLE_ADMIN")
                .requestMatchers("/api/v1/private/**").authenticated()
@@ -66,8 +67,7 @@ public class SecurityConfiguration {
             "http://localhost:4200",
             "http://localhost:5000",
             "http://localhost:3000",
-            "https://polleria-dwi.vercel.app/",
-            "https://*.vercel.app"
+            "http://localhost:8000"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));

@@ -14,54 +14,54 @@ import Swal from 'sweetalert2';
   styleUrl: './registro-metodopago.css',
 })
 export class RegistroMetodopago {
-  metodopago: MetodoPago=new MetodoPago();
+  metodopago: MetodoPago = new MetodoPago();
 
-  constructor(private metodoPagoServicio: MetodopagoServicio, private router: Router, private fb: FormBuilder){}
+  constructor(private metodoPagoServicio: MetodopagoServicio, private router: Router, private fb: FormBuilder) { }
 
   form!: FormGroup;
 
   ngOnInit(): void {
-    this.form=this.fb.group({
+    this.form = this.fb.group({
       nombre: ['']
     })
   }
 
-  guardarMetodoPago(){
-    const metodoPagoForm=this.form.value;
+  guardarMetodoPago() {
+    const metodoPagoForm = this.form.value;
 
     this.metodoPagoServicio.registrarMetodoPago(metodoPagoForm).pipe(
-      tap(dato=>{
+      tap(dato => {
         this.irALaListaDeMetodoPago();
       }),
-      catchError(err=>{
-        console.log("ERROR COMPLETO:", err);
-                console.log("STATUS:", err.status);
-                console.log("BODY:", err.error);
-                return throwError(() => err);
+      catchError(err => {
+        console.error("ERROR COMPLETO:", err);
+        console.error("STATUS:", err.status);
+        console.error("BODY:", err.error);
+        return throwError(() => err);
       })
     ).subscribe();
   }
 
-  irALaListaDeMetodoPago(){
+  irALaListaDeMetodoPago() {
     Swal.fire({
       title: 'Método de pago registrado',
       text: `El método de pago ha sido registrado con éxito`,
       icon: 'success'
-    }).then((result)=>{
-      if(result.isConfirmed){
+    }).then((result) => {
+      if (result.isConfirmed) {
         this.router.navigate(['/sistema']).then(() => {
-      setTimeout(() => {
-        const element = document.getElementById("metodopagos");
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
-    });
+          setTimeout(() => {
+            const element = document.getElementById("metodopagos");
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth' });
+            }
+          }, 100);
+        });
       }
     })
   }
 
-  onSubmit(){
+  onSubmit() {
     this.guardarMetodoPago();
   }
 }

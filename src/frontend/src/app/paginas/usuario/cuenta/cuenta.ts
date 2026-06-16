@@ -38,7 +38,10 @@ export class Cuenta {
   }
 
   ngOnInit(): void {
-    this.zonaServicio.obtenerListaDeZonas().subscribe(dato => { this.zonas = dato })
+    this.zonaServicio.obtenerListaDeZonas().subscribe(dato => { 
+      this.zonas = dato,
+      this.cd.detectChanges();
+    })
 
     this.usuarioServicio.obtenerPerfil().pipe(
       tap(data => {
@@ -57,7 +60,6 @@ export class Cuenta {
         const diff = new Date(b.fecha).getTime() - new Date(a.fecha).getTime();
         return diff !== 0 ? diff : b.id - a.id;
       });
-      console.log(data);
     });
   }
 

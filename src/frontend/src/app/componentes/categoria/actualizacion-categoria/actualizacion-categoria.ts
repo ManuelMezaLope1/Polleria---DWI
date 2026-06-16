@@ -36,7 +36,7 @@ export class ActualizacionCategoria {
   }
 
   irALaListaDeCategorias() {
-    this.router.navigate(['/pruebas']).then(() => {
+    this.router.navigate(['/platos']).then(() => {
       setTimeout(() => {
         const element = document.getElementById("categorias");
         if (element) {

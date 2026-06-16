@@ -43,7 +43,6 @@ export class ListaPlato {
     }).then((result) => {
       if (result.isConfirmed) {
         this.platoServicio.eliminarPlato(id).subscribe(dato => {
-          console.log(dato);
           this.obtenerPlato();
           Swal.fire(
             'Plato eliminado',

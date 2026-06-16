@@ -1,5 +1,6 @@
 package com.springboot.backend.tabla.venta.modelo;
 
+import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -11,43 +12,45 @@ import com.springboot.backend.tabla.zona.modelo.Zona;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="venta")
+@Table(name = "venta")
 public class Venta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="usuario_id")
-    @JsonIgnoreProperties({"venta"})
+    @JoinColumn(name = "usuario_id")
+    @JsonIgnoreProperties({ "venta" })
     private Usuario usuario;
 
-    @Column(name="nombre", nullable = false, length=100)
+    @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
 
-    @Column(name="username", nullable = false, length=100)
+    @Column(name = "username", nullable = false, length = 100)
     private String username;
 
     @ManyToOne
-    @JoinColumn(name="zona_id")
-    @JsonIgnoreProperties({"venta"})
+    @JoinColumn(name = "zona_id")
+    @JsonIgnoreProperties({ "venta" })
     private Zona zona;
 
-    @Column(name="fecha", nullable = false, length=100)
+    @Column(name = "fecha", nullable = false, length = 100)
     private String fecha;
 
     @ManyToOne
-    @JoinColumn(name="metodopago_id")
-    @JsonIgnoreProperties({"venta"})
+    @JoinColumn(name = "metodopago_id")
+    @JsonIgnoreProperties({ "venta" })
     private MetodoPago metodopago;
 
-    @OneToOne(mappedBy = "venta", fetch = FetchType.EAGER)
-    private DetalleVenta detalleVenta;
+    @OneToMany(mappedBy = "venta", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("venta")
+    private List<DetalleVenta> detalleVenta;
 
-    public Venta(){}
+    public Venta() {
+    }
 
     public Venta(Long id, Usuario usuario, String nombre, String username, Zona zona, String fecha,
-            MetodoPago metodopago, DetalleVenta detalleVenta) {
+            MetodoPago metodopago, List<DetalleVenta> detalleVenta) {
         this.id = id;
         this.usuario = usuario;
         this.nombre = nombre;
@@ -59,7 +62,7 @@ public class Venta {
     }
 
     public Venta(Usuario usuario, String nombre, String username, Zona zona, String fecha, MetodoPago metodopago,
-            DetalleVenta detalleVenta) {
+            List<DetalleVenta> detalleVenta) {
         this.usuario = usuario;
         this.nombre = nombre;
         this.username = username;
@@ -125,24 +128,26 @@ public class Venta {
         this.metodopago = metodopago;
     }
 
-    public DetalleVenta getDetalleVenta() {
+    public List<DetalleVenta> getDetalleVenta() {
         return detalleVenta;
     }
 
-    public void setDetalleVenta(DetalleVenta detalleVenta) {
+    public void setDetalleVenta(List<DetalleVenta> detalleVenta) {
         this.detalleVenta = detalleVenta;
     }
 
     @Override
-    public boolean equals(Object o){
-        if(this==o) return true;
-        if(o==null  || getClass() !=o.getClass()) return false;
-        Venta venta=(Venta) o;
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Venta venta = (Venta) o;
         return Objects.equals(id, venta.id);
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(id);
     }
 }

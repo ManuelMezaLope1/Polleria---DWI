@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { IIngrediente } from '../IIngrediente';
 import { Plato } from '../../plato/Plato';
 import { IngredienteServicio } from '../../../servicios/ingrediente/ingrediente-servicio';
-import { PlatoServicio } from '../../../servicios/plato/plato-servicio';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, of, tap } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -10,6 +9,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Alergia } from '../../alergia/Alergia';
 import { AlergiaServicio } from '../../../servicios/alergia/alergia-servicio';
+import { CategoriaIngrediente } from '../../categoriaingrediente/CategoriaIngrediente';
+import { CategoriaIngredienteServicio } from '../../../servicios/categoriaingrediente/categoria-ingrediente-servicio';
+import { EstadoIngrediente } from '../EstadoIngrediente';
 
 @Component({
   selector: 'app-actualizacion-ingrediente',
@@ -20,12 +22,12 @@ import { AlergiaServicio } from '../../../servicios/alergia/alergia-servicio';
 export class ActualizacionIngrediente {
   id: number;
   ingrediente: IIngrediente=new IIngrediente();
-  platos: Plato[]=[];
-  platoSeleccionado: any=null;
 
   alergias: Alergia[]=[];
+  categorias: CategoriaIngrediente[]=[];
+  estados: EstadoIngrediente[]=[];
 
-  constructor(private cd: ChangeDetectorRef, private ingredienteServicio: IngredienteServicio, private platoServicio: PlatoServicio, private alergiaServicio: AlergiaServicio, private router: Router, private route: ActivatedRoute){}
+  constructor(private cd: ChangeDetectorRef, private ingredienteServicio: IngredienteServicio, private alergiaServicio: AlergiaServicio, private categoriaIngredienteServicio: CategoriaIngredienteServicio, private router: Router, private route: ActivatedRoute){}
 
   ngOnInit(): void{
     this.id=this.route.snapshot.params['id'];
@@ -33,7 +35,6 @@ export class ActualizacionIngrediente {
     this.ingredienteServicio.obtenerIngredientePorId(this.id).pipe(
       tap(dato=>{
         Object.assign(this.ingrediente,dato);
-        this.platoSeleccionado =dato.platos[0];
         this.cd.detectChanges();
       }),
       catchError(err=>{
@@ -42,36 +43,38 @@ export class ActualizacionIngrediente {
       })
     ).subscribe();
 
-    this.platoServicio.obtenerListaDePlatos().subscribe(dato=>{
-      this.platos=dato;
-      this.cd.detectChanges();
-    });
-
     this.alergiaServicio.obtenerTodasLasAlergias().subscribe(dato=>{
       this.alergias=dato;
       this.cd.detectChanges();
-    })
-  }
+    });
 
-  compararPlato(c1: any, c2: any): boolean {
-    return c1 && c2 ? c1.id === c2.id : c1 === c2;
+    this.categoriaIngredienteServicio.obtenerTodasLasCategorias().subscribe(dato=>{
+      this.categorias=dato;
+      this.cd.detectChanges();
+    })
+
+    this.ingredienteServicio.obtenerTodosLosEstados().subscribe(dato=>{
+      this.estados=dato;
+      this.cd.detectChanges;
+    })
   }
 
   compararAlergia(c1: any, c2: any): boolean {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
+  compararCategoria(c1: any, c2: any): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  }
+
+  compararEstado(c1: any, c2: any): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  }
+
   onSubmit(): void{
     if (this.ingrediente) {
-      this.ingrediente.platos = [this.platoSeleccionado];
-
       this.ingredienteServicio.actualizarIngrediente(this.id, this.ingrediente).pipe(
         tap(dato => {
-          console.log(this.ingrediente)
-          console.log(this.ingrediente.nombre)
-          console.log(this.ingrediente.platos)
-          console.log(this.ingrediente.alergia)
-
           this.irALaListaDeIngredientes();
         }),
         catchError(error => {

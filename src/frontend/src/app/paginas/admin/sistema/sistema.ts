@@ -69,7 +69,6 @@ export class Sistema {
     }).then((result) => {
       if (result.isConfirmed) {
         this.rolServicio.eliminarRol(id).subscribe(dato => {
-          console.log(dato);
           this.rolServicio.obtenerTodosLosRoles();
           Swal.fire(
             'Rol eliminado',
@@ -188,7 +187,6 @@ export class Sistema {
     }).then((result) => {
       if (result.isConfirmed) {
         this.zonaServicio.eliminarZona(id).subscribe(dato => {
-          console.log(dato);
           this.obtenerZona();
           Swal.fire(
             'Zona eliminada',

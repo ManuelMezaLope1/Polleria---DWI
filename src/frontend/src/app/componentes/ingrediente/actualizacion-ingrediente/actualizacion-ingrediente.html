@@ -28,14 +28,19 @@
             </div>
 
             <div class="form-group">
-                <label>Plato: </label>
-                <select class="form-control" name="plato" id="plato" [(ngModel)]="platoSeleccionado"
-                    [compareWith]="compararPlato" #categoria="ngModel" required>
-                    <option [ngValue]="null">--Seleccione un plato--</option>
-                    <option *ngFor="let pla of platos.sort((a,b) => a.nombre.localeCompare(b.nombre))" [ngValue]="pla">
-                        {{pla.nombre}}</option>
+                <label>Categoría: </label>
+                <select name="categoria" id="categoria" class="form-control" [(ngModel)]="ingrediente.categoriaIngrediente" required [compareWith]="compararCategoria">
+                    <option *ngFor="let cate of categorias" [ngValue]="cate">{{cate.nombre}}</option>
                 </select>
             </div>
+
+            <div class="form-group">
+                <label>Estado: </label>
+                <select name="estados" id="estados" class="form-control" [(ngModel)]="ingrediente.estadoIngrediente" required [compareWith]="compararEstado">
+                    <option *ngFor="let est of estados" [ngValue]="est">{{est.nombre}}</option>
+                </select>
+            </div>
+
             <br>
             <button class="btn btn-success" [disabled]="!platoForm.form.valid">Guardar</button>
         </form>

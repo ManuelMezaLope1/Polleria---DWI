@@ -45,9 +45,9 @@ export class RegistroZona {
         this.irALaListaDeZonas();
       }),
       catchError(err => {
-        console.log("ERROR COMPLETO:", err);
-        console.log("STATUS:", err.status);
-        console.log("BODY:", err.error);
+        console.error("ERROR COMPLETO:", err);
+        console.error("STATUS:", err.status);
+        console.error("BODY:", err.error);
         return throwError(() => err);
       })
     ).subscribe();
@@ -56,12 +56,12 @@ export class RegistroZona {
   irALaListaDeZonas() {
     Swal.fire({
       title: 'Zona registrada',
-      text: `La zona ${this.zona.nombre} ha sido registrada con éxito`,
+      text: `La zona ha sido registrada con éxito`,
       icon: `success`,
       confirmButtonText: 'Ok'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.router.navigate(['/pruebasexternas']);
+        this.router.navigate(['/sistema']);
       }
     })
   }

@@ -1,0 +1,99 @@
+<section id="actualizacion-usuario">
+    <br>
+    <div class="col-md-6 offset-md-3">
+        <h3 class="text-center">Edición de Usuario</h3>
+        <form (ngSubmit)="onSubmit()" #usuarioForm="ngForm">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="grupo-formulario">
+                        <label>Nombre: </label>
+                        <input type="text" class="form-control" id="nombre" [(ngModel)]="usuario.nombre" name="nombre"
+                            required>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="grupo-formulario">
+                        <label>Apellido: </label>
+                        <input type="text" class="form-control" id="apellido" [(ngModel)]="usuario.apellido"
+                            name="apellido" required>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="grupo-formulario">
+                        <label>Dirección: </label>
+                        <input type="text" class="form-control" id="direccion" [(ngModel)]="usuario.direccion"
+                            name="direccion" required>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="grupo-formulario">
+                        <label>Teléfono</label>
+                        <input type="text" class="form-control" id="telefono" [(ngModel)]="usuario.telefono"
+                            name="telefono" pattern="^[9][0-9]{8}$" maxlength="9" #telefonoInput="ngModel" required>
+                        <div class="alert alert-danger"
+                            *ngIf="telefonoInput.invalid && (telefonoInput.dirty || telefonoInput.touched)">
+                            <div *ngIf="telefonoInput.errors?.['required']">
+                                Digite su número por favor.
+                            </div>
+                            <div *ngIf="telefonoInput.errors?.['pattern']">
+                                Formarto incorrecto.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="grupo-formulario">
+                        <label>Correo: </label>
+                        <input type="text" class="form-control" id="username" [(ngModel)]="usuario.username"
+                            name="username" pattern="^[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@gmail\.com$" maxlength="60" #emailInput="ngModel" required>
+                        <div class="alert alert-danger"
+                            *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)">
+                            <div *ngIf="emailInput.errors?.['required']">
+                                Digite su nombre por favor
+                            </div>
+                            <div *ngIf="emailInput.errors?.['minlength']">
+                                El nombre tiene que contener como mínimo 4 caracteres
+                            </div>
+                            <div *ngIf="emailInput.errors?.['maxlength']">
+                                El nombre tiene que tener como máximo 60 caracteres
+                            </div>
+                            <div *ngIf="emailInput.errors?.['pattern']">
+                                El correo tiene que tener el formato establecido.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="grupo-formulario">
+                        <label>Zona:</label>
+                        <select class="form-control" name="zona" id="zona" [(ngModel)]="usuario.zona"
+                            [compareWith]="compararZonas" required>
+                            <option *ngFor="let zon of zonas" [ngValue]="zon">{{zon.nombre}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-12 mt-4">
+                    <div class="grupo-formulario">
+                        <label>Rol:</label>
+                        <select class="form-control" name="roles" id="roles" [(ngModel)]="rolSeleccionado" [compareWith]="compararRoles" required>
+                            <option *ngFor="let r of roles" [ngValue]="r">{{r.nombre}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <button class="btn btn-success" [disabled]="!usuarioForm.form.valid">Guardar</button>
+            <br><br>
+        </form>
+    </div>
+</section>

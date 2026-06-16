@@ -9,6 +9,8 @@ import { IngredienteServicio } from '../../../servicios/ingrediente/ingrediente-
 import { AlergiaServicio } from '../../../servicios/alergia/alergia-servicio';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { CategoriaIngredienteServicio } from '../../../servicios/categoriaingrediente/categoria-ingrediente-servicio';
+import { CategoriaIngrediente } from '../../../componentes/categoriaingrediente/CategoriaIngrediente';
 
 @Component({
   selector: 'app-ingrediente',
@@ -17,33 +19,96 @@ import { CommonModule } from '@angular/common';
   styleUrl: './ingrediente.css',
 })
 export class Ingrediente {
-  constructor(private ingredienteServicio: IngredienteServicio, private alergiaServicio: AlergiaServicio, private router: Router, private cd: ChangeDetectorRef){}
+  constructor(private categoriaIngredienteServicio: CategoriaIngredienteServicio, private ingredienteServicio: IngredienteServicio, private alergiaServicio: AlergiaServicio, private router: Router, private cd: ChangeDetectorRef) { }
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.ingredienteServicio.obtenerTodosLosIngredientes().subscribe(dato => {
+      dato.sort((a, b) =>
+        a.nombre.localeCompare(b.nombre)
+      );
+
       this.dataSourceIngrediente.data = dato;
 
-      this.dataSourceIngrediente.data.forEach(ing => {
-        ing.platos = ing.platos?.sort((a, b) =>
-          a.nombre.localeCompare(b.nombre)
-        );
-      });
+      console.log(dato);
 
       this.cd.detectChanges();
     });
 
-    this.alergiaServicio.obtenerTodasLasAlergias().subscribe(dato=>{
-      this.dataSourceAlergia.data=dato;
+    this.categoriaIngredienteServicio.obtenerTodasLasCategorias().subscribe(dato => {
+      dato.sort((a, b) =>
+        a.nombre.localeCompare(b.nombre)
+      );
+
+      this.dataSourceCategoriaIngrediente.data = dato;
+
+      this.dataSourceCategoriaIngrediente.data.forEach(cate => {
+        cate.ingrediente = cate.ingrediente?.sort((a, b) =>
+          a.nombre.localeCompare(b.nombre))
+      })
+    })
+
+    this.alergiaServicio.obtenerTodasLasAlergias().subscribe(dato => {
+      dato.sort((a, b) =>
+        a.nombre.localeCompare(b.nombre)
+      );
+
+      this.dataSourceAlergia.data = dato;
     })
   }
 
   ngAfterViewInit() {
     this.dataSourceIngrediente.paginator = this.paginadorIngrediente;
-    this.dataSourceAlergia.paginator=this.paginadorAlergia;
+    this.dataSourceAlergia.paginator = this.paginadorAlergia;
+    this.dataSourceCategoriaIngrediente.paginator = this.paginadorCategoriaIngrediente;
   }
 
-  volverDashboard(){
+  volverDashboard() {
     this.router.navigate(['dashboard'])
+  }
+
+  unirIngredientesPlatos(){
+    this.router.navigate(['unir-ingrediente-platos'])
+  }
+
+  /*========================================================================================*/
+  /*                                 PARA CATEGORÍAS                                        */
+  /*========================================================================================*/
+  categoriaIngredientes: IIngrediente[] = [];
+  categoriaIngredientes$!: Observable<IIngrediente>;
+
+  displayedColumnsCategoriaIngrediente: string[] = ['nombre', 'ingrediente', 'acciones'];
+
+  dataSourceCategoriaIngrediente = new MatTableDataSource<CategoriaIngrediente>();
+
+  @ViewChild('paginadorCategoriaIngrediente')
+  paginadorCategoriaIngrediente!: MatPaginator;
+
+  columnasCategoriaIngrediente: string[] = [
+    'nombre',
+    'ingrediente',
+    'acciones'
+  ];
+
+  registrarCategoriaIngrediente() {
+    this.router.navigate(['creacion-categoria-ingrediente']).then(() => {
+      setTimeout(() => {
+        const element = document.getElementById("creacion-categoria-ingrediente");
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    });
+  }
+
+  actualizarCategoria(id: number) {
+    this.router.navigate(['actualizacion-categoria-ingrediente', id]).then(() => {
+      setTimeout(() => {
+        const element = document.getElementById("actualizacion-categoria-ingrediente");
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    });
   }
 
   /*========================================================================================*/
@@ -52,7 +117,7 @@ export class Ingrediente {
   ingredientes: IIngrediente[] = [];
   ingredientes$!: Observable<IIngrediente>;
 
-  displayedColumnsIngrediente: string[] = ['nombre', 'platos', 'acciones'];
+  displayedColumnsIngrediente: string[] = ['nombre', 'platos', 'categoria', 'estado', 'acciones'];
 
   dataSourceIngrediente = new MatTableDataSource<IIngrediente>();
 
@@ -62,6 +127,8 @@ export class Ingrediente {
   columnasIngrediente: string[] = [
     'nombre',
     'platos',
+    'categoria',
+    'estado',
     'acciones'
   ];
 
@@ -73,11 +140,11 @@ export class Ingrediente {
       );
 
       if (existe) {
-        existe.platos.push(...ingrediente.platos);
+        existe.platos.push(...ingrediente.ingredientePlatos);
       } else {
         acc.push({
           nombre: ingrediente.nombre,
-          platos: [...ingrediente.platos]
+          platos: [...ingrediente.ingredientePlatos]
         });
       }
 
@@ -127,7 +194,6 @@ export class Ingrediente {
     }).then((result) => {
       if (result.isConfirmed) {
         this.ingredienteServicio.eliminarIngrediente(id).subscribe(dato => {
-          console.log(dato);
           this.ingredienteServicio.obtenerTodosLosIngredientes();
           Swal.fire(
             'Ingrediente eliminado',
@@ -142,23 +208,23 @@ export class Ingrediente {
   /*========================================================================================*/
   /*                                      PARA ALERGIAS                                     */
   /*========================================================================================*/
-  alergias: Alergia[]=[];
+  alergias: Alergia[] = [];
   alergia$!: Observable<Alergia[]>;
 
-  displayedColumnsAlergia: string[]=['nombre','ingredientes','acciones'];
+  displayedColumnsAlergia: string[] = ['nombre', 'ingredientes', 'acciones'];
 
-  dataSourceAlergia=new MatTableDataSource<Alergia>();
+  dataSourceAlergia = new MatTableDataSource<Alergia>();
 
   @ViewChild('paginadorAlergia')
   paginadorAlergia!: MatPaginator;
 
-  columnasAlergia:string[]=[
+  columnasAlergia: string[] = [
     'nombre',
     'ingredientes',
     'acciones'
   ];
 
-  registrarAlergia(){
+  registrarAlergia() {
     this.router.navigate(['creacion-alergia']).then(() => {
       setTimeout(() => {
         const element = document.getElementById("creacion-alergia");
@@ -169,7 +235,7 @@ export class Ingrediente {
     });
   }
 
-  actualizarAlergia(id: number){
+  actualizarAlergia(id: number) {
     this.router.navigate(['actualizacion-alergia', id]).then(() => {
       setTimeout(() => {
         const element = document.getElementById("actualizacion-alergia");
@@ -194,7 +260,6 @@ export class Ingrediente {
     }).then((result) => {
       if (result.isConfirmed) {
         this.alergiaServicio.eliminarAlergia(id).subscribe(dato => {
-          console.log(dato);
           this.alergiaServicio.obtenerTodasLasAlergias();
           Swal.fire(
             'Alergía eliminada',

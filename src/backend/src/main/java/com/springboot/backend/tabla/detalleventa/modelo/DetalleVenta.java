@@ -14,7 +14,7 @@ public class DetalleVenta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="venta_id")
     @JsonIgnoreProperties({"detalleVenta"})
     private Venta venta;
@@ -23,14 +23,14 @@ public class DetalleVenta {
     private String descripcion;
 
     @Column(name="cantidad")
-    private String cantidad;
+    private Integer cantidad;
 
     @Column(name="total")
-    private String total;
+    private Double total;
 
     public DetalleVenta(){}
 
-    public DetalleVenta(Long id, Venta venta, String descripcion, String cantidad, String total) {
+    public DetalleVenta(Long id, Venta venta, String descripcion, Integer cantidad, Double total) {
         this.id = id;
         this.venta = venta;
         this.descripcion = descripcion;
@@ -38,7 +38,7 @@ public class DetalleVenta {
         this.total = total;
     }
 
-    public DetalleVenta(Venta venta, String descripcion, String cantidad, String total) {
+    public DetalleVenta(Venta venta, String descripcion, Integer cantidad, Double total) {
         this.venta = venta;
         this.descripcion = descripcion;
         this.cantidad = cantidad;
@@ -69,19 +69,19 @@ public class DetalleVenta {
         this.descripcion = descripcion;
     }
 
-    public String getCantidad() {
+    public Integer getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(String cantidad) {
+    public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
 
-    public String getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 

@@ -9,7 +9,7 @@
             <div class="col-lg-7">
                 <div class="card compra-card shadow-sm border-0">
                     <div class="card-header bg-white border-0 pt-4">
-                        <h4 class="mb-0 text-center fw-bold">Producto/s</h4>
+                        <h4 class="mb-0 text-center fw-bold producto">Producto/s</h4>
                     </div>
 
                     <div class="card-body">
@@ -303,7 +303,7 @@
                             <div class="col">
 
                             </div>
-                            <h4 class="text-center fw-bold mb-4">Añadir más</h4>
+                            <h4 class="text-center fw-bold mb-4 anadir-mas">Añadir más</h4>
 
                             <div class="col">
                                 <button class="btn btn-secondary" (click)="limpiarSeleccion()">Limpiar</button>
@@ -400,29 +400,36 @@
         <br>
 
 
-        <p class="form-label">Seleccione el método de pago:</p>
+        <p class="form-label label-metodopago">Seleccione el método de pago:</p>
         <br>
         <div class="row">
-            <div class="card col" style="width:200px; margin-left: 5px; border: none;"
-                *ngFor="let met of metodopagos$ | async" (click)="seleccionarItem(met)">
-                <div class="opcion align-middle" style="cursor: pointer; color: white">
-                    <div *ngIf="met.nombre==='Yape'" style="background: #730dd3; border-radius: 20px;">
-                        <img src="yape.png" style="width:20%;">
-                        {{met.nombre}}
+            <div class="col-md-4 mb-3" *ngFor="let met of metodopagos$ | async">
+                <div class="metodo-card" [class.seleccionado]="metodoPagoSeleccionado?.id === met.id"
+                    (click)="seleccionarItem(met)">
+                    <div *ngIf="met.nombre==='Yape'" class="metodo yape">
+                        <img src="yape.png">
+                        <span>{{met.nombre}}</span>
                     </div>
 
-                    <div *ngIf="met.nombre==='Efectivo'" style="background: #0aa007; border-radius: 20px;">
-                        <img src="efectivo.png" style="width:20%">
-                        {{met.nombre}}
+                    <div *ngIf="met.nombre==='Efectivo'" class="metodo efectivo">
+                        <img src="efectivo.png">
+                        <span>{{met.nombre}}</span>
                     </div>
 
-                    <div *ngIf="met.nombre==='Plin'" style="background: #16A3A4;">
-                        <img src="plin.png" style="width:20%; background: transparent;">
-                        {{met.nombre}}
+                    <div *ngIf="met.nombre==='Plin'" class="metodo plin">
+                        <img src="plin.png">
+                        <span>{{met.nombre}}</span>
                     </div>
                 </div>
             </div>
-            <br>
+        </div>
+        <br>
+        <p style="font-size: 20px;">¿Tiene alguna observación sobre algún plato?</p>
+        <button class="btn btn-success" (click)="decisionObservacionSi()">Si</button>&nbsp;
+        <button class="btn btn-secondary" (click)="decisionObservacionNo()">No</button>
+
+        <div class="mt-3" *ngIf="decisionObservacion==='Si'">
+            <input class="form-control form-control-lg input-grande" type="text" placeholder="Escriba su observación aquí" id="observacion" name="observacion" [(ngModel)]="observacionEscrita">
         </div>
 
         <div class="row">
@@ -433,7 +440,7 @@
                     </div>
 
                     <div class="card-body">
-                        <h4 class="fw-bold">{{platoSeleccionado.nombre}}</h4>
+                        <h4 class="fw-bold producto">{{platoSeleccionado.nombre}}</h4>
                         <p class="text-muted mb-2">{{platoSeleccionado.descripcion}}</p>
                         <h5 class="precio">S/. {{platoSeleccionado.precio}}</h5>
 
@@ -450,7 +457,7 @@
                     </div>
 
                     <div class="card-body">
-                        <h4 class="fw-bold">{{bebidaSeleccionada.nombre}}</h4>
+                        <h4 class="fw-bold producto">{{bebidaSeleccionada.nombre}}</h4>
                         <p class="text-muted mb-2">{{bebidaSeleccionada.descripcion}}</p>
                         <br>
                         <h5 class="precio">S/. {{bebidaSeleccionada.precio}}</h5>
@@ -468,7 +475,7 @@
                     </div>
 
                     <div class="card-body">
-                        <h4 class="fw-bold">{{broasterSeleccionado.nombre}}</h4>
+                        <h4 class="fw-bold producto">{{broasterSeleccionado.nombre}}</h4>
                         <p class="text-muted mb-2">{{broasterSeleccionado.descripcion}}</p>
                         <h5 class="precio">S/. {{broasterSeleccionado.precio}}</h5>
 
@@ -485,7 +492,7 @@
                     </div>
 
                     <div class="card-body">
-                        <h4 class="fw-bold">{{cremaSeleccionada.nombre}}</h4>
+                        <h4 class="fw-bold producto">{{cremaSeleccionada.nombre}}</h4>
                         <p class="text-muted mb-2">{{cremaSeleccionada.descripcion}}</p>
                         <h5 class="precio">S/. {{cremaSeleccionada.precio}}</h5>
 
@@ -502,7 +509,7 @@
                     </div>
 
                     <div class="card-body">
-                        <h4 class="fw-bold">{{ensaladaSeleccionada.nombre}}</h4>
+                        <h4 class="fw-bold producto">{{ensaladaSeleccionada.nombre}}</h4>
                         <p class="text-muted mb-2">{{ensaladaSeleccionada.descripcion}}</p>
                         <h5 class="precio">S/. {{ensaladaSeleccionada.precio}}</h5>
 
@@ -519,7 +526,7 @@
                     </div>
 
                     <div class="card-body">
-                        <h4 class="fw-bold">{{guarnicionSeleccionada.nombre}}</h4>
+                        <h4 class="fw-bold producto">{{guarnicionSeleccionada.nombre}}</h4>
                         <p class="text-muted mb-2">{{guarnicionSeleccionada.descripcion}}</p>
                         <h5 class="precio">S/. {{guarnicionSeleccionada.precio}}</h5>
 
@@ -536,7 +543,7 @@
                     </div>
 
                     <div class="card-body">
-                        <h4 class="fw-bold">{{hamburguesaSeleccionada.nombre}}</h4>
+                        <h4 class="fw-bold producto">{{hamburguesaSeleccionada.nombre}}</h4>
                         <p class="text-muted mb-2">{{hamburguesaSeleccionada.descripcion}}</p>
                         <h5 class="precio">S/. {{hamburguesaSeleccionada.precio}}</h5>
 
@@ -553,7 +560,7 @@
                     </div>
 
                     <div class="card-body">
-                        <h4 class="fw-bold">{{parrillaSeleccionada.nombre}}</h4>
+                        <h4 class="fw-bold producto">{{parrillaSeleccionada.nombre}}</h4>
                         <p class="text-muted mb-2">{{parrillaSeleccionada.descripcion}}</p>
                         <h5 class="precio">S/. {{parrillaSeleccionada.precio}}</h5>
 
@@ -570,7 +577,7 @@
                     </div>
 
                     <div class="card-body">
-                        <h4 class="fw-bold">{{postreSeleccionado.nombre}}</h4>
+                        <h4 class="fw-bold producto">{{postreSeleccionado.nombre}}</h4>
                         <p class="text-muted mb-2">{{postreSeleccionado.descripcion}}</p>
                         <h5 class="precio">S/. {{postreSeleccionado.precio}}</h5>
 
