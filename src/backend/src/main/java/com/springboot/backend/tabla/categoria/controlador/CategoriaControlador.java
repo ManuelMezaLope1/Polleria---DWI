@@ -17,7 +17,11 @@ import org.springframework.web.bind.annotation.*;
 public class CategoriaControlador {
     @Autowired
     private CategoriaRepositorio repositorio;
-    
+
+    @GetMapping({"/","","/inicio"})
+    public String mostrarInicio(){
+        return "inicio";
+    }
 
     @GetMapping("/categorias")
     public List<Categoria> listarTodasLasCategorias() {
