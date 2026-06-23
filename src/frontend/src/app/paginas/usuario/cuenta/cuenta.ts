@@ -21,6 +21,7 @@ export class Cuenta {
   username: string;
   zonas: Zona[] = [];
   ventas: Venta[] = [];
+  fecha: string = '';
 
   constructor(private usuarioServicio: UsuarioServicio, private zonaServicio: ZonaServicio, private ventaServicio: VentaServicio, private cd: ChangeDetectorRef, private router: Router) { }
 
@@ -38,9 +39,9 @@ export class Cuenta {
   }
 
   ngOnInit(): void {
-    this.zonaServicio.obtenerListaDeZonas().subscribe(dato => { 
+    this.zonaServicio.obtenerListaDeZonas().subscribe(dato => {
       this.zonas = dato,
-      this.cd.detectChanges();
+        this.cd.detectChanges();
     })
 
     this.usuarioServicio.obtenerPerfil().pipe(
@@ -54,21 +55,27 @@ export class Cuenta {
       })
     ).subscribe();
 
-    this.ventaServicio.obtenerVentas().subscribe(data => {
-      this.ventas = data;
-      this.ventas.sort((a, b) => {
-        const diff = new Date(b.fecha).getTime() - new Date(a.fecha).getTime();
-        return diff !== 0 ? diff : b.id - a.id;
-      });
-    });
+    this.ventaServicio.obtenerVentas().pipe(
+      tap((data: any[]) => {
+        this.ventas = data.sort((a, b) =>
+          this.parseFecha(b.fecha).getTime() -
+          this.parseFecha(a.fecha).getTime()
+        );
+      }),
+      catchError(err => {
+        console.error(err);
+        return of(null)
+      })
+    ).subscribe()
   }
 
-  parseFecha(fecha: string): Date {
-    const [datePart, timePart] = fecha.split(', ');
+  parseFecha(fechaStr: string): Date {
+    const [fecha, hora] = fechaStr.split(', ');
 
-    const [day, month, year] = datePart.split('/');
+    const [dia, mes, anio] = fecha.split('/').map(Number);
+    const [horas, minutos, segundos] = hora.split(':').map(Number);
 
-    return new Date(`${year}-${month}-${day}T${timePart}`);
+    return new Date(anio, mes - 1, dia, horas, minutos, segundos);
   }
 
   compararZonas(c1: any, c2: any): boolean {

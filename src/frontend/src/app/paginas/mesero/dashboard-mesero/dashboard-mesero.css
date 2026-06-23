@@ -1,0 +1,379 @@
+.fachada {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.letrero {
+    width: 180px;
+    height: 80px;
+    background: linear-gradient(135deg,
+            #ff8c42,
+            #ff6b00);
+    color: white;
+    font-size: 1.4rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .3);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.icono {
+    font-size: 2rem;
+}
+
+.ventana {
+    width: 600px;
+    height: 370px;
+    background: #5d2e0c;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.ventana-pequeña{
+    width: 180px;
+    height: 110px;
+    background: #5d2e0c;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.vidrio {
+    width: 100%;
+    height: 100%;
+    background: #87ceeb;
+    border: 2px solid white;
+    position: relative;
+}
+
+.vidrio-pequeño{
+    width: 100%;
+    height: 100%;
+    background: #87ceeb;
+    border: 2px solid white;
+    position: relative;
+}
+
+.vidrio::before,
+.vidrio::after {
+    content: '';
+    position: absolute;
+    background: white;
+}
+
+.vidrio::before {
+    width: 2px;
+    height: 100%;
+    left: 50%;
+}
+
+.vidrio::after {
+    width: 100%;
+    height: 2px;
+    top: 50%;
+}
+
+.vidrio-pequeño::before,.vidrio-pequeño::after{
+    content: '';
+    position: absolute;
+    background: white;
+}
+
+.vidrio-pequeño::before{
+    width: 2px;
+    height: 100%;
+    left: 50%;
+}
+
+.vidrio-pequeño::after {
+    width: 100%;
+    height: 2px;
+    top: 50%;
+}
+
+.puerta-doble {
+    width: 180px;
+    height: 180px;
+    display: flex;
+    border: 8px solid #5d2e0c;
+    background: #8B4513;
+    position: relative;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.hoja {
+    flex: 1;
+    background: linear-gradient(to right,
+            #8B4513,
+            #a0522d);
+    border: 2px solid #5d2e0c;
+    position: relative;
+}
+
+.hoja::after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: #f1c40f;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.izq::after {
+    right: 10px;
+}
+
+.der::after {
+    left: 10px;
+}
+
+.puerta-doble{
+    perspective:1000px;
+}
+
+.izq{
+    transform-origin:left center;
+}
+
+.der{
+    transform-origin:right center;
+}
+
+.hoja{
+    transition:transform .8s ease;
+}
+
+.abrir .izq{
+    transform:rotateY(80deg);
+}
+
+.abrir .der{
+    transform:rotateY(-80deg);
+}
+
+/*###########################################################*/
+
+.boton-vuelta{
+    background: none;
+    border:none;
+}
+
+.icono-flecha{
+    font-size: 36px;
+}
+
+.paredes{
+    display: grid;
+    grid-template-columns: 1fr 100px 530px;
+}
+
+.pared-1 {
+    width: 100%;
+    height: 32px;
+    background: linear-gradient(to right,
+            #8B4513,
+            #a0522d);
+}
+
+.pared-2 {
+    width: 100%;
+    height: 32px;
+    background: linear-gradient(to right,
+            #8B4513,
+            #a0522d);
+}
+
+.sala-uno{
+    display:grid;
+    grid-template-columns: 20px 1fr 20px;
+    gap: 20px;
+    margin-top: -12px;
+}
+
+.pared-3{
+    width: 20px;
+    height: 450px;
+    background: linear-gradient(to right,
+            #8B4513,
+            #a0522d);
+}
+
+.pared-4{
+    width: 20px;
+    height: 450px;
+    background: linear-gradient(to right,
+            #8B4513,
+            #a0522d);
+}
+
+.paredes-abajo{
+    display: grid;
+    grid-template-columns: 300px 100px 1fr;
+}
+
+.area-mesas {
+    display: flex;
+    gap: 300px;
+    
+}
+
+.card-total {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.mesa {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin: auto;
+    background: #8b5a2b;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.tablero {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 70px;
+    background: #8B4513;
+    border-radius: 10px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .3);
+}
+
+.tablero-4 {
+    width: 100px;
+}
+
+.grande {
+    width: 110px;
+    height: 70px;
+    border-radius: 20px;
+}
+
+.silla {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: #3498db;
+    border-radius: 50%;
+}
+
+.top-1 {
+    top: 10px;
+    left: 35%;
+    transform: translateX(-50%);
+}
+
+.bottom-1 {
+    bottom: 10px;
+    left: 35%;
+    transform: translateX(-50%);
+}
+
+.bottom-2 {
+    bottom: 10px;
+    left: 65%;
+    transform: translateX(-50%);
+}
+
+.top-2 {
+    top: 10px;
+    left: 65%;
+    transform: translateX(-50%);
+}
+
+.left-1 {
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.right-1 {
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.mesa-4 {
+    width: 180px;
+}
+
+.mesa-6 {
+    width: 180px;
+}
+
+.mesa-8::before,
+.mesa-8::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: #3498db;
+    border-radius: 50%;
+}
+
+.mesa-8::before {
+    top: 10px;
+    right: 20px;
+}
+
+.mesa-8::after {
+    bottom: 10px;
+    left: 20px;
+}
+
+.mesa-10 {
+    width: 180px;
+}
+
+.mesa-10::before,
+.mesa-10::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #3498db;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.mesa-10::before {
+    left: 0;
+}
+
+.mesa-10::after {
+    right: 0;
+}
+
+.mesa:hover {
+    transform: scale(1.05);
+    transition: .3s;
+}
+
+.card-4 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.card-6 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}

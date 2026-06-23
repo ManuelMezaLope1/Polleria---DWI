@@ -171,3 +171,34 @@
     padding: 20px;
   }
 }
+
+.seleccion-vacia {
+  min-height: 300px;
+  border: 2px dashed #cbd5e1;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
+}
+
+.seleccion-vacia .icono {
+  font-size: 5rem;
+  margin-bottom: 15px;
+}
+
+.seleccion-vacia h4 {
+  color: #334155;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.seleccion-vacia p {
+  color: #64748b;
+  max-width: 400px;
+  font-size: 16px;
+  margin: 0;
+}

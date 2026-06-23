@@ -66,10 +66,11 @@ export class ActualizacionUsuario {
 
       this.usuarioServicio.actualizarUsuarios(this.id, this.usuario).pipe(
         tap(dato => {
+          
           this.irAUsuarios();
-
         }),
         catchError(err => {
+          console.log(this.usuario);
           console.error(err);
           return of(null);
         })

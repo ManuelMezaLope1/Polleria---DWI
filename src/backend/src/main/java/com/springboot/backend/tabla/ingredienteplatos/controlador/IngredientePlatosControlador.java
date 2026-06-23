@@ -16,12 +16,15 @@ import com.springboot.backend.tabla.ingrediente.repositorio.IngredienteRepositor
 import com.springboot.backend.tabla.ingredienteplatos.modelo.IngredientePlatos;
 import com.springboot.backend.tabla.ingredienteplatos.modelo.IngredientePlatosDto;
 import com.springboot.backend.tabla.ingredienteplatos.repositorio.IngredientePlatosRepositorio;
+import com.springboot.backend.tabla.ingredienteplatos.repositorio.PlatoIngredientesDto;
 import com.springboot.backend.tabla.plato.modelo.Plato;
 import com.springboot.backend.tabla.plato.repositorio.PlatoRepositorio;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/api/v1/public")
@@ -38,6 +41,11 @@ public class IngredientePlatosControlador {
     @GetMapping("/ingrediente-platos/lote")
     public List<IngredientePlatos> listarTodosLosIngredientesPlatos() {
         return ingredientePlatosRepositorio.findAll();
+    }
+
+    @GetMapping("/ingrediente-platos")
+    public List<PlatoIngredientesDto> obtenerIngredientesPlato(){
+        return ingredientePlatosRepositorio.obtenerIngredientesPlato();
     }
 
     @PostMapping("/ingrediente-platos/lote")

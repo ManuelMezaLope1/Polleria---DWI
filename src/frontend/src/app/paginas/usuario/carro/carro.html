@@ -291,6 +291,34 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="producto-agregado" *ngFor="let item of ofertaAgredada; let r = index">
+                                <div class="row g-3 align-items-center">
+                                    <div class="col-md-8">
+                                        <label class="form-label">Producto</label>
+                                        <input type="text" class="form-control" [value]="item.nombre"
+                                            [name]="'oferta' + r" readonly>
+
+                                        <label class="form-label mt-3">Descripción</label>
+                                        <input type="text" class="form-control" [value]="item.descripcion"
+                                            [name]="'oferta1' + r" readonly>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label class="form-label">Cantidad</label>
+                                        <input type="text" class="form-control text-center" [value]="item.cantidad"
+                                            [name]="'oferta2' + r" readonly>
+
+                                        <label class="form-label mt-3">Precio</label>
+                                        <input type="text" class="form-control text-center" [value]="item.precio"
+                                            [name]="'oferta3' + r" readonly>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <button class="btn btn-success w-100" (click)="restarOferta(r)">-</button>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -298,7 +326,7 @@
 
             <div class="col-lg-5">
                 <div class="card shadow-sm border-0 compra-card">
-                    <div class="card-body">
+                    <div class="card-body tab-content">
                         <div class="row">
                             <div class="col">
 
@@ -310,89 +338,144 @@
                             </div>
                         </div>
 
-                        <label class="form-label">Selecciona una bebida</label>
-                        <select class="form-control" name="plato" id="plato" [(ngModel)]="bebidaSeleccionada">
-                            <option [ngValue]="null">--Seleccione una bebida--</option>
-                            <ng-container *ngFor="let cate of categorias$ | async">
-                                <ng-container *ngIf="cate.nombre.startsWith('Bebidas')">
-                                    <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
-                                </ng-container>
-                            </ng-container>
-                        </select>
+                        <div class="botones-grid">
+                            <div class="menu-cuenta">
+                                <div class="border border-dark rounded">
+                                    <a [ngClass]="active == 'platos' ? 'nav-link active' : 'nav-link'" id="tab-registro"
+                                        (click)="onPlatosTab()" style="display: inline-flex"><i
+                                            class="material-icons mr-2">menu_book</i>Platos</a>
+                                </div>
+                            </div>
+
+                            <div class="menu-cuenta">
+                                <div class="border border-dark rounded">
+                                    <a [ngClass]="active == 'ofertas' ? 'nav-link active' : 'nav-link'"
+                                        id="tab-historial" (click)="onOfertasTab()" style="display: inline-flex"><i
+                                            class="material-icons mr-2">percent</i>Ofertas</a>
+                                </div>
+                            </div>
+                        </div>
                         <br>
-                        <label class="form-label">Seleccione las cremas</label>
-                        <select name="plato" id="plato" class="form-control" [(ngModel)]="cremaSeleccionada">
-                            <option [ngValue]="null">--Seleccione crema--</option>
-                            <ng-container *ngFor="let cate of categorias$ | async">
-                                <ng-container *ngIf="cate.nombre.startsWith('Cremas')">
-                                    <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                        <div [ngClass]="active == 'platos' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                            <label class="form-label">Selecciona una bebida</label>
+                            <select class="form-control" name="plato" id="plato" [(ngModel)]="bebidaSeleccionada">
+                                <option [ngValue]="null">--Seleccione una bebida--</option>
+                                <ng-container *ngFor="let cate of categorias$ | async">
+                                    <ng-container *ngIf="cate.nombre.startsWith('Bebidas')">
+                                        <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                                    </ng-container>
                                 </ng-container>
-                            </ng-container>
-                        </select>
-                        <br>
-                        <label class="form-label">Selecciona otro plato</label>
-                        <select class="form-control" name="plato" id="plato" [(ngModel)]="platoSeleccionado">
-                            <option [ngValue]="null">--Seleccione brasa--</option>
-                            <ng-container *ngFor="let cate of categorias$ | async">
-                                <ng-container *ngIf="cate.nombre.startsWith('Brasas')">
-                                    <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                            </select>
+                            <br>
+                            <label class="form-label">Seleccione las cremas</label>
+                            <select name="plato" id="plato" class="form-control" [(ngModel)]="cremaSeleccionada">
+                                <option [ngValue]="null">--Seleccione crema--</option>
+                                <ng-container *ngFor="let cate of categorias$ | async">
+                                    <ng-container *ngIf="cate.nombre.startsWith('Cremas')">
+                                        <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                                    </ng-container>
                                 </ng-container>
-                            </ng-container>
-                        </select>
-                        <br>
-                        <select name="plato" id="plato" class="form-control" [(ngModel)]="broasterSeleccionado">
-                            <option [ngValue]="null">--Seleccione broaster--</option>
-                            <ng-container *ngFor="let cate of categorias$ | async">
-                                <ng-container *ngIf="cate.nombre.startsWith('Broasters')">
-                                    <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                            </select>
+                            <br>
+                            <label class="form-label">Selecciona otro plato</label>
+                            <select class="form-control" name="plato" id="plato" [(ngModel)]="platoSeleccionado">
+                                <option [ngValue]="null">--Seleccione brasa--</option>
+                                <ng-container *ngFor="let cate of categorias$ | async">
+                                    <ng-container *ngIf="cate.nombre.startsWith('Brasas')">
+                                        <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                                    </ng-container>
                                 </ng-container>
-                            </ng-container>
-                        </select>
-                        <br>
-                        <select name="plato" id="plato" class="form-control" [(ngModel)]="ensaladaSeleccionada">
-                            <option [ngValue]="null">--Seleccione ensalada--</option>
-                            <ng-container *ngFor="let cate of categorias$ | async">
-                                <ng-container *ngIf="cate.nombre.startsWith('Ensaladas')">
-                                    <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                            </select>
+                            <br>
+                            <select name="plato" id="plato" class="form-control" [(ngModel)]="broasterSeleccionado">
+                                <option [ngValue]="null">--Seleccione broaster--</option>
+                                <ng-container *ngFor="let cate of categorias$ | async">
+                                    <ng-container *ngIf="cate.nombre.startsWith('Broasters')">
+                                        <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                                    </ng-container>
                                 </ng-container>
-                            </ng-container>
-                        </select>
-                        <br>
-                        <select name="plato" id="plato" class="form-control" [(ngModel)]="guarnicionSeleccionada">
-                            <option [ngValue]="null">--Seleccione guarnición--</option>
-                            <ng-container *ngFor="let cate of categorias$ | async">
-                                <ng-container *ngIf="cate.nombre.startsWith('Guarniciones')">
-                                    <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                            </select>
+                            <br>
+                            <select name="plato" id="plato" class="form-control" [(ngModel)]="ensaladaSeleccionada">
+                                <option [ngValue]="null">--Seleccione ensalada--</option>
+                                <ng-container *ngFor="let cate of categorias$ | async">
+                                    <ng-container *ngIf="cate.nombre.startsWith('Ensaladas')">
+                                        <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                                    </ng-container>
                                 </ng-container>
-                            </ng-container>
-                        </select>
-                        <br>
-                        <select name="plato" id="plato" class="form-control" [(ngModel)]="hamburguesaSeleccionada">
-                            <option [ngValue]="null">--Seleccione hamburguesa--</option>
-                            <ng-container *ngFor="let cate of categorias$ | async">
-                                <ng-container *ngIf="cate.nombre.startsWith('Hamburguesas')">
-                                    <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                            </select>
+                            <br>
+                            <select name="plato" id="plato" class="form-control" [(ngModel)]="guarnicionSeleccionada">
+                                <option [ngValue]="null">--Seleccione guarnición--</option>
+                                <ng-container *ngFor="let cate of categorias$ | async">
+                                    <ng-container *ngIf="cate.nombre.startsWith('Guarniciones')">
+                                        <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                                    </ng-container>
                                 </ng-container>
-                            </ng-container>
-                        </select>
-                        <br>
-                        <select name="plato" id="plato" class="form-control" [(ngModel)]="parrillaSeleccionada">
-                            <option [ngValue]="null">--Seleccione parrilla--</option>
-                            <ng-container *ngFor="let cate of categorias$ | async">
-                                <ng-container *ngIf="cate.nombre.startsWith('Parrillas')">
-                                    <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                            </select>
+                            <br>
+                            <select name="plato" id="plato" class="form-control" [(ngModel)]="hamburguesaSeleccionada">
+                                <option [ngValue]="null">--Seleccione hamburguesa--</option>
+                                <ng-container *ngFor="let cate of categorias$ | async">
+                                    <ng-container *ngIf="cate.nombre.startsWith('Hamburguesas')">
+                                        <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                                    </ng-container>
                                 </ng-container>
-                            </ng-container>
-                        </select>
-                        <br>
-                        <select name="plato" id="plato" class="form-control" [(ngModel)]="postreSeleccionado">
-                            <option [ngValue]="null">--Seleccione postre--</option>
-                            <ng-container *ngFor="let cate of categorias$ | async">
-                                <ng-container *ngIf="cate.nombre.startsWith('Postres')">
-                                    <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                            </select>
+                            <br>
+                            <select name="plato" id="plato" class="form-control" [(ngModel)]="parrillaSeleccionada">
+                                <option [ngValue]="null">--Seleccione parrilla--</option>
+                                <ng-container *ngFor="let cate of categorias$ | async">
+                                    <ng-container *ngIf="cate.nombre.startsWith('Parrillas')">
+                                        <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                                    </ng-container>
                                 </ng-container>
-                            </ng-container>
-                        </select>
+                            </select>
+                            <br>
+                            <select name="plato" id="plato" class="form-control" [(ngModel)]="postreSeleccionado">
+                                <option [ngValue]="null">--Seleccione postre--</option>
+                                <ng-container *ngFor="let cate of categorias$ | async">
+                                    <ng-container *ngIf="cate.nombre.startsWith('Postres')">
+                                        <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                                    </ng-container>
+                                </ng-container>
+                            </select>
+                        </div>
+
+                        <div [ngClass]="active == 'ofertas' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                            <div class="oferta-card mb-4" *ngFor="let ofe of ofertas$ | async"
+                                [hidden]="ofe.nombre==='Sin promoción'">
+                                <div class="d-flex justify-content-center">
+                                    <img src="../imagenes/promociones/promotueliges.png" alt="Imagen de la oferta"
+                                        class="oferta-img">
+                                </div>
+
+                                <div class="oferta-body">
+                                    <h5 class="text-center">{{ofe.nombre}}</h5>
+
+                                    <div class="oferta-info">
+                                        <div class="info-item">
+                                            <p>{{ofe.descripcion}}</p>
+                                        </div>
+
+                                        <div class="info-item">
+                                            <span>Precio</span>
+                                            <strong>S/. {{ofe.precio_nuevo}}</strong>
+                                        </div>
+
+                                        <div class="info-item">
+                                            <span>Platos</span>
+                                            <strong>{{ofe.cantidad}}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-footer d-flex justify-content-center">
+                                    <button class="btn btn-success"
+                                        (click)="agregarOfertaSeleccionada(ofe)">Agregar</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -429,7 +512,48 @@
         <button class="btn btn-secondary" (click)="decisionObservacionNo()">No</button>
 
         <div class="mt-3" *ngIf="decisionObservacion==='Si'">
-            <input class="form-control form-control-lg input-grande" type="text" placeholder="Escriba su observación aquí" id="observacion" name="observacion" [(ngModel)]="observacionEscrita">
+            <div class="card card-observacion">
+                <p><strong>Nota:</strong> Para actualizar las opciones, vuelva a seleccionar el si.</p>
+                <br>
+                <div style="display: flex">
+                    <!--<select class="form-control" name="plato" id="plato" [(ngModel)]="platoSeleccionado">
+                        <option [ngValue]="null">--Seleccione brasa--</option>
+                        <ng-container *ngFor="let cate of categorias$ | async">
+                            <ng-container *ngIf="cate.nombre.startsWith('Brasas')">
+                                <option *ngFor="let pla of cate.plato" [ngValue]="pla">{{pla.nombre}}</option>
+                            </ng-container>
+                        </ng-container>
+                    </select>-->
+
+                    <select class="form-control mr-3" name="platos" id="platos" [(ngModel)]="platoObservacion" (change)="onSeleccionarPlato(platoObservacion)">
+                        <option [ngValue]="null">--Seleccione el plato--</option>
+                        <option *ngFor="let pla of platoAgregadoObservacion" [ngValue]="pla">{{pla.nombre}}</option>
+                    </select>
+
+                    <select class="form-control" name="modificadores" id="modificadores"
+                        [(ngModel)]="modificadorObservacion">
+                        <option [ngValue]="null">--Seleccione un modificador--</option>
+                        <option value="mas">Más</option>
+                        <option value="menos">Menos</option>
+                        <option value="sin">Sin</option>
+                        <option value="extra">Extra</option>
+                        <option value="mucho">Mucho</option>
+                        <option value="con">Con</option>
+                    </select>
+
+                    <select class="form-control ml-3" name="ingredientes" id="ingredientes"
+                        [(ngModel)]="ingredienteObservacion">
+                        <option [ngValue]="null">--Seleccione primero un plato--</option>
+                        <option *ngFor="let item of ingredientesFiltrados" [ngValue]="item">{{item.ingrediente}}</option>
+                    </select>
+
+                    <button class="btn btn-primary ml-3" (click)="click()">Agregar</button>
+                </div>
+                <br>
+                <input class="form-control form-control-lg input-grande" type="text"
+                    placeholder="Escriba su observación aquí" id="observacion" name="observacion"
+                    [(ngModel)]="observacionEscrita" readonly>
+            </div>
         </div>
 
         <div class="row">

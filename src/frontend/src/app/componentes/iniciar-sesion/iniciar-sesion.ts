@@ -61,6 +61,8 @@ export class IniciarSesionComponent {
               this.router.navigate(['/dashboard']);
             } else if(rol==='ROLE_COCINERO'){
               this.router.navigate(['/dashboard-cocinero'])
+            } else if(rol==='ROLE_MESERO'){
+              this.router.navigate(['/dashboard-mesero']);
             }
           }
         })

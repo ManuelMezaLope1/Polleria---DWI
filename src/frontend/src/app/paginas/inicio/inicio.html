@@ -187,7 +187,8 @@
 
             <div class="badge-ahorro super" *ngIf="getAhorro(ofe) >= 11">¡SuperAhorro!</div>
 
-            <div class="badge-ahorro normal" *ngIf="getAhorro(ofe) <= 10">Ahorras S/.{{getAhorro(ofe)}}</div>
+            <div class="badge-ahorro normal" *ngIf="getAhorro(ofe) <= 10">Ahorras S/.{{getAhorro(ofe) | number:
+              '1.2-2'}}</div>
 
             <div class="contenido">
               <h3>{{ofe.nombre}}</h3>
@@ -200,6 +201,14 @@
               <button class="btn-comprar" (click)="realizarCompra(ofe.id)">Comprar Ahora</button>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div *ngIf="((ofertas$ | async) ?? []).length===0">
+        <div class="seleccion-vacia">
+          <i class="material-icons icono">info</i>
+          <h4>Sin ofertas actuales</h4>
+          <p>Por ahora no tenemos ofertas, vuelva más tarde.</p>
         </div>
       </div>
     </div>

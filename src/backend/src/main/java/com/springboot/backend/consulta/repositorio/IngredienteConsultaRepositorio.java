@@ -20,7 +20,7 @@ public interface IngredienteConsultaRepositorio extends JpaRepository<Ingredient
 
     @Query(value = """
                         select i.nombre, COUNT(ip.plato_id) as cantidad, a.nombre AS alergia, ci.nombre as categoria, ei.nombre as estado, i.imagen
-            from ingrediente_plato ip
+            from ingrediente_platos ip
             JOIN ingredientes i ON i.id=ip.ingrediente_id
             JOIN platos p ON p.id=ip.plato_id
             JOIN alergias a ON a.id=i.alergia_id

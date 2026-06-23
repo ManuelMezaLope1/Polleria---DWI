@@ -98,10 +98,14 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+
+                    <div *ngIf="alergias.length===0">
+                        <div class="seleccion-vacia">
+                            <i class="material-icons icono">info</i>
+                            <h4>Sin alergias actuales</h4>
+                            <p>Por ahora no tenemos alergias, vuelva más tarde.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -186,4 +190,13 @@
             <p>No hay platos en esta categoría.</p>
         </div>
     </div>
+
+    <div *ngIf="((categorias$ | async) ?? []).length===0">
+        <div class="seleccion-vacia">
+            <i class="material-icons icono">info</i>
+            <h4>Sin platos actuales</h4>
+            <p>Por ahora no tenemos platos, vuelva más tarde.</p>
+        </div>
+    </div>
+    <br>
 </div>

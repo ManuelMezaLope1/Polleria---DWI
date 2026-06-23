@@ -1,4 +1,5 @@
 import { Time } from "@angular/common";
+import { Venta } from "../venta/Venta";
 
 export class Pedido{
     id: number;

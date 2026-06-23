@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { IngredientesPlato } from '../../componentes/ingrediente/IngredientesPlatos';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,5 +13,9 @@ export class IngredientePlatosServicio {
 
   guardarLote(relaciones: any[]){
     return this.http.post(this.baseUrl+'/lote',relaciones);
+  }
+
+  obtenerIngredientePlatos(): Observable<IngredientesPlato[]>{
+    return this.http.get<IngredientesPlato[]>(`${this.baseUrl}`);
   }
 }

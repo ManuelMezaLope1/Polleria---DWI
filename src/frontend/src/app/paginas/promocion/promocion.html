@@ -15,7 +15,8 @@
             </div>
 
             <div class="row g-4">
-                <div class="col-lg-4 col-md-6 mb-4" *ngFor="let ofe of ofertas$ | async" [hidden]="ofe.nombre == 'Sin promoción'">
+                <div class="col-lg-4 col-md-6 mb-4" *ngFor="let ofe of ofertas$ | async"
+                    [hidden]="ofe.nombre == 'Sin promoción'">
                     <div class="promo-card h-100">
                         <div class="descuento-badge">{{getDescuento(ofe)}}% OFF</div>
 
@@ -35,6 +36,14 @@
                             <button class="btn-pedir" (click)="realizarCompra(ofe.id)">🛒 Pedir Ahora</button>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div *ngIf="((ofertas$ | async) ?? []).length===0">
+                <div class="seleccion-vacia">
+                    <i class="material-icons icono">info</i>
+                    <h4>Sin ofertas actuales</h4>
+                    <p>Por ahora no tenemos ofertas, vuelva más tarde.</p>
                 </div>
             </div>
         </div>

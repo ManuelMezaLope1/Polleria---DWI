@@ -22,6 +22,10 @@ import { DetalleVentaPlatosServicio } from '../../../servicios/detalleventaplato
 import { DetalleVentaOfertasServicio } from '../../../servicios/detalleventaofertas/detalle-venta-ofertas-servicio';
 import { PedidoServicio } from '../../../servicios/pedido/pedido-servicio';
 import { Pedido } from '../../../componentes/pedido/Pedido';
+import { IngredienteServicio } from '../../../servicios/ingrediente/ingrediente-servicio';
+import { IIngrediente } from '../../../componentes/ingrediente/IIngrediente';
+import { IngredientePlatosServicio } from '../../../servicios/ingredienteplatos/ingrediente-platos-servicio';
+import { IngredientesPlato } from '../../../componentes/ingrediente/IngredientesPlatos';
 
 @Component({
   selector: 'app-carro',
@@ -46,6 +50,11 @@ export class Carro {
   metodopagos: MetodoPago[] = [];
   metodopagos$!: Observable<MetodoPago[]>;
 
+  ofertas: Oferta[] = [];
+  ofertas$!: Observable<Oferta[]>;
+
+  ingredientes: IngredientesPlato[] = [];
+
   platoSeleccionado: any = null;
   bebidaSeleccionada: any = null;
   broasterSeleccionado: any = null;
@@ -55,12 +64,15 @@ export class Carro {
   hamburguesaSeleccionada: any = null;
   parrillaSeleccionada: any = null;
   postreSeleccionado: any = null;
+  ofertaSeleccionada: any = null;
 
   totPla: number = 0;
   descPla: string = '';
   cantPla: number = 0;
   idPla: number = 0;
   cantOferta: number = 0;
+  platoId: any;
+  platoCantidad: number = 0;
 
   preDis: number = 0;
   preProd: number = 0;
@@ -71,19 +83,39 @@ export class Carro {
   preHam: number = 0;
   prePar: number = 0;
   prePos: number = 0;
+  preOfe: number = 0;
 
   decisionObservacion: any;
   observacionEscrita: any;
   pedidoObservacion: string = '';
 
+  active: string = "platos";
+
+  onPlatosTab(): void {
+    this.active = "platos";
+  }
+
+  onOfertasTab(): void {
+    this.active = "ofertas";
+  }
+
   constructor(private ofertaServicio: OfertaServicio, private platoServicio: PlatoServicio, private categoriaServicio: CategoriaServicio, private router: Router,
     private route: ActivatedRoute, private cd: ChangeDetectorRef, private usuarioServicio: UsuarioServicio, private metodoPagoServicio: MetodopagoServicio,
     private ventaServicio: VentaServicio, private detalleVentaServicio: DetalleVentaServicio, private detalleVentaPlatoServicio: DetalleVentaPlatosServicio,
-    private detalleVentaOfertaServicio: DetalleVentaOfertasServicio, private pedidoServicio: PedidoServicio) { }
+    private detalleVentaOfertaServicio: DetalleVentaOfertasServicio, private pedidoServicio: PedidoServicio, private ingredientePlatosServicio: IngredientePlatosServicio) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     const tipo = this.route.snapshot.params['tipo'];
+    this.ingredientePlatosServicio.obtenerIngredientePlatos().pipe(
+      tap(dato => {
+        this.ingredientes = dato;
+      }),
+      catchError(err => {
+        console.error(err);
+        return of(null)
+      })
+    ).subscribe();
     this.decisionObservacion = 'No';
 
     if (tipo === "oferta") {
@@ -121,6 +153,9 @@ export class Carro {
 
           this.detalleVenta.cantidad = 1;
           this.cantPla = 1;
+
+          this.platoId = this.plato.id;
+          this.platoCantidad = 1;
           this.cd.detectChanges();
         }),
         catchError(err => {
@@ -134,6 +169,7 @@ export class Carro {
     this.platos$ = this.platoServicio.obtenerListaDePlatos();
     this.categorias$ = this.categoriaServicio.obtenerListaDeCategorias();
     this.metodopagos$ = this.metodoPagoServicio.obtenerListaDeMetodoPago();
+    this.ofertas$ = this.ofertaServicio.obtenerListaDeOfertas();
 
     this.usuarioServicio.obtenerPerfil().pipe(
       tap(dato => {
@@ -157,18 +193,59 @@ export class Carro {
         console.error(err);
         return of(null);
       })
-    ).subscribe()
+    ).subscribe();
   }
 
   decisionObservacionSi() {
     this.decisionObservacion = 'Si';
+
+    const seleccionados = [
+      this.platosAgregados.find(
+        p => p.nombre === this.platoSeleccionado?.nombre
+      ),
+
+      this.broastersAgregados.find(
+        p => p.nombre === this.broasterSeleccionado?.nombre
+      ),
+
+      this.ensaladaAgregada.find(
+        p => p.nombre === this.ensaladaSeleccionada?.nombre
+      ),
+
+      this.guarnicionAgregada.find(
+        p => p.nombre === this.guarnicionSeleccionada?.nombre
+      ),
+
+      this.hamburguesaAgregada.find(
+        p => p.nombre === this.hamburguesaSeleccionada?.nombre
+      ),
+
+      this.parrillaAgregada.find(
+        p => p.nombre === this.parrillaSeleccionada?.nombre
+      )
+    ];
+
+    const platosObservaciones: { id: number, nombre: string }[] = seleccionados
+      .filter(item => item != null && item.id != null)
+      .map(item => ({
+        id: item!.id,
+        nombre: item!.nombre
+      }));
+
+    this.platoAgregadoObservacion = platosObservaciones;
   }
 
   decisionObservacionNo() {
     this.decisionObservacion = 'No';
   }
 
+  ingredientesFiltrados: any[];
 
+  onSeleccionarPlato(nombrePlato: any) {
+    this.ingredientesFiltrados = this.ingredientes.filter(
+      item => item.plato === nombrePlato.nombre
+    );
+  }
 
   limpiarSeleccion() {
     this.bebidaSeleccionada = null;
@@ -194,6 +271,7 @@ export class Carro {
   cantHam = 0;
   cantPar = 0;
   cantPos = 0;
+  cantOfe = 0;
 
   actualizarCantidad() {
     const platoExistente = this.platosAgregados.find(
@@ -232,6 +310,10 @@ export class Carro {
       p => p.nombre === this.postreSeleccionado.nombre
     );
 
+    const ofertaExistente = this.ofertaAgredada.find(
+      p => p.id === this.ofertaSeleccionada.id
+    );
+
     if (platoExistente) {
       this.cantBra = this.platosAgregados.reduce((cantidad, p) => (p.cantidad), 0);
     }
@@ -268,7 +350,11 @@ export class Carro {
       this.cantPos = this.postreAgregado.reduce((cantidad, p) => (p.cantidad), 0);
     }
 
-    this.detalleVenta.cantidad = this.cantPla + this.cantBra + this.cantBeb + this.cantBro + this.cantCre + this.cantEns + this.cantGua + this.cantHam + this.cantPar + this.cantPos
+    if (ofertaExistente) {
+      this.cantOfe = this.ofertaAgredada.reduce((cantidad, p) => (p.cantidad), 0);
+    }
+
+    this.detalleVenta.cantidad = this.cantPla + this.cantBra + this.cantBeb + this.cantBro + this.cantCre + this.cantEns + this.cantGua + this.cantHam + this.cantPar + this.cantPos + this.cantOfe;
   }
 
   //#####################################################################################################################################################
@@ -283,6 +369,7 @@ export class Carro {
   totalHamburguesa = 0;
   totalParrilla = 0;
   totalPostre = 0;
+  totalOferta = 0;
 
   actualizarTotal() {
     const platoExistente = this.platosAgregados.find(
@@ -321,6 +408,10 @@ export class Carro {
       p => p.nombre === this.postreSeleccionado.nombre
     );
 
+    const ofertaExistente = this.ofertaAgredada.find(
+      p => p.id === this.ofertaSeleccionada.id
+    );
+
     if (platoExistente) {
       this.totalPlatos = this.platosAgregados.reduce((total, p) => total + (p.precio), 0);
     }
@@ -357,7 +448,11 @@ export class Carro {
       this.totalPostre = this.postreAgregado.reduce((total, p) => total + (p.precio), 0);
     }
 
-    this.detalleVenta.total = this.totPla + this.totalPlatos + this.totalBebidas + this.totalBroasters + this.totalCrema + this.totalEnsalada + this.totalGuarnicion + this.totalHamburguesa + this.totalParrilla + this.totalPostre;
+    if (ofertaExistente) {
+      this.totalOferta = this.ofertaAgredada.reduce((total, p) => total + (p.precio), 0)
+    }
+
+    this.detalleVenta.total = this.totPla + this.totalPlatos + this.totalBebidas + this.totalBroasters + this.totalCrema + this.totalEnsalada + this.totalGuarnicion + this.totalHamburguesa + this.totalParrilla + this.totalPostre + this.totalOferta;
     this.detalleVenta.total = Number(this.detalleVenta.total.toFixed(2));
   }
 
@@ -374,6 +469,7 @@ export class Carro {
   nombreHamburguesa = '';
   nombreParrilla = '';
   nombrePostre = '';
+  nombreOferta = '';
   descripcion = '';
 
   actualizarDescripcion() {
@@ -413,6 +509,10 @@ export class Carro {
       p => p.nombre === this.postreSeleccionado.nombre
     );
 
+    const ofertaExistente = this.ofertaAgredada.find(
+      p => p.id === this.ofertaSeleccionada.id
+    );
+
     if (platoExistente) {
       this.nombrePlato = this.platosAgregados.map(p => `${p.nombre} x${p.cantidad}`).join(', ');
     }
@@ -449,7 +549,11 @@ export class Carro {
       this.nombrePostre = this.postreAgregado.map(p => `${p.nombre} x${p.cantidad}`).join(', ');
     }
 
-    this.descripcion = this.descPla + ' + ' + this.nombrePlato + ' + ' + this.nombreBroaster + ' + ' + this.nombreEnsalada + ' + ' + this.nombreHamburguesa + ' + ' + this.nombreParrilla + ' + ' + this.nombrePostre + ' + ' + this.nombreGuarnicion + ' + ' + this.nombreBebida + ' + ' + this.nombreCrema;
+    if (ofertaExistente) {
+      this.nombreOferta = this.ofertaAgredada.map(p => `${p.nombre} x${p.cantidad}`).join(', ');
+    }
+
+    this.descripcion = this.descPla + ' + ' + this.nombrePlato + ' + ' + this.nombreBroaster + ' + ' + this.nombreEnsalada + ' + ' + this.nombreHamburguesa + ' + ' + this.nombreParrilla + ' + ' + this.nombrePostre + ' + ' + this.nombreGuarnicion + ' + ' + this.nombreBebida + ' + ' + this.nombreCrema + ' + ' + this.nombreOferta;
     this.detalleVenta.descripcion = this.descripcion.split('+').map(x => x.trim()).filter(x => x !== '').join(' + ');
   }
 
@@ -466,6 +570,8 @@ export class Carro {
   hamburguesaAgregada: any[] = [];
   parrillaAgregada: any[] = [];
   postreAgregado: any[] = [];
+  ofertaAgredada: any[] = [];
+  platoAgregadoObservacion: any[] = [];
 
   agregarInput() {
     if (!this.platoSeleccionado) return;
@@ -733,6 +839,41 @@ export class Carro {
     this.actualizarDescripcion();
   }
 
+  agregarOfertaSeleccionada(any: Object) {
+    this.ofertaSeleccionada = any;
+    this.agregarOferta();
+  }
+
+  agregarOferta() {
+    if (!this.ofertaSeleccionada) return;
+
+    const ofertaExistente = this.ofertaAgredada.find(
+      p => p.id === this.ofertaSeleccionada.id
+    );
+
+    if (ofertaExistente) {
+      ofertaExistente.cantidad += 1;
+
+      ofertaExistente.precio = ofertaExistente.cantidad * this.ofertaSeleccionada.precio_nuevo;
+    } else {
+      this.ofertaAgredada.push({
+        id: this.ofertaSeleccionada.id,
+        nombre: this.ofertaSeleccionada.nombre,
+        precio: this.ofertaSeleccionada.precio_nuevo,
+        cantidad: 1,
+        descripcion: this.ofertaSeleccionada.descripcion
+      });
+
+      this.preOfe = this.ofertaSeleccionada.precio_nuevo;
+    }
+
+    this.ofertaAgredada = [...this.ofertaAgredada];
+
+    this.actualizarCantidad();
+    this.actualizarTotal();
+    this.actualizarDescripcion();
+  }
+
   //#####################################################################################################################################################
   //#                                                                    RESTAR                                                                         #
   //#####################################################################################################################################################
@@ -900,6 +1041,24 @@ export class Carro {
     this.actualizarDescripcion();
   }
 
+  restarOferta(index: number) {
+    this.ofertaAgredada[index].cantidad--;
+    this.ofertaAgredada[index].precio = this.ofertaAgredada[index].cantidad * this.preOfe;
+
+    if (this.ofertaAgredada[index].cantidad <= 0) {
+      this.ofertaAgredada = [...this.ofertaAgredada];
+      this.actualizarCantidad();
+      this.actualizarTotal();
+      this.nombreOferta = '';
+      this.ofertaAgredada.splice(index, 1);
+    }
+
+    this.ofertaAgredada = [...this.ofertaAgredada];
+    this.actualizarCantidad();
+    this.actualizarTotal();
+    this.actualizarDescripcion();
+  }
+
   //#####################################################################################################################################################
   //#                                                                    PARA USUARIO                                                                   #
   //#####################################################################################################################################################
@@ -920,9 +1079,15 @@ export class Carro {
 
   detallesAgregados: any[] = [];
   ofertasAgredadas: any[] = [];
+  platoPrincipalAgregado: any[] = [];
   detalleVentaRelacion: any;
 
   guardarRelaciones() {
+    this.platoPrincipalAgregado.push({
+      id: this.platoId,
+      cantidad: this.platoCantidad
+    })
+
     const lista: { id: number, cantidad: number }[] = [];
 
     const agregar = (arr?: any[]) => {
@@ -935,6 +1100,7 @@ export class Carro {
         });
     };
 
+    agregar(this.platoPrincipalAgregado)
     agregar(this.platosAgregados);
     agregar(this.bebidasAgregadas);
     agregar(this.cremaAgregada);
@@ -951,24 +1117,64 @@ export class Carro {
       cantidad_platos: item.cantidad,
     }));
 
-    this.ofertasAgredadas.push({
-      detalleVentaId: this.detalleVentaRelacion,
-      ofertaId: this.idPla,
-      cantidad_oferta: this.cantOferta
-    })
+    if (this.ofertaAgredada.length === 0) {
+      this.ofertasAgredadas.push({
+        detalleVentaId: this.detalleVentaRelacion,
+        ofertaId: this.idPla,
+        cantidad_oferta: this.cantOferta
+      })
+    } else if (this.ofertaAgredada.length > 0) {
+      this.ofertasAgredadas = this.ofertaAgredada.map(oferta => ({
+        detalleVentaId: this.detalleVentaRelacion,
+        ofertaId: oferta.id,
+        cantidad_oferta: oferta.cantidad
+      }));
+    }
 
     this.detalleVentaPlatoServicio.guardarLote(relacionesPlatos).subscribe({
-      next: () => console.log(''),
+      next: () => console.log(relacionesPlatos),
       error: err => console.error(err)
     });
 
     this.detalleVentaOfertaServicio.guardarLote(this.ofertasAgredadas).subscribe({
-      next: () => console.log(''),
+      next: () => console.log(this.ofertasAgredadas),
       error: err => console.error(err)
     })
   }
 
+  platoObservacion: any = null;
+  modificadorObservacion: any = null;
+  ingredienteObservacion: any = null;
+  texto: string = '';
+
+  click() {
+    if (this.decisionObservacion === 'Si') {
+      this.texto = this.platoObservacion.nombre + ' ' + this.modificadorObservacion + ' ' + this.ingredienteObservacion.ingrediente
+
+      if (!this.observacionEscrita) {
+        this.observacionEscrita = this.texto
+      } else {
+        if(this.observacionEscrita.includes(this.texto)){
+          Swal.fire('Oops...','Ya registró esta observación','warning')
+        } else {
+          this.observacionEscrita += '; ' + this.texto;
+        }
+      }
+
+      this.pedidoObservacion = this.observacionEscrita;
+
+    } else if (this.decisionObservacion === 'No') {
+      this.pedidoObservacion = 'Sin observación';
+    }
+
+    this.pedido.observacion = this.pedidoObservacion;
+    console.log(this.pedido.observacion)
+    console.log(this.pedido.observacion.length ?? 0);
+  }
+
   onSubmit() {
+    this.venta.estado_venta = 'Pendiente';
+
     this.ventaServicio.registrarVenta(this.venta).pipe(
       tap((ventaGuardada: any) => {
         this.detalleVenta.venta = {
@@ -1011,14 +1217,13 @@ export class Carro {
   registrarPedido() {
     this.pedido.fecha_creacion = new Date().toLocaleString();
     this.pedido.estado_pedido = 'Pendiente';
-    this.pedido.fecha_entrega=new Date().toLocaleString();
+    this.pedido.fecha_entrega = new Date().toLocaleString();
 
     this.pedidoServicio.registrarPedido(this.pedido).pipe(
       tap(dato => {
-        console.log(this.pedido);
         this.registrarDetalleVenta();
       }),
-      catchError(err=>{
+      catchError(err => {
         console.error(err);
         return of(null);
       })

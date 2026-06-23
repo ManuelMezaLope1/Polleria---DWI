@@ -3,6 +3,5 @@ export class Zona{
     nombre:string;
     departamento:string;
     provincia:string;
-    distrito:string;
     usuario: Zona[];
 }

@@ -99,14 +99,28 @@
             </div>
 
             <div class="card" style="border: none;">
-              <div class="venta-card" *ngFor="let venta of ventas">
-                <div class="venta-top">
+              <div class="venta-card" *ngFor="let venta of ventas; let i = index">
+                <div class="venta-top"
+                  [ngClass]="{'pendiente': venta.estado_venta === 'Pendiente', 'preparacion': venta.estado_venta === 'Preparando', 'listo': venta.estado_venta === 'Completado'}">
                   <div>
-                    <h4>Venta #{{venta.id}}</h4>
+                    <h4>Venta #{{ventas.length - i}}</h4>
                     <span class="fecha">{{venta.fecha}}</span>
                   </div>
 
-                  <div class="estado">✔ Completado</div>
+                  <div class="estado mb-0" style="display: inline-flex"
+                    [ngClass]="{'pendiente': venta.estado_venta === 'Pendiente', 'preparacion': venta.estado_venta === 'Preparando', 'listo': venta.estado_venta === 'Completado'}">
+                    <div *ngIf="venta.estado_venta==='Pendiente'" class="mt-2">
+                      <i class="material-icons icono-pendiente">restaurant</i>
+                    </div>
+                    <div *ngIf="venta.estado_venta==='Preparando'" class="mt-2">
+                      <i class="material-icons icono-pendiente">schedule</i>
+                    </div>
+                    <div *ngIf="venta.estado_venta==='Completado'" class="mt-2">
+                      <i class="material-icons icono-pendiente">check</i>
+                    </div>&nbsp;
+
+                    <p class="mt-2">{{venta.estado_venta}}</p>
+                  </div>
                 </div>
 
                 <div class="venta-body">
@@ -130,21 +144,25 @@
                     </div>
                   </div>
 
-                  <div class="info-item">
-                    <span class="label">Cantidad</span>
-                    <span class="value">{{venta.detalleVenta.cantidad}}</span>
+                  <div *ngFor="let detven of venta.detalleVenta">
+                    <div class="info-item">
+                      <span class="label">Cantidad</span>
+                      <span class="value">{{detven.cantidad}}</span>
+                    </div>
                   </div>
 
-                  <div class="info-item">
-                    <span class="label">Descripción</span>
-                    <span class="value descripcion">{{venta.detalleVenta.descripcion}}</span>
+                  <div *ngFor="let detven of venta.detalleVenta">
+                    <div class="info-item">
+                      <span class="label">Descripción</span>
+                      <span class="value descripcion">{{detven.descripcion}}</span>
+                    </div>
                   </div>
                 </div>
 
-                <div class="venta-footer">
+                <div class="venta-footer" *ngFor="let detven of venta.detalleVenta">
                   <span class="total-text">Total Pagado</span>
 
-                  <span class="total-precio">S/. {{venta.detalleVenta.total}}</span>
+                  <span class="total-precio">S/. {{detven.total}}</span>
                 </div>
               </div>
 

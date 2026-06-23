@@ -35,6 +35,7 @@ import { DashboardCocinero } from './paginas/cocinero/dashboard-cocinero/dashboa
 import { ActualizacionCategoriaIngrediente } from './componentes/categoriaingrediente/actualizacion-categoria-ingrediente/actualizacion-categoria-ingrediente';
 import { RegistroCategoriaIngrediente } from './componentes/categoriaingrediente/registro-categoria-ingrediente/registro-categoria-ingrediente';
 import { Ingredienteplatos } from './paginas/admin/ingredienteplatos/ingredienteplatos';
+import { DashboardMesero } from './paginas/mesero/dashboard-mesero/dashboard-mesero';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -239,7 +240,8 @@ export const routes: Routes = [
 
     { path: 'iniciar-sesion', component: IniciarSesionComponent },
 
-    { path: 'dashboard-cocinero', component: DashboardCocinero, canActivate: [AuthGuard], data: { roles: ['ROLE_COCINERO'] } }
+    { path: 'dashboard-cocinero', component: DashboardCocinero, canActivate: [AuthGuard], data: { roles: ['ROLE_COCINERO','ROLE_ADMIN'] } },
+    { path: 'dashboard-mesero', component: DashboardMesero, canActivate: [AuthGuard], data: { roles: ['ROLE_MESERO'] } }
 ];
 
 RouterModule.forRoot(routes, {

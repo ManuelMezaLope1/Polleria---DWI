@@ -223,9 +223,25 @@
     opacity: 0.9;
 }
 
+.pendiente{
+    background: #dc3545;
+}
+
+.preparacion{
+    background: #ffc107;
+}
+
+.preparacion>p{
+    color: #222;
+}
+
+.icono-pendiente{
+    font-size: 20px;
+}
+
 .estado {
     background: rgba(255, 255, 255, 0.2);
-    padding: 8px 14px;
+    padding: 5px 14px;
     border-radius: 30px;
     font-size: 0.85rem;
     font-weight: 600;

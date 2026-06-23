@@ -32,23 +32,37 @@ public interface PlatoConsultaRepositorio extends JpaRepository<Plato, Long> {
         MejorPlatoDto obtenerMejorPlato();
 
         @Query(value = """
-                                SELECT p.nombre, c.nombre AS categoria, p.descripcion, p.imagen, COALESCE(ing.cantidad_ingredientes,0) cantidad_ingredientes, COALESCE(pen.cantidad_platos_pendientes,0) cantidad_platos_pendientes FROM platos p
+                                                        SELECT p.nombre, c.nombre AS categoria, p.descripcion, p.imagen, COALESCE(ing.cantidad_ingredientes,0) AS cantidad_ingredientes,
+                        	(COALESCE(pen.cantidad_platos_pendientes,0) + COALESCE(pen_of.cantidad_platos_pendientes_ofertas,0)) AS cantidad_platos_pendientes FROM platos p
                         JOIN categorias c ON c.id = p.categoria_id
                         LEFT JOIN (
-                            SELECT plato_id, COUNT(*) cantidad_ingredientes FROM ingrediente_plato
-                            GROUP BY plato_id
+                        	SELECT plato_id, COUNT(*) AS cantidad_ingredientes FROM ingrediente_platos
+                        	GROUP BY plato_id
                         ) ing ON ing.plato_id = p.id
-
                         LEFT JOIN (
-                            SELECT dvp.plato_id, SUM(dvp.cantidad_platos) cantidad_platos_pendientes FROM detalle_venta_platos dvp
+                            SELECT dvp.plato_id, p.nombre, SUM(dvp.cantidad_platos) AS cantidad_platos_pendientes FROM detalle_venta_platos dvp
                             JOIN detalle_venta dv ON dv.id = dvp.detalle_venta_id
                             JOIN venta v ON v.id = dv.venta_id
                             JOIN pedidos pe ON pe.venta_id = v.id
+                            JOIN platos p ON p.id=dvp.plato_id
                             WHERE pe.estado_pedido = 'Pendiente'
                             GROUP BY dvp.plato_id
                         ) pen ON pen.plato_id = p.id
+                        LEFT JOIN (
+                            SELECT op.plato_id, p.nombre, SUM(dvo.cantidad_ofertas * op.cantidad_platos) AS cantidad_platos_pendientes_ofertas FROM detalle_venta_ofertas dvo
+                            JOIN detalle_venta dv ON dv.id = dvo.detalle_venta_id
+                            JOIN venta v ON v.id = dv.venta_id
+                            JOIN pedidos pe ON pe.venta_id = v.id
+                            JOIN oferta_platos op ON op.oferta_id = dvo.oferta_id
+                            JOIN platos p ON p.id=op.plato_id
+                            WHERE pe.estado_pedido = 'Pendiente'
+                            GROUP BY op.plato_id, p.nombre
+                        ) pen_of ON pen_of.plato_id = p.id
                         WHERE c.nombre NOT IN ('Bebidas','Cremas','Postres')
-                        ORDER BY COALESCE(pen.cantidad_platos_pendientes,0) DESC;
-                                """, nativeQuery = true)
+                        AND (
+                            COALESCE(pen.cantidad_platos_pendientes,0) + COALESCE(pen_of.cantidad_platos_pendientes_ofertas,0)
+                        ) > 0
+                        ORDER BY cantidad_platos_pendientes DESC;
+                                                        """, nativeQuery = true)
         List<CantidadPlatosPrepararDto> obtenerCantidadPlatosPreparar();
 }

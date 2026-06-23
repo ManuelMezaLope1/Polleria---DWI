@@ -5,6 +5,7 @@ import java.sql.Time;
 
 public class PedidoDto {
     private Long id;
+    private Long venta;
     private Date fecha;
     private Time hora_inicio;
     private Time hora_entrega;
@@ -13,10 +14,12 @@ public class PedidoDto {
     private String descripcion;
     private String observacion;
     private String estado_pedido;
-    
-    public PedidoDto(Long id, Date fecha, Time hora_inicio, Time hora_entrega, String username, Integer cantidad,
-            String descripcion, String observacion, String estado_pedido) {
+
+
+    public PedidoDto(Long id, Long venta, Date fecha, Time hora_inicio, Time hora_entrega, String username,
+            Integer cantidad, String descripcion, String observacion, String estado_pedido) {
         this.id = id;
+        this.venta = venta;
         this.fecha = fecha;
         this.hora_inicio = hora_inicio;
         this.hora_entrega = hora_entrega;
@@ -35,6 +38,14 @@ public class PedidoDto {
         this.id = id;
     }
 
+    public Long getVenta() {
+        return venta;
+    }
+
+    public void setVenta(Long venta) {
+        this.venta = venta;
+    }
+    
     public Date getFecha() {
         return fecha;
     }
