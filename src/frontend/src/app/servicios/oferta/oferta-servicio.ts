@@ -8,6 +8,7 @@ import { Oferta } from '../../componentes/oferta/Oferta';
 })
 export class OfertaServicio {
   private baseUrl="http://localhost:8080/api/v1/public/ofertas";
+  private baseUrlOfertaPlatos="http://localhost:8080/api/v1/public/oferta-platos";
 
   constructor(private HttpClient: HttpClient){}
 
@@ -17,6 +18,10 @@ export class OfertaServicio {
 
   registrarOferta(oferta: Oferta): Observable<Object>{
     return this.HttpClient.post(`${this.baseUrl}`,oferta);
+  }
+
+  guardarLote(relaciones: any[]){
+    return this.HttpClient.post(this.baseUrlOfertaPlatos+'/lote',relaciones);
   }
 
   actualizarOferta(id:number,oferta:Oferta): Observable<Object>{

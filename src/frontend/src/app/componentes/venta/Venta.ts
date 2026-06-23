@@ -1,3 +1,5 @@
+import { DetalleVenta } from "./DetalleVenta";
+
 export class Venta{
     id: number;
     usuario: any;
@@ -6,5 +8,6 @@ export class Venta{
     zona: any;
     fecha:string;
     metodopago: any;
-    detalleVenta: any;
+    estado_venta: string;
+    detalleVenta: DetalleVenta[];
 }

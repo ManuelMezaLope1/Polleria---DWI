@@ -78,7 +78,7 @@ public interface PedidoConsultaRepositorio extends JpaRepository<Pedido, Long> {
                         join detalle_venta dv on dv.venta_id=v.id
                         join detalle_venta_platos dvp on dvp.detalle_venta_id=dv.id
                         join platos p on p.id=dvp.plato_id
-                        join ingrediente_plato ip on ip.plato_id=p.id
+                        join ingrediente_platos ip on ip.plato_id=p.id
                         join ingredientes i on i.id=ip.ingrediente_id
                         where date(STR_TO_DATE(v.fecha, '%d/%m/%Y, %H:%i:%s')) = CURDATE()
                         group by i.nombre

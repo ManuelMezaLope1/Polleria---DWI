@@ -37,6 +37,7 @@
                         <span *ngIf="rol.nombre==='ROLE_USER'">Usuario</span>
                         <span *ngIf="rol.nombre==='ROLE_ADMIN'">Administrador</span>
                         <span *ngIf="rol.nombre==='ROLE_COCINERO'">Cocinero</span>
+                        <span *ngIf="rol.nombre==='ROLE_MESERO'">Mesero</span>
                     </td>
                     <td>
                         <button (click)="actualizarRol(rol.id)" class="btn btn-info">Actualizar</button>
@@ -55,7 +56,7 @@
 
         <div class="row">
             <div class="col-log-3">
-                <button (click)="registrarMetodoPago()" class="btn btn-primary btn-sm-3">Agregar zonas</button>
+                <button (click)="registrarMetodoPago()" class="btn btn-primary btn-sm-3">Agregar método de pago</button>
             </div>
         </div>
         <br>
@@ -100,7 +101,6 @@
                         <th scope="col">Nombre</th>
                         <th scope="col">Departamento</th>
                         <th scope="col">Provincia</th>
-                        <th scope="col">Distrito</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
@@ -110,7 +110,6 @@
                         <td>{{zon.nombre}}</td>
                         <td>{{zon.departamento}}</td>
                         <td>{{zon.provincia}}</td>
-                        <td>{{zon.distrito}}</td>
                         <td>
                             <button (click)="actualizarZona(zon.id)" class="btn btn-info">Actualizar</button>
                             <button (click)="eliminarZona(zon.id)" class="btn btn-danger"

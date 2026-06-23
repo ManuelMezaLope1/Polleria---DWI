@@ -1,0 +1,166 @@
+<div class="fachada" *ngIf="active==='puerta'" [class.abrir]="abriendo" (click)="abrirPuertas()">
+    <div class="ventana">
+        <div class="vidrio"></div>
+    </div>
+
+    <div style="display:flex; flex-direction: column;">
+        <div class="ventana-pequeña">
+            <div class="vidrio-pequeño"></div>
+        </div>
+
+        <div class="letrero">
+            <span class="icono">🍗</span>
+            POLLERÍA EL BUEN SABOR
+        </div>
+
+        <div class="puerta-doble">
+            <div class="hoja izq"></div>
+            <div class="hoja der"></div>
+        </div>
+    </div>
+
+    <div class="ventana">
+        <div class="vidrio"></div>
+    </div>
+</div>
+
+<div class="tab-content">
+    <div [ngClass]="active == 'salaUno' ? 'tab-pane fade show active' : 'tab-pane fade'">
+        <div class="paredes">
+            <div class="pared-1"></div>
+            <button class="boton-vuelta" (click)="cerrarPuertas()"><i
+                    class="material-icons icono-flecha">arrow_circle_up</i></button>
+            <div class="pared-2"></div>
+        </div>
+        
+        <div class="sala-uno">
+            <div class="pared-3"></div>
+            
+            <div class="area-mesas">
+                <div class="card-total">
+                    <div class="card-4">
+                        <div class="mesa mesa-4" (click)="seleccionarMesa('mesa1')">
+                            <div class="silla top-1"></div>
+                            <div class="silla bottom-1"></div>
+                            <div class="silla top-2"></div>
+                            <div class="silla bottom-2"></div>
+                            <div class="tablero tablero-4">M1</div>
+                        </div>
+
+                        <div class="mesa mesa-4" (click)="seleccionarMesa('mesa2')">
+                            <div class="silla top-1"></div>
+                            <div class="silla bottom-1"></div>
+                            <div class="silla top-2"></div>
+                            <div class="silla bottom-2"></div>
+                            <div class="tablero tablero-4">M2</div>
+                        </div>
+
+                        <div class="mesa mesa-4" (click)="seleccionarMesa('mesa3')">
+                            <div class="silla top-1"></div>
+                            <div class="silla bottom-1"></div>
+                            <div class="silla top-2"></div>
+                            <div class="silla bottom-2"></div>
+                            <div class="tablero tablero-4">M3</div>
+                        </div>
+
+                        <div class="mesa mesa-4" (click)="seleccionarMesa('mesa4')">
+                            <div class="silla top-1"></div>
+                            <div class="silla bottom-1"></div>
+                            <div class="silla top-2"></div>
+                            <div class="silla bottom-2"></div>
+                            <div class="tablero tablero-4">M4</div>
+                        </div>
+
+                        <div class="mesa mesa-4" (click)="seleccionarMesa('mesa5')">
+                            <div class="silla top-1"></div>
+                            <div class="silla bottom-1"></div>
+                            <div class="silla top-2"></div>
+                            <div class="silla bottom-2"></div>
+                            <div class="tablero tablero-4">M5</div>
+                        </div>
+
+                        <div class="mesa mesa-4" (click)="seleccionarMesa('mesa6')">
+                            <div class="silla top-1"></div>
+                            <div class="silla bottom-1"></div>
+                            <div class="silla top-2"></div>
+                            <div class="silla bottom-2"></div>
+                            <div class="tablero tablero-4">M6</div>
+                        </div>
+                    </div>
+
+                    <div></div>
+
+                    <div class="card-6">
+                        <div class="mesa mesa-6" (click)="seleccionarMesa('mesa7')">
+                            <div class="silla top-1"></div>
+                            <div class="silla bottom-1"></div>
+                            <div class="silla top-2"></div>
+                            <div class="silla bottom-2"></div>
+                            <div class="silla left-1"></div>
+                            <div class="silla right-1"></div>
+                            <div class="tablero tablero-4">M7</div>
+                        </div>
+
+                        <div class="mesa mesa-6" (click)="seleccionarMesa('mesa8')">
+                            <div class="silla top-1"></div>
+                            <div class="silla bottom-1"></div>
+                            <div class="silla top-2"></div>
+                            <div class="silla bottom-2"></div>
+                            <div class="silla left-1"></div>
+                            <div class="silla right-1"></div>
+                            <div class="tablero tablero-4">M8</div>
+                        </div>
+
+                        <div class="mesa mesa-6" (click)="seleccionarMesa('mesa9')">
+                            <div class="silla top-1"></div>
+                            <div class="silla bottom-1"></div>
+                            <div class="silla top-2"></div>
+                            <div class="silla bottom-2"></div>
+                            <div class="silla left-1"></div>
+                            <div class="silla right-1"></div>
+                            <div class="tablero tablero-4">M9</div>
+                        </div>
+
+                        <div class="mesa mesa-6" (click)="seleccionarMesa('mesa10')">
+                            <div class="silla top-1"></div>
+                            <div class="silla bottom-1"></div>
+                            <div class="silla top-2"></div>
+                            <div class="silla bottom-2"></div>
+                            <div class="silla left-1"></div>
+                            <div class="silla right-1"></div>
+                            <div class="tablero tablero-4">M10</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pared-4"></div>
+        </div>
+        
+        <div class="paredes-abajo">
+            <div class="pared-1"></div>
+            <button class="boton-vuelta" (click)="cerrarPuertas()"><i
+                    class="material-icons icono-flecha">arrow_circle_down</i></button>
+            <div class="pared-2"></div>
+        </div>
+    </div>
+</div>
+
+<!--<div class="mesa mesa-8" (click)="seleccionarMesa('mesa7')">
+        <div class="tablero">M7</div>
+    </div>
+
+    
+    <div class="mesa mesa-8" (click)="seleccionarMesa('mesa8')">
+        <div class="tablero">M8</div>
+    </div>
+
+    
+    <div class="mesa mesa-10" (click)="seleccionarMesa('mesa9')">
+        <div class="tablero grande">M9</div>
+    </div>
+
+    
+    <div class="mesa mesa-10" (click)="seleccionarMesa('mesa10')">
+        <div class="tablero grande">M10</div>
+    </div>-->

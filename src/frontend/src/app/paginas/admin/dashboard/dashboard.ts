@@ -14,7 +14,7 @@ import { ConsultaMlServicio } from '../../../servicios/consultaml/consulta-ml-se
 export class Dashboard {
   active: string = "inicio";
 
-  fechaActual = new Date().toLocaleString();
+  fechaActual = new Date();
 
   cantidadVentas: number = 0;
   cantidadUsuarios: number = 0;

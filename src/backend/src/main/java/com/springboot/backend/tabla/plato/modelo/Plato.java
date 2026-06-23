@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.springboot.backend.tabla.categoria.modelo.Categoria;
 import com.springboot.backend.tabla.ingrediente.modelo.Ingrediente;
 import com.springboot.backend.tabla.ingredienteplatos.modelo.IngredientePlatos;
+import com.springboot.backend.tabla.ofertaplatos.modelo.OfertaPlatos;
 
 import jakarta.persistence.*;
 
@@ -38,10 +39,14 @@ public class Plato {
     @JsonIgnoreProperties({"plato"})
     private List<IngredientePlatos> ingredientePlatos;
 
+    @OneToMany(mappedBy="plato", fetch=FetchType.EAGER)
+    @JsonIgnoreProperties({"plato"})
+    private List<OfertaPlatos> ofertaPlatos;
+
     public Plato(){}
 
     public Plato(Long id, String nombre, double precio, String descripcion, Categoria categoria, String imagen,
-            List<IngredientePlatos> ingredientePlatos) {
+            List<IngredientePlatos> ingredientePlatos, List<OfertaPlatos> ofertaPlatos) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -49,16 +54,18 @@ public class Plato {
         this.categoria = categoria;
         this.imagen = imagen;
         this.ingredientePlatos = ingredientePlatos;
+        this.ofertaPlatos = ofertaPlatos;
     }
 
     public Plato(String nombre, double precio, String descripcion, Categoria categoria, String imagen,
-            List<IngredientePlatos> ingredientePlatos) {
+            List<IngredientePlatos> ingredientePlatos, List<OfertaPlatos> ofertaPlatos) {
         this.nombre = nombre;
         this.precio = precio;
         this.descripcion = descripcion;
         this.categoria = categoria;
         this.imagen = imagen;
         this.ingredientePlatos = ingredientePlatos;
+        this.ofertaPlatos = ofertaPlatos;
     }
 
     public Long getId() {
@@ -115,6 +122,14 @@ public class Plato {
 
     public void setIngredientePlatos(List<IngredientePlatos> ingredientePlatos) {
         this.ingredientePlatos = ingredientePlatos;
+    }
+
+    public List<OfertaPlatos> getOfertaPlatos() {
+        return ofertaPlatos;
+    }
+
+    public void setOfertaPlatos(List<OfertaPlatos> ofertaPlatos) {
+        this.ofertaPlatos = ofertaPlatos;
     }
 
     @Override

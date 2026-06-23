@@ -8,6 +8,8 @@ import { Venta } from '../../componentes/venta/Venta';
 })
 export class VentaServicio {
   private baseUrl="http://localhost:8080/api/v1/private/ventas";
+  private baseUrlPendiente="http://localhost:8080/api/v1/private/ventas-pendientes";
+  private baseUrlPreparada="http://localhost:8080/api/v1/private/ventas-preparadas";
 
   constructor(private httpClient: HttpClient){}
 
@@ -17,5 +19,13 @@ export class VentaServicio {
 
   obtenerVentas(): Observable<Venta[]>{
     return this.httpClient.get<Venta[]>(`${this.baseUrl}`);
+  }
+
+  actualizarVentaPendiente(id: number, venta: Venta): Observable<Object>{
+    return this.httpClient.put(`${this.baseUrlPendiente}/${id}`, venta);
+  }
+
+  actualizarVentaPreparada(id: number, venta: Venta): Observable<Object>{
+    return this.httpClient.put(`${this.baseUrlPreparada}/${id}`, venta);
   }
 }

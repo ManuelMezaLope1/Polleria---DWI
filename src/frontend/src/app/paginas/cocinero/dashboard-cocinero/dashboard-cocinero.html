@@ -104,7 +104,7 @@
                             </div>
                         </div>
 
-                        <div *ngIf="mejorPlatoPedidoHoyCantidad===0">
+                        <div *ngIf="mejorPlatoPedidoHoy.length===0">
                             <div class="pedido-vacio">
                                 <i class="material-icons icono">info</i>
                                 <h4>Sin plato estrella hoy</h4>
@@ -130,7 +130,7 @@
                             </div>
                         </div>
 
-                        <div *ngIf="mejorOfertaPedidoHoyCantidad===0">
+                        <div *ngIf="mejorOfertaPedidoHoy.length===0 || mejorOfertaPedidoHoyNombre==='Sin promoción'">
                             <div class="pedido-vacio">
                                 <i class="material-icons icono" style="color: #fff;">info</i>
                                 <h4 style="color: #fff;">Sin oferta estrella hoy</h4>
@@ -156,7 +156,7 @@
                             </div>
                         </div>
 
-                        <div *ngIf="mejorIngredientePedidoHoyCantidad===0">
+                        <div *ngIf="mejorIngredientePedidoHoy.length===0">
                             <div class="pedido-vacio">
                                 <i class="material-icons icono" style="color: #fff;">info</i>
                                 <h4 style="color: #fff;">Sin ingrediente estrella hoy</h4>
@@ -190,6 +190,15 @@
                                 </div>
                             </ng-container>
                         </div>
+                        <br>
+                        <h3>Pedidos con Observación</h3>
+                        <div *ngIf="pedidosObservaciones.length===0">
+                            <div class="seleccion-vacia">
+                                <i class="material-icons icono">info</i>
+                                <h4>Sin pedidos con observación</h4>
+                                <p>Ningún pedido tiene alguna observación</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -212,13 +221,11 @@
 
                     <div class="pedido-body">
                         <div class="pedido-info">
-                            <strong>📅 Fecha:</strong>
-                            {{ped.fecha}}
+                            <p><strong>📅 Fecha:</strong> {{ped.fecha}}</p>
                         </div>
 
                         <div class="pedido-info">
-                            <strong>🍗 Cantidad:</strong>
-                            {{ped.cantidad}}
+                            <p><strong>🍗 Cantidad:</strong> {{ped.cantidad}}</p>
                         </div>
 
                         <div class="pedido-descripcion">
@@ -238,8 +245,16 @@
                             <input type="hidden" id="username" name="username" [(ngModel)]="pedido.username">
 
                             <button class="btn btn-warning btn-sm p-2" style="border-radius: 20px;"
-                                (click)="actualizarPedidoPendiente(ped.id)">Preparar</button>
+                                (click)="actualizarPedidoPendiente(ped.id); pedido.venta=ped.venta">Preparar</button>
                         </form>
+                    </div>
+                </div>
+
+                <div *ngIf="pedidosPendientes.length===0">
+                    <div class="seleccion-vacia">
+                        <i class="material-icons icono">info</i>
+                        <h4>Sin pedidos pendientes</h4>
+                        <p>No hay pedidos pendientes.</p>
                     </div>
                 </div>
             </div>
@@ -263,13 +278,11 @@
 
                         <div class="pedido-body">
                             <div class="pedido-info">
-                                <strong>📅 Fecha:</strong>
-                                {{ped.fecha}}
+                                <p><strong>📅 Fecha:</strong> {{ped.fecha}}</p>
                             </div>
 
                             <div class="pedido-info">
-                                <strong>🍗 Cantidad:</strong>
-                                {{ped.cantidad}}
+                                <p><strong>🍗 Cantidad:</strong> {{ped.cantidad}}</p>
                             </div>
 
                             <div class="pedido-descripcion">
@@ -289,13 +302,12 @@
                                 <input type="hidden" id="username" name="username" [(ngModel)]="pedido.username">
 
                                 <button class="btn btn-success btn-sm p-2" style="border-radius: 20px;"
-                                    (click)="actualizarPedidoPreparado(ped.id)">Listo</button>
+                                    (click)="actualizarPedidoPreparado(ped.id); pedido.venta=ped.venta">Listo</button>
                             </form>
 
                         </div>
                     </div>
                 </div>
-
 
                 <div *ngIf="pedidosPreparados.length===0">
                     <div class="seleccion-vacia">
@@ -326,13 +338,11 @@
 
                         <div class="pedido-body">
                             <div class="pedido-info">
-                                <strong>📅 Fecha:</strong>
-                                {{ped.fecha}}
+                                <p><strong>📅 Fecha:</strong> {{ped.fecha}}</p>
                             </div>
 
                             <div class="pedido-info">
-                                <strong>🍗 Cantidad:</strong>
-                                {{ped.cantidad}}
+                                <p><strong>🍗 Cantidad:</strong> {{ped.cantidad}}</p>
                             </div>
 
                             <div class="pedido-descripcion">
@@ -366,7 +376,7 @@
                         <div class="d-flex justify-content-center">
                             <img [src]="ing.imagen" alt="Ingrediente" class="ingrediente-img">
                         </div>
-                        
+
                         <div class="ingrediente-body">
                             <h5>{{ing.nombre}}</h5>
                             <span class="categoria-badge">{{ing.categoria}}</span>
@@ -389,6 +399,14 @@
                         </div>
                     </div>
                 </div>
+
+                <div *ngIf="ingredientes.length===0">
+                    <div class="seleccion-vacia">
+                        <i class="material-icons icono">info</i>
+                        <h4>Sin ingredientes</h4>
+                        <p>No se encontraron ingredientes registrados.</p>
+                    </div>
+                </div>
             </div>
 
             <div [ngClass]="active == 'platosPreparar' ? 'tab-pane fade show active' : 'tab-pane fade'">
@@ -396,7 +414,7 @@
                 <br>
                 <div class="produccion-grid">
                     <div class="plato-produccion-card" *ngFor="let p of platosPreparar">
-                        <div *ngIf="p.cantidad_platos_pendientes>0">
+                        <div>
                             <div class="imagen-container">
                                 <img [src]="p.imagen" alt="Imagen del plato a preparar">
                             </div>
@@ -406,7 +424,7 @@
                                 <h4>{{p.nombre}}</h4>
                                 <p class="descripcion">{{p.descripcion}}</p>
                                 <div class="datos">
-                                    <div class="dato">
+                                    <div class="dato ingredientes">
                                         <span>🧂 Ingredientes</span>
                                         <strong>{{p.cantidad_ingredientes}}</strong>
                                     </div>
@@ -419,6 +437,14 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div *ngIf="platosPreparar.length===0">
+                    <div class="seleccion-vacia">
+                        <i class="material-icons icono">info</i>
+                        <h4>Sin Platos que preparar</h4>
+                        <p>No se encontraron platos que preparar.</p>
                     </div>
                 </div>
             </div>
@@ -440,7 +466,7 @@
 
                 <div class="graficos-grid">
                     <div class="card dashboard-card">
-                        <h5>Pedidos Por Dia</h5>
+                        <h5>Pedidos de la Semana Pasada</h5>
                         <canvas id="diaPedidosChart"></canvas>
                     </div>
                 </div>

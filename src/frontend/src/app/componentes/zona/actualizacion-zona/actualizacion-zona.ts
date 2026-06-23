@@ -26,7 +26,16 @@ export class ActualizacionZona {
       nombre: [''],
       departamento: [null],
       provincia: [null],
-      distrito: [null]
+    });
+
+    this.form.get('departamento')?.valueChanges.subscribe(departamento => {
+      this.provinciasFiltradas = this.provincias[departamento] || [];
+
+      if (this.provinciasFiltradas.length > 0) {
+        this.form.get('provincia')?.setValue(this.provinciasFiltradas[0]);
+      } else {
+        this.form.get('provincia')?.setValue(null);
+      }
     });
 
     this.id = this.route.snapshot.params['id'];
@@ -34,6 +43,12 @@ export class ActualizacionZona {
     this.zonaServicio.obtenerZonaPorId(this.id).pipe(
       tap(dato => {
         this.zona = dato;
+        this.provinciasFiltradas =this.provincias[this.zona.departamento] || [];
+        this.form.patchValue({
+          nombre: this.zona.nombre,
+          departamento: this.zona.departamento,
+          provincia: this.zona.provincia
+        });
         this.cd.detectChanges();
       }),
       catchError(err => {
@@ -44,8 +59,10 @@ export class ActualizacionZona {
   }
 
   onSubmit(): void {
+    const zonaForm = this.form.value;
+    
     if (this.zona) {
-      this.zonaServicio.actualizarZona(this.id, this.zona).pipe(
+      this.zonaServicio.actualizarZona(this.id, zonaForm).pipe(
         tap(dato => {
           this.irALaListaDeZonas();
         }),
@@ -69,19 +86,19 @@ export class ActualizacionZona {
     Swal.fire('Zona actualizada', `La zona ha sido actualizada con éxito`, 'success');
   }
 
-  departamentos = ['Arequipa','Ayacucho','Cajamarca','Callao','Cusco','Ica','LaLibertad','Lima','Piura','Tacna'];
+  departamentos = ['Arequipa', 'Ayacucho', 'Cajamarca', 'Callao', 'Cusco', 'Ica', 'LaLibertad', 'Lima', 'Piura', 'Tacna'];
 
   provincias: any = {
-    Arequipa: ['Arequipa', 'Camaná', 'Caravelí','Castilla','Caylloma','Condesuyos','Islay','La Unión'],
-    Ayacucho: ['Cangallo', 'Huanta', 'Huamanga','Parinacochas','Sucre','Vilcashuamán'],
-    Cajamarca: ['Cajamarca','Cajabamba','Chota','Cutervo','San Jaén','San Marcos','Santa Cruz'],
+    Arequipa: ['Arequipa', 'Camaná', 'Caravelí', 'Castilla', 'Caylloma', 'Condesuyos', 'Islay', 'La Unión'],
+    Ayacucho: ['Cangallo', 'Huanta', 'Huamanga', 'Parinacochas', 'Sucre', 'Vilcashuamán'],
+    Cajamarca: ['Cajamarca', 'Cajabamba', 'Chota', 'Cutervo', 'San Jaén', 'San Marcos', 'Santa Cruz'],
     Callao: ['Callao'],
-    Cusco: ['Acomayo','Canas','Cusco','La Convención','Paruro','Urubamba'],
-    Ica: ['Ica','Chincha','Nazca','Palpa','Pisco'],
-    LaLibertad: ['Bolívar','Chepén','Gran Chimú','Otuzco','Pacasmayo','Trujillo'],
-    Lima: ['Barranca','Cañete','Huarochirí','Lima'],
-    Piura: ['Huancabamba','Piura','Sullana','Talara'],
-    Tacna: ['Tacna','Candarave','Jorge Basadre','Tarata']
+    Cusco: ['Acomayo', 'Canas', 'Cusco', 'La Convención', 'Paruro', 'Urubamba'],
+    Ica: ['Ica', 'Chincha', 'Nazca', 'Palpa', 'Pisco'],
+    LaLibertad: ['Bolívar', 'Chepén', 'Gran Chimú', 'Otuzco', 'Pacasmayo', 'Trujillo'],
+    Lima: ['Barranca', 'Cañete', 'Huarochirí', 'Lima'],
+    Piura: ['Huancabamba', 'Piura', 'Sullana', 'Talara'],
+    Tacna: ['Tacna', 'Candarave', 'Jorge Basadre', 'Tarata']
   }
 
   provinciasFiltradas: string[] = [];

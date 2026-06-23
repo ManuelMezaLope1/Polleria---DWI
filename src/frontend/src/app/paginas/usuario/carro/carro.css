@@ -183,3 +183,78 @@ body {
 .input-grande{
     height: 200px;
 }
+
+.botones-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.menu-cuenta{
+    transition: all 0.3s ease;
+}
+
+.menu-cuenta:hover{
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.menu-cuenta a {
+    align-items: center;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #222;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.menu-cuenta a:hover,
+.menu-cuenta a.activo {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.oferta-card{
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+    transition: .3s;
+}
+
+.oferta-card:hover {
+    transform: translateY(-5px);
+}
+
+.oferta-img {
+    width: 200px;
+    height: 180px;
+    object-fit: cover;
+}
+
+.oferta-body {
+    padding: 15px;
+}
+
+.oferta-body h5 {
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.oferta-info{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.card-observacion{
+    padding: 15px 15px;
+}

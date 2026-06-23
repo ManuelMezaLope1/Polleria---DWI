@@ -32,9 +32,6 @@ public class Zona {
     @Column(name="provincia", nullable = false, length=60)
     private String provincia;
 
-    @Column(name="distrito", nullable = false, length=60)
-    private String distrito;
-
     @JsonIgnore
     @OneToMany(mappedBy = "zona", fetch = FetchType.EAGER)
     public List<Usuario> usuario;
@@ -45,12 +42,11 @@ public class Zona {
 
     public Zona(){}
 
-    public Zona(Long id, String nombre, String departamento, String provincia, String distrito, List<Usuario> usuario, List<Venta> venta) {
+    public Zona(Long id, String nombre, String departamento, String provincia, List<Usuario> usuario, List<Venta> venta) {
         this.id = id;
         this.nombre = nombre;
         this.departamento = departamento;
         this.provincia = provincia;
-        this.distrito = distrito;
         this.usuario = usuario;
         this.venta = venta;
     }
@@ -63,11 +59,10 @@ public class Zona {
         this.venta = venta;
     }
 
-    public Zona(String nombre, String departamento, String provincia, String distrito, List<Usuario> usuario, List<Venta> venta) {
+    public Zona(String nombre, String departamento, String provincia, List<Usuario> usuario, List<Venta> venta) {
         this.nombre = nombre;
         this.departamento = departamento;
         this.provincia = provincia;
-        this.distrito = distrito;
         this.usuario = usuario;
         this.venta = venta;
     }
@@ -102,14 +97,6 @@ public class Zona {
 
     public void setProvincia(String provincia) {
         this.provincia = provincia;
-    }
-
-    public String getDistrito() {
-        return distrito;
-    }
-
-    public void setDistrito(String distrito) {
-        this.distrito = distrito;
     }
 
     public List<Usuario> getUsuario() {

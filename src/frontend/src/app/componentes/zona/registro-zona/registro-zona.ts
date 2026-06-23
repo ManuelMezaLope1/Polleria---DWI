@@ -22,8 +22,7 @@ export class RegistroZona {
     this.form = this.fb.group({
       nombre: [''],
       departamento: [null],
-      provincia: [null],
-      distrito: [null]
+      provincia: [null]
     });
 
     this.form.get('departamento')?.valueChanges.subscribe(departamento => {

@@ -46,6 +46,13 @@ public class PedidoControlador {
     public Pedido guardarPedido(@RequestBody Pedido pedido) {
         return pedidoRepositorio.save(pedido);
     }
+
+    @GetMapping("/pedidos/{id}")
+    public ResponseEntity<Pedido> obtenerPedidoPorId(@PathVariable Long id) {
+        Pedido pedido=pedidoRepositorio.findById(id).orElseThrow(()->new ResourceNotFoundException("No existe el pedido con el id: "+id));
+        return ResponseEntity.ok(pedido);
+    }
+    
     
     @PutMapping("/pedidos-pendientes/{id}")
     public ResponseEntity<Pedido> actualizarPedidoPendiente(@PathVariable Long id, @RequestBody Pedido detallesPedidos) {

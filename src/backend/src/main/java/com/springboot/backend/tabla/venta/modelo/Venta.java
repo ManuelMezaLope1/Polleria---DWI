@@ -46,11 +46,13 @@ public class Venta {
     @JsonIgnoreProperties("venta")
     private List<DetalleVenta> detalleVenta;
 
-    public Venta() {
-    }
+    @Column(name="estado_venta", nullable=false)
+    private String estado_venta;
+
+    public Venta() {}
 
     public Venta(Long id, Usuario usuario, String nombre, String username, Zona zona, String fecha,
-            MetodoPago metodopago, List<DetalleVenta> detalleVenta) {
+            MetodoPago metodopago, List<DetalleVenta> detalleVenta, String estado_venta) {
         this.id = id;
         this.usuario = usuario;
         this.nombre = nombre;
@@ -59,10 +61,11 @@ public class Venta {
         this.fecha = fecha;
         this.metodopago = metodopago;
         this.detalleVenta = detalleVenta;
+        this.estado_venta = estado_venta;
     }
 
     public Venta(Usuario usuario, String nombre, String username, Zona zona, String fecha, MetodoPago metodopago,
-            List<DetalleVenta> detalleVenta) {
+            List<DetalleVenta> detalleVenta, String estado_venta) {
         this.usuario = usuario;
         this.nombre = nombre;
         this.username = username;
@@ -70,6 +73,7 @@ public class Venta {
         this.fecha = fecha;
         this.metodopago = metodopago;
         this.detalleVenta = detalleVenta;
+        this.estado_venta = estado_venta;
     }
 
     public Long getId() {
@@ -134,6 +138,14 @@ public class Venta {
 
     public void setDetalleVenta(List<DetalleVenta> detalleVenta) {
         this.detalleVenta = detalleVenta;
+    }
+
+    public String getEstado_venta() {
+        return estado_venta;
+    }
+
+    public void setEstado_venta(String estado_venta) {
+        this.estado_venta = estado_venta;
     }
 
     @Override

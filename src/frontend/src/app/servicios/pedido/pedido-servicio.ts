@@ -30,6 +30,10 @@ export class PedidoServicio {
     return this.http.post(`${this.baseUrl}`, pedido);
   }
 
+  obtenerPedidoPorId(id: number): Observable<Pedido>{
+    return this.http.get<Pedido>(`${this.baseUrl}/${id}`);
+  }
+
   actualizarPedidoPendiente(id: number, pedido: Pedido): Observable<Object>{
     return this.http.put(`${this.baseUrlPendiente}/${id}`, pedido);
   }

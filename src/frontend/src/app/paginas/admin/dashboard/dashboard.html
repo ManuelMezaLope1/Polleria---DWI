@@ -70,7 +70,9 @@
                         <h3>{{cantidadZonas}}</h3>
                         <span>Zonas</span>
                     </div>
+                </div>
 
+                <div class="kpi-grid">
                     <div class="kpi-card platos">
                         <i class="material-icons">menu_book</i>
                         <h3>{{cantidadCategorias}}</h3>
@@ -88,7 +90,9 @@
                         <h3>{{cantidadOfertas-1}}</h3>
                         <span>Ofertas</span>
                     </div>
+                </div>
 
+                <div class="kpi-grid">
                     <div class="kpi-card ofertas">
                         <i class="material-icons">no_food</i>
                         <h3>{{cantidadAlergias}}</h3>
@@ -160,18 +164,18 @@
                         <i class="material-icons">
                             {{ ventasManana < 0 ? 'trending_down' : ventasManana <=100 ? 'trending_flat' : 'trending_up'
                                 }} </i>
-                        <h5>Total Predicción Mañana</h5>
-                        <h1>S/. {{totalVentasManana}}</h1>
-                        <span style="font-size: 20px;">{{ventasManana===1?'sol':'soles'}}</span>
+                                <h5>Total Predicción Mañana</h5>
+                                <h1>S/. {{totalVentasManana}}</h1>
+                                <span style="font-size: 20px;">{{ventasManana===1?'sol':'soles'}}</span>
                     </div>
 
                     <div class="kpi-card" [ngClass]="obtenerClaseColor(platosVentasManana)">
                         <i class="material-icons">
-                            {{ platosVentasManana < 0 ? 'trending_down' : platosVentasManana <=100 ? 'trending_flat' : 'trending_up'
-                                }} </i>
-                        <h5>Platos Mañana</h5>
-                        <h1>{{platosVentasManana}}</h1>
-                        <span style="font-size: 20px;">{{platosVentasManana===1?'plato':'platos'}}</span>
+                            {{ platosVentasManana < 0 ? 'trending_down' : platosVentasManana <=100 ? 'trending_flat'
+                                : 'trending_up' }} </i>
+                                <h5>Platos Mañana</h5>
+                                <h1>{{platosVentasManana}}</h1>
+                                <span style="font-size: 20px;">{{platosVentasManana===1?'plato':'platos'}}</span>
                     </div>
                 </div>
 
@@ -221,27 +225,27 @@
                 </div>
 
                 <div class="graficos-grid">
-                    <div class="card dashboard-card">
+                    <div class="card dashboard-card grafico-card">
                         <h5>Platos por Ventas</h5>
                         <canvas id="platosVentasChart"></canvas>
                     </div>
 
-                    <div class="card dashboard-card">
+                    <div class="card dashboard-card grafico-card">
                         <h5>Ofertas por Ventas</h5>
                         <canvas id="ofertasVentasChart"></canvas>
                     </div>
 
-                    <div class="card dashboard-card">
+                    <div class="card dashboard-card grafico-card">
                         <h5>Métodos de Pagos más utilizados</h5>
                         <canvas id="metodoPagoChart"></canvas>
                     </div>
 
-                    <div class="card dashboard-card">
+                    <div class="card dashboard-card grafico-card">
                         <h5>Ventas por Zona</h5>
                         <canvas id="ventaZonaChart"></canvas>
                     </div>
 
-                    <div class="card dashboard-card">
+                    <div class="card dashboard-card grafico-card">
                         <h5>Ventas por Usuarios</h5>
                         <canvas id="usuariosFrecuentesChart"></canvas>
                     </div>
@@ -251,12 +255,12 @@
             <!-- GRAFICOS -->
             <div [ngClass]="active == 'graficos' ? 'tab-pane fade show active' : 'tab-pane fade'">
                 <div class="graficos-grid">
-                    <div class="card dashboard-card">
+                    <div class="card dashboard-card grafico-card">
                         <h5>Ventas por Usuario</h5>
                         <canvas id="usuarioVentasChart"></canvas>
                     </div>
 
-                    <div class="card dashboard-card">
+                    <div class="card dashboard-card grafico-card">
                         <h5>Platos por Categoría</h5>
                         <canvas id="categoriaPlatosChart"></canvas>
                     </div>
@@ -284,12 +288,12 @@
                         </div>
 
                         <div class="cliente-info">
-                            <div class="info-item">
+                            <div class="info-item mejores-datos">
                                 <span>📞 Teléfono</span>
                                 <strong>{{usuarioTelefono}}</strong>
                             </div>
 
-                            <div class="info-item">
+                            <div class="info-item mejores-datos">
                                 <span>📍 Zona</span>
                                 <strong>{{usuarioZona}}</strong>
                             </div>
@@ -301,7 +305,7 @@
 
                             <div class="info-item compras">
                                 <span>💵 Total</span>
-                                <strong>{{usuarioTotal}}</strong>
+                                <strong>S/. {{usuarioTotal}}</strong>
                             </div>
                         </div>
                     </div>
@@ -323,7 +327,7 @@
                         <div class="plato-categoria">{{platoCategoria}}</div>
 
                         <div class="plato-info">
-                            <div class="info-item">
+                            <div class="info-item mejores-datos">
                                 <span>💰 Precio</span>
                                 <strong>S/. {{platoPrecio}}</strong>
                             </div>
@@ -358,12 +362,12 @@
                         </div>
 
                         <div class="oferta-info">
-                            <div class="info-item">
+                            <div class="info-item mejores-datos">
                                 <span>💰 Precio Oferta</span>
                                 <strong>S/. {{ofertaPrecioNuevo}}</strong>
                             </div>
 
-                            <div class="info-item">
+                            <div class="info-item mejores-datos">
                                 <span>🍗 Platos Incluidos</span>
                                 <strong>{{ofertaPlatos}}</strong>
                             </div>
@@ -397,17 +401,17 @@
                         </div>
 
                         <div class="zona-info">
-                            <div class="info-item">
+                            <div class="info-item mejores-datos">
                                 <span>📍 Zona</span>
                                 <strong>{{zonaNombre}}</strong>
                             </div>
 
-                            <div class="info-item">
+                            <div class="info-item mejores-datos">
                                 <span>🏙 Provincia</span>
                                 <strong>{{zonaProvincia}}</strong>
                             </div>
 
-                            <div class="info-item">
+                            <div class="info-item mejores-datos">
                                 <span>🌎 Departamento</span>
                                 <strong>{{zonaDepartamento}}</strong>
                             </div>

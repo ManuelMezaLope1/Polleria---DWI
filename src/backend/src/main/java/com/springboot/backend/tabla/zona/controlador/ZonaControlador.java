@@ -48,7 +48,6 @@ public class ZonaControlador {
 
         zonaExistente.setDepartamento(detallesZona.getDepartamento());
         zonaExistente.setProvincia(detallesZona.getProvincia());
-        zonaExistente.setDistrito(detallesZona.getDistrito());
         zonaExistente.setNombre(detallesZona.getNombre());
         
         Zona zonaActualizada=zonaRepositorio.save(zonaExistente);

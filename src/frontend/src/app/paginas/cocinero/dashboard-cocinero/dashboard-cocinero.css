@@ -1,6 +1,117 @@
-/* ==========================
-   GENERAL
-========================== */
+.dark :host ::ng-deep .icono{
+    transition: 1s;
+    color: #222;
+}
+
+.light :host ::ng-deep .icono{
+    transition: 1s;
+    color: #222;
+}
+
+.dark :host ::ng-deep .pedido-body>.pedido-info>p{
+    transition: 1s;
+    color: #222;
+}
+
+.light :host ::ng-deep .pedido-body>.pedido-info>p{
+    transition: 1s;
+    color: #222;
+}
+
+.dark :host ::ng-deep .pedido-body>.pedido-descripcion>p{
+    transition: 1s;
+    color: #222;
+}
+
+.dark :host ::ng-deep .pedido-body>.pedido-descripcion>strong{
+    transition: 1s;
+    color: #222;
+}
+
+.dark :host ::ng-deep .pedido-body>.pedido-observacion>p{
+    transition: 1s;
+    color: #222;
+}
+
+.dark :host ::ng-deep .pedido-body>.pedido-observacion>strong{
+    transition: 1s;
+    color: #222;
+}
+
+.light :host ::ng-deep .pedido-body>.pedido-descripcion>p{
+    transition: 1s;
+    color: #222;
+}
+
+.light :host ::ng-deep .pedido-body>.pedido-descripcion>strong{
+    transition: 1s;
+    color: #222;
+}
+
+.light :host ::ng-deep .pedido-body>.pedido-observacion>p{
+    transition: 1s;
+    color: #222;
+}
+
+.light :host ::ng-deep .pedido-body>.pedido-observacion>strong{
+    transition: 1s;
+    color: #222;
+}
+
+.dark :host ::ng-deep .ingrediente-body>h5{
+    transition: 1s;
+    color: #222 !important;
+}
+
+.dark :host ::ng-deep .info-item>span, strong{
+    transition: 1s;
+    color: #222 !important;
+}
+
+.light :host ::ng-deep .ingrediente-body>h5{
+    transition: 1s;
+    color: #222 !important;
+}
+
+.light :host ::ng-deep .info-item>span, strong{
+    transition: 1s;
+    color: #222 !important;
+}
+
+.dark :host ::ng-deep .card-body>h4{
+    transition: 1s;
+    color: #222 !important;
+}
+
+.dark :host ::ng-deep .ingredientes>span, strong{
+    transition: 1s;
+    color: #222 !important;
+}
+
+.light :host ::ng-deep .card-body>h4{
+    transition: 1s;
+    color: #222 !important;
+}
+
+.light :host ::ng-deep .ingredientes>span, strong{
+    transition: 1s;
+    color: #222 !important;
+}
+
+.dark :host ::ng-deep .card-body>h4{
+    transition: 1s;
+    color: #222 !important;
+}
+
+.dark :host ::ng-deep .dashboard-card>h5{
+    transition: 1s;
+    color: #222 !important;
+}
+
+.light :host ::ng-deep .dashboard-card>h5{
+    transition: 1s;
+    color: #222 !important;
+}
 
 * {
     box-sizing: border-box;
@@ -12,18 +123,10 @@ body {
     font-family: 'Segoe UI', sans-serif;
 }
 
-/* ==========================
-   DASHBOARD
-========================== */
-
 .dashboard-container {
     display: flex;
     min-height: 100vh;
 }
-
-/* ==========================
-   SIDEBAR
-========================== */
 
 .sidebar {
     width: 280px;
@@ -72,10 +175,6 @@ body {
     color: #ff6b35;
     transform: translateX(5px);
 }
-
-/* ==========================
-   CONTENIDO
-========================== */
 
 .contenido {
     margin-left: 280px;

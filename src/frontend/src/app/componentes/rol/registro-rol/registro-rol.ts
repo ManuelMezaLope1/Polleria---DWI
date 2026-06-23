@@ -38,7 +38,7 @@ export class RegistroRol {
 
   irALaListaDeRoles() {
     Swal.fire({
-      title: 'Roll registrado',
+      title: 'Rol registrado',
       text: `El rol ha sido registrado con éxito`,
       icon: `success`,
       confirmButtonText: 'Ok'

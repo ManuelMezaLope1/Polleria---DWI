@@ -38,6 +38,7 @@ public class Usuario {
     private Zona zona;
 
     @OneToMany(mappedBy = "usuario", fetch=FetchType.EAGER)
+    @JsonIgnoreProperties({"usuario"})
     public List<Venta> venta;
 
     @ManyToMany

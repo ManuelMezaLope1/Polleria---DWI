@@ -18,7 +18,7 @@ import { ConsultaMlServicio } from '../../../servicios/consultaml/consulta-ml-se
   styleUrl: './dashboard-cocinero.css',
 })
 export class DashboardCocinero {
-  ventas: any[] = [];
+  ventas: Venta[] = [];
   pedidosPendientes: Pedido[] = [];
   pedidosPreparados: Pedido[] = [];
   pedidosListos: Pedido[] = [];
@@ -29,6 +29,8 @@ export class DashboardCocinero {
   idPedidoPreparado: any;
 
   ingredientes: any[] = [];
+  venta: Venta = new Venta();
+  ventaId: any;
 
   cantidadPedidosPendientes: number = 0;
   cantidadPedidosPreparados: number = 0;
@@ -39,17 +41,18 @@ export class DashboardCocinero {
   cantidadPlatosListos: number = 0;
 
   mejorPlatoPedidoHoy: any[] = [];
-  mejorPlatoPedidoHoyCantidad: number=0;
+  mejorPlatoPedidoHoyCantidad: number = 0;
 
   mejorOfertaPedidoHoy: any[] = [];
-  mejorOfertaPedidoHoyCantidad: number=0;
-  
+  mejorOfertaPedidoHoyCantidad: number = 0;
+  mejorOfertaPedidoHoyNombre: string='';
+
   mejorIngredientePedidoHoy: any[] = [];
-  mejorIngredientePedidoHoyCantidad: number=0;
+  mejorIngredientePedidoHoyCantidad: number = 0;
 
   platosPreparar: any[] = [];
 
-  constructor(private consultaServicio: ConsultaServicio, private consultaMlServicio: ConsultaMlServicio, private usuarioServicio: UsuarioServicio, private pedidoServicio: PedidoServicio, private cd: ChangeDetectorRef) { }
+  constructor(private consultaServicio: ConsultaServicio, private consultaMlServicio: ConsultaMlServicio, private usuarioServicio: UsuarioServicio, private pedidoServicio: PedidoServicio, private ventaServicio: VentaServicio, private cd: ChangeDetectorRef) { }
 
   active: string = 'inicio';
 
@@ -83,7 +86,7 @@ export class DashboardCocinero {
   ngOnInit(): void {
     this.cargarVentas();
 
-    this.pedidoServicio.obtenerTodosLosPedidosPendientes().subscribe(dato => {
+    this.pedidoServicio.obtenerTodosLosPedidosPendientes().subscribe((dato: any) => {
       this.pedidosPendientes = dato;
       this.cd.detectChanges();
     });
@@ -106,7 +109,6 @@ export class DashboardCocinero {
 
     this.consultaServicio.obtenerTodosLosIngredientes().subscribe(dato => {
       this.ingredientes = dato;
-      console.log(this.ingredientes);
       this.cd.detectChanges();
     });
 
@@ -134,7 +136,7 @@ export class DashboardCocinero {
   }
 
   cargarVentas() {
-    this.consultaServicio.obtenerTop3VentasDesc().subscribe(datos => {
+    this.ventaServicio.obtenerVentas().subscribe(datos => {
       this.ventas = datos;
       this.cd.detectChanges();
     })
@@ -145,9 +147,27 @@ export class DashboardCocinero {
 
     this.pedido.fecha_creacion = new Date().toLocaleString();
 
+    this.pedidoServicio.obtenerPedidoPorId(this.idPedido).pipe(
+      tap(dato => {
+        this.ventaId = this.pedido.venta;
+      }),
+      catchError(err => {
+        console.error(err)
+        return of(null);
+      })
+    ).subscribe()
+
     this.pedidoServicio.actualizarPedidoPendiente(this.idPedido, this.pedido).pipe(
       tap(dato => {
-        window.location.reload();
+        this.ventaServicio.actualizarVentaPendiente(this.ventaId, this.venta).pipe(
+          tap(data => {
+            window.location.reload();
+          }),
+          catchError(err => {
+            console.error(err);
+            return of(null)
+          })
+        ).subscribe()
       }),
       catchError(err => {
         console.error(err);
@@ -161,9 +181,27 @@ export class DashboardCocinero {
 
     this.pedido.fecha_entrega = new Date().toLocaleString();
 
+    this.pedidoServicio.obtenerPedidoPorId(this.idPedidoPreparado).pipe(
+      tap(dato => {
+        this.ventaId = this.pedido.venta;
+      }),
+      catchError(err => {
+        console.error(err)
+        return of(null);
+      })
+    ).subscribe()
+
     this.pedidoServicio.actualizarPedidoPreparado(this.idPedidoPreparado, this.pedido).pipe(
       tap(dato => {
-        window.location.reload();
+        this.ventaServicio.actualizarVentaPreparada(this.ventaId, this.venta).pipe(
+          tap(data => {
+            window.location.reload();
+          }),
+          catchError(err => {
+            console.error(err);
+            return of(null)
+          })
+        ).subscribe()
       }),
       catchError(err => {
         console.error(err);
@@ -240,33 +278,22 @@ export class DashboardCocinero {
 
   cargarMejorPlatoPedidoHoy(): void {
     this.consultaServicio.obtenerMejorPlatoPedidoHoy().subscribe((dato: any) => {
-      if(dato.cantidad===undefined || null){
-        this.mejorPlatoPedidoHoyCantidad=0;
-      } else {
-        this.mejorPlatoPedidoHoy = dato.cantidad;
-      }
+      this.mejorPlatoPedidoHoy = dato;
       this.cd.detectChanges();
     })
   }
 
   cargarMejorOfertaPedidoHoy(): void {
     this.consultaServicio.obtenerMejorOfertaPedidoHoy().subscribe((dato: any) => {
-      if(dato.cantidad===undefined || null){
-        this.mejorOfertaPedidoHoyCantidad=0;
-      } else {
-        this.mejorOfertaPedidoHoy = dato;
-      }
+      this.mejorOfertaPedidoHoy = dato;
+      this.mejorOfertaPedidoHoyNombre=dato[0].nombre;
       this.cd.detectChanges();
     })
   }
 
   cargarMejorIngredientePedidoHoy(): void {
     this.consultaServicio.obtenerMejorIngredientePedidoHoy().subscribe((dato: any) => {
-      if(dato.cantidad===undefined || null){
-        this.mejorIngredientePedidoHoyCantidad=0;
-      } else {
-        this.mejorIngredientePedidoHoy = dato;
-      }
+      this.mejorIngredientePedidoHoy = dato;
       this.cd.detectChanges();
     })
   }
