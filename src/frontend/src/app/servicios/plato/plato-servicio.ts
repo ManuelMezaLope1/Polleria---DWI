@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Plato } from '../../componentes/plato/Plato';
+import { PlatoMesa } from '../../componentes/consulta/PlatoMesa';
 
 @Injectable({
   providedIn: 'root',
@@ -29,5 +30,9 @@ export class PlatoServicio {
 
   eliminarPlato(id:number): Observable<Object>{
     return this.HttpClient.delete(`${this.baseUrl}/${id}`);
+  }
+
+  obtenerPlatoMesa(): Observable<PlatoMesa[]>{
+    return this.HttpClient.get<PlatoMesa[]>(this.baseUrl+'-mesa');
   }
 }

@@ -168,39 +168,6 @@
     width: 100%;
 }
 
-/*###########################################################*/
-
-.hoja-dentro{
-    position:absolute;
-    width:30px;
-    height:90px;
-    background:#2e8b57;
-    border-radius:50% 50% 50% 0;
-    left: 100px;
-    top: 160px;
-    transform-origin:25px 45px;
-}
-
-.centro-dentro{
-    position:absolute;
-    width:30px;
-    height:30px;
-    background:#5a3d1e;
-    border-radius:50%;
-    left: 110px;
-    top: 190px;
-    z-index:10;
-}
-
-.h1{ transform:rotate(0deg) translateY(-50px); }
-.h2{ transform:rotate(45deg) translateY(-50px); }
-.h3{ transform:rotate(90deg) translateY(-50px); }
-.h4{ transform:rotate(135deg) translateY(-50px); }
-.h5{ transform:rotate(180deg) translateY(-50px); }
-.h6{ transform:rotate(225deg) translateY(-50px); }
-.h7{ transform:rotate(270deg) translateY(-50px); }
-.h8{ transform:rotate(315deg) translateY(-50px); }
-
 .boton-vuelta {
     background: transparent;
     border: none;
@@ -620,6 +587,36 @@
     margin: 0;
 }
 
+.mesa-vacia {
+    height: 160px;
+    min-width: 160px;
+    border: 2px dashed #cbd5e1;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 30px;
+}
+
+.mesa-vacia .icono {
+    font-size: 3rem;
+    margin-top: 0px;
+}
+
+.mesa-vacia h4 {
+    color: #334155;
+    font-weight: 700;
+}
+
+.mesa-vacia p {
+    color: #64748b;
+    font-size: 16px;
+}
+
 .pedido-grid{
     display:grid;
     grid-template-columns: 1fr 1fr;
@@ -694,4 +691,9 @@
 
 .boton-modal{
     height: 50px;
+}
+
+.registro-mesa{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }

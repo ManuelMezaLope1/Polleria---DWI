@@ -1,0 +1,280 @@
+<div class="afuera" *ngIf="active==='puerta'" [class.abrir]="abriendo" (click)="abrirPuertas()">
+    <div class="fachada">
+        <div class="planta">
+            <div class="maceta"></div>
+            <div class="tallo"></div>
+            <div class="hojas hoja1"></div>
+            <div class="hojas hoja2"></div>
+        </div>
+
+        <div class="ventana">
+            <div class="vidrio"></div>
+        </div>
+
+        <div>
+            <div class="ventana-pequeña">
+                <div class="vidrio-pequeño"></div>
+            </div>
+            <br>
+            <div class="letrero">
+                <span class="icono">🍗</span>
+                POLLERÍA EL SAZÓN
+            </div>
+            <br>
+            <div class="puerta-doble">
+                <div class="hoja izq"></div>
+                <div class="hoja der"></div>
+            </div>
+        </div>
+
+        <div class="ventana">
+            <div class="vidrio"></div>
+        </div>
+
+        <div class="planta">
+            <div class="maceta"></div>
+            <div class="tallo"></div>
+            <div class="hojas hoja1"></div>
+            <div class="hojas hoja2"></div>
+        </div>
+    </div>
+
+    <div class="piso">a</div>
+</div>
+
+<div class="tab-content">
+    <div [ngClass]="active == 'salaUno' ? 'tab-pane fade show active' : 'tab-pane fade'">
+        <div class="paredes">
+            <div class="interior-arriba">
+                <div class="pared-1"></div>
+                <div class="ventana-dentro-1"></div>
+                <div class="pared-1"></div>
+            </div>
+
+            <button class="boton-vuelta" (click)="onPuertaTab()"><i
+                    class="material-icons icono-flecha">arrow_circle_up</i></button>
+
+            <div class="interior-arriba">
+                <div class="pared-2"></div>
+                <div class="ventana-dentro-1"></div>
+                <div class="pared-2"></div>
+            </div>
+        </div>
+
+        <div class="sala-uno">
+            <div class="pared-3"></div>
+
+            <div class="area-mesas">
+                <div class="card-total">
+                    <div class="card-4">
+                        <div class="mesa-vacia" (click)="seleccionarMesa('Primer piso','Sala Uno')" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="material-icons icono">add</i>
+                            <h4>Sin mesa</h4>
+                            <p>Cree una mesa</p>
+                        </div>
+
+                        <div class="mesa-vacia" (click)="seleccionarMesa('Primer piso','Sala Uno')" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="material-icons icono">add</i>
+                            <h4>Sin mesa</h4>
+                            <p>Cree una mesa</p>
+                        </div>
+
+                        <div class="mesa-vacia" (click)="seleccionarMesa('Primer piso','Sala Uno')" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="material-icons icono">add</i>
+                            <h4>Sin mesa</h4>
+                            <p>Cree una mesa</p>
+                        </div>
+
+                        <div class="mesa-vacia" (click)="seleccionarMesa('Primer piso','Sala Uno')" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="material-icons icono">add</i>
+                            <h4>Sin mesa</h4>
+                            <p>Cree una mesa</p>
+                        </div>
+
+                        <div class="mesa-vacia" (click)="seleccionarMesa('Primer piso','Sala Uno')" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="material-icons icono">add</i>
+                            <h4>Sin mesa</h4>
+                            <p>Cree una mesa</p>
+                        </div>
+                    </div>
+
+                    <div class="titulo-sala">
+                        <p class="nombre-sala">Sala Uno</p>
+                    </div>
+
+                    <div class="card-6">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="interior-derecha">
+                <div class="pared-4 mb-4"></div>
+
+                <button class="boton-vuelta boton-derecha" (click)="entrarSalaTres()"><i
+                        class="material-icons icono-flecha">arrow_circle_right</i></button>
+
+                <div class="pared-4 mt-4"></div>
+            </div>
+        </div>
+
+        <div class="paredes-abajo">
+            <div class="pared-1"></div>
+            <button class="boton-vuelta" (click)="entrarSalaDos()"><i
+                    class="material-icons icono-flecha">arrow_circle_down</i></button>
+            <div class="pared-2"></div>
+        </div>
+    </div>
+
+    <div [ngClass]="active == 'salaDos' ? 'tab-pane fade show active' : 'tab-pane fade'">
+        <div class="paredes-abajo">
+            <div class="pared-1"></div>
+            <button class="boton-vuelta" (click)="entrarSalaUno()"><i
+                    class="material-icons icono-flecha">arrow_circle_up</i></button>
+            <div class="pared-2"></div>
+        </div>
+
+        <div class="sala-uno">
+            <div class="pared-3"></div>
+
+            <div class="area-mesas">
+                <div class="card-total">
+                    <div class="card-10">
+
+                    </div>
+
+                    <div class="titulo-sala">
+                        <p class="nombre-sala">Sala Dos</p>
+                    </div>
+
+                    <div class="card-8">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="pared-4"></div>
+        </div>
+
+
+        <div class="pared-2"></div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="d-flex justify-content-center">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Pedido de la Mesa</h1>
+                </div>
+
+                <button type="button" class="btn-close btn-primary" style="border-radius: 50px; width: 25px;"
+                    data-bs-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+                <div class="registro-mesa">
+                    <div class="container">
+                        <form>
+                            <div class="form-group">
+                                <label>Nombre: </label>
+                                <input type="text" class="form-control" id="nombre" [(ngModel)]="mesa.nombre"
+                                    name="nombre" required placeholder="Digite el nombre" #nombre="ngModel" />
+                            </div>
+
+                            <div class="form-group">
+                                <label>Estado:</label>
+                                <input type="text" class="form-control" id="estado" [(ngModel)]="mesa.estado"
+                                    name="estado" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Capacidad</label>
+                                <select class="form-control mb-2" name="capacidad" id="capacidad"
+                                    [(ngModel)]="capacidadSeleccionada">
+                                    <option [ngValue]="null">--Seleccione la capacidad--</option>
+                                    <option value="4">4</option>
+                                    <option value="6">6</option>
+                                    <option value="8">8</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Ubicacion:</label>
+                                <input type="text" class="form-control" id="ubicacion" [(ngModel)]="mesa.ubicacion"
+                                    name="ubicacion" readonly>
+                            </div>
+
+                            <button class="btn btn-warning btn-sm p-2" style="border-radius: 20px;" (click)="onSubmit()">Registrar</button>
+                        </form>
+                    </div>
+
+                    <div class="container d-flex justify-content-center" style="align-items: center;">
+                        <div *ngIf="capacidadSeleccionada">
+                            <ng-container *ngIf="capacidadSeleccionada==='4'">
+                                <div class="mesa mesa-4">
+                                    <div class="silla top-1"></div>
+                                    <div class="silla bottom-1"></div>
+                                    <div class="silla top-2"></div>
+                                    <div class="silla bottom-2"></div>
+                                    <div class="tablero tablero-4">M1</div>
+                                </div>
+                            </ng-container>
+
+                            <ng-container *ngIf="capacidadSeleccionada==='6'">
+                                <div class="mesa mesa-6">
+                                    <div class="silla top-1"></div>
+                                    <div class="silla bottom-1"></div>
+                                    <div class="silla top-2"></div>
+                                    <div class="silla bottom-2"></div>
+                                    <div class="silla left-1"></div>
+                                    <div class="silla right-1"></div>
+                                    <div class="tablero tablero-4">M7</div>
+                                </div>
+                            </ng-container>
+
+                            <ng-container *ngIf="capacidadSeleccionada==='8'">
+                                <div class="mesa mesa-8">
+                                    <div class="silla top-1-8"></div>
+                                    <div class="silla bottom-1-8"></div>
+                                    <div class="silla left-1-10"></div>
+                                    <div class="silla left-2-10"></div>
+                                    <div class="silla left-3-10"></div>
+                                    <div class="silla right-1-10"></div>
+                                    <div class="silla right-2-10"></div>
+                                    <div class="silla right-3-10"></div>
+                                    <div class="tablero tablero-8">M20</div>
+                                </div>
+                            </ng-container>
+
+                            <ng-container *ngIf="capacidadSeleccionada==='10'">
+                                <div class="mesa mesa-10">
+                                    <div class="silla top-1-10"></div>
+                                    <div class="silla top-2-10"></div>
+                                    <div class="silla bottom-1-10"></div>
+                                    <div class="silla bottom-2-10"></div>
+                                    <div class="silla left-1-10"></div>
+                                    <div class="silla left-2-10"></div>
+                                    <div class="silla left-3-10"></div>
+                                    <div class="silla right-1-10"></div>
+                                    <div class="silla right-2-10"></div>
+                                    <div class="silla right-3-10"></div>
+                                    <div class="tablero tablero-10">M14</div>
+                                </div>
+                            </ng-container>
+                        </div>
+
+                        <div *ngIf="!capacidadSeleccionada">
+                            <div class="seleccion-vacia">
+                                <i class="material-icons icono">info</i>
+                                <h4>Sin capacidad</h4>
+                                <p>Seleccione la capacidad</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Oferta } from '../../componentes/oferta/Oferta';
+import { OfertaMesa } from '../../componentes/consulta/OfertaMesa';
 
 @Injectable({
   providedIn: 'root',
@@ -34,5 +35,9 @@ export class OfertaServicio {
 
   eliminarOferta(id:number): Observable<Object>{
     return this.HttpClient.delete(`${this.baseUrl}/${id}`);
+  }
+
+  obtenerOfertaMesa(): Observable<OfertaMesa[]>{
+    return this.HttpClient.get<OfertaMesa[]>(this.baseUrl+'-mesa');
   }
 }
