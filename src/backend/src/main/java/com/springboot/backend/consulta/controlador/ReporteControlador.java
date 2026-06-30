@@ -29,7 +29,9 @@ import com.springboot.backend.consulta.dto.MejorPlatoDto;
 import com.springboot.backend.consulta.dto.MejorPlatoPedidoHoyDto;
 import com.springboot.backend.consulta.dto.MejorUsuarioDto;
 import com.springboot.backend.consulta.dto.MejorZonaDto;
+import com.springboot.backend.consulta.dto.OfertaMesaDto;
 import com.springboot.backend.consulta.dto.OfertasPorVentasDto;
+import com.springboot.backend.consulta.dto.PlatoMesaDto;
 import com.springboot.backend.consulta.dto.PlatosPorVentasDto;
 import com.springboot.backend.consulta.dto.UsuarioVentasDto;
 import com.springboot.backend.consulta.dto.UsuariosMasFrecuentesDto;
@@ -283,6 +285,16 @@ public class ReporteControlador {
     @GetMapping("/dia-pedidos")
     public List<CantidadEstadoPedidoDto> cantidadDiaPedidos() {
         return pedidoConsultaRepositorio.obtenerCantidadDiaPedidos();
+    }
+    
+    @GetMapping("/platos-mesa")
+    public List<PlatoMesaDto> platoParaMesa() {
+        return platoConsultaRepositorio.obtenerPlatosParaMesa();
+    }
+    
+    @GetMapping("/ofertas-mesa")
+    public List<OfertaMesaDto> ofertaParaMesa() {
+        return ofertaConsultaRepositorio.obtenerOfertaParaMesa();
     }
     
 }

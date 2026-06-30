@@ -1,41 +1,404 @@
-<div class="fachada" *ngIf="active==='puerta'" [class.abrir]="abriendo" (click)="abrirPuertas()">
-    <div class="ventana">
-        <div class="vidrio"></div>
-    </div>
-
-    <div style="display:flex; flex-direction: column;">
-        <div class="ventana-pequeña">
-            <div class="vidrio-pequeño"></div>
+<div class="afuera" *ngIf="active==='puerta'" [class.abrir]="abriendo" (click)="abrirPuertas()">
+    <div class="fachada">
+        <div class="planta">
+            <div class="maceta"></div>
+            <div class="tallo"></div>
+            <div class="hojas hoja1"></div>
+            <div class="hojas hoja2"></div>
         </div>
 
-        <div class="letrero">
-            <span class="icono">🍗</span>
-            POLLERÍA EL BUEN SABOR
+        <div class="ventana">
+            <div class="vidrio"></div>
         </div>
 
-        <div class="puerta-doble">
-            <div class="hoja izq"></div>
-            <div class="hoja der"></div>
+        <div>
+            <div class="ventana-pequeña">
+                <div class="vidrio-pequeño"></div>
+            </div>
+            <br>
+            <div class="letrero">
+                <span class="icono">🍗</span>
+                POLLERÍA EL SAZÓN
+            </div>
+            <br>
+            <div class="puerta-doble">
+                <div class="hoja izq"></div>
+                <div class="hoja der"></div>
+            </div>
+        </div>
+
+        <div class="ventana">
+            <div class="vidrio"></div>
+        </div>
+
+        <div class="planta">
+            <div class="maceta"></div>
+            <div class="tallo"></div>
+            <div class="hojas hoja1"></div>
+            <div class="hojas hoja2"></div>
         </div>
     </div>
 
-    <div class="ventana">
-        <div class="vidrio"></div>
-    </div>
+    <div class="piso">a</div>
 </div>
 
 <div class="tab-content">
     <div [ngClass]="active == 'salaUno' ? 'tab-pane fade show active' : 'tab-pane fade'">
         <div class="paredes">
+            <div class="interior-arriba">
+                <div class="pared-1"></div>
+                <div class="ventana-dentro-1"></div>
+                <div class="pared-1"></div>
+            </div>
+
+            <button class="boton-vuelta" (click)="onPuertaTab()"><i
+                    class="material-icons icono-flecha">arrow_circle_up</i></button>
+
+            <div class="interior-arriba">
+                <div class="pared-2"></div>
+                <div class="ventana-dentro-1"></div>
+                <div class="pared-2"></div>
+            </div>
+        </div>
+
+        <div class="sala-uno">
+            <div class="pared-3"></div>
+
+            <div class="area-mesas">
+                <!--<div class="planta-dentro">
+                    <div class="hoja-dentro h1"></div>
+                    <div class="hoja-dentro h2"></div>
+                    <div class="hoja-dentro h3"></div>
+                    <div class="hoja-dentro h4"></div>
+                    <div class="hoja-dentro h5"></div>
+                    <div class="hoja-dentro h6"></div>
+                    <div class="hoja-dentro h7"></div>
+                    <div class="hoja-dentro h8"></div>
+                    <div class="centro-dentro"></div>
+                </div>-->
+
+                <div class="card-total">
+                    <div class="card-4">
+                        <div class="mesa mesa-4" (click)="seleccionarMesa('mesa1')" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <div class="silla top-1"></div>
+                            <div class="silla bottom-1"></div>
+                            <div class="silla top-2"></div>
+                            <div class="silla bottom-2"></div>
+                            <div class="tablero tablero-4">M1</div>
+                        </div>
+
+                        <div class="mesa mesa-4" (click)="seleccionarMesa('mesa2')" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <div class="silla top-1"></div>
+                            <div class="silla bottom-1"></div>
+                            <div class="silla top-2"></div>
+                            <div class="silla bottom-2"></div>
+                            <div class="tablero tablero-4">M2</div>
+                        </div>
+
+                        <div class="mesa mesa-4" (click)="seleccionarMesa('mesa3')" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <div class="silla top-1"></div>
+                            <div class="silla bottom-1"></div>
+                            <div class="silla top-2"></div>
+                            <div class="silla bottom-2"></div>
+                            <div class="tablero tablero-4">M3</div>
+                        </div>
+
+                        <div class="mesa mesa-4" (click)="seleccionarMesa('mesa4')" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <div class="silla top-1"></div>
+                            <div class="silla bottom-1"></div>
+                            <div class="silla top-2"></div>
+                            <div class="silla bottom-2"></div>
+                            <div class="tablero tablero-4">M4</div>
+                        </div>
+
+                        <div class="mesa mesa-4" (click)="seleccionarMesa('mesa5')" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <div class="silla top-1"></div>
+                            <div class="silla bottom-1"></div>
+                            <div class="silla top-2"></div>
+                            <div class="silla bottom-2"></div>
+                            <div class="tablero tablero-4">M5</div>
+                        </div>
+
+                        <div class="mesa mesa-4" (click)="seleccionarMesa('mesa6')" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <div class="silla top-1"></div>
+                            <div class="silla bottom-1"></div>
+                            <div class="silla top-2"></div>
+                            <div class="silla bottom-2"></div>
+                            <div class="tablero tablero-4">M6</div>
+                        </div>
+                    </div>
+
+                    <div class="titulo-sala">
+                        <p class="nombre-sala">Sala Uno</p>
+                    </div>
+
+                    <div class="card-6">
+                        <div class="mesa mesa-6" (click)="seleccionarMesa('mesa7')" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <div class="silla top-1"></div>
+                            <div class="silla bottom-1"></div>
+                            <div class="silla top-2"></div>
+                            <div class="silla bottom-2"></div>
+                            <div class="silla left-1"></div>
+                            <div class="silla right-1"></div>
+                            <div class="tablero tablero-4">M7</div>
+                        </div>
+
+                        <div class="mesa mesa-6" (click)="seleccionarMesa('mesa8')" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <div class="silla top-1"></div>
+                            <div class="silla bottom-1"></div>
+                            <div class="silla top-2"></div>
+                            <div class="silla bottom-2"></div>
+                            <div class="silla left-1"></div>
+                            <div class="silla right-1"></div>
+                            <div class="tablero tablero-4">M8</div>
+                        </div>
+
+                        <div class="mesa mesa-6" (click)="seleccionarMesa('mesa9')" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <div class="silla top-1"></div>
+                            <div class="silla bottom-1"></div>
+                            <div class="silla top-2"></div>
+                            <div class="silla bottom-2"></div>
+                            <div class="silla left-1"></div>
+                            <div class="silla right-1"></div>
+                            <div class="tablero tablero-4">M9</div>
+                        </div>
+
+                        <div class="mesa mesa-6" (click)="seleccionarMesa('mesa10')" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <div class="silla top-1"></div>
+                            <div class="silla bottom-1"></div>
+                            <div class="silla top-2"></div>
+                            <div class="silla bottom-2"></div>
+                            <div class="silla left-1"></div>
+                            <div class="silla right-1"></div>
+                            <div class="tablero tablero-4">M10</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interior-derecha">
+                <div class="pared-4 mb-4"></div>
+
+                <button class="boton-vuelta boton-derecha" (click)="entrarSalaTres()"><i
+                        class="material-icons icono-flecha">arrow_circle_right</i></button>
+
+                <div class="pared-4 mt-4"></div>
+            </div>
+        </div>
+
+        <div class="paredes-abajo">
             <div class="pared-1"></div>
-            <button class="boton-vuelta" (click)="cerrarPuertas()"><i
+            <button class="boton-vuelta" (click)="entrarSalaDos()"><i
+                    class="material-icons icono-flecha">arrow_circle_down</i></button>
+            <div class="pared-2"></div>
+        </div>
+    </div>
+
+    <div [ngClass]="active == 'salaDos' ? 'tab-pane fade show active' : 'tab-pane fade'">
+        <div class="paredes-abajo">
+            <div class="pared-1"></div>
+            <button class="boton-vuelta" (click)="entrarSalaUno()"><i
                     class="material-icons icono-flecha">arrow_circle_up</i></button>
             <div class="pared-2"></div>
         </div>
-        
+
         <div class="sala-uno">
             <div class="pared-3"></div>
-            
+
+            <div class="area-mesas">
+                <div class="card-total">
+                    <div class="card-10">
+                        <div class="mesa mesa-10" (click)="seleccionarMesa('mesa11')" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <div class="silla top-1-10"></div>
+                            <div class="silla top-2-10"></div>
+                            <div class="silla bottom-1-10"></div>
+                            <div class="silla bottom-2-10"></div>
+                            <div class="silla left-1-10"></div>
+                            <div class="silla left-2-10"></div>
+                            <div class="silla left-3-10"></div>
+                            <div class="silla right-1-10"></div>
+                            <div class="silla right-2-10"></div>
+                            <div class="silla right-3-10"></div>
+                            <div class="tablero tablero-10">M11</div>
+                        </div>
+
+                        <div class="mesa mesa-10" (click)="seleccionarMesa('mesa12')" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <div class="silla top-1-10"></div>
+                            <div class="silla top-2-10"></div>
+                            <div class="silla bottom-1-10"></div>
+                            <div class="silla bottom-2-10"></div>
+                            <div class="silla left-1-10"></div>
+                            <div class="silla left-2-10"></div>
+                            <div class="silla left-3-10"></div>
+                            <div class="silla right-1-10"></div>
+                            <div class="silla right-2-10"></div>
+                            <div class="silla right-3-10"></div>
+                            <div class="tablero tablero-10">M12</div>
+                        </div>
+
+                        <div class="mesa mesa-10" (click)="seleccionarMesa('mesa13')" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <div class="silla top-1-10"></div>
+                            <div class="silla top-2-10"></div>
+                            <div class="silla bottom-1-10"></div>
+                            <div class="silla bottom-2-10"></div>
+                            <div class="silla left-1-10"></div>
+                            <div class="silla left-2-10"></div>
+                            <div class="silla left-3-10"></div>
+                            <div class="silla right-1-10"></div>
+                            <div class="silla right-2-10"></div>
+                            <div class="silla right-3-10"></div>
+                            <div class="tablero tablero-10">M13</div>
+                        </div>
+
+                        <div class="mesa mesa-10" (click)="seleccionarMesa('mesa14')" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <div class="silla top-1-10"></div>
+                            <div class="silla top-2-10"></div>
+                            <div class="silla bottom-1-10"></div>
+                            <div class="silla bottom-2-10"></div>
+                            <div class="silla left-1-10"></div>
+                            <div class="silla left-2-10"></div>
+                            <div class="silla left-3-10"></div>
+                            <div class="silla right-1-10"></div>
+                            <div class="silla right-2-10"></div>
+                            <div class="silla right-3-10"></div>
+                            <div class="tablero tablero-10">M14</div>
+                        </div>
+                    </div>
+
+                    <div class="titulo-sala">
+                        <p class="nombre-sala">Sala Dos</p>
+                    </div>
+
+                    <div class="card-8">
+                        <div class="mesa mesa-8" (click)="seleccionarMesa('mesa15')" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <div class="silla top-1-8"></div>
+                            <div class="silla bottom-1-8"></div>
+                            <div class="silla left-1-10"></div>
+                            <div class="silla left-2-10"></div>
+                            <div class="silla left-3-10"></div>
+                            <div class="silla right-1-10"></div>
+                            <div class="silla right-2-10"></div>
+                            <div class="silla right-3-10"></div>
+                            <div class="tablero tablero-8">M15</div>
+                        </div>
+
+                        <div class="mesa mesa-8" (click)="seleccionarMesa('mesa16')" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <div class="silla top-1-8"></div>
+                            <div class="silla bottom-1-8"></div>
+                            <div class="silla left-1-10"></div>
+                            <div class="silla left-2-10"></div>
+                            <div class="silla left-3-10"></div>
+                            <div class="silla right-1-10"></div>
+                            <div class="silla right-2-10"></div>
+                            <div class="silla right-3-10"></div>
+                            <div class="tablero tablero-8">M16</div>
+                        </div>
+
+                        <div class="mesa mesa-8" (click)="seleccionarMesa('mesa17')" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <div class="silla top-1-8"></div>
+                            <div class="silla bottom-1-8"></div>
+                            <div class="silla left-1-10"></div>
+                            <div class="silla left-2-10"></div>
+                            <div class="silla left-3-10"></div>
+                            <div class="silla right-1-10"></div>
+                            <div class="silla right-2-10"></div>
+                            <div class="silla right-3-10"></div>
+                            <div class="tablero tablero-8">M17</div>
+                        </div>
+
+                        <div class="mesa mesa-8" (click)="seleccionarMesa('mesa18')" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <div class="silla top-1-8"></div>
+                            <div class="silla bottom-1-8"></div>
+                            <div class="silla left-1-10"></div>
+                            <div class="silla left-2-10"></div>
+                            <div class="silla left-3-10"></div>
+                            <div class="silla right-1-10"></div>
+                            <div class="silla right-2-10"></div>
+                            <div class="silla right-3-10"></div>
+                            <div class="tablero tablero-8">M18</div>
+                        </div>
+
+                        <div class="mesa mesa-8" (click)="seleccionarMesa('mesa19')" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <div class="silla top-1-8"></div>
+                            <div class="silla bottom-1-8"></div>
+                            <div class="silla left-1-10"></div>
+                            <div class="silla left-2-10"></div>
+                            <div class="silla left-3-10"></div>
+                            <div class="silla right-1-10"></div>
+                            <div class="silla right-2-10"></div>
+                            <div class="silla right-3-10"></div>
+                            <div class="tablero tablero-8">M19</div>
+                        </div>
+
+                        <div class="mesa mesa-8" (click)="seleccionarMesa('mesa20')" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <div class="silla top-1-8"></div>
+                            <div class="silla bottom-1-8"></div>
+                            <div class="silla left-1-10"></div>
+                            <div class="silla left-2-10"></div>
+                            <div class="silla left-3-10"></div>
+                            <div class="silla right-1-10"></div>
+                            <div class="silla right-2-10"></div>
+                            <div class="silla right-3-10"></div>
+                            <div class="tablero tablero-8">M20</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pared-4"></div>
+        </div>
+
+
+        <div class="pared-2"></div>
+    </div>
+
+    <div [ngClass]="active == 'salaTres' ? 'tab-pane fade show active' : 'tab-pane fade'">
+        <div class="paredes">
+            <div class="interior-arriba">
+                <div class="pared-1"></div>
+                <div class="ventana-dentro-1"></div>
+                <div class="pared-1"></div>
+            </div>
+
+            <div class="pared-1"></div>
+
+            <div class="interior-arriba">
+                <div class="pared-2"></div>
+                <div class="ventana-dentro-1"></div>
+                <div class="pared-2"></div>
+            </div>
+        </div>
+
+        <!--<div class="sala-uno">
+            <div class="interior-derecha">
+                <div class="pared-4 mb-4"></div>
+
+                <button class="boton-vuelta boton-izquierda" (click)="entrarSalaUno()"><i
+                        class="material-icons icono-flecha">arrow_circle_left</i></button>
+
+                <div class="pared-4 mt-4"></div>
+            </div>
+
             <div class="area-mesas">
                 <div class="card-total">
                     <div class="card-4">
@@ -88,7 +451,9 @@
                         </div>
                     </div>
 
-                    <div></div>
+                    <div class="titulo-sala">
+                        <p class="nombre-sala">Proceso</p>
+                    </div>
 
                     <div class="card-6">
                         <div class="mesa mesa-6" (click)="seleccionarMesa('mesa7')">
@@ -134,33 +499,189 @@
                 </div>
             </div>
 
-            <div class="pared-4"></div>
-        </div>
-        
-        <div class="paredes-abajo">
-            <div class="pared-1"></div>
-            <button class="boton-vuelta" (click)="cerrarPuertas()"><i
-                    class="material-icons icono-flecha">arrow_circle_down</i></button>
-            <div class="pared-2"></div>
-        </div>
+            <div class="pared-3"></div>
+        </div>-->
+
+
     </div>
 </div>
 
-<!--<div class="mesa mesa-8" (click)="seleccionarMesa('mesa7')">
-        <div class="tablero">M7</div>
-    </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="d-flex justify-content-center">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Pedido de la Mesa</h1>
+                    <div class="ml-2 mt-2">
+                        <button class="btn btn-primary boton-modal" (click)="pedidoActualTab()">Pedido
+                            Actual</button>&nbsp;
+                        <button class="btn btn-secondary boton-modal" (click)="nuevoPedidoTab()">Tomar Nuevo
+                            Pedido</button>
+                    </div>
+                </div>
 
-    
-    <div class="mesa mesa-8" (click)="seleccionarMesa('mesa8')">
-        <div class="tablero">M8</div>
-    </div>
+                <button type="button" class="btn-close btn-primary" style="border-radius: 50px; width: 25px;"
+                    data-bs-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content">
+                    <div [ngClass]="activeModal == 'pedidoActual' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                        <div *ngIf="pedidoActual.length===0">
+                            <div class="seleccion-vacia">
+                                <i class="material-icons icono">info</i>
+                                <h4>Sin pedido todavía</h4>
+                                <p>Esta mesa todavía no tiene un pedido.</p>
+                            </div>
+                        </div>
+                    </div>
 
-    
-    <div class="mesa mesa-10" (click)="seleccionarMesa('mesa9')">
-        <div class="tablero grande">M9</div>
-    </div>
+                    <div [ngClass]="activeModal == 'nuevoPedido' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                        <div class="pedido-grid">
+                            <div class="pedido-izquierda container">
+                                <!--<form>
+                                    <div class="form-group">
+                                        <label>Nombre: </label>
+                                        <input type="text" class="form-control" id="nombre" [(ngModel)]="mesa.nombre"
+                                            name="nombre" required placeholder="Digite su nombre " #nombre="ngModel"
+                                            readonly />
+                                    </div>
 
-    
-    <div class="mesa mesa-10" (click)="seleccionarMesa('mesa10')">
-        <div class="tablero grande">M10</div>
-    </div>-->
+                                    <div class="form-group">
+                                        <label>Descripcion:</label>
+                                        <input type="text" class="form-control" id="descripcion"
+                                            [(ngModel)]="mesa.descripcion" name="descripcion">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Cantidad</label>
+                                        <input type="text" class="form-control" id="cantidad"
+                                            [(ngModel)]="mesa.cantidad" name="cantidad">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Total:</label>
+                                        <input type="text" class="form-control" id="total" [(ngModel)]="mesa.total"
+                                            name="total">
+                                    </div>
+
+
+
+                                    <button class="btn btn-warning btn-sm p-2"
+                                        style="border-radius: 20px;">Preparar</button>
+                                </form>-->
+                            </div>
+
+                            <div class="pedido-derecha container">
+                                <div class="tab-content">
+                                    <div class=""
+                                        [ngClass]="activePlato == 'platoMesa' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                                        <div>
+                                            <div class="d-flex justify-content-between">
+                                                <div>
+                                                    <button class="btn btn-primary"
+                                                        (click)="ofertasMesaTab()">Ofertas</button>
+                                                </div>
+
+                                                <div class="ml-2">
+                                                    <select class="form-control mb-2" name="platos" id="platos"
+                                                        [(ngModel)]="platoSeleccionado">
+                                                        <option [ngValue]="null">--Seleccione el plato--</option>
+                                                        <option *ngFor="let pla of platos" [ngValue]="pla">
+                                                            {{pla.nombre}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div *ngIf="platoSeleccionado">
+                                                <div class="card oferta-card mt-4 border-0" style="height:65vh">
+                                                    <div class="img-container">
+                                                        <img [src]="platoSeleccionado.imagen" alt="Imagen del plato">
+                                                    </div>
+
+                                                    <div class="card-body">
+                                                        <span class="categoria">{{platoSeleccionado.categoria}}</span>
+                                                        <h4>{{platoSeleccionado.nombre}}</h4>
+                                                        <p class="text-muted mb-2">{{platoSeleccionado.descripcion}}</p>
+                                                        <h5 class="precio">S/. {{platoSeleccionado.precio}}</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div *ngIf="!platoSeleccionado">
+                                                <div class="seleccion-vacia">
+                                                    <i class="material-icons icono">info</i>
+                                                    <h4>Sin plato seleccionado</h4>
+                                                    <p>Seleccione un plato para saber su información.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        [ngClass]="activePlato == 'ofertaMesa' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                                        <div>
+                                            <div class="d-flex">
+                                                <div class="justify-content-first">
+                                                    <button class="btn btn-primary"
+                                                        (click)="platosMesaTab()">Platos</button>
+                                                </div>
+
+                                                <div class="ml-2">
+                                                    <select class="form-control mb-2" name="platos" id="platos"
+                                                        [(ngModel)]="ofertaSeleccionada">
+                                                        <option [ngValue]="null">--Seleccione la oferta--</option>
+                                                        <option *ngFor="let ofe of ofertas" [ngValue]="ofe">
+                                                            {{ofe.nombre}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div *ngIf="ofertaSeleccionada">
+                                                <div class="oferta-card mb-4">
+                                                    <div class="d-flex justify-content-center">
+                                                        <img src="../imagenes/promociones/promotueliges.png"
+                                                            alt="Imagen de la oferta" class="oferta-img">
+                                                    </div>
+
+                                                    <div class="oferta-body">
+                                                        <h5 class="text-center">{{ofertaSeleccionada.nombre}}</h5>
+
+                                                        <div class="oferta-info">
+                                                            <div class="info-item">
+                                                                <p>{{ofertaSeleccionada.descripcion}}</p>
+                                                            </div>
+
+                                                            <div class="info-item">
+                                                                <span>Precio</span>
+                                                                <strong>S/. {{ofertaSeleccionada.precio}}</strong>
+                                                            </div>
+
+                                                            <div class="info-item">
+                                                                <span>Platos</span>
+                                                                <strong>{{ofertaSeleccionada.cantidad}}</strong>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div *ngIf="!ofertaSeleccionada">
+                                                <div class="seleccion-vacia">
+                                                    <i class="material-icons icono">info</i>
+                                                    <h4>Sin oferta seleccionada</h4>
+                                                    <p>Seleccione una oferta para saber su información.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

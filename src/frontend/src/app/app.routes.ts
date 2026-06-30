@@ -36,6 +36,7 @@ import { ActualizacionCategoriaIngrediente } from './componentes/categoriaingred
 import { RegistroCategoriaIngrediente } from './componentes/categoriaingrediente/registro-categoria-ingrediente/registro-categoria-ingrediente';
 import { Ingredienteplatos } from './paginas/admin/ingredienteplatos/ingredienteplatos';
 import { DashboardMesero } from './paginas/mesero/dashboard-mesero/dashboard-mesero';
+import { Mesa } from './paginas/admin/mesa/mesa';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -47,14 +48,14 @@ export const routes: Routes = [
         path: 'cuenta',
         component: Cuenta,
         canActivate: [AuthGuard],
-        data: { roles: ['ROLE_USER', 'ROLE_ADMIN','ROLE_COCINERO'] }
+        data: { roles: ['ROLE_USER', 'ROLE_ADMIN','ROLE_COCINERO','ROLE_MESERO'] }
     },
 
     {
         path: 'carro/:tipo/:id',
         component: Carro,
         canActivate: [AuthGuard],
-        data: { roles: ['ROLE_USER', 'ROLE_ADMIN','ROLE_COCINERO']}
+        data: { roles: ['ROLE_USER', 'ROLE_ADMIN','ROLE_COCINERO','ROLE_MESERO']}
     },
 
     {
@@ -88,6 +89,13 @@ export const routes: Routes = [
     {
         path: 'sistema',
         component: Sistema,
+        canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN'] }
+    },
+
+    { 
+        path: 'mesa',
+        component: Mesa,
         canActivate: [AuthGuard],
         data: { roles: ['ROLE_ADMIN'] }
     },
