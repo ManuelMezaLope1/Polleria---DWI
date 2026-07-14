@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import com.springboot.backend.consulta.dto.AlergiaIngredientesDto;
 import com.springboot.backend.consulta.dto.CantidadPlatosDto;
 import com.springboot.backend.consulta.dto.CantidadPlatosPrepararDto;
 import com.springboot.backend.consulta.dto.MejorPlatoDto;
@@ -74,4 +75,16 @@ public interface PlatoConsultaRepositorio extends JpaRepository<Plato, Long> {
             order by p.nombre asc;
                             """, nativeQuery = true)
     List<PlatoMesaDto> obtenerPlatosParaMesa();
+
+    @Query(value = """
+                        select p.nombre as plato, count(ip.ingrediente_id) as cantidad from ingrediente_platos ip
+            join ingredientes i on i.id=ip.ingrediente_id
+            join platos p on p.id=ip.plato_id
+            join categorias c on c.id=p.categoria_id
+            where c.nombre not in ('Bebidas','Cremas','Postres')
+            group by p.nombre
+            order by count(ip.ingrediente_id) desc
+            LIMIT 7;
+                        """, nativeQuery = true)
+    List<AlergiaIngredientesDto> obtenerCantidadIngredientesPlato();
 }

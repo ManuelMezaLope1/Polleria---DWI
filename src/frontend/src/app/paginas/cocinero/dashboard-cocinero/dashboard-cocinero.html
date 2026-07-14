@@ -5,37 +5,37 @@
         </div>
 
         <div class="menu">
-            <button class="menu-item" (click)="onInicioTab()">
+            <button class="menu-item" [class.active]="active==='inicio'" (click)="onInicioTab()">
                 <i class="material-icons">home</i>
                 <span>Inicio</span>
             </button>
 
-            <button class="menu-item" (click)="onPedidosTab()">
+            <button class="menu-item" [class.active]="active==='pedidos'" (click)="onPedidosTab()">
                 <i class="material-icons">restaurant</i>
                 <span>Pedidos</span>
             </button>
 
-            <button class="menu-item" (click)="onPreparacionTab()">
-                <i class="material-icons">schedule</i>
-                <span>En preparación</span>
-            </button>
-
-            <button class="menu-item" (click)="onListoTab()">
-                <i class="material-icons">check</i>
-                <span>Listos</span>
-            </button>
-
-            <button class="menu-item" (click)="onIngredientesTab()">
+            <button class="menu-item" [class.active]="active==='ingredientes'" (click)="onIngredientesTab()">
                 <i class="material-icons">inventory_2</i>
                 <span>Ingredientes</span>
             </button>
 
-            <button class="menu-item" (click)="onPlatosPrepararTab()">
+            <button class="menu-item" [class.active]="active==='platosPreparar'" (click)="onPlatosPrepararTab()">
                 <i class="material-icons">leaderboard</i>
                 <span>Platos a Preparar</span>
             </button>
 
-            <button class="menu-item" (click)="onEstadisticasTab()">
+            <button class="menu-item" [class.active]="active==='recomendaciones'" (click)="onRecomendacionesTab()">
+                <i class="material-icons">recommend</i>
+                <span>Recomendaciones</span>
+            </button>
+
+            <button class="menu-item" [class.active]="active==='predicciones'" (click)="onPrediccionesTab()">
+                <i class="material-icons">batch_prediction</i>
+                <span>Predicciones</span>
+            </button>
+
+            <button class="menu-item" [class.active]="active==='estadisticas'" (click)="onEstadisticasTab()">
                 <i class="material-icons">analytics</i>
                 <span>Estadísticas</span>
             </button>
@@ -206,164 +206,180 @@
             <div [ngClass]="active == 'pedidos' ? 'tab-pane fade show active' : 'tab-pane fade'">
                 <h1>Pedidos</h1>
                 <br>
-                <div class="pedido-card card-pendiente" *ngFor="let ped of pedidosPendientes">
-                    <div class="pedido-header">
-                        <div class="pedido-hora">
-                            <i class="material-icons">schedule</i>
-                            {{ped.hora_inicio}}
-                        </div>
-
-                        <div class="pedido-estado"
-                            [ngClass]="{'pendiente': ped.estado_pedido === 'Pendiente', 'preparacion': ped.estado_pedido === 'Preparando', 'listo': ped.estado_pedido === 'Listo'}">
-                            {{ped.estado_pedido}}
-                        </div>
-                    </div>
-
-                    <div class="pedido-body">
-                        <div class="pedido-info">
-                            <p><strong>📅 Fecha:</strong> {{ped.fecha}}</p>
-                        </div>
-
-                        <div class="pedido-info">
-                            <p><strong>🍗 Cantidad:</strong> {{ped.cantidad}}</p>
-                        </div>
-
-                        <div class="pedido-descripcion">
-                            <strong>Pedido:</strong>
-                            <p>{{ped.descripcion}}</p>
-                        </div>
-
-                        <div class="pedido-observacion" *ngIf="ped.observacion">
-                            <strong>📝 Observaciones:</strong>
-                            <p>{{ped.observacion}}</p>
-                        </div>
-                    </div>
-
-                    <div class="pedido-footer">
-                        <form>
-                            <input type="hidden" id="usuario" name="usuario" [(ngModel)]="pedido.usuario">
-                            <input type="hidden" id="username" name="username" [(ngModel)]="pedido.username">
-
-                            <button class="btn btn-warning btn-sm p-2" style="border-radius: 20px;"
-                                (click)="actualizarPedidoPendiente(ped.id); pedido.venta=ped.venta">Preparar</button>
-                        </form>
-                    </div>
+                <div class="menu-pedidos">
+                    <button class="menu-pedido btn-pedido-1" [class.active]="activePedido==='pendiente'"
+                        (click)="onPendienteTab()"><i class="material-icons">pending</i>Pendientes</button>
+                    <button class="menu-pedido btn-pedido-2" [class.active]="activePedido==='preparacion'"
+                        (click)="onPreparacionTab()"><i class="material-icons">schedule</i>En preparación</button>
+                    <button class="menu-pedido btn-pedido-3" [class.active]="activePedido==='listo'"
+                        (click)="onListoTab()"><i class="material-icons">check</i>Listos</button>
                 </div>
-
-                <div *ngIf="pedidosPendientes.length===0">
-                    <div class="seleccion-vacia">
-                        <i class="material-icons icono">info</i>
-                        <h4>Sin pedidos pendientes</h4>
-                        <p>No hay pedidos pendientes.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div [ngClass]="active == 'preparacion' ? 'tab-pane fade show active' : 'tab-pane fade'">
-                <h1>En preparación</h1>
                 <br>
-                <div *ngIf="pedidosPreparados.length>0">
-                    <div class="pedido-card card-preparado" *ngFor="let ped of pedidosPreparados">
-                        <div class="pedido-header">
-                            <div class="pedido-hora">
-                                <i class="material-icons">schedule</i>
-                                {{ped.hora_inicio}}
+                <div class="tab-content">
+                    <div [ngClass]="activePedido == 'pendiente' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                        <h1>Pendiente</h1>
+                        <br>
+                        <div class="pedido-card card-pendiente" *ngFor="let ped of pedidosPendientes">
+                            <div class="pedido-header">
+                                <div class="pedido-hora">
+                                    <i class="material-icons">schedule</i>
+                                    {{ped.hora_inicio}}
+                                </div>
+
+                                <div class="pedido-estado"
+                                    [ngClass]="{'pendiente': ped.estado_pedido === 'Pendiente', 'preparacion': ped.estado_pedido === 'Preparando', 'listo': ped.estado_pedido === 'Listo'}">
+                                    {{ped.estado_pedido}}
+                                </div>
                             </div>
 
-                            <div class="pedido-estado"
-                                [ngClass]="{'pendiente': ped.estado_pedido === 'Pendiente', 'preparacion': ped.estado_pedido === 'Preparando', 'listo': ped.estado_pedido === 'Listo'}">
-                                {{ped.estado_pedido}}
-                            </div>
-                        </div>
+                            <div class="pedido-body">
+                                <div class="pedido-info">
+                                    <p><strong>📅 Fecha:</strong> {{ped.fecha}}</p>
+                                </div>
 
-                        <div class="pedido-body">
-                            <div class="pedido-info">
-                                <p><strong>📅 Fecha:</strong> {{ped.fecha}}</p>
-                            </div>
+                                <div class="pedido-info">
+                                    <p><strong>🍗 Cantidad:</strong> {{ped.cantidad}}</p>
+                                </div>
 
-                            <div class="pedido-info">
-                                <p><strong>🍗 Cantidad:</strong> {{ped.cantidad}}</p>
-                            </div>
+                                <div class="pedido-descripcion">
+                                    <strong>Pedido:</strong>
+                                    <p>{{ped.descripcion}}</p>
+                                </div>
 
-                            <div class="pedido-descripcion">
-                                <strong>Pedido:</strong>
-                                <p>{{ped.descripcion}}</p>
-                            </div>
-
-                            <div class="pedido-observacion" *ngIf="ped.observacion">
-                                <strong>📝 Observaciones:</strong>
-                                <p>{{ped.observacion}}</p>
-                            </div>
-                        </div>
-
-                        <div class="pedido-footer">
-                            <form>
-                                <input type="hidden" id="usuario" name="usuario" [(ngModel)]="pedido.usuario">
-                                <input type="hidden" id="username" name="username" [(ngModel)]="pedido.username">
-
-                                <button class="btn btn-success btn-sm p-2" style="border-radius: 20px;"
-                                    (click)="actualizarPedidoPreparado(ped.id); pedido.venta=ped.venta">Listo</button>
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div *ngIf="pedidosPreparados.length===0">
-                    <div class="seleccion-vacia">
-                        <i class="material-icons icono">info</i>
-                        <h4>Sin pedidos siendo preparados</h4>
-                        <p>Haga click a preparar en la sección "Pedidos".
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div [ngClass]="active == 'listo' ? 'tab-pane fade show active' : 'tab-pane fade'">
-                <h1>Listos</h1>
-                <br>
-                <div *ngIf="pedidosListos.length>0">
-                    <div class="pedido-card card-listo" *ngFor="let ped of pedidosListos">
-                        <div class="pedido-header">
-                            <div class="pedido-hora">
-                                <i class="material-icons">schedule</i>
-                                {{ped.hora_entrega}}
+                                <div class="pedido-observacion" *ngIf="ped.observacion">
+                                    <strong>📝 Observaciones:</strong>
+                                    <p>{{ped.observacion}}</p>
+                                </div>
                             </div>
 
-                            <div class="pedido-estado"
-                                [ngClass]="{'pendiente': ped.estado_pedido === 'Pendiente', 'preparacion': ped.estado_pedido === 'Preparando', 'listo': ped.estado_pedido === 'Listo'}">
-                                {{ped.estado_pedido}}
+                            <div class="pedido-footer">
+                                <form>
+                                    <input type="hidden" id="usuario" name="usuario" [(ngModel)]="pedido.usuario">
+                                    <input type="hidden" id="username" name="username" [(ngModel)]="pedido.username">
+
+                                    <button class="btn btn-warning btn-sm p-2" style="border-radius: 20px;"
+                                        (click)="actualizarPedidoPendiente(ped.id); pedido.venta=ped.venta">Preparar</button>
+                                </form>
                             </div>
                         </div>
 
-                        <div class="pedido-body">
-                            <div class="pedido-info">
-                                <p><strong>📅 Fecha:</strong> {{ped.fecha}}</p>
-                            </div>
-
-                            <div class="pedido-info">
-                                <p><strong>🍗 Cantidad:</strong> {{ped.cantidad}}</p>
-                            </div>
-
-                            <div class="pedido-descripcion">
-                                <strong>Pedido:</strong>
-                                <p>{{ped.descripcion}}</p>
-                            </div>
-
-                            <div class="pedido-observacion" *ngIf="ped.observacion">
-                                <strong>📝 Observaciones:</strong>
-                                <p>{{ped.observacion}}</p>
+                        <div *ngIf="pedidosPendientes.length===0">
+                            <div class="seleccion-vacia">
+                                <i class="material-icons icono">info</i>
+                                <h4>Sin pedidos pendientes</h4>
+                                <p>No hay pedidos pendientes.</p>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div *ngIf="pedidosListos.length===0">
-                    <div class="seleccion-vacia">
-                        <i class="material-icons icono">info</i>
-                        <h4>Sin pedidos terminados</h4>
-                        <p>Haga click a listo en la sección "En preparación".
-                        </p>
+                    <div [ngClass]="activePedido == 'preparacion' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                        <h1>En preparación</h1>
+                        <br>
+                        <div *ngIf="pedidosPreparados.length>0">
+                            <div class="pedido-card card-preparado" *ngFor="let ped of pedidosPreparados">
+                                <div class="pedido-header">
+                                    <div class="pedido-hora">
+                                        <i class="material-icons">schedule</i>
+                                        {{ped.hora_inicio}}
+                                    </div>
+
+                                    <div class="pedido-estado"
+                                        [ngClass]="{'pendiente': ped.estado_pedido === 'Pendiente', 'preparacion': ped.estado_pedido === 'Preparando', 'listo': ped.estado_pedido === 'Listo'}">
+                                        {{ped.estado_pedido}}
+                                    </div>
+                                </div>
+
+                                <div class="pedido-body">
+                                    <div class="pedido-info">
+                                        <p><strong>📅 Fecha:</strong> {{ped.fecha}}</p>
+                                    </div>
+
+                                    <div class="pedido-info">
+                                        <p><strong>🍗 Cantidad:</strong> {{ped.cantidad}}</p>
+                                    </div>
+
+                                    <div class="pedido-descripcion">
+                                        <strong>Pedido:</strong>
+                                        <p>{{ped.descripcion}}</p>
+                                    </div>
+
+                                    <div class="pedido-observacion" *ngIf="ped.observacion">
+                                        <strong>📝 Observaciones:</strong>
+                                        <p>{{ped.observacion}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="pedido-footer">
+                                    <form>
+                                        <input type="hidden" id="usuario" name="usuario" [(ngModel)]="pedido.usuario">
+                                        <input type="hidden" id="username" name="username"
+                                            [(ngModel)]="pedido.username">
+
+                                        <button class="btn btn-success btn-sm p-2" style="border-radius: 20px;"
+                                            (click)="actualizarPedidoPreparado(ped.id); pedido.venta=ped.venta">Listo</button>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="pedidosPreparados.length===0">
+                            <div class="seleccion-vacia">
+                                <i class="material-icons icono">info</i>
+                                <h4>Sin pedidos siendo preparados</h4>
+                                <p>Haga click a preparar en la sección "Pedidos".
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div [ngClass]="activePedido == 'listo' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                        <h1>Listos</h1>
+                        <br>
+                        <div *ngIf="pedidosListos.length>0">
+                            <div class="pedido-card card-listo" *ngFor="let ped of pedidosListos">
+                                <div class="pedido-header">
+                                    <div class="pedido-hora">
+                                        <i class="material-icons">schedule</i>
+                                        {{ped.hora_entrega}}
+                                    </div>
+
+                                    <div class="pedido-estado"
+                                        [ngClass]="{'pendiente': ped.estado_pedido === 'Pendiente', 'preparacion': ped.estado_pedido === 'Preparando', 'listo': ped.estado_pedido === 'Listo'}">
+                                        {{ped.estado_pedido}}
+                                    </div>
+                                </div>
+
+                                <div class="pedido-body">
+                                    <div class="pedido-info">
+                                        <p><strong>📅 Fecha:</strong> {{ped.fecha}}</p>
+                                    </div>
+
+                                    <div class="pedido-info">
+                                        <p><strong>🍗 Cantidad:</strong> {{ped.cantidad}}</p>
+                                    </div>
+
+                                    <div class="pedido-descripcion">
+                                        <strong>Pedido:</strong>
+                                        <p>{{ped.descripcion}}</p>
+                                    </div>
+
+                                    <div class="pedido-observacion" *ngIf="ped.observacion">
+                                        <strong>📝 Observaciones:</strong>
+                                        <p>{{ped.observacion}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="pedidosListos.length===0">
+                            <div class="seleccion-vacia">
+                                <i class="material-icons icono">info</i>
+                                <h4>Sin pedidos terminados</h4>
+                                <p>Haga click a listo en la sección "En preparación".
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -449,6 +465,316 @@
                 </div>
             </div>
 
+            <div [ngClass]="active == 'recomendaciones' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                <h1>Recomendaciones</h1>
+                <br>
+                <h3>Producción</h3>
+                <br>
+                <div class="row card-total-recomendaciones">
+                    <div class="col-lg-6 mb-4" *ngFor="let rl of recomendacionLotes">
+                        <div class="lote-card">
+                            <div class="lote-header">
+                                <div class="lote-icono">
+                                    <i class="material-icons icono-recomendacion-lote">inventory</i>
+                                </div>
+
+                                <div>
+                                    <span>Producción recomendada</span>
+                                    <h4>{{rl.plato}}</h4>
+                                </div>
+                            </div>
+
+                            <div class="lote-body">
+                                <div class="cantidad-total">
+                                    <span>Total estimado</span>
+                                    <h2>{{rl.cantidadEstimada}}</h2>
+                                    <span>platos</span>
+                                </div>
+
+                                <div class="lotes-grid">
+                                    <div class="lote primer">
+                                        <i class="material-icons icono-recomendacion-lote">restaurant</i>
+                                        <h5>Primer lote</h5>
+                                        <h3>{{rl.primerLote}}</h3>
+                                        <span>Preparar al iniciar</span>
+                                    </div>
+
+                                    <div class="lote segundo">
+                                        <i class="material-icons icono-recomendacion-lote">schedule</i>
+                                        <h5>Segundo lote</h5>
+                                        <h3>{{rl.segundoLote}}</h3>
+                                        <span>Preparar después</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <h3>Combinaciones Frecuentes</h3>
+                <br>
+                <div class="row card-total-recomendaciones">
+                    <div class="col-lg-6 mb-4" *ngFor="let cp of combinacionPlatos">
+                        <div class="combinacion-card">
+                            <div class="combinacion-header">
+                                <div class="combinacion-icono">
+                                    <i class="material-icons">restaurant_menu</i>
+                                </div>
+
+                                <div>
+                                    <span>Combinación recomendada por IA</span>
+                                    <h4>{{cp.platoPrincipal}}</h4>
+                                </div>
+                            </div>
+
+                            <div class="combinacion-body">
+                                <div class="acompanamientos">
+                                    <h5>
+                                        <i class="material-icons">local_dining</i>
+                                        Acompañamientos recomendados
+                                    </h5>
+
+                                    <p>{{cp.acompanamientos}}</p>
+                                </div>
+
+                                <div class="metricas">
+                                    <div class="metrica confianza">
+                                        <span>Confianza</span>
+                                        <h3>{{cp.confianza}}%</h3>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-success" [style.width.%]="cp.confianza">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="metrica lift">
+                                        <span>Lift</span>
+                                        <h3>{{cp.lift}}</h3>
+                                        <span>
+                                            {{cp.lift > 1 ? 'Alta asociación' :
+                                            cp.lift == 1 ? 'Asociación normal' :
+                                            'Asociación débil'}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div [ngClass]="active == 'predicciones' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                <h1>Predicciones</h1>
+                <br>
+                <h3>Platos</h3>
+                <br>
+                <div class="kpi-grid">
+                    <div *ngFor="let hp of historicoPlatos" class="kpi-card plato-predicciones">
+                        <div class="grid-card-prediccion">
+                            <i class="material-icons" style="font-size: 50px;">restaurant</i>
+                            <div>
+                                <p class="nombre-plato-prediccion">{{hp.nombre}}</p>
+                                <div class="d-flex justify-content-center">
+                                    <p class="nombre-plato-prediccion">{{hp.cantidadManana}} {{hp.cantidadManana===1 ?
+                                        'plato' : 'platos'}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <h3>Franja</h3>
+                <br>
+                <div class="kpi-grid">
+                    <div *ngFor="let hfp of historicoFranjaPedidos" class="kpi-card plato-predicciones"
+                        [ngClass]="{'desayuno': hfp.franja==='Mañana', 'almuerzo': hfp.franja==='Almuerzo', 'cena': hfp.franja==='Cena', 'madrugada': hfp.franja==='Madrugada'}">
+                        <div class="grid-card-prediccion">
+                            <i class="material-icons" style="font-size: 50px;">
+                                {{hfp.franja==='Mañana' ? 'wb_sunny' : (hfp.franja==='Almuerzo' ? 'flatware' :
+                                (hfp.franja==='Cena' ? 'dining' : 'dark_mode'))}}
+                            </i>
+                            <div>
+                                <p class="nombre-plato-prediccion">{{hfp.franja}}</p>
+                                <div class="d-flex justify-content-center">
+                                    <p class="nombre-plato-prediccion">{{hfp.cantidadManana}} {{hfp.cantidadManana===1 ?
+                                        'plato' : 'platos'}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-12 mb-4">
+                        <div class="card-completo">
+                            <div class="ml-card demanda-principal demanda-prediccion" *ngIf="franjasMayores.length > 0">
+                                <div class="ml-icon principal-icon">
+                                    <i class="material-icons">schedule</i>
+                                </div>
+
+                                <div class="ml-info">
+                                    <span class="etiqueta">Mayor demanda esperada</span>
+                                    <h2>{{franjasMayores[0].franja}}</h2>
+                                    <p style="font-size: 18px;">
+                                        {{franjasMayores[0].cantidadManana}}
+                                        {{franjasMayores[0].cantidadManana===1 ? 'pedido' :
+                                        'pedidos'}}
+                                    </p>
+                                </div>
+
+                                <div class="badge-ml">
+                                    IA
+                                </div>
+                            </div>
+
+                            <div class="secundarias">
+                                <div class="ml-card demanda-secundaria" *ngFor="let fm of franjasMayores.slice(1)">
+                                    <div class="ml-icon secundario-icon">
+                                        <i class="material-icons">access_time</i>
+                                    </div>
+
+                                    <div class="ml-info">
+                                        <small>Demanda</small>
+                                        <h3>{{fm.franja}}</h3>
+                                        <span style="font-size: 18px;">{{fm.cantidadManana}} {{fm.cantidadManana===1
+                                            ?
+                                            'pedido' :
+                                            'pedidos'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf="franjasMayores.length===0">
+                                <div class="recomendacion-vacia">
+                                    <i class="material-icons icono">warning</i>
+                                    <h4>Oops...</h4>
+                                    <p>Sin franjas mayores.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 mb-4">
+                        <div class="card-completo">
+                            <div class="ml-card categoria-principal" *ngIf="categoriasMayores.length > 0">
+                                <div class="ranking">
+                                    #1
+                                </div>
+
+                                <div class="ml-icon principal-icon">
+                                    <i class="material-icons">restaurant_menu</i>
+                                </div>
+
+                                <div class="ml-info">
+                                    <span class="etiqueta">Categoría líder</span>
+                                    <h2>{{categoriasMayores[0].categoria}}</h2>
+                                    <p style="font-size: 18px;">
+                                        {{categoriasMayores[0].cantidadManana}}
+                                        {{categoriasMayores[0].cantidadManana===1 ? 'plato estimado' :
+                                        'platos estimados'}}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="secundarias">
+                                <div class="ml-card categoria-secundaria"
+                                    *ngFor="let cm of categoriasMayores.slice(1); let i=index">
+                                    <div class="ranking-secundario">
+                                        #{{i+2}}
+                                    </div>
+
+                                    <div class="ml-icon secundario-icon">
+                                        <i class="material-icons">restaurant</i>
+                                    </div>
+
+                                    <div class="ml-info">
+                                        <small>Categoría</small>
+                                        <h5>{{cm.categoria}}</h5>
+                                        <span class="cm" style="font-size: 18px;">{{cm.cantidadManana}}
+                                            {{cm.cantidadManana===1 ? 'plato' :
+                                            'platos'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf="categoriasMayores.length===0">
+                                <div class="recomendacion-vacia">
+                                    <i class="material-icons icono">warning</i>
+                                    <h4>Oops...</h4>
+                                    <p>Sin categorias mayores.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="card-completo">
+                            <div class="ml-card plato-principal" *ngIf="platosCrecimientosMayores.length > 0">
+                                <div class="ranking">#1</div>
+
+                                <div class="ml-icon principal-icon">
+                                    <i class="material-icons">{{platosCrecimientosMayores[0].crecimiento>0 ?
+                                        'trending_up' : (platosCrecimientosMayores[0].crecimiento==0 ? 'trending_flat' :
+                                        'trending_down')}}</i>
+                                </div>
+
+                                <div class="ml-info">
+                                    <span class="etiqueta">Mayor crecimiento esperado</span>
+                                    <h2>{{platosCrecimientosMayores[0].nombre}}</h2>
+                                    <div class="porcentaje"
+                                        [ngClass]="{'positivo': platosCrecimientosMayores[0].crecimiento>0, 'negativo': platosCrecimientosMayores[0].crecimiento<0, 'neutro': platosCrecimientosMayores[0].crecimiento==0}">
+                                        {{platosCrecimientosMayores[0].crecimiento>0?'+':''}}
+                                        {{platosCrecimientosMayores[0].crecimiento}}%
+                                    </div>
+
+                                    <p style="font-size: 18px;">
+                                        {{platosCrecimientosMayores[0].cantidadManana}}
+                                        {{platosCrecimientosMayores[0].cantidadManana==1 ? 'plato estimado' : 'platos
+                                        estimados'}}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="secundarias">
+                                <div class="plato-secundario"
+                                    *ngFor="let pcm of platosCrecimientosMayores.slice(1); let i=index">
+                                    <div class="ranking-secundario">
+                                        #{{i+2}}
+                                    </div>
+
+                                    <div class="ml-icon secundario-icon">
+                                        <i class="material-icons">restaurant</i>
+                                    </div>
+
+                                    <div class="ml-info">
+                                        <small>Plato</small>
+                                        <h5>{{pcm.nombre}}</h5>
+                                        <div class="porcentaje-secundario"
+                                            [ngClass]="{'positivo': pcm.crecimiento>0, 'negativo': pcm.crecimiento<0, 'neutro': pcm.crecimiento==0}">
+                                            {{pcm.crecimiento>0?'+':''}}
+                                            {{pcm.crecimiento}}%
+                                        </div>
+                                        <span class="icono-clientes-recomendacion"
+                                            style="font-size: 18px;">{{pcm.cantidadManana}} {{pcm.cantidadManana==1 ?
+                                            'plato' :
+                                            'platos'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf="platosCrecimientosMayores.length===0">
+                                <div class="recomendacion-vacia">
+                                    <i class="material-icons icono">warning</i>
+                                    <h4>Oops...</h4>
+                                    <p>Sin crecimientos mayores.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div [ngClass]="active == 'estadisticas' ? 'tab-pane fade show active' : 'tab-pane fade'">
                 <h1>Estadísticas</h1>
                 <br>
@@ -467,19 +793,29 @@
                 <div class="graficos-grid">
                     <div class="card dashboard-card">
                         <h5>Pedidos de la Semana Pasada</h5>
-                        <canvas id="diaPedidosChart"></canvas>
+                        <div *ngIf="pedidosSemanaPasada.length>0">
+                            <canvas id="diaPedidosChart"></canvas>
+                        </div>
+                        
+                        <div *ngIf="pedidosSemanaPasada.length===0">
+                            <div class="seleccion-vacia">
+                                <i class="material-icons icono">info</i>
+                                <h4>Sin gráfico</h4>
+                                <p>No se encontró ningún pedido la semana pasada.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="graficos-grid">
                     <div class="card dashboard-card">
-                        <h5>Cantidad Platos Mañana</h5>
-                        <canvas id="historicoPlatosChart"></canvas>
+                        <h5>Cantidad de Ingredientes por Plato</h5>
+                        <canvas id="cantidadIngredientesPlatoChart"></canvas>
                     </div>
 
                     <div class="card dashboard-card">
-                        <h5>Cantidad Franja Mañana</h5>
-                        <canvas id="historicoFranjaPedidosChart"></canvas>
+                        <h5>Cantidad de Platos por Venta</h5>
+                        <canvas id="mayorCantidadPlatosVentaChart"></canvas>
                     </div>
                 </div>
             </div>

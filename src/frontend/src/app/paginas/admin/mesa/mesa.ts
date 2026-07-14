@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IMesa } from '../../../componentes/pedido/IMesa';
 import Swal from 'sweetalert2';
+import { MesaServicio } from '../../../servicios/mesa/mesa-servicio';
+import { catchError, tap, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-mesa',
@@ -17,10 +19,17 @@ export class Mesa {
   abriendo = false;
 
   mesa: IMesa = new IMesa();
-  capacidadSeleccionada: any=null;
+  capacidadSeleccionada: any = null;
 
-  ngOnInit(): void{
-    this.mesa.estado="Pendiente";
+  mesaCuatro: any[]=[];
+  cantidadMesas = Array(6).fill(0);
+
+  constructor(private mesaServicio: MesaServicio, private cd: ChangeDetectorRef) { }
+
+  ngOnInit(): void {
+    this.mesa.estado = "Pendiente";
+
+    this.cargarMesasCuatro();
   }
 
   onPuertaTab(): void {
@@ -47,26 +56,57 @@ export class Mesa {
     this.active = "salaTres";
   }
 
-  seleccionarMesa(piso: string, sala: string){
-    this.mesa.ubicacion=piso + " - " + sala;
+  seleccionarMesa(piso: string, sala: string) {
+    this.mesa.ubicacion = piso + " - " + sala;
   }
-  
-  onSubmit(){
-    this.mesa.capacidad=this.capacidadSeleccionada;
 
-    if(this.mesa.nombre===undefined){
-      Swal.fire('Oops...','Falta el nombre','warning');
+  cargarMesasCuatro(){
+    this.mesaServicio.obtenerMesaCuatro().subscribe(datos=>{
+      this.mesaCuatro=datos;
+      this.cd.detectChanges();
+    })
+  }
+
+  onSubmit() {
+    this.mesa.capacidad = this.capacidadSeleccionada;
+
+    if (this.mesa.nombre === undefined) {
+      Swal.fire('Oops...', 'Falta el nombre', 'warning');
       return;
-    } else if(this.mesa.nombre.startsWith(' ')){
-      Swal.fire('Oops...','El nombre no debe empezar con espacio','warning');
+    } else if (this.mesa.nombre.startsWith(' ')) {
+      Swal.fire('Oops...', 'El nombre no debe empezar con espacio', 'warning');
       return;
     }
 
-    if(this.mesa.capacidad===undefined || this.mesa.capacidad===null){
-      Swal.fire('Oops...','Falta la capacidad','warning');
+    if (this.mesa.capacidad === undefined || this.mesa.capacidad === null) {
+      Swal.fire('Oops...', 'Falta la capacidad', 'warning');
       return;
     }
 
-    console.log(this.mesa)
+    this.mesaServicio.registrarMesas(this.mesa).pipe(
+      tap(dato => {
+        console.log(this.mesa)
+        this.irALaListaDeMesas();
+      }),
+      catchError(err => {
+        console.error("ERROR COMPLETO:", err);
+        console.error("STATUS:", err.status);
+        console.error("BODY:", err.error);
+        return throwError(() => err);
+      })
+    ).subscribe()
+  }
+
+  irALaListaDeMesas() {
+    Swal.fire({
+      title: 'Mesa registrada',
+      text: `La mesa ha sido registrada con éxito`,
+      icon: `success`,
+      confirmButtonText: 'Ok'
+    }).then((result => {
+      if (result.isConfirmed) {
+        window.location.reload();
+      }
+    }))
   }
 }

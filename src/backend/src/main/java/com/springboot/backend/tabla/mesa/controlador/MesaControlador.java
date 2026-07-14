@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.backend.excepcion.ResourceNotFoundException;
 import com.springboot.backend.tabla.mesa.modelo.Mesa;
+import com.springboot.backend.tabla.mesa.modelo.MesaCapacidadDto;
 import com.springboot.backend.tabla.mesa.repositorio.MesaRepositorio;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +30,26 @@ public class MesaControlador {
     @GetMapping("/mesas")
     public List<Mesa> listarTodasLasMesa() {
         return mesaRepositorio.findAll();
+    }
+
+    @GetMapping("/mesas-cuatro")
+    public List<MesaCapacidadDto> obtenerMesaCapacidadCuatro() {
+        return mesaRepositorio.obtenerMesaCapacidadCuatro();
+    }
+    
+    @GetMapping("/mesas-seis")
+    public List<MesaCapacidadDto> obtenerMesaCapacidadSeis() {
+        return mesaRepositorio.obtenerMesaCapacidadSeis();
+    }
+
+    @GetMapping("/mesas-ocho")
+    public List<MesaCapacidadDto> obtenerMesaCapacidadOcho() {
+        return mesaRepositorio.obtenerMesaCapacidadOcho();
+    }
+
+    @GetMapping("/mesas-diez")
+    public List<MesaCapacidadDto> obtenerMesaCapacidadDiez() {
+        return mesaRepositorio.obtenerMesaCapacidadDiez();
     }
     
     @PostMapping("/mesas")

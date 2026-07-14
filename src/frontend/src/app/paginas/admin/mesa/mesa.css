@@ -340,7 +340,7 @@
 
 .card-total {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .mesa {
@@ -435,6 +435,7 @@
 
 .mesa-4 {
     width: 180px;
+    margin-top: 35px;
 }
 
 .mesa-6 {

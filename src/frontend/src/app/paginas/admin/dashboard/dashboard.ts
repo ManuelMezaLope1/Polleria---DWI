@@ -1,9 +1,14 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ConsultaServicio } from '../../../servicios/consulta/consulta-servicio';
 import { Chart } from 'chart.js/auto';
 import { CommonModule } from '@angular/common';
 import { ConsultaMlServicio } from '../../../servicios/consultaml/consulta-ml-servicio';
+import { TendenciaVentas } from '../../../componentes/consultaml/TendenciaVentas';
+import { FranjaMayor } from '../../../componentes/consultaml/FranjaMayor';
+import { CategoriaMayorMl } from '../../../componentes/consultaml/CategoriaMayorMl';
+import { PlatoCrecimientoMl } from '../../../componentes/consultaml/PlatoCrecimientoMl';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,6 +18,7 @@ import { ConsultaMlServicio } from '../../../servicios/consultaml/consulta-ml-se
 })
 export class Dashboard {
   active: string = "inicio";
+  abierto= false;
 
   fechaActual = new Date();
 
@@ -48,6 +54,16 @@ export class Dashboard {
   platoCantidad: number = 0;
   platoTotal: number = 0;
 
+  platoVentasChart: any[] = [];
+  ofertaVentaChart: any[] = [];
+  metodoPagoChart: any[] = [];
+  ventaZonaChart: any[] = [];
+  usuariosFrecuentesChart: any[] = [];
+  ofertasCantidadPlatosChart: any[] = [];
+  categoriaPlatosChart: any[] = [];
+  alergiaCantidadIngredientesChart: any[] = [];
+  categoriaCantidadIngredientesChart: any[] = [];
+
   ofertaNombre: string = '';
   ofertaDescripcion: string = '';
   ofertaPrecioNuevo: number = 0;
@@ -61,16 +77,218 @@ export class Dashboard {
   zonaCantidad: number = 0;
   zonaTotal: number = 0;
 
+  franjaMayor!: FranjaMayor;
+  franjasMayores: any[] = [];
+  categoriaMayor!: CategoriaMayorMl;
+  categoriasMayores: any[] = []
+  platoCrecimientoMayor!: PlatoCrecimientoMl;
+  platosCrecimientosMayores: any[] = [];
+
   graficoUsuarioVentas!: Chart;
 
   ventasManana: number = 0;
   totalVentasManana: number = 0;
-  platosVentasManana: number=0;
+  platosVentasManana: number = 0;
+  recomendaciones: any[] = [];
+  platosRecomendacion: any[] = [];
+  clientesVip: any[] = [];
+  clientesFrecuentes: any[] = [];
+  clientesOcasionales: any[] = [];
+  ofertasRecomendacion: any[] = [];
+  recomendacionesOfertas: any[] = [];
+
+  tendencia!: TendenciaVentas;
+  chart!: Chart;
 
   constructor(private consultaServicio: ConsultaServicio, private consultaMlServicio: ConsultaMlServicio, private cd: ChangeDetectorRef) { }
 
+  @ViewChild('btnInfo')
+  btnInfo!: ElementRef;
+
+  @ViewChild('btnInfoInicio')
+  btnInfoInicio!: ElementRef;
+
+  @ViewChild('btnInfoVentas')
+  btnInfoVentas!: ElementRef;
+
+  @ViewChild('btnInfoGraficos')
+  btnInfoGraficos!: ElementRef;
+
+  @ViewChild('btnInfoRecomendaciones')
+  btnInfoRecomendaciones!: ElementRef;
+
+  @ViewChild('btnInfoPredicciones')
+  btnInfoPredicciones!: ElementRef;
+
+  @ViewChild('btnInfoMejores')
+  btnInfoMejores!: ElementRef;
+
+  @ViewChild('btnInfoGestion')
+  btnInfoGestion!: ElementRef;
+
+  mostrarTooltip() {
+    if (!this.btnInfo?.nativeElement) {
+      return;
+    }
+
+    const tooltip = bootstrap.Tooltip.getOrCreateInstance(
+      this.btnInfo.nativeElement
+    );
+
+    tooltip.show();
+
+    setTimeout(() => {
+      try {
+        tooltip.hide();
+      } catch (e) {
+        console.error(e);
+      }
+    }, 1000);
+  }
+
+  mostrarTooltipInicio() {
+    if (!this.btnInfoInicio?.nativeElement) {
+      return;
+    }
+
+    const tooltipInicio = bootstrap.Tooltip.getOrCreateInstance(
+      this.btnInfoInicio.nativeElement
+    );
+
+    tooltipInicio.show();
+
+    setTimeout(() => {
+      try {
+        tooltipInicio.hide();
+      } catch (e) {
+        console.error(e);
+      }
+    }, 1000);
+  }
+
+  mostrarTooltipVentas() {
+    if (!this.btnInfoVentas?.nativeElement) {
+      return;
+    }
+
+    const tooltipVentas = bootstrap.Tooltip.getOrCreateInstance(
+      this.btnInfoVentas.nativeElement
+    );
+
+    tooltipVentas.show();
+
+    setTimeout(() => {
+      try {
+        tooltipVentas.hide();
+      } catch (e) {
+        console.error(e);
+      }
+    }, 1000);
+  }
+
+  mostrarTooltipGraficos() {
+    if (!this.btnInfoGraficos?.nativeElement) {
+      return;
+    }
+
+    const tooltipGraficos = bootstrap.Tooltip.getOrCreateInstance(
+      this.btnInfoGraficos.nativeElement
+    );
+
+    tooltipGraficos.show();
+
+    setTimeout(() => {
+      try {
+        tooltipGraficos.hide();
+      } catch (e) {
+        console.error(e);
+      }
+    }, 1000);
+  }
+
+  mostrarTooltipRecomendaciones() {
+    if (!this.btnInfoRecomendaciones?.nativeElement) {
+      return;
+    }
+
+    const tooltipRecomendacion = bootstrap.Tooltip.getOrCreateInstance(
+      this.btnInfoRecomendaciones.nativeElement
+    );
+
+    tooltipRecomendacion.show();
+
+    setTimeout(() => {
+      try {
+        tooltipRecomendacion.hide();
+      } catch (e) {
+        console.error(e);
+      }
+    }, 1000);
+  }
+
+  mostrarTooltipPredicciones() {
+    if (!this.btnInfoPredicciones?.nativeElement) {
+      return;
+    }
+
+    const tooltipPrediccion = bootstrap.Tooltip.getOrCreateInstance(
+      this.btnInfoPredicciones.nativeElement
+    );
+
+    tooltipPrediccion.show();
+
+    setTimeout(() => {
+      try {
+        tooltipPrediccion.hide();
+      } catch (e) {
+        console.error(e);
+      }
+    }, 1000);
+  }
+
+  mostrarTooltipMejores() {
+    if (!this.btnInfoMejores?.nativeElement) {
+      return;
+    }
+
+    const tooltipMejor = bootstrap.Tooltip.getOrCreateInstance(
+      this.btnInfoMejores.nativeElement
+    );
+
+    tooltipMejor.show();
+
+    setTimeout(() => {
+      try {
+        tooltipMejor.hide();
+      } catch (e) {
+        console.error(e);
+      }
+    }, 1000);
+  }
+
+  mostrarTooltipGestion() {
+    if (!this.btnInfoGestion?.nativeElement) {
+      return;
+    }
+
+    const tooltipGestion = bootstrap.Tooltip.getOrCreateInstance(
+      this.btnInfoGestion.nativeElement
+    );
+
+    tooltipGestion.show();
+
+    setTimeout(() => {
+      try {
+        tooltipGestion.hide();
+      } catch (e) {
+        console.error(e);
+      }
+    }, 1000);
+  }
+
   onInicioTab() {
     this.active = "inicio";
+    return;
   }
 
   onGraficoTab() {
@@ -79,10 +297,19 @@ export class Dashboard {
 
   onVentasTab() {
     this.active = "ventas";
+    return;
+  }
+
+  onRecomendacionTab() {
+    this.active = "recomendaciones"
+  }
+
+  onPrediccionTab() {
+    this.active = "predicciones"
   }
 
   onGestionTab() {
-    this.active = "otros";
+    this.active = "gestion";
   }
 
   onMejoresTab() {
@@ -116,7 +343,6 @@ export class Dashboard {
     this.cargarVentasSemana();
     this.cargarVentasMes();
 
-    this.cargarUsuarioVentas();
     this.cargarCategoriaPlatos();
     this.cargarTop3VentasDesc();
     this.cargarPlatosPorVentas();
@@ -129,9 +355,19 @@ export class Dashboard {
     this.cargarMejorOferta();
     this.cargarMejorZona();
 
+    this.cargarOfertasCantidadPlatos();
+    this.cargarAlergiaCantidadIngredientes();
+    this.cargarCategoriaCantidadIngredientes();
+    this.cargarFranjaMayor();
+    this.cargarCategoriaMayor();
+    this.cargarPlatoCrecimientoMayor();
+
     this.cargarVentasMañana();
     this.cargarTotalVentasMañana();
     this.cargarPlatosVentasManana();
+    this.cargarPlatosRecomendacion();
+    this.cargarTendenciaVenta();
+    this.cargarRecomendacionOfertas();
   }
 
   cargarCantidadVentas(): void {
@@ -192,126 +428,118 @@ export class Dashboard {
 
   cargarCantidadMetodoPago(): void {
     this.consultaServicio.obtenerCantidadMetodoPago().subscribe(datos => {
-      new Chart('metodoPagoChart', {
-        type: 'bar',
-        data: {
-          labels: datos.map(d => d.nombre),
-          datasets: [{
-            label: 'Cantidad de métodos de pagos',
-            data: datos.map(d => d.cantidad)
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            title: {
-              display: true,
-              text: 'Métodos de Pagos más utilizados'
+      this.metodoPagoChart = datos;
+      if (this.metodoPagoChart.length > 0) {
+        this.cd.detectChanges();
+        new Chart('metodoPagoChart', {
+          type: 'bar',
+          data: {
+            labels: datos.map(d => d.nombre),
+            datasets: [{
+              label: 'Cantidad de métodos de pagos',
+              data: datos.map(d => d.cantidad)
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              title: {
+                display: true,
+                text: 'Métodos de Pagos más utilizados'
+              }
             }
           }
-        }
-      });
-      this.cd.detectChanges();
-    })
-  }
-
-  cargarUsuarioVentas(): void {
-    this.consultaServicio.obtenerUsuarioVentas().subscribe(datos => {
-      new Chart('usuarioVentasChart', {
-        type: 'bar',
-        data: {
-          labels: datos.map(d => d.username),
-          datasets: [{
-            label: 'Cantidad de ventas',
-            data: datos.map(d => d.cantidad)
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            title: {
-              display: true,
-              text: 'Ventas por Usuario'
-            }
-          }
-        }
-      });
-      this.cd.detectChanges();
+        });
+        this.cd.detectChanges();
+      }
     })
   }
 
   cargarCategoriaPlatos(): void {
     this.consultaServicio.obtenerCategoriaPlatos().subscribe(datos => {
-      new Chart('categoriaPlatosChart', {
-        type: 'pie',
-        data: {
-          labels: datos.map(d => d.nombre),
-          datasets: [{
-            label: 'Cantidad de Platos',
-            data: datos.map(d => d.cantidad)
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            title: {
-              display: true,
-              text: 'Platos por Categorías'
+      this.categoriaPlatosChart = datos;
+
+      if (this.categoriaPlatosChart.length > 0) {
+        this.cd.detectChanges();
+        new Chart('categoriaPlatosChart', {
+          type: 'pie',
+          data: {
+            labels: datos.map(d => d.nombre),
+            datasets: [{
+              label: 'Cantidad de Platos',
+              data: datos.map(d => d.cantidad)
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              title: {
+                display: true,
+                text: 'Platos por Categorías'
+              }
             }
           }
-        }
-      });
-      this.cd.detectChanges();
+        });
+        this.cd.detectChanges();
+      }
     })
   }
 
   cargarVentasPorZona(): void {
     this.consultaServicio.obtenerVentasPorZona().subscribe(datos => {
-      new Chart('ventaZonaChart', {
-        type: 'pie',
-        data: {
-          labels: datos.map(d => d.nombre),
-          datasets: [{
-            label: 'Ventas por Zona',
-            data: datos.map(d => d.cantidad)
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            title: {
-              display: true,
-              text: 'Ventas por Zona'
+      this.ventaZonaChart = datos;
+      if (this.ventaZonaChart.length > 0) {
+        this.cd.detectChanges();
+        new Chart('ventaZonaChart', {
+          type: 'pie',
+          data: {
+            labels: datos.map(d => d.nombre),
+            datasets: [{
+              label: 'Ventas por Zona',
+              data: datos.map(d => d.cantidad)
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              title: {
+                display: true,
+                text: 'Ventas por Zona'
+              }
             }
           }
-        }
-      });
-      this.cd.detectChanges();
+        });
+        this.cd.detectChanges();
+      }
     })
   }
 
   cargarUsuariosFrecuentes(): void {
     this.consultaServicio.obtenerUsuariosMasFrecuentes().subscribe(datos => {
-      new Chart('usuariosFrecuentesChart', {
-        type: 'pie',
-        data: {
-          labels: datos.map(d => d.username),
-          datasets: [{
-            label: 'Ventas por Usuarios',
-            data: datos.map(d => d.cantidad)
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            title: {
-              display: true,
-              text: 'Ventas por Usuarios'
+      this.usuariosFrecuentesChart = datos;
+      if (this.usuariosFrecuentesChart.length > 0) {
+        this.cd.detectChanges();
+        new Chart('usuariosFrecuentesChart', {
+          type: 'pie',
+          data: {
+            labels: datos.map(d => d.username),
+            datasets: [{
+              label: 'Ventas por Usuarios',
+              data: datos.map(d => d.cantidad)
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              title: {
+                display: true,
+                text: 'Ventas por Usuarios'
+              }
             }
           }
-        }
-      });
-      this.cd.detectChanges();
+        });
+        this.cd.detectChanges();
+      }
     })
   }
 
@@ -348,51 +576,61 @@ export class Dashboard {
 
   cargarPlatosPorVentas() {
     this.consultaServicio.obtenerPlatosPorVentas().subscribe(datos => {
-      new Chart('platosVentasChart', {
-        type: 'pie',
-        data: {
-          labels: datos.map(d => d.nombre),
-          datasets: [{
-            label: 'Cantidad de Platos',
-            data: datos.map(d => d.cantidad)
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            title: {
-              display: true,
-              text: 'Platos por Ventas'
+      this.platoVentasChart = datos;
+
+      if (this.platoVentasChart.length > 0) {
+        this.cd.detectChanges();
+        new Chart('platosVentasChart', {
+          type: 'pie',
+          data: {
+            labels: datos.map(d => d.nombre),
+            datasets: [{
+              label: 'Cantidad de Platos',
+              data: datos.map(d => d.cantidad)
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              title: {
+                display: true,
+                text: 'Platos por Ventas'
+              }
             }
           }
-        }
-      });
-      this.cd.detectChanges();
+        });
+        this.cd.detectChanges();
+      }
     })
   }
 
   cargarOfertasPorVentas() {
     this.consultaServicio.obtenerOfertasPorVentas().subscribe(datos => {
-      new Chart('ofertasVentasChart', {
-        type: 'pie',
-        data: {
-          labels: datos.map(d => d.nombre),
-          datasets: [{
-            label: 'Cantidad de Ofertas',
-            data: datos.map(d => d.cantidad)
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            title: {
-              display: true,
-              text: 'Ofertas por Ventas'
+      this.ofertaVentaChart = datos;
+
+      if (this.ofertaVentaChart.length > 0) {
+        this.cd.detectChanges()
+        new Chart('ofertasVentasChart', {
+          type: 'pie',
+          data: {
+            labels: datos.map(d => d.nombre),
+            datasets: [{
+              label: 'Cantidad de Ofertas',
+              data: datos.map(d => d.cantidad)
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              title: {
+                display: true,
+                text: 'Ofertas por Ventas'
+              }
             }
           }
-        }
-      });
-      this.cd.detectChanges();
+        });
+        this.cd.detectChanges();
+      }
     })
   }
 
@@ -442,6 +680,123 @@ export class Dashboard {
     })
   }
 
+  cargarOfertasCantidadPlatos() {
+    this.consultaServicio.obtenerOfertaCantidadPlatos().subscribe(datos => {
+      this.ofertasCantidadPlatosChart = datos;
+      if (this.ofertasCantidadPlatosChart.length > 0) {
+        this.cd.detectChanges();
+        new Chart('ofertasCantidadPlatosChart', {
+          type: 'doughnut',
+          data: {
+            labels: datos.map(d => d.nombre),
+            datasets: [{
+              label: 'Cantidad de Platos',
+              data: datos.map(d => d.cantidad)
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              title: {
+                display: true,
+                text: 'Platos por Ofertas'
+              }
+            }
+          }
+        });
+        this.cd.detectChanges();
+      }
+    })
+  }
+
+  cargarAlergiaCantidadIngredientes() {
+    this.consultaServicio.obtenerAlergiaCantidadIngredientes().subscribe(datos => {
+      this.alergiaCantidadIngredientesChart = datos;
+      if (this.alergiaCantidadIngredientesChart.length > 0) {
+        this.cd.detectChanges();
+        new Chart('alergiaCantidadIngredientesChart', {
+          type: 'doughnut',
+          data: {
+            labels: datos.map(d => d.nombre),
+            datasets: [{
+              label: 'Cantidad de Ingredientes',
+              data: datos.map(d => d.cantidad)
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              title: {
+                display: true,
+                text: 'Ingredientes por Alergia'
+              }
+            }
+          }
+        });
+        this.cd.detectChanges();
+      }
+    })
+  }
+
+  cargarCategoriaCantidadIngredientes() {
+    this.consultaServicio.obtenerCategoriaCantidadIngredientes().subscribe(datos => {
+      this.categoriaCantidadIngredientesChart = datos;
+      if (this.categoriaCantidadIngredientesChart.length > 0) {
+        this.cd.detectChanges();
+        new Chart('categoriaCantidadIngredientesChart', {
+          type: 'doughnut',
+          data: {
+            labels: datos.map(d => d.nombre),
+            datasets: [{
+              label: 'Cantidad de Ingredientes',
+              data: datos.map(d => d.cantidad)
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              title: {
+                display: true,
+                text: 'Ingredientes por Categoria'
+              }
+            }
+          }
+        });
+        this.cd.detectChanges();
+      }
+    })
+  }
+
+  cargarFranjaMayor() {
+    this.consultaMlServicio.obtenerMayorFranjaHoraria().subscribe(datos => {
+      this.franjaMayor = datos;
+      this.franjasMayores = this.franjaMayor.predicciones.map(({ franja, cantidadManana }) => ({
+        franja, cantidadManana
+      }))
+      this.cd.detectChanges();
+    })
+  }
+
+  cargarCategoriaMayor() {
+    this.consultaMlServicio.obtenerMayorCategoria().subscribe(datos => {
+      this.categoriaMayor = datos;
+      this.categoriasMayores = this.categoriaMayor.categorias.map(({ categoria, cantidadManana }) => ({
+        categoria, cantidadManana
+      })).slice(0, 5)
+      this.cd.detectChanges();
+    })
+  }
+
+  cargarPlatoCrecimientoMayor() {
+    this.consultaMlServicio.obtenerMayorPlatoCrecimiento().subscribe(datos => {
+      this.platoCrecimientoMayor = datos;
+      this.platosCrecimientosMayores = this.platoCrecimientoMayor.platos.map(({ nombre, promedio, cantidadManana, crecimiento }) => ({
+        nombre, promedio, cantidadManana, crecimiento
+      })).slice(0, 5)
+      this.cd.detectChanges();
+    })
+  }
+
   /*#####################################################################################################################################################
   ##                                                                MACHINE LEARNING                                                                    #
   #####################################################################################################################################################*/
@@ -462,6 +817,97 @@ export class Dashboard {
   cargarPlatosVentasManana() {
     this.consultaMlServicio.obtenerTotalPlatosVentas().subscribe(dato => {
       this.platosVentasManana = dato.ventasPlatos;
+    })
+  }
+
+  cargarPlatosRecomendacion(): void {
+    this.consultaMlServicio.obtenerCantidadPlatosRecomendacion().subscribe(dato => {
+      this.recomendaciones = dato;
+
+      this.platosRecomendacion = this.recomendaciones.map(({ tipo, titulo, mensaje }) => ({
+        tipo,
+        titulo,
+        mensaje
+      })).filter(c => c.tipo === 'Plato')
+
+      this.clientesVip = this.recomendaciones.map(({ tipo, titulo, mensaje }) => ({
+        tipo,
+        titulo,
+        mensaje
+      })).filter(c => c.tipo === 'Cliente VIP')
+
+      this.clientesFrecuentes = this.recomendaciones.map(({ tipo, titulo, mensaje }) => ({
+        tipo,
+        titulo,
+        mensaje
+      })).filter(c => c.tipo === 'Cliente Frecuente')
+
+      this.clientesOcasionales = this.recomendaciones.map(({ tipo, titulo, mensaje }) => ({
+        tipo,
+        titulo,
+        mensaje
+      })).filter(c => c.tipo === 'Cliente Ocasional')
+
+      this.ofertasRecomendacion = this.recomendaciones.map(({ tipo, titulo, mensaje }) => ({
+        tipo,
+        titulo,
+        mensaje
+      })).filter(c => c.tipo === 'Promoción')
+    })
+  }
+
+  cargarTendenciaVenta(): void {
+    this.consultaMlServicio.obtenerHistoricoVentas().subscribe(datos => {
+      this.tendencia = datos;
+      if (this.tendencia) {
+        this.cd.detectChanges();
+        this.grafico(datos);
+        this.cd.detectChanges();
+      }
+    })
+  }
+
+  grafico(datos: TendenciaVentas): void {
+    this.cd.detectChanges();
+    const labels = datos.historico.map(x => x.fecha);
+    const ventas = datos.historico.map(x => x.cantidad);
+
+    labels.push("Mañana");
+    ventas.push(datos.prediccionManana);
+
+    if (this.chart) {
+      this.chart.destroy();
+    }
+
+    this.chart = new Chart("tendenciaVentas", {
+      type: "line",
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: "Ventas",
+            data: ventas,
+            tension: 0.3
+          }
+        ]
+      },
+
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: true
+          }
+        }
+      }
+    });
+    this.cd.detectChanges();
+  }
+
+  cargarRecomendacionOfertas() {
+    this.consultaMlServicio.obtenerRecomendacionOfertas().subscribe(datos => {
+      this.recomendacionesOfertas = datos;
+      this.cd.detectChanges();
     })
   }
 }

@@ -69,6 +69,7 @@ public class SecurityConfiguration {
             "http://localhost:3000",
             "http://localhost:8000",
             "https://0l0wjff4-8080.brs.devtunnels.ms/",
+            "https://0l0wjff4-8000.brs.devtunnels.ms/",
             "https://0l0wjff4-4200.brs.devtunnels.ms/"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));

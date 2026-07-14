@@ -43,5 +43,19 @@ export class Auth {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  }
+
+  isTokenExpired(): boolean {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      return true;
+    }
+
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const exp = payload.exp;
+
+    return Date.now() >= exp * 1000;
   }
 }
