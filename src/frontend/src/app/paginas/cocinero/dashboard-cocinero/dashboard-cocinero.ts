@@ -10,6 +10,9 @@ import { UsuarioServicio } from '../../../servicios/usuario/usuario-servicio';
 import { FormsModule } from '@angular/forms';
 import { Chart } from 'chart.js';
 import { ConsultaMlServicio } from '../../../servicios/consultaml/consulta-ml-servicio';
+import { FranjaMayor } from '../../../componentes/consultaml/FranjaMayor';
+import { CategoriaMayorMl } from '../../../componentes/consultaml/CategoriaMayorMl';
+import { PlatoCrecimientoMl } from '../../../componentes/consultaml/PlatoCrecimientoMl';
 
 @Component({
   selector: 'app-dashboard-cocinero',
@@ -45,16 +48,29 @@ export class DashboardCocinero {
 
   mejorOfertaPedidoHoy: any[] = [];
   mejorOfertaPedidoHoyCantidad: number = 0;
-  mejorOfertaPedidoHoyNombre: string='';
+  mejorOfertaPedidoHoyNombre: string = '';
 
   mejorIngredientePedidoHoy: any[] = [];
   mejorIngredientePedidoHoyCantidad: number = 0;
 
   platosPreparar: any[] = [];
+  historicoPlatos: any[] = [];
+  historicoFranjaPedidos: any[] = [];
+  recomendacionLotes: any[] = [];
+  combinacionPlatos: any[] = [];
+
+  franjaMayor!: FranjaMayor;
+  franjasMayores: any[] = [];
+  categoriaMayor!: CategoriaMayorMl;
+  categoriasMayores: any[] = []
+  platoCrecimientoMayor!: PlatoCrecimientoMl;
+  platosCrecimientosMayores: any[] = [];
+  pedidosSemanaPasada: any[]=[]
 
   constructor(private consultaServicio: ConsultaServicio, private consultaMlServicio: ConsultaMlServicio, private usuarioServicio: UsuarioServicio, private pedidoServicio: PedidoServicio, private ventaServicio: VentaServicio, private cd: ChangeDetectorRef) { }
 
   active: string = 'inicio';
+  activePedido: string = 'pendiente';
 
   onInicioTab() {
     this.active = "inicio";
@@ -64,11 +80,16 @@ export class DashboardCocinero {
     this.active = "pedidos";
   }
 
-  onPreparacionTab() {
-    this.active = "preparacion";
+  onPendienteTab() {
+    this.activePedido = "pendiente"
   }
+
+  onPreparacionTab() {
+    this.activePedido = "preparacion";
+  }
+
   onListoTab() {
-    this.active = "listo";
+    this.activePedido = "listo";
   }
 
   onIngredientesTab() {
@@ -77,6 +98,14 @@ export class DashboardCocinero {
 
   onPlatosPrepararTab() {
     this.active = "platosPreparar";
+  }
+
+  onPrediccionesTab() {
+    this.active = "predicciones";
+  }
+
+  onRecomendacionesTab() {
+    this.active = "recomendaciones";
   }
 
   onEstadisticasTab() {
@@ -133,6 +162,13 @@ export class DashboardCocinero {
 
     this.cargarHistoricoPlatos();
     this.cargarHistoricoFranjaPedidos();
+    this.cargarProduccionLotes();
+    this.cargarCombinacionPlatos();
+    this.cargarFranjaMayor();
+    this.cargarCategoriaMayor();
+    this.cargarPlatoCrecimientoMayor();
+    this.cargarCantidadIngredientesPlato();
+    this.cargarMayorCantidadPlatosVenta();
   }
 
   cargarVentas() {
@@ -286,8 +322,10 @@ export class DashboardCocinero {
   cargarMejorOfertaPedidoHoy(): void {
     this.consultaServicio.obtenerMejorOfertaPedidoHoy().subscribe((dato: any) => {
       this.mejorOfertaPedidoHoy = dato;
-      this.mejorOfertaPedidoHoyNombre=dato[0].nombre;
-      this.cd.detectChanges();
+      if (this.mejorOfertaPedidoHoy.length > 0) {
+        this.mejorOfertaPedidoHoyNombre = dato[0].nombre;
+        this.cd.detectChanges();
+      }
     })
   }
 
@@ -364,21 +402,77 @@ export class DashboardCocinero {
 
   cargarCantidadDiaPedidos(): void {
     this.consultaServicio.obtenerCantidadDiaPedidos().subscribe(datos => {
-      new Chart('diaPedidosChart', {
+      this.pedidosSemanaPasada = datos;
+      if (this.pedidosSemanaPasada.length > 0) {
+        this.cd.detectChanges()
+        new Chart('diaPedidosChart', {
+          type: 'bar',
+          data: {
+            labels: datos.map(d => d.nombre),
+            datasets: [{
+              label: 'Cantidad de Pedidos por Dia',
+              data: datos.map(d => d.cantidad)
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              title: {
+                display: true,
+                text: 'Pedidos por Dia'
+              }
+            }
+          }
+        });
+        this.cd.detectChanges();
+      }
+    })
+  }
+
+  cargarCantidadIngredientesPlato() {
+    this.consultaServicio.obtenerCantidadIngredientesPlato().subscribe(datos => {
+      new Chart('cantidadIngredientesPlatoChart', {
         type: 'bar',
         data: {
           labels: datos.map(d => d.nombre),
           datasets: [{
-            label: 'Cantidad de Pedidos por Dia',
+            label: 'Cantidad de Ingredientes por Plato',
             data: datos.map(d => d.cantidad)
           }]
         },
         options: {
+          indexAxis: 'y',
           responsive: true,
           plugins: {
             title: {
               display: true,
-              text: 'Pedidos por Dia'
+              text: 'Ingredientes por Plato'
+            }
+          }
+        }
+      });
+      this.cd.detectChanges();
+    })
+  }
+
+  cargarMayorCantidadPlatosVenta() {
+    this.consultaServicio.obtenerMayorCantidadPlatosVenta().subscribe(datos => {
+      new Chart('mayorCantidadPlatosVentaChart', {
+        type: 'bar',
+        data: {
+          labels: datos.map(d => d.nombre),
+          datasets: [{
+            label: 'Cantidad de Platos por Venta',
+            data: datos.map(d => d.cantidad)
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Platos por Venta'
             }
           }
         }
@@ -389,50 +483,59 @@ export class DashboardCocinero {
 
   cargarHistoricoPlatos() {
     this.consultaMlServicio.obtenerHistoricoPlatos().subscribe(datos => {
-      new Chart('historicoPlatosChart', {
-        type: 'pie',
-        data: {
-          labels: datos.map(d => d.nombre),
-          datasets: [{
-            label: 'Cantidad de Platos',
-            data: datos.map(d => d.cantidadManana)
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            title: {
-              display: true,
-              text: 'Platos por Ventas'
-            }
-          }
-        }
-      });
+      this.historicoPlatos = datos;
+      this.historicoPlatos = this.historicoPlatos.sort((a, b) => b.cantidadManana - a.cantidadManana).slice(0, 6)
       this.cd.detectChanges();
     })
   }
 
   cargarHistoricoFranjaPedidos(): void {
     this.consultaMlServicio.obtenerHistoricoFranjaPedidos().subscribe(datos => {
-      new Chart('historicoFranjaPedidosChart', {
-        type: 'doughnut',
-        data: {
-          labels: datos.map(d => d.franja),
-          datasets: [{
-            label: 'Cantidad de Pedidos',
-            data: datos.map(d => d.cantidadManana)
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            title: {
-              display: true,
-              text: 'Pedidos por Franja'
-            }
-          }
-        }
-      });
+      this.historicoFranjaPedidos = datos;
+      this.cd.detectChanges();
+    })
+  }
+
+  cargarProduccionLotes(): void {
+    this.consultaMlServicio.obtenerRecomendacionLotes().subscribe(datos => {
+      this.recomendacionLotes = datos;
+      this.cd.detectChanges();
+    })
+  }
+
+  cargarCombinacionPlatos(): void {
+    this.consultaMlServicio.obtenerCombinaciones().subscribe(datos => {
+      this.combinacionPlatos = datos;
+      this.cd.detectChanges();
+    })
+  }
+
+  cargarFranjaMayor() {
+    this.consultaMlServicio.obtenerMayorFranjaHoraria().subscribe(datos => {
+      this.franjaMayor = datos;
+      this.franjasMayores = this.franjaMayor.predicciones.map(({ franja, cantidadManana }) => ({
+        franja, cantidadManana
+      }))
+      this.cd.detectChanges();
+    })
+  }
+
+  cargarCategoriaMayor() {
+    this.consultaMlServicio.obtenerMayorCategoria().subscribe(datos => {
+      this.categoriaMayor = datos;
+      this.categoriasMayores = this.categoriaMayor.categorias.map(({ categoria, cantidadManana }) => ({
+        categoria, cantidadManana
+      })).slice(0, 5)
+      this.cd.detectChanges();
+    })
+  }
+
+  cargarPlatoCrecimientoMayor() {
+    this.consultaMlServicio.obtenerMayorPlatoCrecimiento().subscribe(datos => {
+      this.platoCrecimientoMayor = datos;
+      this.platosCrecimientosMayores = this.platoCrecimientoMayor.platos.map(({ nombre, promedio, cantidadManana, crecimiento }) => ({
+        nombre, promedio, cantidadManana, crecimiento
+      })).slice(0, 5)
       this.cd.detectChanges();
     })
   }

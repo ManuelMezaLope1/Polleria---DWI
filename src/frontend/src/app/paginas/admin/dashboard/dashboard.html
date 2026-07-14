@@ -1,51 +1,100 @@
 <div class="dashboard-container">
-    <!-- SIDEBAR -->
     <aside class="sidebar">
-
         <div class="logo">
             🍗 Pollería
         </div>
 
         <div class="menu">
-            <button class="menu-item" (click)="onInicioTab()">
+            <button class="menu-item" [class.active]="active==='inicio'" (click)="onInicioTab()">
                 <i class="material-icons">home</i>
                 <span>Inicio</span>
             </button>
 
-            <button class="menu-item" (click)="onVentasTab()">
+            <button class="menu-item" [class.active]="active==='ventas'" (click)="onVentasTab()">
                 <i class="material-icons">sell</i>
                 <span>Ventas</span>
             </button>
 
-            <button class="menu-item" (click)="onGraficoTab()">
+            <button class="menu-item" [class.active]="active==='graficos'" (click)="onGraficoTab()">
                 <i class="material-icons">pie_chart</i>
                 <span>Gráficos</span>
             </button>
 
-            <button class="menu-item" (click)="onMejoresTab()">
+            <button class="menu-item" [class.active]="active==='recomendaciones'" (click)="onRecomendacionTab()">
+                <i class="material-icons">recommend</i>
+                <span>Recomendaciones</span>
+            </button>
+
+            <button class="menu-item" [class.active]="active==='predicciones'" (click)="onPrediccionTab()">
+                <i class="material-icons">batch_prediction</i>
+                <span>Predicciones</span>
+            </button>
+
+            <button class="menu-item" [class.active]="active==='mejores'" (click)="onMejoresTab()">
                 <i class="material-icons">workspace_premium</i>
                 <span>Mejores</span>
             </button>
 
-            <button class="menu-item" (click)="onGestionTab()">
+            <button class="menu-item" [class.active]="active==='gestion'" (click)="onGestionTab()">
                 <i class="material-icons">engineering</i>
                 <span>Gestión</span>
             </button>
         </div>
     </aside>
 
-    <!-- CONTENIDO -->
     <main class="contenido">
         <div class="tab-content">
             <div [ngClass]="active == 'inicio' ? 'tab-pane fade show active' : 'tab-pane fade'">
                 <div class="header-dashboard">
                     <div>
                         <h2>Dashboard</h2>
-                        <p>Resumen general del sistema</p>
                     </div>
                     <div class="fecha">
                         {{ fechaActual | date:'dd/MM/yy' }}
                     </div>
+                </div>
+
+                <div class="menu-radial ml-0 divBotones">
+                    <button class="btn-central" (click)="abierto = !abierto" #btnInfo data-bs-toggle="tooltip"
+                        title="Más acciones" (mouseenter)="mostrarTooltip()">
+                        ➕
+                    </button>
+
+                    <button class="btn-opcion op1 btn btn-success" #btnInfoInicio (click)="onInicioTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipInicio()" title="Ir a Inicio">
+                        <i class="material-icons">home</i>
+                    </button>
+
+                    <button class="btn-opcion op2 btn btn-danger" #btnInfoVentas (click)="onVentasTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipVentas()" title="Ir a Ventas">
+                        <i class="material-icons">sell</i>
+                    </button>
+
+
+                    <button class="btn-opcion op3 btn btn-primary" #btnInfoGraficos (click)="onGraficoTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipGraficos()" title="Ir a Graficos">
+                        <i class="material-icons">pie_chart</i>
+                    </button>
+
+                    <button class="btn-opcion op4 btn btn-warning" #btnInfoRecomendaciones (click)="onRecomendacionTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipRecomendaciones()" title="Ir a Recomendación">
+                        <i class="material-icons">recommend</i>
+                    </button>
+
+                    <button class="btn-opcion op5 btn btn-warning" #btnInfoPredicciones (click)="onPrediccionTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPredicciones()" title="Ir a Predicción">
+                        <i class="material-icons">batch_prediction</i>
+                    </button>
+
+                    <button class="btn-opcion op6 btn btn-warning" #btnInfoMejores (click)="onMejoresTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipMejores()" title="Ir a Mejores">
+                        <i class="material-icons">workspace_premium</i>
+                    </button>
+
+                    <button class="btn-opcion op7 btn btn-warning" #btnInfoGestion (click)="onGestionTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipGestion()" title="Ir a Gestión">
+                        <i class="material-icons">engineering</i>
+                    </button>
                 </div>
 
                 <!-- KPIS -->
@@ -144,8 +193,621 @@
                         <span>Total Mes</span>
                     </div>
                 </div>
+            </div>
 
-                <h5>Predicciones</h5>
+            <div [ngClass]="active == 'ventas' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                <h1>Ventas</h1>
+
+                <div class="menu-radial ml-0 divBotones">
+                    <button class="btn-central" (click)="abierto = !abierto" #btnInfo data-bs-toggle="tooltip"
+                        title="Más acciones" (mouseenter)="mostrarTooltip()">
+                        ➕
+                    </button>
+
+                    <button class="btn-opcion op1 btn btn-success" #btnInfoInicio (click)="onInicioTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipInicio()" title="Ir a Inicio">
+                        <i class="material-icons">home</i>
+                    </button>
+
+                    <button class="btn-opcion op2 btn btn-danger" #btnInfoVentas (click)="onVentasTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipVentas()" title="Ir a Ventas">
+                        <i class="material-icons">sell</i>
+                    </button>
+
+
+                    <button class="btn-opcion op3 btn btn-primary" #btnInfoGraficos (click)="onGraficoTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipGraficos()" title="Ir a Graficos">
+                        <i class="material-icons">pie_chart</i>
+                    </button>
+
+                    <button class="btn-opcion op4 btn btn-warning" #btnInfoRecomendaciones (click)="onRecomendacionTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipRecomendaciones()" title="Ir a Recomendación">
+                        <i class="material-icons">recommend</i>
+                    </button>
+
+                    <button class="btn-opcion op5 btn btn-warning" #btnInfoPredicciones (click)="onPrediccionTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPredicciones()" title="Ir a Predicción">
+                        <i class="material-icons">batch_prediction</i>
+                    </button>
+
+                    <button class="btn-opcion op6 btn btn-warning" #btnInfoMejores (click)="onMejoresTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipMejores()" title="Ir a Mejores">
+                        <i class="material-icons">workspace_premium</i>
+                    </button>
+
+                    <button class="btn-opcion op7 btn btn-warning" #btnInfoGestion (click)="onGestionTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipGestion()" title="Ir a Gestión">
+                        <i class="material-icons">engineering</i>
+                    </button>
+                </div>
+
+                <div *ngIf="ventas.length>0">
+                    <div *ngFor="let v of ventas">
+                        <div class="ultima-venta-card">
+                            <div class="venta-header">
+                                <h5>🛒 Última Venta</h5>
+                                <span class="venta-fecha">{{v.fecha}}</span>
+                            </div>
+
+                            <div class="venta-body">
+                                <div class="venta-item">
+                                    <span class="label">👤 Cliente</span>
+                                    <span class="valor">{{v.username}}</span>
+                                </div>
+
+                                <div class="venta-item">
+                                    <span class="label">💳 Pago</span>
+                                    <span class="valor">{{v.nombre}}</span>
+                                </div>
+
+                                <div class="venta-item">
+                                    <span class="label">🍗 Cantidad</span>
+                                    <span class="valor">{{v.cantidad}}</span>
+                                </div>
+
+                                <div class="venta-item">
+                                    <span class="label">📋 Pedido</span>
+                                    <span class="valor">{{v.descripcion}}</span>
+                                </div>
+                            </div>
+
+                            <div class="venta-total">
+                                <span>Total</span>
+                                <h3>S/. {{ v.total | number:'1.2-2' }}</h3>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+
+                <div *ngIf="ventas.length===0">
+                    <div class="recomendacion-vacia">
+                        <i class="material-icons icono">point_of_sale</i>
+                        <h4>Sin últimas ventas</h4>
+                        <p>No se encontró ninguna venta.</p>
+                    </div>
+                </div>
+                <br>
+                <div class="graficos-grid">
+                    <div class="card dashboard-card grafico-card">
+                        <h5>Platos por Ventas</h5>
+                        <div *ngIf="platoVentasChart.length>0">
+                            <canvas id="platosVentasChart"></canvas>
+                        </div>
+
+                        <div *ngIf="platoVentasChart.length===0">
+                            <div class="recomendacion-vacia">
+                                <i class="material-icons icono">pie_chart</i>
+                                <h4>Sin gráfico</h4>
+                                <p>No se encontraron platos vendidos.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card dashboard-card grafico-card">
+                        <h5>Ofertas por Ventas</h5>
+                        <div *ngIf="ofertaVentaChart.length>0">
+                            <canvas id="ofertasVentasChart"></canvas>
+                        </div>
+
+                        <div *ngIf="ofertaVentaChart.length===0">
+                            <div class="recomendacion-vacia">
+                                <i class="material-icons icono">pie_chart</i>
+                                <h4>Sin gráfico</h4>
+                                <p>No se encontraron ofertas vendidas.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card dashboard-card grafico-card">
+                        <h5>Métodos de Pagos más utilizados</h5>
+                        <div *ngIf="metodoPagoChart.length>0">
+                            <canvas id="metodoPagoChart"></canvas>
+                        </div>
+
+                        <div *ngIf="metodoPagoChart.length===0">
+                            <div class="recomendacion-vacia">
+                                <i class="material-icons icono">bar_chart</i>
+                                <h4>Sin gráfico</h4>
+                                <p>No se encontraron los métodos de pagos más utilizados.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card dashboard-card grafico-card">
+                        <h5>Ventas por Zona</h5>
+                        <div *ngIf="ventaZonaChart.length>0">
+                            <canvas id="ventaZonaChart"></canvas>
+                        </div>
+
+                        <div *ngIf="ventaZonaChart.length===0">
+                            <div class="recomendacion-vacia">
+                                <i class="material-icons icono">pie_chart</i>
+                                <h4>Sin gráfico</h4>
+                                <p>No se encontraron las ventas por zona.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card dashboard-card grafico-card">
+                        <h5>Ventas por Usuarios</h5>
+                        <div *ngIf="usuariosFrecuentesChart.length>0">
+                            <canvas id="usuariosFrecuentesChart"></canvas>
+                        </div>
+
+                        <div *ngIf="usuariosFrecuentesChart.length===0">
+                            <div class="recomendacion-vacia">
+                                <i class="material-icons icono">pie_chart</i>
+                                <h4>Sin gráfico</h4>
+                                <p>No se encontraron las ventas por usuarios.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GRAFICOS -->
+            <div [ngClass]="active == 'graficos' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                <h3>Gráficos</h3>
+                <div class="menu-radial ml-0 divBotones">
+                    <button class="btn-central" (click)="abierto = !abierto" #btnInfo data-bs-toggle="tooltip"
+                        title="Más acciones" (mouseenter)="mostrarTooltip()">
+                        ➕
+                    </button>
+
+                    <button class="btn-opcion op1 btn btn-success" #btnInfoInicio (click)="onInicioTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipInicio()" title="Ir a Inicio">
+                        <i class="material-icons">home</i>
+                    </button>
+
+                    <button class="btn-opcion op2 btn btn-danger" #btnInfoVentas (click)="onVentasTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipVentas()" title="Ir a Ventas">
+                        <i class="material-icons">sell</i>
+                    </button>
+
+
+                    <button class="btn-opcion op3 btn btn-primary" #btnInfoGraficos (click)="onGraficoTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipGraficos()" title="Ir a Graficos">
+                        <i class="material-icons">pie_chart</i>
+                    </button>
+
+                    <button class="btn-opcion op4 btn btn-warning" #btnInfoRecomendaciones (click)="onRecomendacionTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipRecomendaciones()" title="Ir a Recomendación">
+                        <i class="material-icons">recommend</i>
+                    </button>
+
+                    <button class="btn-opcion op5 btn btn-warning" #btnInfoPredicciones (click)="onPrediccionTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPredicciones()" title="Ir a Predicción">
+                        <i class="material-icons">batch_prediction</i>
+                    </button>
+
+                    <button class="btn-opcion op6 btn btn-warning" #btnInfoMejores (click)="onMejoresTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipMejores()" title="Ir a Mejores">
+                        <i class="material-icons">workspace_premium</i>
+                    </button>
+
+                    <button class="btn-opcion op7 btn btn-warning" #btnInfoGestion (click)="onGestionTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipGestion()" title="Ir a Gestión">
+                        <i class="material-icons">engineering</i>
+                    </button>
+                </div>
+
+                <div class="graficos-grid">
+                    <div class="card dashboard-card grafico-card">
+                        <h5>Platos por Oferta</h5>
+                        <div *ngIf="ofertasCantidadPlatosChart.length>0">
+                            <canvas id="ofertasCantidadPlatosChart"></canvas>
+                        </div>
+
+                        <div *ngIf="ofertasCantidadPlatosChart.length===0">
+                            <div class="recomendacion-vacia">
+                                <i class="material-icons icono">pie_chart</i>
+                                <h4>Sin gráfico</h4>
+                                <p>No se encontraron los platos por oferta.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card dashboard-card grafico-card">
+                        <h5>Platos por Categoría</h5>
+                        <div *ngIf="categoriaPlatosChart.length>0">
+                            <canvas id="categoriaPlatosChart"></canvas>
+                        </div>
+
+                        <div *ngIf="categoriaPlatosChart.length===0">
+                            <div class="recomendacion-vacia">
+                                <i class="material-icons icono">pie_chart</i>
+                                <h4>Sin gráfico</h4>
+                                <p>No se encontraron los platos por categoria.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="graficos-grid">
+                    <div class="card dashboard-card grafico-card">
+                        <h5>Ingredientes por Alergia</h5>
+                        <div *ngIf="alergiaCantidadIngredientesChart.length>0">
+                            <canvas id="alergiaCantidadIngredientesChart"></canvas>
+                        </div>
+
+                        <div *ngIf="alergiaCantidadIngredientesChart.length===0">
+                            <div class="recomendacion-vacia">
+                                <i class="material-icons icono">pie_chart</i>
+                                <h4>Sin gráfico</h4>
+                                <p>No se encontraron los ingredientes por alergia.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card dashboard-card grafico-card">
+                        <h5>Ingredientes por Categoria</h5>
+                        <div *ngIf="categoriaCantidadIngredientesChart.length>0">
+                            <canvas id="categoriaCantidadIngredientesChart"></canvas>
+                        </div>
+
+                        <div *ngIf="categoriaCantidadIngredientesChart.length===0">
+                            <div class="recomendacion-vacia">
+                                <i class="material-icons icono">pie_chart</i>
+                                <h4>Sin gráfico</h4>
+                                <p>No se encontraron los ingredientes por categoria.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div [ngClass]="active == 'recomendaciones' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                <h1>Recomendaciones</h1>
+
+                <div class="menu-radial ml-0 divBotones">
+                    <button class="btn-central" (click)="abierto = !abierto" #btnInfo data-bs-toggle="tooltip"
+                        title="Más acciones" (mouseenter)="mostrarTooltip()">
+                        ➕
+                    </button>
+
+                    <button class="btn-opcion op1 btn btn-success" #btnInfoInicio (click)="onInicioTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipInicio()" title="Ir a Inicio">
+                        <i class="material-icons">home</i>
+                    </button>
+
+                    <button class="btn-opcion op2 btn btn-danger" #btnInfoVentas (click)="onVentasTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipVentas()" title="Ir a Ventas">
+                        <i class="material-icons">sell</i>
+                    </button>
+
+
+                    <button class="btn-opcion op3 btn btn-primary" #btnInfoGraficos (click)="onGraficoTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipGraficos()" title="Ir a Graficos">
+                        <i class="material-icons">pie_chart</i>
+                    </button>
+
+                    <button class="btn-opcion op4 btn btn-warning" #btnInfoRecomendaciones (click)="onRecomendacionTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipRecomendaciones()" title="Ir a Recomendación">
+                        <i class="material-icons">recommend</i>
+                    </button>
+
+                    <button class="btn-opcion op5 btn btn-warning" #btnInfoPredicciones (click)="onPrediccionTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPredicciones()" title="Ir a Predicción">
+                        <i class="material-icons">batch_prediction</i>
+                    </button>
+
+                    <button class="btn-opcion op6 btn btn-warning" #btnInfoMejores (click)="onMejoresTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipMejores()" title="Ir a Mejores">
+                        <i class="material-icons">workspace_premium</i>
+                    </button>
+
+                    <button class="btn-opcion op7 btn btn-warning" #btnInfoGestion (click)="onGestionTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipGestion()" title="Ir a Gestión">
+                        <i class="material-icons">engineering</i>
+                    </button>
+                </div>
+                <br>
+                <div class="kpi-grid">
+                    <div class="kpi-card platos">
+                        <i class="material-icons">restaurant_menu</i>
+                        <h3>{{platosRecomendacion.length}}</h3>
+                        <span>Platos</span>
+                    </div>
+
+                    <div class="kpi-card ofertas">
+                        <i class="material-icons">local_offer</i>
+                        <h3>{{ofertasRecomendacion.length}}</h3>
+                        <span>Ofertas</span>
+                    </div>
+                </div>
+
+                <div class="kpi-grid">
+                    <div class="kpi-card clientes-recomendacion">
+                        <i class="material-icons">workspace_premium</i>
+                        <h3>{{clientesVip.length}}</h3>
+                        <span>Clientes Vip</span>
+                    </div>
+
+                    <div class="kpi-card clientes-recomendacion">
+                        <i class="material-icons">workspace_premium</i>
+                        <h3>{{clientesFrecuentes.length}}</h3>
+                        <span>Clientes Frecuentes</span>
+                    </div>
+
+                    <div class="kpi-card clientes-recomendacion">
+                        <i class="material-icons">workspace_premium</i>
+                        <h3>{{clientesOcasionales.length}}</h3>
+                        <span>Clientes Ocasionales</span>
+                    </div>
+                </div>
+                <br>
+                <h3>Platos</h3>
+                <br>
+                <div class="recomendaciones-grid">
+                    <div *ngFor="let catpla of platosRecomendacion" style="grid-template-columns: 1fr 1fr;">
+                        <div class="recomendacion-card">
+                            <div class="icono-recomendacion">
+                                <i class="material-icons icono-reco">restaurant_menu</i>
+                            </div>
+
+                            <div class="contenido-recomendacion">
+                                <h5>{{catpla.titulo}}</h5>
+                                <p>{{catpla.mensaje}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="platosRecomendacion.length===0" style="grid-template-columns: 1fr;">
+                        <div>
+                            <div class="recomendacion-vacia">
+                                <i class="material-icons icono">restaurant_menu</i>
+                                <h4>Sin platos</h4>
+                                <p>Todos los platos tienen buenas ventas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+                <h3>Ofertas</h3>
+                <br>
+                <div class="recomendaciones-grid">
+                    <div *ngFor="let ofe of ofertasRecomendacion" style="grid-template-columns: 1fr 1fr;">
+                        <div class="recomendacion-card">
+                            <div class="icono-recomendacion">
+                                <i class="material-icons icono-reco">local_offer</i>
+                            </div>
+
+                            <div class="contenido-recomendacion">
+                                <h5>{{ofe.titulo}}</h5>
+                                <p>{{ofe.mensaje}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="ofertasRecomendacion.length===0" style="grid-template-columns: 1fr;">
+                        <div>
+                            <div class="recomendacion-vacia">
+                                <i class="material-icons icono">local_offer</i>
+                                <h4>Sin promociones</h4>
+                                <p>Todas las ofertas tienen buenas ventas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+                <h3>Clientes</h3>
+                <br>
+                <div class="clientes-grid">
+                    <div>
+                        <div *ngFor="let cli of clientesVip">
+                            <div class="recomendacion-card cliente-card" style="margin-bottom: 20px;">
+                                <div class="icono-recomendacion">
+                                    <i class="material-icons icono-reco">workspace_premium</i>
+                                </div>
+
+                                <div class="contenido-recomendacion">
+                                    <h5>{{cli.titulo}}</h5>
+                                    <p>El usuario {{cli.mensaje}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="clientesVip.length===0">
+                            <div>
+                                <div class="recomendacion-vacia">
+                                    <i class="material-icons icono icono-clientes-recomendacion">workspace_premium</i>
+                                    <h4>Sin clientes vip</h4>
+                                    <p>Todavía no tiene clientes vip.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div *ngFor="let cli of clientesFrecuentes">
+                            <div class="recomendacion-card cliente-card" style="margin-bottom: 20px;">
+                                <div class="icono-recomendacion">
+                                    <i class="material-icons icono-reco">workspace_premium</i>
+                                </div>
+
+                                <div class="contenido-recomendacion">
+                                    <h5>{{cli.titulo}}</h5>
+                                    <p>El usuario {{cli.mensaje}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="clientesFrecuentes.length===0">
+                            <div>
+                                <div class="recomendacion-vacia">
+                                    <i class="material-icons icono icono-clientes-recomendacion">workspace_premium</i>
+                                    <h4>Sin clientes frecuentes</h4>
+                                    <p>Todavía no tiene clientes frecuentes.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div *ngFor="let cli of clientesOcasionales">
+                            <div class="recomendacion-card cliente-card" style="margin-bottom: 20px;">
+                                <div class="icono-recomendacion">
+                                    <i class="material-icons icono-reco">workspace_premium</i>
+                                </div>
+
+                                <div class="contenido-recomendacion">
+                                    <h5>{{cli.titulo}}</h5>
+                                    <p>El usuario {{cli.mensaje}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="clientesOcasionales.length===0">
+                            <div>
+                                <div class="recomendacion-vacia">
+                                    <i class="material-icons icono icono-clientes-recomendacion">workspace_premium</i>
+                                    <h4>Sin clientes ocasionales</h4>
+                                    <p>Todavía no tiene clientes ocasionales.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+                <h3>Recomendación de Ofertas</h3>
+                <br>
+                <div class="row">
+                    <div class="col-lg-6 mb-4" *ngFor="let ros of recomendacionesOfertas">
+                        <div class="oferta-card">
+                            <div class="oferta-header-recomendacion">
+                                <div class="icono">
+                                    <i class="material-icons">local_offer</i>
+                                </div>
+
+                                <div>
+                                    <span>Oferta recomendada por IA</span>
+                                    <h4 style="color: #fff;">{{ros.productos}}</h4>
+                                </div>
+                            </div>
+
+                            <div class="oferta-body">
+                                <div class="precio">
+                                    <span class="titulo icono-clientes-recomendacion">
+                                        Precio original
+                                    </span>
+
+                                    <span class="original">
+                                        S/. {{ros.precioOriginal}}
+                                    </span>
+                                </div>
+
+                                <div class="descuento">
+                                    -{{ros.descuento}}%
+                                </div>
+
+                                <div class="precio-final">
+                                    <span class="titulo icono-clientes-recomendacion">
+                                        Precio sugerido
+                                    </span>
+
+                                    <h2>
+                                        S/. {{ros.precioOferta}}
+                                    </h2>
+                                </div>
+
+                                <div class="confianza">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="icono-clientes-recomendacion">Confianza del modelo</span>
+                                        <strong>{{ros.confianza}}%</strong>
+                                    </div>
+
+                                    <div class="progress mt-2">
+                                        <div class="progress-bar bg-success icono-clientes-recomendacion"
+                                            [style.width.%]="ros.confianza">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="recomendacionesOfertas.length===0">
+                    <div>
+                        <div class="recomendacion-oferta-vacia">
+                            <i class="material-icons icono icono-clientes-recomendacion">sell</i>
+                            <h4>Sin recomendación de ofertas</h4>
+                            <p>No hay suficientes ventas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div [ngClass]="active == 'predicciones' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                <h1 class="titulo-dashboard">
+                    <i class="material-icons titulo-icono">insights</i>
+                    Predicciones
+                </h1>
+                <div class="menu-radial ml-0 divBotones">
+                    <button class="btn-central" (click)="abierto = !abierto" #btnInfo data-bs-toggle="tooltip"
+                        title="Más acciones" (mouseenter)="mostrarTooltip()">
+                        ➕
+                    </button>
+
+                    <button class="btn-opcion op1 btn btn-success" #btnInfoInicio (click)="onInicioTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipInicio()" title="Ir a Inicio">
+                        <i class="material-icons">home</i>
+                    </button>
+
+                    <button class="btn-opcion op2 btn btn-danger" #btnInfoVentas (click)="onVentasTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipVentas()" title="Ir a Ventas">
+                        <i class="material-icons">sell</i>
+                    </button>
+
+
+                    <button class="btn-opcion op3 btn btn-primary" #btnInfoGraficos (click)="onGraficoTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipGraficos()" title="Ir a Graficos">
+                        <i class="material-icons">pie_chart</i>
+                    </button>
+
+                    <button class="btn-opcion op4 btn btn-warning" #btnInfoRecomendaciones (click)="onRecomendacionTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipRecomendaciones()" title="Ir a Recomendación">
+                        <i class="material-icons">recommend</i>
+                    </button>
+
+                    <button class="btn-opcion op5 btn btn-warning" #btnInfoPredicciones (click)="onPrediccionTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPredicciones()" title="Ir a Predicción">
+                        <i class="material-icons">batch_prediction</i>
+                    </button>
+
+                    <button class="btn-opcion op6 btn btn-warning" #btnInfoMejores (click)="onMejoresTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipMejores()" title="Ir a Mejores">
+                        <i class="material-icons">workspace_premium</i>
+                    </button>
+
+                    <button class="btn-opcion op7 btn btn-warning" #btnInfoGestion (click)="onGestionTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipGestion()" title="Ir a Gestión">
+                        <i class="material-icons">engineering</i>
+                    </button>
+                </div>
+                <br>
+                <h3>Predicciones de Ventas</h3>
                 <br>
                 <div class="kpi-grid">
                     <div class="kpi-card" [ngClass]="obtenerClaseColor(ventasManana)">
@@ -175,333 +837,664 @@
                                 <span style="font-size: 20px;">{{platosVentasManana===1?'plato':'platos'}}</span>
                     </div>
                 </div>
-
-                <div class="kpi-grid">
-
-                </div>
-            </div>
-
-            <div [ngClass]="active == 'ventas' ? 'tab-pane fade show active' : 'tab-pane fade'">
-                <h1>Ventas</h1>
-
-                <div *ngFor="let v of ventas">
-                    <div class="ultima-venta-card">
-                        <div class="venta-header">
-                            <h5>🛒 Última Venta</h5>
-                            <span class="venta-fecha">{{v.fecha}}</span>
-                        </div>
-
-                        <div class="venta-body">
-                            <div class="venta-item">
-                                <span class="label">👤 Cliente</span>
-                                <span class="valor">{{v.username}}</span>
-                            </div>
-
-                            <div class="venta-item">
-                                <span class="label">💳 Pago</span>
-                                <span class="valor">{{v.nombre}}</span>
-                            </div>
-
-                            <div class="venta-item">
-                                <span class="label">🍗 Cantidad</span>
-                                <span class="valor">{{v.cantidad}}</span>
-                            </div>
-
-                            <div class="venta-item">
-                                <span class="label">📋 Pedido</span>
-                                <span class="valor">{{v.descripcion}}</span>
+                <br>
+                <h3>Tendencia de Ventas</h3>
+                <br>
+                <div class="row g-4">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="kpi-card-prediccion prediccion">
+                            <span class="material-icons">calendar_today</span>
+                            <div>
+                                <span>Predicción mañana</span>
+                                <h2>{{tendencia?.prediccionManana??0}}</h2>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="venta-total">
-                            <span>Total</span>
-                            <h3>S/. {{ v.total | number:'1.2-2' }}</h3>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="kpi-card-prediccion promedio">
+                            <span class="material-icons">analytics</span>
+                            <div>
+                                <span>Promedio histórico</span>
+                                <h2>{{tendencia?.promedioHistorico??0}}</h2>
+                            </div>
                         </div>
                     </div>
-                    <br>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="kpi-card-prediccion variacion">
+                            <span class="material-icons">trending_up</span>
+                            <div *ngIf="tendencia as t">
+                                <span>Variación</span>
+                                <h2
+                                    [ngClass]="{'text-success': t.variacionPorcentaje > 0, 'text-danger': t.variacionPorcentaje < 0, 'text-warning': t.variacionPorcentaje == 0}">
+                                    {{t.variacionPorcentaje}}%</h2>
+                            </div>
+
+                            <div *ngIf="!tendencia">
+                                <span>Variación</span>
+                                <h2 class="text-warning">
+                                    0%
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="kpi-card-prediccion tendencia">
+                            <span class="material-icons" *ngIf="tendencia?.tendencia=='Subida'">
+                                north
+                            </span>
+
+                            <span class="material-icons" *ngIf="tendencia?.tendencia=='Bajada'">
+                                south
+                            </span>
+
+                            <span class="material-icons" *ngIf="tendencia?.tendencia=='Estable'">
+                                horizontal_rule
+                            </span>
+
+                            <span class="material-icons" *ngIf="!tendencia">
+                                horizontal_rule
+                            </span>
+
+                            <div>
+                                <span>Tendencia</span>
+                                <h2>{{tendencia?.tendencia}}</h2>
+
+                                <div *ngIf="!tendencia">
+                                    <h2>0</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="graficos-grid">
-                    <div class="card dashboard-card grafico-card">
-                        <h5>Platos por Ventas</h5>
-                        <canvas id="platosVentasChart"></canvas>
+                <div class="card grafico-card mt-4">
+                    <div class="card-header">
+                        <i class="material-icons">show_chart</i>
+                        <span style="font-size: 18px;">Tendencia de ventas</span>
                     </div>
 
-                    <div class="card dashboard-card grafico-card">
-                        <h5>Ofertas por Ventas</h5>
-                        <canvas id="ofertasVentasChart"></canvas>
-                    </div>
+                    <div class="card-body">
+                        <div *ngIf="tendencia">
+                            <canvas id="tendenciaVentas"></canvas>
+                        </div>
 
-                    <div class="card dashboard-card grafico-card">
-                        <h5>Métodos de Pagos más utilizados</h5>
-                        <canvas id="metodoPagoChart"></canvas>
-                    </div>
-
-                    <div class="card dashboard-card grafico-card">
-                        <h5>Ventas por Zona</h5>
-                        <canvas id="ventaZonaChart"></canvas>
-                    </div>
-
-                    <div class="card dashboard-card grafico-card">
-                        <h5>Ventas por Usuarios</h5>
-                        <canvas id="usuariosFrecuentesChart"></canvas>
+                        <div *ngIf="!tendencia">
+                            <div class="recomendacion-vacia">
+                                <i class="material-icons icono">warning</i>
+                                <h4>Oops...</h4>
+                                <p>Vuelva otro momento.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- GRAFICOS -->
-            <div [ngClass]="active == 'graficos' ? 'tab-pane fade show active' : 'tab-pane fade'">
-                <div class="graficos-grid">
-                    <div class="card dashboard-card grafico-card">
-                        <h5>Ventas por Usuario</h5>
-                        <canvas id="usuarioVentasChart"></canvas>
+                <div class="card recomendacion-card mt-4">
+                    <div class="card-body">
+                        <div class="recomendacion-icono">
+                            <i class="material-icons">psychology</i>
+                        </div>
+
+                        <div>
+                            <h5 class="icono-clientes-recomendacion">Recomendación de la IA</h5>
+                            <div *ngIf="tendencia">
+                                <p class="icono-clientes-recomendacion">{{tendencia?.recomendacion}}</p>
+                            </div>
+
+                            <div *ngIf="!tendencia">
+                                <p class="icono-clientes-recomendacion">Por favor, vuelva otro momento</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-lg-12 mb-4">
+                        <div class="card-completo">
+                            <div class="ml-card demanda-principal demanda-prediccion" *ngIf="franjasMayores.length > 0">
+                                <div class="ml-icon principal-icon">
+                                    <i class="material-icons">schedule</i>
+                                </div>
+
+                                <div class="ml-info">
+                                    <span class="etiqueta">Mayor demanda esperada</span>
+                                    <h2>{{franjasMayores[0].franja}}</h2>
+                                    <p style="font-size: 18px;">
+                                        {{franjasMayores[0].cantidadManana}}
+                                        {{franjasMayores[0].cantidadManana===1 ? 'pedido' :
+                                        'pedidos'}}
+                                    </p>
+                                </div>
+
+                                <div class="badge-ml">
+                                    IA
+                                </div>
+                            </div>
+
+                            <div class="secundarias">
+                                <div class="ml-card demanda-secundaria" *ngFor="let fm of franjasMayores.slice(1)">
+                                    <div class="ml-icon secundario-icon">
+                                        <i class="material-icons">access_time</i>
+                                    </div>
+
+                                    <div class="ml-info">
+                                        <small>Demanda</small>
+                                        <h3>{{fm.franja}}</h3>
+                                        <span style="font-size: 18px;">{{fm.cantidadManana}} {{fm.cantidadManana===1
+                                            ?
+                                            'pedido' :
+                                            'pedidos'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf="franjasMayores.length===0">
+                                <div class="recomendacion-vacia">
+                                    <i class="material-icons icono">warning</i>
+                                    <h4>Oops...</h4>
+                                    <p>Sin franjas mayores.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="card dashboard-card grafico-card">
-                        <h5>Platos por Categoría</h5>
-                        <canvas id="categoriaPlatosChart"></canvas>
+                    <div class="col-lg-12 mb-4">
+                        <div class="card-completo">
+                            <div class="ml-card categoria-principal" *ngIf="categoriasMayores.length > 0">
+                                <div class="ranking">
+                                    #1
+                                </div>
+
+                                <div class="ml-icon principal-icon">
+                                    <i class="material-icons">restaurant_menu</i>
+                                </div>
+
+                                <div class="ml-info">
+                                    <span class="etiqueta">Categoría líder</span>
+                                    <h2>{{categoriasMayores[0].categoria}}</h2>
+                                    <p style="font-size: 18px;">
+                                        {{categoriasMayores[0].cantidadManana}}
+                                        {{categoriasMayores[0].cantidadManana===1 ? 'plato estimado' :
+                                        'platos estimados'}}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="secundarias">
+                                <div class="ml-card categoria-secundaria"
+                                    *ngFor="let cm of categoriasMayores.slice(1); let i=index">
+                                    <div class="ranking-secundario">
+                                        #{{i+2}}
+                                    </div>
+
+                                    <div class="ml-icon secundario-icon">
+                                        <i class="material-icons">restaurant</i>
+                                    </div>
+
+                                    <div class="ml-info">
+                                        <small>Categoría</small>
+                                        <h5>{{cm.categoria}}</h5>
+                                        <span class="cm" style="font-size: 18px;">{{cm.cantidadManana}}
+                                            {{cm.cantidadManana===1 ? 'plato' :
+                                            'platos'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf="categoriasMayores.length===0">
+                                <div class="recomendacion-vacia">
+                                    <i class="material-icons icono">warning</i>
+                                    <h4>Oops...</h4>
+                                    <p>Sin categorias mayores.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="card-completo">
+                            <div class="ml-card plato-principal" *ngIf="platosCrecimientosMayores.length > 0">
+                                <div class="ranking">#1</div>
+
+                                <div class="ml-icon principal-icon">
+                                    <i class="material-icons">{{platosCrecimientosMayores[0].crecimiento>0 ?
+                                        'trending_up' : (platosCrecimientosMayores[0].crecimiento==0 ? 'trending_flat' :
+                                        'trending_down')}}</i>
+                                </div>
+
+                                <div class="ml-info">
+                                    <span class="etiqueta">Mayor crecimiento esperado</span>
+                                    <h2>{{platosCrecimientosMayores[0].nombre}}</h2>
+                                    <div class="porcentaje"
+                                        [ngClass]="{'positivo': platosCrecimientosMayores[0].crecimiento>0, 'negativo': platosCrecimientosMayores[0].crecimiento<0, 'neutro': platosCrecimientosMayores[0].crecimiento==0}">
+                                        {{platosCrecimientosMayores[0].crecimiento>0?'+':''}}
+                                        {{platosCrecimientosMayores[0].crecimiento}}%
+                                    </div>
+
+                                    <p style="font-size: 18px;">
+                                        {{platosCrecimientosMayores[0].cantidadManana}}
+                                        {{platosCrecimientosMayores[0].cantidadManana==1 ? 'plato estimado' : 'platos
+                                        estimados'}}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="secundarias">
+                                <div class="plato-secundario"
+                                    *ngFor="let pcm of platosCrecimientosMayores.slice(1); let i=index">
+                                    <div class="ranking-secundario">
+                                        #{{i+2}}
+                                    </div>
+
+                                    <div class="ml-icon secundario-icon">
+                                        <i class="material-icons">restaurant</i>
+                                    </div>
+
+                                    <div class="ml-info">
+                                        <small>Plato</small>
+                                        <h5>{{pcm.nombre}}</h5>
+                                        <div class="porcentaje-secundario"
+                                            [ngClass]="{'positivo': pcm.crecimiento>0, 'negativo': pcm.crecimiento<0, 'neutro': pcm.crecimiento==0}">
+                                            {{pcm.crecimiento>0?'+':''}}
+                                            {{pcm.crecimiento}}%
+                                        </div>
+                                        <span class="icono-clientes-recomendacion"
+                                            style="font-size: 18px;">{{pcm.cantidadManana}} {{pcm.cantidadManana==1 ?
+                                            'plato' :
+                                            'platos'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf="platosCrecimientosMayores.length===0">
+                                <div class="recomendacion-vacia">
+                                    <i class="material-icons icono">warning</i>
+                                    <h4>Oops...</h4>
+                                    <p>Sin crecimientos mayores.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div [ngClass]="active == 'mejores' ? 'tab-pane fade show active' : 'tab-pane fade'">
                 <h1>Los Mejores</h1>
+                <div class="menu-radial ml-0 divBotones">
+                    <button class="btn-central" (click)="abierto = !abierto" #btnInfo data-bs-toggle="tooltip"
+                        title="Más acciones" (mouseenter)="mostrarTooltip()">
+                        ➕
+                    </button>
+
+                    <button class="btn-opcion op1 btn btn-success" #btnInfoInicio (click)="onInicioTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipInicio()" title="Ir a Inicio">
+                        <i class="material-icons">home</i>
+                    </button>
+
+                    <button class="btn-opcion op2 btn btn-danger" #btnInfoVentas (click)="onVentasTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipVentas()" title="Ir a Ventas">
+                        <i class="material-icons">sell</i>
+                    </button>
+
+
+                    <button class="btn-opcion op3 btn btn-primary" #btnInfoGraficos (click)="onGraficoTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipGraficos()" title="Ir a Graficos">
+                        <i class="material-icons">pie_chart</i>
+                    </button>
+
+                    <button class="btn-opcion op4 btn btn-warning" #btnInfoRecomendaciones (click)="onRecomendacionTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipRecomendaciones()" title="Ir a Recomendación">
+                        <i class="material-icons">recommend</i>
+                    </button>
+
+                    <button class="btn-opcion op5 btn btn-warning" #btnInfoPredicciones (click)="onPrediccionTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPredicciones()" title="Ir a Predicción">
+                        <i class="material-icons">batch_prediction</i>
+                    </button>
+
+                    <button class="btn-opcion op6 btn btn-warning" #btnInfoMejores (click)="onMejoresTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipMejores()" title="Ir a Mejores">
+                        <i class="material-icons">workspace_premium</i>
+                    </button>
+
+                    <button class="btn-opcion op7 btn btn-warning" #btnInfoGestion (click)="onGestionTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipGestion()" title="Ir a Gestión">
+                        <i class="material-icons">engineering</i>
+                    </button>
+                </div>
                 <br>
-                <div class="mejor-cliente-card">
-                    <div class="cliente-header">
-                        <div class="trofeo">
-                            <i class="material-icons">workspace_premium</i>
-                        </div>
-                        <h4>Cliente Destacado</h4>
-                    </div>
-
-                    <div class="cliente-body">
-                        <div class="cliente-nombre">
-                            {{usuarioNombre}} {{usuarioApellido}}
+                <div *ngIf="usuarioUsername">
+                    <div class="mejor-cliente-card">
+                        <div class="cliente-header">
+                            <div class="trofeo">
+                                <i class="material-icons">workspace_premium</i>
+                            </div>
+                            <h4>Cliente Destacado</h4>
                         </div>
 
-                        <div class="cliente-username">
-                            @{{usuarioUsername}}
-                        </div>
-
-                        <div class="cliente-info">
-                            <div class="info-item mejores-datos">
-                                <span>📞 Teléfono</span>
-                                <strong>{{usuarioTelefono}}</strong>
+                        <div class="cliente-body">
+                            <div class="cliente-nombre">
+                                {{usuarioNombre}} {{usuarioApellido}}
                             </div>
 
-                            <div class="info-item mejores-datos">
-                                <span>📍 Zona</span>
-                                <strong>{{usuarioZona}}</strong>
+                            <div class="cliente-username">
+                                @{{usuarioUsername}}
                             </div>
 
-                            <div class="info-item compras">
-                                <span>🛒 Compras realizadas</span>
-                                <strong>{{usuarioCantidad}}</strong>
-                            </div>
+                            <div class="cliente-info">
+                                <div class="info-item mejores-datos">
+                                    <span>📞 Teléfono</span>
+                                    <strong>{{usuarioTelefono}}</strong>
+                                </div>
 
-                            <div class="info-item compras">
-                                <span>💵 Total</span>
-                                <strong>S/. {{usuarioTotal}}</strong>
+                                <div class="info-item mejores-datos">
+                                    <span>📍 Zona</span>
+                                    <strong>{{usuarioZona}}</strong>
+                                </div>
+
+                                <div class="info-item compras">
+                                    <span>🛒 Compras realizadas</span>
+                                    <strong>{{usuarioCantidad}}</strong>
+                                </div>
+
+                                <div class="info-item compras">
+                                    <span>💵 Total</span>
+                                    <strong>S/. {{usuarioTotal}}</strong>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <br>
-                <div class="mejor-plato-card">
-                    <div class="plato-header">
-                        <div class="medalla">
-                            <i class="material-icons">restaurant</i>
-                        </div>
-                        <h4>Plato Estrella</h4>
+
+                <div *ngIf="!usuarioUsername">
+                    <div class="recomendacion-vacia">
+                        <i class="material-icons icono">workspace_premium</i>
+                        <h4>Sin cliente destacado</h4>
+                        <p>No se encontraron sus datos.</p>
                     </div>
-
-                    <div class="plato-body">
-                        <img [src]="platoImagen" alt="Plato más vendido" class="plato-imagen">
-
-                        <div class="plato-nombre">{{platoNombre}}</div>
-
-                        <div class="plato-categoria">{{platoCategoria}}</div>
-
-                        <div class="plato-info">
-                            <div class="info-item mejores-datos">
-                                <span>💰 Precio</span>
-                                <strong>S/. {{platoPrecio}}</strong>
+                </div>
+                <br>
+                <div *ngIf="platoNombre">
+                    <div class="mejor-plato-card">
+                        <div class="plato-header">
+                            <div class="medalla">
+                                <i class="material-icons">restaurant</i>
                             </div>
+                            <h4>Plato Estrella</h4>
+                        </div>
 
-                            <div class="info-item ventas">
-                                <span>🔥 Pedidos</span>
-                                <strong>{{platoCantidad}}</strong>
-                            </div>
+                        <div class="plato-body">
+                            <img [src]="platoImagen" alt="Plato más vendido" class="plato-imagen">
 
-                            <div class="info-item ventas">
-                                <span>💵 Total</span>
-                                <strong>{{platoTotal}}</strong>
+                            <div class="plato-nombre">{{platoNombre}}</div>
+
+                            <div class="plato-categoria">{{platoCategoria}}</div>
+
+                            <div class="plato-info">
+                                <div class="info-item mejores-datos">
+                                    <span>💰 Precio</span>
+                                    <strong>S/. {{platoPrecio}}</strong>
+                                </div>
+
+                                <div class="info-item ventas">
+                                    <span>🔥 Pedidos</span>
+                                    <strong>{{platoCantidad}}</strong>
+                                </div>
+
+                                <div class="info-item ventas">
+                                    <span>💵 Total</span>
+                                    <strong>{{platoTotal}}</strong>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <br>
-                <div class="oferta-destacada-card">
-                    <div class="oferta-header">
-                        <div class="oferta-icono">
-                            <i class="material-icons">local_offer</i>
-                        </div>
-                        <h4>Promoción Estrella</h4>
+
+                <div *ngIf="!platoNombre">
+                    <div class="recomendacion-vacia">
+                        <i class="material-icons icono">restaurant</i>
+                        <h4>Sin plato estrella</h4>
+                        <p>No se encontraron sus datos.</p>
                     </div>
-
-                    <div class="oferta-body">
-                        <div class="oferta-nombre">
-                            {{ofertaNombre}}
+                </div>
+                <br>
+                <div *ngIf="ofertaNombre">
+                    <div class="oferta-destacada-card">
+                        <div class="oferta-header">
+                            <div class="oferta-icono">
+                                <i class="material-icons">local_offer</i>
+                            </div>
+                            <h4>Promoción Estrella</h4>
                         </div>
-                        <div class="oferta-descripcion">
-                            {{ofertaDescripcion}}
-                        </div>
 
-                        <div class="oferta-info">
-                            <div class="info-item mejores-datos">
-                                <span>💰 Precio Oferta</span>
-                                <strong>S/. {{ofertaPrecioNuevo}}</strong>
+                        <div class="oferta-body">
+                            <div class="oferta-nombre">
+                                {{ofertaNombre}}
+                            </div>
+                            <div class="oferta-descripcion">
+                                {{ofertaDescripcion}}
                             </div>
 
-                            <div class="info-item mejores-datos">
-                                <span>🍗 Platos Incluidos</span>
-                                <strong>{{ofertaPlatos}}</strong>
-                            </div>
+                            <div class="oferta-info">
+                                <div class="info-item mejores-datos">
+                                    <span>💰 Precio Oferta</span>
+                                    <strong>S/. {{ofertaPrecioNuevo}}</strong>
+                                </div>
 
-                            <div class="info-item ventas">
-                                <span>🔥 Compras</span>
-                                <strong>{{ofertaCantidad}}</strong>
-                            </div>
+                                <div class="info-item mejores-datos">
+                                    <span>🍗 Platos Incluidos</span>
+                                    <strong>{{ofertaPlatos}}</strong>
+                                </div>
 
-                            <div class="info-item ventas">
-                                <span>💵 Total</span>
-                                <strong>{{ofertaTotal}}</strong>
+                                <div class="info-item ventas">
+                                    <span>🔥 Compras</span>
+                                    <strong>{{ofertaCantidad}}</strong>
+                                </div>
+
+                                <div class="info-item ventas">
+                                    <span>💵 Total</span>
+                                    <strong>{{ofertaTotal}}</strong>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <br>
-                <div class="zona-destacada-card">
-                    <div class="zona-header">
-                        <div class="zona-icono">
-                            <i class="material-icons">location_on</i>
-                        </div>
-                        <h4>Zona Líder</h4>
+
+                <div *ngIf="!ofertaNombre">
+                    <div class="recomendacion-vacia">
+                        <i class="material-icons icono">local_offer</i>
+                        <h4>Sin promoción estrella</h4>
+                        <p>No se encontraron sus datos.</p>
                     </div>
-
-                    <div class="zona-body">
-                        <div class="zona-nombre">{{zonaNombre}}</div>
-
-                        <div class="ubicacion">
-                            {{zonaProvincia}}, {{zonaDepartamento}}
+                </div>
+                <br>
+                <div *ngIf="zonaNombre">
+                    <div class="zona-destacada-card">
+                        <div class="zona-header">
+                            <div class="zona-icono">
+                                <i class="material-icons">location_on</i>
+                            </div>
+                            <h4>Zona Líder</h4>
                         </div>
 
-                        <div class="zona-info">
-                            <div class="info-item mejores-datos">
-                                <span>📍 Zona</span>
-                                <strong>{{zonaNombre}}</strong>
+                        <div class="zona-body">
+                            <div class="zona-nombre">{{zonaNombre}}</div>
+
+                            <div class="ubicacion">
+                                {{zonaProvincia}}, {{zonaDepartamento}}
                             </div>
 
-                            <div class="info-item mejores-datos">
-                                <span>🏙 Provincia</span>
-                                <strong>{{zonaProvincia}}</strong>
-                            </div>
+                            <div class="zona-info">
+                                <div class="info-item mejores-datos">
+                                    <span>📍 Zona</span>
+                                    <strong>{{zonaNombre}}</strong>
+                                </div>
 
-                            <div class="info-item mejores-datos">
-                                <span>🌎 Departamento</span>
-                                <strong>{{zonaDepartamento}}</strong>
-                            </div>
+                                <div class="info-item mejores-datos">
+                                    <span>🏙 Provincia</span>
+                                    <strong>{{zonaProvincia}}</strong>
+                                </div>
 
-                            <div class="info-item pedidos">
-                                <span>🚚 Pedidos</span>
-                                <strong>{{zonaCantidad}}</strong>
-                            </div>
+                                <div class="info-item mejores-datos">
+                                    <span>🌎 Departamento</span>
+                                    <strong>{{zonaDepartamento}}</strong>
+                                </div>
 
-                            <div class="info-item pedidos">
-                                <span>💵 Total</span>
-                                <strong>{{zonaTotal}}</strong>
+                                <div class="info-item pedidos">
+                                    <span>🚚 Pedidos</span>
+                                    <strong>{{zonaCantidad}}</strong>
+                                </div>
+
+                                <div class="info-item pedidos">
+                                    <span>💵 Total</span>
+                                    <strong>{{zonaTotal}}</strong>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div *ngIf="!zonaNombre">
+                    <div class="recomendacion-vacia">
+                        <i class="material-icons icono">location_on</i>
+                        <h4>Sin zona líder</h4>
+                        <p>No se encontraron sus datos.</p>
                     </div>
                 </div>
             </div>
 
             <!-- ACCIONES -->
-            <div class="otros" [ngClass]="active == 'otros' ? 'tab-pane fade show active' : 'tab-pane fade'">
+            <div class="otros" [ngClass]="active == 'gestion' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                <h1>Gestión</h1>
+                <div class="menu-radial ml-0 divBotones">
+                    <button class="btn-central" (click)="abierto = !abierto" #btnInfo data-bs-toggle="tooltip"
+                        title="Más acciones" (mouseenter)="mostrarTooltip()">
+                        ➕
+                    </button>
+
+                    <button class="btn-opcion op1 btn btn-success" #btnInfoInicio (click)="onInicioTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipInicio()" title="Ir a Inicio">
+                        <i class="material-icons">home</i>
+                    </button>
+
+                    <button class="btn-opcion op2 btn btn-danger" #btnInfoVentas (click)="onVentasTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipVentas()" title="Ir a Ventas">
+                        <i class="material-icons">sell</i>
+                    </button>
+
+
+                    <button class="btn-opcion op3 btn btn-primary" #btnInfoGraficos (click)="onGraficoTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipGraficos()" title="Ir a Graficos">
+                        <i class="material-icons">pie_chart</i>
+                    </button>
+
+                    <button class="btn-opcion op4 btn btn-warning" #btnInfoRecomendaciones (click)="onRecomendacionTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipRecomendaciones()" title="Ir a Recomendación">
+                        <i class="material-icons">recommend</i>
+                    </button>
+
+                    <button class="btn-opcion op5 btn btn-warning" #btnInfoPredicciones (click)="onPrediccionTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPredicciones()" title="Ir a Predicción">
+                        <i class="material-icons">batch_prediction</i>
+                    </button>
+
+                    <button class="btn-opcion op6 btn btn-warning" #btnInfoMejores (click)="onMejoresTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipMejores()" title="Ir a Mejores">
+                        <i class="material-icons">workspace_premium</i>
+                    </button>
+
+                    <button class="btn-opcion op7 btn btn-warning" #btnInfoGestion (click)="onGestionTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipGestion()" title="Ir a Gestión">
+                        <i class="material-icons">engineering</i>
+                    </button>
+                </div>
                 <div class="card dashboard-card">
                     <div class="card-header">
+                        <i class="material-icons me-2">dashboard_customize</i>
                         Acciones rápidas
                     </div>
 
                     <div class="card-body">
                         <div class="acciones-grid">
-                            <a routerLink="/platos" routerLinkActive="active" style="text-decoration: none;">
-                                <div class="accion-card">
-                                    <div class="accion-icono"><i class="material-icons">menu_book</i>
-                                    </div>
-                                    <div class="accion-titulo"><span class="fw-bold">Platos</span></div>
-                                    <div class="accion-descripcion"><small class="d-block mt-1">Controle los
-                                            platos
-                                            a
-                                            mostrarse</small>
-                                    </div>
+                            <a routerLink="/platos" class="accion-card platos">
+                                <div class="accion-icono">
+                                    <i class="material-icons">restaurant_menu</i>
                                 </div>
+
+                                <div class="accion-info">
+                                    <h5>Platos</h5>
+                                    <small>Administrar menú</small>
+                                </div>
+
+                                <i class="material-icons flecha">arrow_forward</i>
                             </a>
 
-                            <a routerLink="/ingredientes" routerLinkActive="active" style="text-decoration: none;">
-                                <div class="accion-card">
-                                    <div class="accion-icono"><i class="material-icons">food_bank</i>
-                                    </div>
-                                    <div class="accion-titulo"><span class="fw-bold">Ingredientes</span>
-                                    </div>
-                                    <div class="accion-descripcion"><small class="d-block mt-1">Controle los
-                                            ingredientes y
-                                            alérgenos</small>
-                                    </div>
+                            <a routerLink="/ingredientes" class="accion-card ingredientes">
+                                <div class="accion-icono">
+                                    <i class="material-icons">food_bank</i>
                                 </div>
+
+                                <div class="accion-info">
+                                    <h5>Ingredientes</h5>
+                                    <small>Stock y alérgenos</small>
+                                </div>
+
+                                <i class="material-icons flecha">arrow_forward</i>
                             </a>
 
-                            <a routerLink="/usuarios" routerLinkActive="active" style="text-decoration: none;">
-                                <div class="accion-card">
-                                    <div class="accion-icono"><i class="material-icons">manage_accounts</i>
-                                    </div>
-                                    <div class="accion-titulo"><span class="fw-bold">Usuarios</span></div>
-                                    <div class="accion-descripcion"><small class="d-block mt-1">Controla los
-                                            usuarios</small></div>
+                            <a routerLink="/usuarios" class="accion-card usuarios">
+                                <div class="accion-icono">
+                                    <i class="material-icons">groups</i>
                                 </div>
+
+                                <div class="accion-info">
+                                    <h5>Usuarios</h5>
+                                    <small>Clientes y personal</small>
+                                </div>
+
+                                <i class="material-icons flecha">arrow_forward</i>
                             </a>
 
-                            <a routerLink="/mensajes" routerLinkActive="active" style="text-decoration: none;">
-                                <div class="accion-card">
-                                    <div class="accion-icono"><i class="material-icons">mail</i></div>
-                                    <div class="accion-titulo"><span class="fw-bold">Ver mensajes</span>
-                                    </div>
-                                    <div class="accion-descripcion"><small class="d-block mt-1">Revise los
-                                            mensajes
-                                            de
-                                            contacto</small></div>
+                            <a routerLink="/mensajes" class="accion-card mensajes">
+                                <div class="accion-icono">
+                                    <i class="material-icons">mail</i>
                                 </div>
+
+                                <div class="accion-info">
+                                    <h5>Mensajes</h5>
+                                    <small>Centro de contacto</small>
+                                </div>
+
+                                <i class="material-icons flecha">arrow_forward</i>
                             </a>
 
-                            <a routerLink="/sistema" routerLinkActive="active" style="text-decoration: none;">
-                                <div class="accion-card">
-                                    <div class="accion-icono"><i class="material-icons">system_update_alt</i>
-                                    </div>
-                                    <div class="accion-titulo"><span class="fw-bold">Sistema</span></div>
-                                    <div class="accion-descripcion"><small class="d-block mt-1">Revise lo
-                                            del
-                                            sistema</small></div>
+                            <a routerLink="/sistema" class="accion-card sistema">
+                                <div class="accion-icono">
+                                    <i class="material-icons">settings</i>
                                 </div>
+
+                                <div class="accion-info">
+                                    <h5>Sistema</h5>
+                                    <small>Configuración</small>
+                                </div>
+
+                                <i class="material-icons flecha">arrow_forward</i>
                             </a>
 
-                            <a routerLink="/mesa" routerLinkActive="active" style="text-decoration: none;">
-                                <div class="accion-card">
-                                    <div class="accion-icono"><i class="material-icons">table_restaurant</i>
-                                    </div>
-                                    <div class="accion-titulo"><span class="fw-bold">Mesa</span></div>
-                                    <div class="accion-descripcion"><small class="d-block mt-1">Controle las mesas a mostrarse</small></div>
+                            <a routerLink="/mesa" class="accion-card mesas">
+                                <div class="accion-icono">
+                                    <i class="material-icons">table_restaurant</i>
                                 </div>
+
+                                <div class="accion-info">
+                                    <h5>Mesas</h5>
+                                    <small>Administrar salón</small>
+                                </div>
+
+                                <i class="material-icons flecha">arrow_forward</i>
                             </a>
                         </div>
                     </div>

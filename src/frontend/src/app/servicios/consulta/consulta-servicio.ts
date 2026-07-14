@@ -180,4 +180,24 @@ export class ConsultaServicio {
   obtenerCantidadDiaPedidos(): Observable<CantidadMetodoPago[]>{
     return this.http.get<CantidadMetodoPago[]>(this.baseUrl+'/dia-pedidos');
   }
+
+  obtenerOfertaCantidadPlatos(): Observable<CantidadMetodoPago[]>{
+    return this.http.get<CantidadMetodoPago[]>(this.baseUrl+'/oferta-cantidad-platos');
+  }
+
+  obtenerAlergiaCantidadIngredientes(): Observable<CantidadMetodoPago[]>{
+    return this.http.get<CantidadMetodoPago[]>(this.baseUrl+'/alergia-ingredientes');
+  }
+
+  obtenerCategoriaCantidadIngredientes(): Observable<CantidadMetodoPago[]>{
+    return this.http.get<CantidadMetodoPago[]>(this.baseUrl+'/categoria-cantidad-ingredientes');
+  }
+
+  obtenerCantidadIngredientesPlato(): Observable<CantidadMetodoPago[]>{
+    return this.http.get<CantidadMetodoPago[]>(this.baseUrl+'/plato-cantidad-ingredientes');
+  }
+
+  obtenerMayorCantidadPlatosVenta(): Observable<CantidadMetodoPago[]>{
+    return this.http.get<CantidadMetodoPago[]>(this.baseUrl+'/mayor-cantidad-platos-venta');
+  }
 }

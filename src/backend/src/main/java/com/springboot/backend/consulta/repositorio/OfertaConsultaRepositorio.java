@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.springboot.backend.consulta.dto.CantidadOfertasDto;
 import com.springboot.backend.consulta.dto.MejorOfertaDto;
+import com.springboot.backend.consulta.dto.OfertaCantidadPlatosDto;
 import com.springboot.backend.consulta.dto.OfertaMesaDto;
 import com.springboot.backend.tabla.oferta.modelo.Oferta;
 
@@ -31,9 +32,16 @@ public interface OfertaConsultaRepositorio extends JpaRepository<Oferta, Long> {
         MejorOfertaDto obtenerMejorOferta();
 
         @Query(value = """
-                                     select nombre, cantidad, descripcion, precio_nuevo as precio from ofertas
+                        select nombre, cantidad, descripcion, precio_nuevo as precio from ofertas
                         where nombre not in ('Sin promoción')
                         order by nombre asc;
-                                            """, nativeQuery = true)
+                        """, nativeQuery = true)
         List<OfertaMesaDto> obtenerOfertaParaMesa();
+
+        @Query(value = """
+                        select nombre, cantidad from ofertas
+                        where nombre not like 'Sin promoción'
+                        order by cantidad desc;
+                        """, nativeQuery = true)
+        List<OfertaCantidadPlatosDto> obtenerOfertaCantidadPlatos();
 }

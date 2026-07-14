@@ -53,6 +53,15 @@
         </a>
       </li>
 
+      <li *ngIf="authService.logueado()" class="nav-item">
+        <div *ngIf="rol!='ROLE_USER'">
+          <a routerLink="dashboard" routerLinkActive="active" class="nav-link" (click)="irDashboard(usuarioRol); cerrarMenu()">
+            <i class="material-icons">dashboard</i>
+            <span>Dashboard</span>
+          </a>
+        </div>
+      </li>
+
       <!-- Separador (solo en desktop) -->
       <li class="nav-separator"></li>
 

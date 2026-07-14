@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';  // ← Agrega RouterLink
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -18,11 +18,13 @@ import Swal from 'sweetalert2';
 export class IniciarSesionComponent {
   zonas: Zona[] | null;
 
-  constructor(private authService: Auth, private router: Router, private http: HttpClient, private zonaServicio: ZonaServicio) { }
+  constructor(private authService: Auth, private router: Router, private http: HttpClient, private zonaServicio: ZonaServicio, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    this.cd.detectChanges();
     this.zonaServicio.obtenerListaDeZonas().subscribe(dato => {
       this.zonas = dato;
+      this.cd.detectChanges();
     });
   }
 
@@ -57,7 +59,9 @@ export class IniciarSesionComponent {
           confirmButtonText: 'Ok'
         }).then((result) => {
           if (result.isConfirmed) {
-            if(rol==='ROLE_ADMIN'){
+            if(rol==='ROLE_USER'){
+              this.router.navigate(['/carta'])
+            } else if(rol==='ROLE_ADMIN'){
               this.router.navigate(['/dashboard']);
             } else if(rol==='ROLE_COCINERO'){
               this.router.navigate(['/dashboard-cocinero'])

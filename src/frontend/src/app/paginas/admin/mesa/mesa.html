@@ -67,34 +67,30 @@
             <div class="area-mesas">
                 <div class="card-total">
                     <div class="card-4">
-                        <div class="mesa-vacia" (click)="seleccionarMesa('Primer piso','Sala Uno')" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <i class="material-icons icono">add</i>
-                            <h4>Sin mesa</h4>
-                            <p>Cree una mesa</p>
-                        </div>
+                        <div *ngFor="let _ of cantidadMesas; let i = index">
+                            <ng-container *ngIf="mesaCuatro[i]; else mesaVacia">
+                                <div class="mesa mesa-4">
+                                    <div class="silla top-1"></div>
+                                    <div class="silla bottom-1"></div>
+                                    <div class="silla top-2"></div>
+                                    <div class="silla bottom-2"></div>
+                                    <div class="tablero tablero-4">
+                                        M{{ i + 1 }}
+                                    </div>
+                                </div>
+                            </ng-container>
 
-                        <div class="mesa-vacia" (click)="seleccionarMesa('Primer piso','Sala Uno')" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <i class="material-icons icono">add</i>
-                            <h4>Sin mesa</h4>
-                            <p>Cree una mesa</p>
-                        </div>
+                            <ng-template #mesaVacia>
+                                <div>
+                                    <div class="mesa-vacia" (click)="seleccionarMesa('Primer piso','Sala Uno')"
+                                        data-bs-toggle="modal" data-bs-target="#exampleModal">
 
-                        <div class="mesa-vacia" (click)="seleccionarMesa('Primer piso','Sala Uno')" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <i class="material-icons icono">add</i>
-                            <h4>Sin mesa</h4>
-                            <p>Cree una mesa</p>
-                        </div>
-
-                        <div class="mesa-vacia" (click)="seleccionarMesa('Primer piso','Sala Uno')" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <i class="material-icons icono">add</i>
-                            <h4>Sin mesa</h4>
-                            <p>Cree una mesa</p>
-                        </div>
-
-                        <div class="mesa-vacia" (click)="seleccionarMesa('Primer piso','Sala Uno')" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <i class="material-icons icono">add</i>
-                            <h4>Sin mesa</h4>
-                            <p>Cree una mesa</p>
+                                        <i class="material-icons icono">add</i>
+                                        <h4>Sin mesa</h4>
+                                        <p>Cree una mesa</p>
+                                    </div>
+                                </div>
+                            </ng-template>
                         </div>
                     </div>
 
@@ -103,7 +99,7 @@
                     </div>
 
                     <div class="card-6">
-
+                        a
                     </div>
                 </div>
             </div>
@@ -206,7 +202,8 @@
                                     name="ubicacion" readonly>
                             </div>
 
-                            <button class="btn btn-warning btn-sm p-2" style="border-radius: 20px;" (click)="onSubmit()">Registrar</button>
+                            <button class="btn btn-warning btn-sm p-2" style="border-radius: 20px;"
+                                (click)="onSubmit()">Registrar</button>
                         </form>
                     </div>
 

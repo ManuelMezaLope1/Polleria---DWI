@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot.backend.consulta.dto.AlergiaIngredientesDto;
 import com.springboot.backend.consulta.dto.CantidadAlergiasDto;
 import com.springboot.backend.consulta.dto.CantidadCategoriasDto;
 import com.springboot.backend.consulta.dto.CantidadEstadoPedidoDto;
@@ -29,6 +30,7 @@ import com.springboot.backend.consulta.dto.MejorPlatoDto;
 import com.springboot.backend.consulta.dto.MejorPlatoPedidoHoyDto;
 import com.springboot.backend.consulta.dto.MejorUsuarioDto;
 import com.springboot.backend.consulta.dto.MejorZonaDto;
+import com.springboot.backend.consulta.dto.OfertaCantidadPlatosDto;
 import com.springboot.backend.consulta.dto.OfertaMesaDto;
 import com.springboot.backend.consulta.dto.OfertasPorVentasDto;
 import com.springboot.backend.consulta.dto.PlatoMesaDto;
@@ -295,6 +297,31 @@ public class ReporteControlador {
     @GetMapping("/ofertas-mesa")
     public List<OfertaMesaDto> ofertaParaMesa() {
         return ofertaConsultaRepositorio.obtenerOfertaParaMesa();
+    }
+    
+    @GetMapping("/oferta-cantidad-platos")
+    public List<OfertaCantidadPlatosDto> obtenerOfertaCantidadPlatos() {
+        return ofertaConsultaRepositorio.obtenerOfertaCantidadPlatos();
+    }
+    
+    @GetMapping("/alergia-ingredientes")
+    public List<AlergiaIngredientesDto> obtenerAlergiaIngredientes() {
+        return alergiaConsultaRepositorio.obtenerAlergiaIngredientes();
+    }
+    
+    @GetMapping("/categoria-cantidad-ingredientes")
+    public List<AlergiaIngredientesDto> obtenerCategoriaCantidadIngredientes() {
+        return ingredienteConsultaRepositorio.obtenerCategoriaCantidadIngredientes();
+    }
+    
+    @GetMapping("/plato-cantidad-ingredientes")
+    public List<AlergiaIngredientesDto> obtenerCantidadIngredientesPlato() {
+        return platoConsultaRepositorio.obtenerCantidadIngredientesPlato();
+    }
+    
+    @GetMapping("/mayor-cantidad-platos-venta")
+    public List<MejorOfertaPedidoHoyDto> obtenerMayorCantidadPlatoVenta() {
+        return ventaConsultaRepositorio.obtenerMayorCantidadPlatosVenta();
     }
     
 }
