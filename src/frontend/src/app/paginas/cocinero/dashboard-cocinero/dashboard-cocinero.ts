@@ -310,7 +310,6 @@ export class DashboardCocinero {
 
     this.pedidoServicio.obtenerTodosLosPedidosPendientes().subscribe((dato: any) => {
       this.pedidosPendientes = dato;
-      console.log(this.pedidosPendientes)
       this.cd.detectChanges();
     });
 
@@ -320,15 +319,9 @@ export class DashboardCocinero {
     });
 
     this.pedidoServicio.obtenerTodosLosPedidosListos().subscribe(dato => {
-      this.pedidosListos = dato;
+      this.pedidosListos = dato.slice(0,30);
       this.cd.detectChanges();
     })
-
-    this.usuarioServicio.obtenerPerfil().subscribe((dato: any) => {
-      this.pedido.usuario = dato;
-      this.pedido.username = dato.username;
-      this.cd.detectChanges();
-    });
 
     this.consultaServicio.obtenerTodosLosIngredientes().subscribe(dato => {
       this.ingredientes = dato;
@@ -380,10 +373,6 @@ export class DashboardCocinero {
 
     this.pedido.fecha_creacion = new Date().toLocaleString();
 
-    console.log(this.idPedido)
-    console.log(this.ventaId)
-    console.log(this.idMesa)
-
     this.pedidoServicio.actualizarPedidoPendiente(this.idPedido, this.pedido).pipe(
       tap(dato => {
       }),
@@ -404,7 +393,7 @@ export class DashboardCocinero {
 
     this.ventaServicio.actualizarVentaPendiente(this.ventaId, this.venta).pipe(
       tap(data => {
-        window.location.reload()
+        window.location.reload();
       }),
       catchError(err => {
         console.error(err);
@@ -440,7 +429,7 @@ export class DashboardCocinero {
 
     this.ventaServicio.actualizarVentaPreparada(this.ventaIdPreparado, this.venta).pipe(
       tap(data => {
-        window.location.reload()
+        window.location.reload();
       }),
       catchError(err => {
         console.error(err);

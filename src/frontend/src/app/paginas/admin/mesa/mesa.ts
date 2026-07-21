@@ -119,17 +119,29 @@ export class Mesa {
     if (this.mesa.capacidad === undefined || this.mesa.capacidad === null) {
       Swal.fire('Oops...', 'Falta la capacidad', 'warning');
       return;
-    } else if (this.mesaCuatro.length === 6) {
-      Swal.fire('Oops...', 'Ya no caben más mesas con capacidad 4', 'warning');
+    } else if (this.capacidadSeleccionada === 4) {
+      if (this.mesaCuatro.length === 6) {
+        Swal.fire('Oops...', 'Ya no caben más mesas con capacidad 4', 'warning');
+        return;
+      }
       return;
-    } else if (this.mesaSeis.length === 4) {
-      Swal.fire('Oops...', 'Ya no caben más mesas con capacidad 6', 'warning');
+    } else if (this.capacidadSeleccionada === 6) {
+      if (this.mesaSeis.length === 4) {
+        Swal.fire('Oops...', 'Ya no caben más mesas con capacidad 6', 'warning');
+        return;
+      }
       return;
-    } else if (this.mesaOcho.length === 6) {
-      Swal.fire('Oops...', 'Ya no caben más mesas con capacidad 8', 'warning');
+    } else if (this.capacidadSeleccionada === 8) {
+      if (this.mesaOcho.length === 6) {
+        Swal.fire('Oops...', 'Ya no caben más mesas con capacidad 8', 'warning');
+        return;
+      }
       return;
-    } else if (this.mesaDiez.length === 4) {
-      Swal.fire('Oops...', 'Ya no caben más mesas con capacidad 10', 'warning');
+    } else if (this.capacidadSeleccionada === 10) {
+      if (this.mesaDiez.length === 4) {
+        Swal.fire('Oops...', 'Ya no caben más mesas con capacidad 10', 'warning');
+        return;
+      }
       return;
     }
 

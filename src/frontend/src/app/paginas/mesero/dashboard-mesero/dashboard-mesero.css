@@ -136,6 +136,12 @@ body {
             #ffb347);
 }
 
+.kpi-mesas {
+    background: linear-gradient(135deg,
+            #7441038f,
+            #7441038f);
+}
+
 .menu-pedidos {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;

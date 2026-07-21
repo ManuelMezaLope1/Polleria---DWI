@@ -37,7 +37,7 @@
                     <div class="kpi-card kpi-pendiente">
                         <i class="material-icons">table_restaurant</i>
                         <h3>{{cantidadMesasPendientes??0}}</h3>
-                        <span>mesas libres</span>
+                        <span>mesas pendientes</span>
                     </div>
 
                     <div class="kpi-card kpi-preparando">
@@ -56,6 +56,32 @@
 
             <div [ngClass]="active == 'mesas' ? 'tab-pane fade show active' : 'tab-pane fade'">
                 <h1>Mesas</h1>
+
+                <div class="kpi-grid">
+                    <div class="kpi-card kpi-mesas">
+                        <i class="material-icons">table_restaurant</i>
+                        <h3>{{cantidadMesasCuatro??0}}</h3>
+                        <span>mesas de 4 asientos</span>
+                    </div>
+
+                    <div class="kpi-card kpi-mesas">
+                        <i class="material-icons">table_restaurant</i>
+                        <h3>{{cantidadMesasSeis??0}}</h3>
+                        <span>mesas de 6 asientos</span>
+                    </div>
+
+                    <div class="kpi-card kpi-mesas">
+                        <i class="material-icons">table_restaurant</i>
+                        <h3>{{cantidadMesasOcho??0}}</h3>
+                        <span>mesas de 8 asientos</span>
+                    </div>
+
+                    <div class="kpi-card kpi-mesas">
+                        <i class="material-icons">table_restaurant</i>
+                        <h3>{{cantidadMesasDiez??0}}</h3>
+                        <span>mesas de 10 asientos</span>
+                    </div>
+                </div>
 
                 <div class="menu-pedidos">
                     <button class="menu-pedido btn-pedido-1" [class.active]="activeMesas==='cuatro'"
@@ -255,7 +281,8 @@
                 <div class="row">
                     <div class="col-lg-4 mb-4" *ngFor="let cv of cantidadesMesa">
                         <div class="mesa-resumen">
-                            <div class="mesa-header" [ngClass]="{'mesa-libre': cv.estado=='Libre', 'mesa-pendiente': cv.estado=='Pendiente', 'mesa-preparando': cv.estado=='Preparando', 'mesa-listo': cv.estado=='Listo'}">
+                            <div class="mesa-header"
+                                [ngClass]="{'mesa-libre': cv.estado=='Libre', 'mesa-pendiente': cv.estado=='Pendiente', 'mesa-preparando': cv.estado=='Preparando', 'mesa-listo': cv.estado=='Listo'}">
                                 <div>
                                     <h4>
                                         <i class="material-icons">table_restaurant</i>

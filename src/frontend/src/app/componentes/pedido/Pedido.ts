@@ -8,8 +8,6 @@ export class Pedido{
     hora_entrega: Time;
     fecha_creacion: string;
     fecha_entrega: string;
-    usuario: any;
-    username: string;
     cantidad: number;
     descripcion: string;
     observacion: string;
