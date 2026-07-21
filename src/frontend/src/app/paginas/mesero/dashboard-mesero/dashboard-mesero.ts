@@ -22,9 +22,16 @@ export class DashboardMesero {
   cantidadMesasComiendo: any;
 
   mesasCuatro: any[] = [];
+  cantidadMesasCuatro: any;
+
   mesasSeis: any[] = [];
+  cantidadMesasSeis: any;
+
   mesasOcho: any[] = [];
+  cantidadMesasOcho: any;
+
   mesasDiez: any[] = [];
+  cantidadMesasDiez: any;
 
   ventasMesa: any[]=[];
   cantidadVentasMesa: any;
@@ -80,21 +87,25 @@ export class DashboardMesero {
   cargarMesas() {
     this.mesaServicio.obtenerMesaCuatro().subscribe(datos => {
       this.mesasCuatro = datos;
+      this.cantidadMesasCuatro=this.mesasCuatro.length;
       this.cd.detectChanges();
     })
 
     this.mesaServicio.obtenerMesaSeis().subscribe(datos => {
       this.mesasSeis = datos;
+      this.cantidadMesasSeis=this.mesasSeis.length;
       this.cd.detectChanges();
     })
 
     this.mesaServicio.obtenerMesaOcho().subscribe(datos => {
       this.mesasOcho = datos;
+      this.cantidadMesasOcho=this.mesasOcho.length;
       this.cd.detectChanges();
     })
 
     this.mesaServicio.obtenerMesaDiez().subscribe(datos => {
       this.mesasDiez = datos;
+      this.cantidadMesasDiez=this.mesasDiez.length;
       this.cd.detectChanges();
     })
   }

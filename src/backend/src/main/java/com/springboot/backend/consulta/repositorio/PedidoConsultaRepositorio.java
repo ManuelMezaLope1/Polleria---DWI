@@ -88,12 +88,13 @@ public interface PedidoConsultaRepositorio extends JpaRepository<Pedido, Long> {
         List<MejorIngredientePedidoHoyDto> obtenerMejorIngredienteHoy();
 
         @Query(value = """
-                        SELECT pe.id, STR_TO_DATE(pe.fecha_creacion, '%d/%m/%Y') AS fecha,
+                        SELECT pe.id, v.id AS venta, v.mesa_id AS mesa, STR_TO_DATE(pe.fecha_creacion, '%d/%m/%Y') AS fecha,
                         TIME(STR_TO_DATE(pe.fecha_creacion, '%d/%m/%Y, %H:%i:%s')) AS hora_inicio,
-                        TIME(STR_TO_DATE(pe.fecha_entrega, '%d/%m/%Y, %H:%i:%s')) AS hora_fin, pe.username,
+                        TIME(STR_TO_DATE(pe.fecha_entrega, '%d/%m/%Y, %H:%i:%s')) AS hora_entrega,
                         dv.cantidad, dv.descripcion, pe.observacion, pe.estado_pedido FROM pedidos pe
                         JOIN venta v ON v.id=pe.venta_id
                         JOIN detalle_venta dv ON dv.venta_id=v.id
+                        JOIN mesa m ON m.id=v.mesa_id
                         WHERE pe.estado_pedido='Pendiente' and observacion not in ('Sin observación')
                         ORDER BY STR_TO_DATE(pe.fecha_creacion, '%d/%m/%Y, %H:%i:%s') DESC
                         LIMIT 7;

@@ -184,11 +184,6 @@ export class Carro {
         this.venta.zona = this.usuario.zona;
         this.venta.fecha = new Date().toLocaleString();
 
-        this.pedido.usuario = {
-          id: this.usuario.id
-        }
-        this.pedido.username = this.usuario.username;
-
         this.cd.detectChanges();
       }),
       catchError(err => {
@@ -198,7 +193,7 @@ export class Carro {
     ).subscribe();
 
     this.mesaServicio.obtenerTodasLasMesas().subscribe(datos=>{
-      this.venta.mesa=datos.find(m=>m.estado==='Sin estado');
+      this.venta.mesa=datos.find(m=>m.nombre==='Sin nombre');
       this.cd.detectChanges();
     })
   }

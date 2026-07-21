@@ -10,14 +10,13 @@ public class PedidoDto {
     private Date fecha;
     private Time hora_inicio;
     private Time hora_entrega;
-    private String username;
     private Integer cantidad;
     private String descripcion;
     private String observacion;
     private String estado_pedido;
 
 
-    public PedidoDto(Long id, Long venta, Long mesa, Date fecha, Time hora_inicio, Time hora_entrega, String username,
+    public PedidoDto(Long id, Long venta, Long mesa, Date fecha, Time hora_inicio, Time hora_entrega,
             Integer cantidad, String descripcion, String observacion, String estado_pedido) {
         this.id = id;
         this.venta = venta;
@@ -25,7 +24,6 @@ public class PedidoDto {
         this.fecha = fecha;
         this.hora_inicio = hora_inicio;
         this.hora_entrega = hora_entrega;
-        this.username = username;
         this.cantidad = cantidad;
         this.descripcion = descripcion;
         this.observacion = observacion;
@@ -78,14 +76,6 @@ public class PedidoDto {
 
     public void setHora_entrega(Time hora_entrega) {
         this.hora_entrega = hora_entrega;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public Integer getCantidad() {

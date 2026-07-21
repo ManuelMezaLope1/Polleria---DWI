@@ -340,9 +340,6 @@
 
                             <div class="pedido-footer">
                                 <form>
-                                    <input type="hidden" id="usuario" name="usuario" [(ngModel)]="pedido.usuario">
-                                    <input type="hidden" id="username" name="username" [(ngModel)]="pedido.username">
-
                                     <button class="btn btn-warning btn-sm p-2" style="border-radius: 20px;"
                                         (click)="actualizarPedidoPendiente(ped.id, ped.venta, ped.mesa); pedido.venta=ped.venta">Preparar</button>
                                 </form>
@@ -397,9 +394,6 @@
 
                                 <div class="pedido-footer">
                                     <form>
-                                        <input type="hidden" id="usuario" name="usuario" [(ngModel)]="pedido.usuario">
-                                        <input type="hidden" id="username" name="username"
-                                            [(ngModel)]="pedido.username">
 
                                         <button class="btn btn-success btn-sm p-2" style="border-radius: 20px;"
                                             (click)="actualizarPedidoPreparado(ped.id, ped.venta, ped.mesa); pedido.venta=ped.venta">Listo</button>
