@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.springboot.backend.tabla.detalleventa.modelo.DetalleVenta;
+import com.springboot.backend.tabla.mesa.modelo.Mesa;
 import com.springboot.backend.tabla.metodopago.modelo.MetodoPago;
 import com.springboot.backend.tabla.usuario.modelo.Usuario;
 import com.springboot.backend.tabla.zona.modelo.Zona;
@@ -49,10 +50,15 @@ public class Venta {
     @Column(name="estado_venta", nullable=false)
     private String estado_venta;
 
+    @ManyToOne
+    @JoinColumn(name="mesa_id")
+    @JsonIgnoreProperties({"venta"})
+    private Mesa mesa;
+
     public Venta() {}
 
     public Venta(Long id, Usuario usuario, String nombre, String username, Zona zona, String fecha,
-            MetodoPago metodopago, List<DetalleVenta> detalleVenta, String estado_venta) {
+            MetodoPago metodopago, List<DetalleVenta> detalleVenta, String estado_venta, Mesa mesa) {
         this.id = id;
         this.usuario = usuario;
         this.nombre = nombre;
@@ -62,10 +68,11 @@ public class Venta {
         this.metodopago = metodopago;
         this.detalleVenta = detalleVenta;
         this.estado_venta = estado_venta;
+        this.mesa = mesa;
     }
 
     public Venta(Usuario usuario, String nombre, String username, Zona zona, String fecha, MetodoPago metodopago,
-            List<DetalleVenta> detalleVenta, String estado_venta) {
+            List<DetalleVenta> detalleVenta, String estado_venta, Mesa mesa) {
         this.usuario = usuario;
         this.nombre = nombre;
         this.username = username;
@@ -74,6 +81,7 @@ public class Venta {
         this.metodopago = metodopago;
         this.detalleVenta = detalleVenta;
         this.estado_venta = estado_venta;
+        this.mesa = mesa;
     }
 
     public Long getId() {
@@ -146,6 +154,14 @@ public class Venta {
 
     public void setEstado_venta(String estado_venta) {
         this.estado_venta = estado_venta;
+    }
+
+    public Mesa getMesa() {
+        return mesa;
+    }
+
+    public void setMesa(Mesa mesa) {
+        this.mesa = mesa;
     }
 
     @Override

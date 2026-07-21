@@ -339,21 +339,13 @@
                         </div>
 
                         <div class="botones-grid">
-                            <div class="menu-cuenta">
-                                <div class="border border-dark rounded">
-                                    <a [ngClass]="active == 'platos' ? 'nav-link active' : 'nav-link'" id="tab-registro"
-                                        (click)="onPlatosTab()" style="display: inline-flex"><i
-                                            class="material-icons mr-2">menu_book</i>Platos</a>
-                                </div>
-                            </div>
+                            <button class="menu-pedido btn-pedido-1" [class.active]="active==='platos'"
+                                (click)="onPlatosTab()"><i class="material-icons">menu_book</i>Platos
+                            </button>
 
-                            <div class="menu-cuenta">
-                                <div class="border border-dark rounded">
-                                    <a [ngClass]="active == 'ofertas' ? 'nav-link active' : 'nav-link'"
-                                        id="tab-historial" (click)="onOfertasTab()" style="display: inline-flex"><i
-                                            class="material-icons mr-2">percent</i>Ofertas</a>
-                                </div>
-                            </div>
+                            <button class="menu-pedido btn-pedido-2" [class.active]="active==='ofertas'"
+                                (click)="onOfertasTab()"><i class="material-icons">percent</i>Ofertas
+                            </button>
                         </div>
                         <br>
                         <div [ngClass]="active == 'platos' ? 'tab-pane fade show active' : 'tab-pane fade'">
@@ -525,7 +517,8 @@
                         </ng-container>
                     </select>-->
 
-                    <select class="form-control mr-3" name="platos" id="platos" [(ngModel)]="platoObservacion" (change)="onSeleccionarPlato(platoObservacion)">
+                    <select class="form-control mr-3" name="platos" id="platos" [(ngModel)]="platoObservacion"
+                        (change)="onSeleccionarPlato(platoObservacion)">
                         <option [ngValue]="null">--Seleccione el plato--</option>
                         <option *ngFor="let pla of platoAgregadoObservacion" [ngValue]="pla">{{pla.nombre}}</option>
                     </select>
@@ -544,7 +537,8 @@
                     <select class="form-control ml-3" name="ingredientes" id="ingredientes"
                         [(ngModel)]="ingredienteObservacion">
                         <option [ngValue]="null">--Seleccione primero un plato--</option>
-                        <option *ngFor="let item of ingredientesFiltrados" [ngValue]="item">{{item.ingrediente}}</option>
+                        <option *ngFor="let item of ingredientesFiltrados" [ngValue]="item">{{item.ingrediente}}
+                        </option>
                     </select>
 
                     <button class="btn btn-primary ml-3" (click)="click()">Agregar</button>

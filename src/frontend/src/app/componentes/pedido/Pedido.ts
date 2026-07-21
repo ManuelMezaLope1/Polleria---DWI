@@ -15,4 +15,5 @@ export class Pedido{
     observacion: string;
     estado_pedido: string;
     venta: any;
+    mesa: any;
 }

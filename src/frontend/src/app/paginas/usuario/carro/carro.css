@@ -186,32 +186,49 @@ body {
 
 .botones-grid{
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: 1fr 1fr;
 }
 
-.menu-cuenta{
-    transition: all 0.3s ease;
-}
+.menu-pedido {
+    color: white;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: left;
+    transition: .3s;
+    cursor: pointer;
 
-.menu-cuenta:hover{
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateX(5px);
-}
-
-.menu-cuenta a {
+    display: flex;
     align-items: center;
-    padding: 12px 15px;
-    text-decoration: none;
-    color: #222;
-    border-radius: 8px;
-    transition: all 0.3s ease;
+    gap: 12px;
 }
 
-.menu-cuenta a:hover,
-.menu-cuenta a.activo {
-    background: rgba(255, 255, 255, 0.1);
+.menu-pedido:hover {
+    background: white;
+    color: #ff6b35;
+    border-color: #ff6b35;
     transform: translateX(5px);
+}
+
+.menu-pedido.active {
+    background: white;
+    color: #ff6b35;
+    border-color: #ff6b35;
+    transform: translateX(5px);
+}
+
+.btn-pedido-1 {
+    background: #ff6b35;
+    border-color: #ff6b35;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-right-color: #222;
+}
+
+.btn-pedido-2 {
+    background: #ff6b35;
+    border-color: #ff6b35;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
 }
 
 .oferta-card{

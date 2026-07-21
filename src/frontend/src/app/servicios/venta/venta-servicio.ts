@@ -10,6 +10,7 @@ export class VentaServicio {
   private baseUrl="http://localhost:8080/api/v1/private/ventas";
   private baseUrlPendiente="http://localhost:8080/api/v1/private/ventas-pendientes";
   private baseUrlPreparada="http://localhost:8080/api/v1/private/ventas-preparadas";
+  private baseUrlMetodoPago="http://localhost:8080/api/v1/private/ventas-metodopago";
 
   constructor(private httpClient: HttpClient){}
 
@@ -27,5 +28,9 @@ export class VentaServicio {
 
   actualizarVentaPreparada(id: number, venta: Venta): Observable<Object>{
     return this.httpClient.put(`${this.baseUrlPreparada}/${id}`, venta);
+  }
+
+  actualizarMetodoPago(id: number, venta: Venta): Observable<Object>{
+    return this.httpClient.put(`${this.baseUrlMetodoPago}/${id}`, venta);
   }
 }

@@ -20,6 +20,7 @@ import { MejorOfertaPedidoHoy } from '../../componentes/consulta/MejorOfertaPedi
 import { Pedido } from '../../componentes/pedido/Pedido';
 import { PlatosPreparar } from '../../componentes/consulta/PlatosPreparar';
 import { FranjaPedidos } from '../../componentes/consulta/FranjaPedidos';
+import { VentaActualMesa } from '../../componentes/consulta/VentaActualMesa';
 
 @Injectable({
   providedIn: 'root',
@@ -199,5 +200,25 @@ export class ConsultaServicio {
 
   obtenerMayorCantidadPlatosVenta(): Observable<CantidadMetodoPago[]>{
     return this.http.get<CantidadMetodoPago[]>(this.baseUrl+'/mayor-cantidad-platos-venta');
+  }
+
+  obtenerPedidoActualMesa(mesaId: number): Observable<VentaActualMesa[]>{
+    return this.http.get<VentaActualMesa[]>(this.baseUrl+'/venta-pedido-actual',
+      {
+        params: {
+          mesaId: mesaId
+        }
+      }
+    );
+  }
+
+  obtenerVentasPorMesa(mesaId: number): Observable<VentaActualMesa[]>{
+    return this.http.get<VentaActualMesa[]>(this.baseUrl+'/ventas-mesa',
+      {
+        params: {
+          mesaId: mesaId
+        }
+      }
+    );
   }
 }

@@ -440,16 +440,19 @@
 
 .mesa-6 {
     width: 180px;
+    margin-top: 35px;
 }
 
 .mesa-8{
     width: 140px;
     height: 180px;
+    margin-top: 35px;
 }
 
 .mesa-10 {
     width: 170px;
     height: 180px;
+    margin-top: 35px;
 }
 
 .mesa:hover {
@@ -599,7 +602,6 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    cursor: pointer;
     margin-top: 30px;
 }
 
@@ -697,4 +699,10 @@
 .registro-mesa{
     display: grid;
     grid-template-columns: 1fr 1fr;
+}
+
+.btn-crear-mesa{
+    position: absolute;
+    top: 100px;
+    right: -40px;
 }

@@ -39,6 +39,7 @@ import { DashboardMesero } from './paginas/mesero/dashboard-mesero/dashboard-mes
 import { Mesa } from './paginas/admin/mesa/mesa';
 import { Polleria } from './paginas/mesero/polleria/polleria';
 import { ElegirMesero } from './paginas/mesero/elegir-mesero/elegir-mesero';
+import { RegistroPedidoMesa } from './paginas/mesero/registro-pedido-mesa/registro-pedido-mesa';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'inicio', pathMatch: 'full' },
@@ -251,9 +252,11 @@ export const routes: Routes = [
     { path: 'iniciar-sesion', component: IniciarSesionComponent },
 
     { path: 'dashboard-cocinero', component: DashboardCocinero, canActivate: [AuthGuard], data: { roles: ['ROLE_COCINERO','ROLE_ADMIN'] } },
+
     { path: 'dashboard-mesero', component: DashboardMesero, canActivate: [AuthGuard], data: { roles: ['ROLE_MESERO'] } },
     { path: 'elegir-mesero', component: ElegirMesero, canActivate: [AuthGuard], data: { roles: ['ROLE_MESERO'] } },
-    { path: 'polleria', component: Polleria, canActivate: [AuthGuard], data: { roles: ['ROLE_MESERO'] } }
+    { path: 'polleria', component: Polleria, canActivate: [AuthGuard], data: { roles: ['ROLE_MESERO'] } },
+    { path: 'registro-pedido-mesa/:id', component: RegistroPedidoMesa, canActivate: [AuthGuard], data: { roles: ['ROLE_MESERO'] } }
 ];
 
 RouterModule.forRoot(routes, {

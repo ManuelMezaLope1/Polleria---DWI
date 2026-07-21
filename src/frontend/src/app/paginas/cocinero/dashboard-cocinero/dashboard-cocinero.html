@@ -46,7 +46,50 @@
         <div class="tab-content">
             <div [ngClass]="active == 'inicio' ? 'tab-pane fade show active' : 'tab-pane fade'">
                 <h1>Inicio</h1>
-                <br>
+
+                <div class="menu-radial ml-0 divBotones">
+                    <button class="btn-central" (click)="abierto = !abierto" #btnInfo data-bs-toggle="tooltip"
+                        title="Más acciones" (mouseenter)="mostrarTooltip()">
+                        ➕
+                    </button>
+
+                    <button class="btn-opcion op1 btn btn-success" #btnInfoInicio (click)="onInicioTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipInicio()" title="Ir a Inicio">
+                        <i class="material-icons">home</i>
+                    </button>
+
+                    <button class="btn-opcion op2 btn btn-danger" #btnInfoPedidos (click)="onPedidosTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPedidos()" title="Ir a Pedidos">
+                        <i class="material-icons">restaurant</i>
+                    </button>
+
+
+                    <button class="btn-opcion op3 btn btn-primary" #btnInfoIngredientes (click)="onIngredientesTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipIngredientes()" title="Ir a Ingredientes">
+                        <i class="material-icons">inventory_2</i>
+                    </button>
+
+                    <button class="btn-opcion op4 btn btn-warning" #btnInfoPlatosPreparar (click)="onPlatosPrepararTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPlatosPreparar()" title="Ir a Platos a Preparar">
+                        <i class="material-icons">leaderboard</i>
+                    </button>
+
+                    <button class="btn-opcion op5 btn btn-warning" #btnInfoRecomendaciones (click)="onRecomendacionesTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipRecomendaciones()" title="Ir a Recomendación">
+                        <i class="material-icons">recommend</i>
+                    </button>
+
+                    <button class="btn-opcion op6 btn btn-warning" #btnInfoPredicciones (click)="onPrediccionesTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPredicciones()" title="Ir a Predicción">
+                        <i class="material-icons">batch_prediction</i>
+                    </button>
+
+                    <button class="btn-opcion op7 btn btn-warning" #btnInfoEstadisticas (click)="onEstadisticasTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipEstadisticas()" title="Ir a Estadisticas">
+                        <i class="material-icons">analytics</i>
+                    </button>
+                </div>
+
                 <div class="kpi-grid">
                     <div class="kpi-card kpi-pendiente">
                         <i class="material-icons">tag</i>
@@ -205,7 +248,50 @@
 
             <div [ngClass]="active == 'pedidos' ? 'tab-pane fade show active' : 'tab-pane fade'">
                 <h1>Pedidos</h1>
-                <br>
+                
+                <div class="menu-radial ml-0 divBotones">
+                    <button class="btn-central" (click)="abierto = !abierto" #btnInfo data-bs-toggle="tooltip"
+                        title="Más acciones" (mouseenter)="mostrarTooltip()">
+                        ➕
+                    </button>
+
+                    <button class="btn-opcion op1 btn btn-success" #btnInfoInicio (click)="onInicioTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipInicio()" title="Ir a Inicio">
+                        <i class="material-icons">home</i>
+                    </button>
+
+                    <button class="btn-opcion op2 btn btn-danger" #btnInfoPedidos (click)="onPedidosTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPedidos()" title="Ir a Pedidos">
+                        <i class="material-icons">restaurant</i>
+                    </button>
+
+
+                    <button class="btn-opcion op3 btn btn-primary" #btnInfoIngredientes (click)="onIngredientesTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipIngredientes()" title="Ir a Ingredientes">
+                        <i class="material-icons">inventory_2</i>
+                    </button>
+
+                    <button class="btn-opcion op4 btn btn-warning" #btnInfoPlatosPreparar (click)="onPlatosPrepararTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPlatosPreparar()" title="Ir a Platos a Preparar">
+                        <i class="material-icons">leaderboard</i>
+                    </button>
+
+                    <button class="btn-opcion op5 btn btn-warning" #btnInfoRecomendaciones (click)="onRecomendacionesTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipRecomendaciones()" title="Ir a Recomendación">
+                        <i class="material-icons">recommend</i>
+                    </button>
+
+                    <button class="btn-opcion op6 btn btn-warning" #btnInfoPredicciones (click)="onPrediccionesTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPredicciones()" title="Ir a Predicción">
+                        <i class="material-icons">batch_prediction</i>
+                    </button>
+
+                    <button class="btn-opcion op7 btn btn-warning" #btnInfoEstadisticas (click)="onEstadisticasTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipEstadisticas()" title="Ir a Estadisticas">
+                        <i class="material-icons">analytics</i>
+                    </button>
+                </div>
+
                 <div class="menu-pedidos">
                     <button class="menu-pedido btn-pedido-1" [class.active]="activePedido==='pendiente'"
                         (click)="onPendienteTab()"><i class="material-icons">pending</i>Pendientes</button>
@@ -258,7 +344,7 @@
                                     <input type="hidden" id="username" name="username" [(ngModel)]="pedido.username">
 
                                     <button class="btn btn-warning btn-sm p-2" style="border-radius: 20px;"
-                                        (click)="actualizarPedidoPendiente(ped.id); pedido.venta=ped.venta">Preparar</button>
+                                        (click)="actualizarPedidoPendiente(ped.id, ped.venta, ped.mesa); pedido.venta=ped.venta">Preparar</button>
                                 </form>
                             </div>
                         </div>
@@ -316,7 +402,7 @@
                                             [(ngModel)]="pedido.username">
 
                                         <button class="btn btn-success btn-sm p-2" style="border-radius: 20px;"
-                                            (click)="actualizarPedidoPreparado(ped.id); pedido.venta=ped.venta">Listo</button>
+                                            (click)="actualizarPedidoPreparado(ped.id, ped.venta, ped.mesa); pedido.venta=ped.venta">Listo</button>
                                     </form>
 
                                 </div>
@@ -386,7 +472,50 @@
 
             <div [ngClass]="active == 'ingredientes' ? 'tab-pane fade show active' : 'tab-pane fade'">
                 <h1>Ingredientes</h1>
-                <br>
+                
+                <div class="menu-radial ml-0 divBotones">
+                    <button class="btn-central" (click)="abierto = !abierto" #btnInfo data-bs-toggle="tooltip"
+                        title="Más acciones" (mouseenter)="mostrarTooltip()">
+                        ➕
+                    </button>
+
+                    <button class="btn-opcion op1 btn btn-success" #btnInfoInicio (click)="onInicioTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipInicio()" title="Ir a Inicio">
+                        <i class="material-icons">home</i>
+                    </button>
+
+                    <button class="btn-opcion op2 btn btn-danger" #btnInfoPedidos (click)="onPedidosTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPedidos()" title="Ir a Pedidos">
+                        <i class="material-icons">restaurant</i>
+                    </button>
+
+
+                    <button class="btn-opcion op3 btn btn-primary" #btnInfoIngredientes (click)="onIngredientesTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipIngredientes()" title="Ir a Ingredientes">
+                        <i class="material-icons">inventory_2</i>
+                    </button>
+
+                    <button class="btn-opcion op4 btn btn-warning" #btnInfoPlatosPreparar (click)="onPlatosPrepararTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPlatosPreparar()" title="Ir a Platos a Preparar">
+                        <i class="material-icons">leaderboard</i>
+                    </button>
+
+                    <button class="btn-opcion op5 btn btn-warning" #btnInfoRecomendaciones (click)="onRecomendacionesTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipRecomendaciones()" title="Ir a Recomendación">
+                        <i class="material-icons">recommend</i>
+                    </button>
+
+                    <button class="btn-opcion op6 btn btn-warning" #btnInfoPredicciones (click)="onPrediccionesTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPredicciones()" title="Ir a Predicción">
+                        <i class="material-icons">batch_prediction</i>
+                    </button>
+
+                    <button class="btn-opcion op7 btn btn-warning" #btnInfoEstadisticas (click)="onEstadisticasTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipEstadisticas()" title="Ir a Estadisticas">
+                        <i class="material-icons">analytics</i>
+                    </button>
+                </div>
+
                 <div class="ingredientes-grid">
                     <div class="ingrediente-card mt-3" *ngFor="let ing of ingredientes">
                         <div class="d-flex justify-content-center">
@@ -427,7 +556,50 @@
 
             <div [ngClass]="active == 'platosPreparar' ? 'tab-pane fade show active' : 'tab-pane fade'">
                 <h1>Platos a Preparar</h1>
-                <br>
+                
+                <div class="menu-radial ml-0 divBotones">
+                    <button class="btn-central" (click)="abierto = !abierto" #btnInfo data-bs-toggle="tooltip"
+                        title="Más acciones" (mouseenter)="mostrarTooltip()">
+                        ➕
+                    </button>
+
+                    <button class="btn-opcion op1 btn btn-success" #btnInfoInicio (click)="onInicioTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipInicio()" title="Ir a Inicio">
+                        <i class="material-icons">home</i>
+                    </button>
+
+                    <button class="btn-opcion op2 btn btn-danger" #btnInfoPedidos (click)="onPedidosTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPedidos()" title="Ir a Pedidos">
+                        <i class="material-icons">restaurant</i>
+                    </button>
+
+
+                    <button class="btn-opcion op3 btn btn-primary" #btnInfoIngredientes (click)="onIngredientesTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipIngredientes()" title="Ir a Ingredientes">
+                        <i class="material-icons">inventory_2</i>
+                    </button>
+
+                    <button class="btn-opcion op4 btn btn-warning" #btnInfoPlatosPreparar (click)="onPlatosPrepararTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPlatosPreparar()" title="Ir a Platos a Preparar">
+                        <i class="material-icons">leaderboard</i>
+                    </button>
+
+                    <button class="btn-opcion op5 btn btn-warning" #btnInfoRecomendaciones (click)="onRecomendacionesTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipRecomendaciones()" title="Ir a Recomendación">
+                        <i class="material-icons">recommend</i>
+                    </button>
+
+                    <button class="btn-opcion op6 btn btn-warning" #btnInfoPredicciones (click)="onPrediccionesTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPredicciones()" title="Ir a Predicción">
+                        <i class="material-icons">batch_prediction</i>
+                    </button>
+
+                    <button class="btn-opcion op7 btn btn-warning" #btnInfoEstadisticas (click)="onEstadisticasTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipEstadisticas()" title="Ir a Estadisticas">
+                        <i class="material-icons">analytics</i>
+                    </button>
+                </div>
+
                 <div class="produccion-grid">
                     <div class="plato-produccion-card" *ngFor="let p of platosPreparar">
                         <div>
@@ -467,7 +639,50 @@
 
             <div [ngClass]="active == 'recomendaciones' ? 'tab-pane fade show active' : 'tab-pane fade'">
                 <h1>Recomendaciones</h1>
-                <br>
+                
+                <div class="menu-radial ml-0 divBotones">
+                    <button class="btn-central" (click)="abierto = !abierto" #btnInfo data-bs-toggle="tooltip"
+                        title="Más acciones" (mouseenter)="mostrarTooltip()">
+                        ➕
+                    </button>
+
+                    <button class="btn-opcion op1 btn btn-success" #btnInfoInicio (click)="onInicioTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipInicio()" title="Ir a Inicio">
+                        <i class="material-icons">home</i>
+                    </button>
+
+                    <button class="btn-opcion op2 btn btn-danger" #btnInfoPedidos (click)="onPedidosTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPedidos()" title="Ir a Pedidos">
+                        <i class="material-icons">restaurant</i>
+                    </button>
+
+
+                    <button class="btn-opcion op3 btn btn-primary" #btnInfoIngredientes (click)="onIngredientesTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipIngredientes()" title="Ir a Ingredientes">
+                        <i class="material-icons">inventory_2</i>
+                    </button>
+
+                    <button class="btn-opcion op4 btn btn-warning" #btnInfoPlatosPreparar (click)="onPlatosPrepararTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPlatosPreparar()" title="Ir a Platos a Preparar">
+                        <i class="material-icons">leaderboard</i>
+                    </button>
+
+                    <button class="btn-opcion op5 btn btn-warning" #btnInfoRecomendaciones (click)="onRecomendacionesTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipRecomendaciones()" title="Ir a Recomendación">
+                        <i class="material-icons">recommend</i>
+                    </button>
+
+                    <button class="btn-opcion op6 btn btn-warning" #btnInfoPredicciones (click)="onPrediccionesTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPredicciones()" title="Ir a Predicción">
+                        <i class="material-icons">batch_prediction</i>
+                    </button>
+
+                    <button class="btn-opcion op7 btn btn-warning" #btnInfoEstadisticas (click)="onEstadisticasTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipEstadisticas()" title="Ir a Estadisticas">
+                        <i class="material-icons">analytics</i>
+                    </button>
+                </div>
+                
                 <h3>Producción</h3>
                 <br>
                 <div class="row card-total-recomendaciones">
@@ -565,7 +780,50 @@
 
             <div [ngClass]="active == 'predicciones' ? 'tab-pane fade show active' : 'tab-pane fade'">
                 <h1>Predicciones</h1>
-                <br>
+                
+                <div class="menu-radial ml-0 divBotones">
+                    <button class="btn-central" (click)="abierto = !abierto" #btnInfo data-bs-toggle="tooltip"
+                        title="Más acciones" (mouseenter)="mostrarTooltip()">
+                        ➕
+                    </button>
+
+                    <button class="btn-opcion op1 btn btn-success" #btnInfoInicio (click)="onInicioTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipInicio()" title="Ir a Inicio">
+                        <i class="material-icons">home</i>
+                    </button>
+
+                    <button class="btn-opcion op2 btn btn-danger" #btnInfoPedidos (click)="onPedidosTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPedidos()" title="Ir a Pedidos">
+                        <i class="material-icons">restaurant</i>
+                    </button>
+
+
+                    <button class="btn-opcion op3 btn btn-primary" #btnInfoIngredientes (click)="onIngredientesTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipIngredientes()" title="Ir a Ingredientes">
+                        <i class="material-icons">inventory_2</i>
+                    </button>
+
+                    <button class="btn-opcion op4 btn btn-warning" #btnInfoPlatosPreparar (click)="onPlatosPrepararTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPlatosPreparar()" title="Ir a Platos a Preparar">
+                        <i class="material-icons">leaderboard</i>
+                    </button>
+
+                    <button class="btn-opcion op5 btn btn-warning" #btnInfoRecomendaciones (click)="onRecomendacionesTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipRecomendaciones()" title="Ir a Recomendación">
+                        <i class="material-icons">recommend</i>
+                    </button>
+
+                    <button class="btn-opcion op6 btn btn-warning" #btnInfoPredicciones (click)="onPrediccionesTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPredicciones()" title="Ir a Predicción">
+                        <i class="material-icons">batch_prediction</i>
+                    </button>
+
+                    <button class="btn-opcion op7 btn btn-warning" #btnInfoEstadisticas (click)="onEstadisticasTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipEstadisticas()" title="Ir a Estadisticas">
+                        <i class="material-icons">analytics</i>
+                    </button>
+                </div>
+
                 <h3>Platos</h3>
                 <br>
                 <div class="kpi-grid">
@@ -777,7 +1035,50 @@
 
             <div [ngClass]="active == 'estadisticas' ? 'tab-pane fade show active' : 'tab-pane fade'">
                 <h1>Estadísticas</h1>
-                <br>
+                
+                <div class="menu-radial ml-0 divBotones">
+                    <button class="btn-central" (click)="abierto = !abierto" #btnInfo data-bs-toggle="tooltip"
+                        title="Más acciones" (mouseenter)="mostrarTooltip()">
+                        ➕
+                    </button>
+
+                    <button class="btn-opcion op1 btn btn-success" #btnInfoInicio (click)="onInicioTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipInicio()" title="Ir a Inicio">
+                        <i class="material-icons">home</i>
+                    </button>
+
+                    <button class="btn-opcion op2 btn btn-danger" #btnInfoPedidos (click)="onPedidosTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPedidos()" title="Ir a Pedidos">
+                        <i class="material-icons">restaurant</i>
+                    </button>
+
+
+                    <button class="btn-opcion op3 btn btn-primary" #btnInfoIngredientes (click)="onIngredientesTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipIngredientes()" title="Ir a Ingredientes">
+                        <i class="material-icons">inventory_2</i>
+                    </button>
+
+                    <button class="btn-opcion op4 btn btn-warning" #btnInfoPlatosPreparar (click)="onPlatosPrepararTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPlatosPreparar()" title="Ir a Platos a Preparar">
+                        <i class="material-icons">leaderboard</i>
+                    </button>
+
+                    <button class="btn-opcion op5 btn btn-warning" #btnInfoRecomendaciones (click)="onRecomendacionesTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipRecomendaciones()" title="Ir a Recomendación">
+                        <i class="material-icons">recommend</i>
+                    </button>
+
+                    <button class="btn-opcion op6 btn btn-warning" #btnInfoPredicciones (click)="onPrediccionesTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipPredicciones()" title="Ir a Predicción">
+                        <i class="material-icons">batch_prediction</i>
+                    </button>
+
+                    <button class="btn-opcion op7 btn btn-warning" #btnInfoEstadisticas (click)="onEstadisticasTab()"
+                        [class.activo]="abierto" (mouseenter)="mostrarTooltipEstadisticas()" title="Ir a Estadisticas">
+                        <i class="material-icons">analytics</i>
+                    </button>
+                </div>
+
                 <div class="graficos-grid">
                     <div class="card dashboard-card">
                         <h5>Pedidos Por Estado</h5>

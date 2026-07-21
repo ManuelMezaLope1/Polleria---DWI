@@ -7,18 +7,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot.backend.consulta.dto.VentasHoyDto;
 import com.springboot.backend.excepcion.ResourceNotFoundException;
+import com.springboot.backend.tabla.mesa.modelo.CantidadPlatosMesaDto;
+import com.springboot.backend.tabla.mesa.modelo.CantidadesVentasMesaDto;
 import com.springboot.backend.tabla.mesa.modelo.Mesa;
 import com.springboot.backend.tabla.mesa.modelo.MesaCapacidadDto;
 import com.springboot.backend.tabla.mesa.repositorio.MesaRepositorio;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
-
-
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -51,6 +52,26 @@ public class MesaControlador {
     public List<MesaCapacidadDto> obtenerMesaCapacidadDiez() {
         return mesaRepositorio.obtenerMesaCapacidadDiez();
     }
+
+    @GetMapping("/mesas-cantidad-total-ventas")
+    public VentasHoyDto obtenerCantidadTotalVentasMesa() {
+        return mesaRepositorio.obtenerCantidadTotalVentasMesa();
+    }
+
+    @GetMapping("/mesas-cantidad-platos")
+    public CantidadPlatosMesaDto obtenerCantidadPlatosMesa() {
+        return mesaRepositorio.obtenerCantidadPlatosMesa();
+    }
+
+    @GetMapping("/mesas-cantidad-ofertas")
+    public CantidadPlatosMesaDto obtenerCantidadOfertasMesa() {
+        return mesaRepositorio.obtenerCantidadOfertasMesa();
+    }
+
+    @GetMapping("/mesas-cantidades-ventas")
+    public List<CantidadesVentasMesaDto> obtenerCantidadesVentasMesa() {
+        return mesaRepositorio.obtenerCantidadesVentasMesas();
+    }
     
     @PostMapping("/mesas")
     public Mesa guardarMesa(@RequestBody Mesa mesa) {
@@ -70,6 +91,50 @@ public class MesaControlador {
         mesaExistente.setNombre(detallesMesa.getNombre());
         mesaExistente.setCapacidad(detallesMesa.getCapacidad());
         mesaExistente.setUbicacion(detallesMesa.getUbicacion());
+
+        Mesa mesaActualizada=mesaRepositorio.save(mesaExistente);
+
+        return ResponseEntity.ok(mesaActualizada);
+    }
+
+    @PutMapping("/mesas-libres/{id}")
+    public ResponseEntity<Mesa> actualizarMesaLibre(@PathVariable Long id, @RequestBody Mesa detalleMesa) {
+        Mesa mesaExistente=mesaRepositorio.findById(id).orElseThrow(()->new ResourceNotFoundException("No existe la mesa con el id: "+id));
+        
+        mesaExistente.setEstado("Pendiente");
+
+        Mesa mesaActualizada=mesaRepositorio.save(mesaExistente);
+
+        return ResponseEntity.ok(mesaActualizada);
+    }
+
+    @PutMapping("/mesas-pendientes/{id}")
+    public ResponseEntity<Mesa> actualizarMesaPendiente(@PathVariable Long id, @RequestBody Mesa detalleMesa) {
+        Mesa mesaExistente=mesaRepositorio.findById(id).orElseThrow(()->new ResourceNotFoundException("No existe la mesa con el id: "+id));
+        
+        mesaExistente.setEstado("Preparando");
+
+        Mesa mesaActualizada=mesaRepositorio.save(mesaExistente);
+
+        return ResponseEntity.ok(mesaActualizada);
+    }
+
+    @PutMapping("/mesas-preparadas/{id}")
+    public ResponseEntity<Mesa> actualizarMesaPreparada(@PathVariable Long id, @RequestBody Mesa detalleMesa) {
+        Mesa mesaExistente=mesaRepositorio.findById(id).orElseThrow(()->new ResourceNotFoundException("No existe la mesa con el id: "+id));
+        
+        mesaExistente.setEstado("Listo");
+
+        Mesa mesaActualizada=mesaRepositorio.save(mesaExistente);
+
+        return ResponseEntity.ok(mesaActualizada);
+    }
+
+    @PutMapping("/mesas-listas/{id}")
+    public ResponseEntity<Mesa> actualizarMesaListo(@PathVariable Long id, @RequestBody Mesa detalleMesa) {
+        Mesa mesaExistente=mesaRepositorio.findById(id).orElseThrow(()->new ResourceNotFoundException("No existe la mesa con el id: "+id));
+        
+        mesaExistente.setEstado("Libre");
 
         Mesa mesaActualizada=mesaRepositorio.save(mesaExistente);
 

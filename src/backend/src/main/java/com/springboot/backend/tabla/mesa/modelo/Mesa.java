@@ -1,5 +1,10 @@
 package com.springboot.backend.tabla.mesa.modelo;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.springboot.backend.tabla.venta.modelo.Venta;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -21,21 +26,27 @@ public class Mesa {
     @Column(name="ubicacion", nullable=false, length= 300)
     private String ubicacion;
 
+    @OneToMany(mappedBy = "mesa", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("mesa")
+    private List<Venta> venta;
+
     public Mesa(){}
 
-    public Mesa(Long id, String nombre, String estado, Integer capacidad, String ubicacion) {
+    public Mesa(Long id, String nombre, String estado, Integer capacidad, String ubicacion, List<Venta> venta) {
         this.id = id;
         this.nombre = nombre;
         this.estado = estado;
         this.capacidad = capacidad;
         this.ubicacion = ubicacion;
+        this.venta = venta;
     }
 
-    public Mesa(String nombre, String estado, Integer capacidad, String ubicacion) {
+    public Mesa(String nombre, String estado, Integer capacidad, String ubicacion, List<Venta> venta) {
         this.nombre = nombre;
         this.estado = estado;
         this.capacidad = capacidad;
         this.ubicacion = ubicacion;
+        this.venta = venta;
     }
 
     public Long getId() {
@@ -77,4 +88,14 @@ public class Mesa {
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
     }
+
+    public List<Venta> getVenta() {
+        return venta;
+    }
+
+    public void setVenta(List<Venta> venta) {
+        this.venta = venta;
+    }
+
+    
 }

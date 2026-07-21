@@ -37,6 +37,7 @@ import com.springboot.backend.consulta.dto.PlatoMesaDto;
 import com.springboot.backend.consulta.dto.PlatosPorVentasDto;
 import com.springboot.backend.consulta.dto.UsuarioVentasDto;
 import com.springboot.backend.consulta.dto.UsuariosMasFrecuentesDto;
+import com.springboot.backend.consulta.dto.VentaActualMesaDto;
 import com.springboot.backend.consulta.dto.VentasHoyDto;
 import com.springboot.backend.consulta.dto.VentasMesDto;
 import com.springboot.backend.consulta.dto.VentasPorZonasDto;
@@ -323,5 +324,14 @@ public class ReporteControlador {
     public List<MejorOfertaPedidoHoyDto> obtenerMayorCantidadPlatoVenta() {
         return ventaConsultaRepositorio.obtenerMayorCantidadPlatosVenta();
     }
-    
+
+    @GetMapping("/venta-pedido-actual")
+    public List<VentaActualMesaDto> obtenerVentaActualMesa(@RequestParam Long mesaId) {
+        return ventaConsultaRepositorio.obtenerVentaActualMesa(mesaId);
+    }
+
+    @GetMapping("/ventas-mesa")
+    public List<VentaActualMesaDto> obtenerVentaPorMesaId(@RequestParam Long mesaId) {
+        return ventaConsultaRepositorio.obtenerVentasPorMesaId(mesaId);
+    }
 }

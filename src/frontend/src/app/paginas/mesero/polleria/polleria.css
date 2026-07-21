@@ -468,20 +468,24 @@
 
 .mesa-4 {
     width: 180px;
+    margin-top: 35px;
 }
 
 .mesa-6 {
     width: 180px;
+    margin-top: 35px;
 }
 
 .mesa-8{
     width: 140px;
     height: 180px;
+    margin-top: 35px;
 }
 
 .mesa-10 {
     width: 170px;
     height: 180px;
+    margin-top: 35px;
 }
 
 .mesa:hover {
@@ -694,4 +698,234 @@
 
 .boton-modal{
     height: 50px;
+}
+
+.mesa-vacia {
+    height: 160px;
+    min-width: 160px;
+    border: 2px dashed #cbd5e1;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.mesa-vacia .icono {
+    font-size: 3rem;
+    margin-top: 0px;
+}
+
+.mesa-vacia h4 {
+    color: #334155;
+    font-weight: 700;
+}
+
+.mesa-vacia p {
+    color: #64748b;
+    font-size: 16px;
+}
+
+.botones-pedidos{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 12px;
+}
+
+.menu-item {
+    border: none;
+    background: linear-gradient(180deg, #ff8c42, #ff6b35);
+    color: white;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: left;
+    transition: .3s;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.menu-item:hover {
+    background: white;
+    color: #ff6b35;
+    border: 1px solid #ff8c42;
+    transform: translateX(5px);
+}
+
+.menu-item.active {
+    background: white;
+    color: #ff6b35;
+    border: 1px solid #ff8c42;
+    transform: translateX(5px);
+}
+
+.boton-agregar-pedido{
+    position: absolute;
+    top: 30px;
+    left: 30px;
+}
+
+.pedido-actual-card{
+    border-radius:18px;
+    overflow:hidden;
+    background:white;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.pedido-header{
+    color:white;
+    padding:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.pedido-header h4{
+    margin:0;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.estado{
+    padding:8px 18px;
+    border-radius:30px;
+    font-weight:bold;
+}
+
+.estado-pendiente{
+    background:#dc3545;
+    color:#fff;
+}
+
+.estado-preparacion{
+    background:#ffc107;
+    color:white;
+}
+
+.listo {
+    border: 1px solid #222;
+    color: #fff
+}
+
+.pendiente{
+    border: 1px solid #222;
+    color:#fff;
+}
+
+.preparacion{
+    border: 1px solid #222;
+    color:white;
+}
+
+.estado-listo {
+    background: #28a745;
+    color: #fff
+}
+
+.pedido-body{
+    padding:20px;
+}
+
+.info{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.item{
+    display:flex;
+    gap:15px;
+    align-items:center;
+}
+
+.item i{
+    font-size:34px;
+    color:#f97316;
+}
+
+.descripcion{
+    margin-top:20px;
+}
+
+.descripcion p{
+    background:#f8fafc;
+    padding:15px;
+    border-radius:10px;
+}
+
+.observacion{
+    margin-top:20px;
+    padding:15px;
+    border-left:5px solid #f59e0b;
+    background:#fffbeb;
+    border-radius:10px;
+}
+
+.info-item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    background: transparent;
+    border-radius: 10px;
+}
+
+.badge{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.metodo-card {
+    cursor: pointer;
+    border-radius: 20px;
+    transition: .3s;
+    border: 3px solid transparent;
+}
+
+.metodo-card:hover {
+    transform: translateY(-4px);
+}
+
+.metodo {
+    color: white;
+    padding: 15px;
+    border-radius: 20px;
+    text-align: center;
+    font-weight: 600;
+    width: 100%;
+}
+
+.metodo img {
+    width: 45px;
+    margin-bottom: 10px;
+}
+
+.yape {
+    background: #730dd3;
+}
+
+.efectivo {
+    background: #0aa007;
+}
+
+.plin {
+    background: #16A3A4;
+}
+
+.seleccionado {
+    transform: scale(1.05);
+    border: 3px solid #ffc107;
+    box-shadow: 0 0 20px rgba(255, 193, 7, .6);
+}
+
+.grid-botones{
+    display: grid;
+    grid-template-columns: 1fr 100px;
 }

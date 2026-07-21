@@ -79,58 +79,28 @@
 
                 <div class="card-total">
                     <div class="card-4">
-                        <div class="mesa mesa-4" (click)="seleccionarMesa('mesa1')" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            <div class="silla top-1"></div>
-                            <div class="silla bottom-1"></div>
-                            <div class="silla top-2"></div>
-                            <div class="silla bottom-2"></div>
-                            <div class="tablero tablero-4">M1</div>
-                        </div>
+                        <div *ngFor="let _ of cantidadMesas; let i = index">
+                            <ng-container *ngIf="mesaCuatro[i]; else mesaVacia">
+                                <div class="mesa mesa-4" (click)="obtenerMesaPorId(mesaCuatro[i].id )">
+                                    <div class="silla top-1"></div>
+                                    <div class="silla bottom-1"></div>
+                                    <div class="silla top-2"></div>
+                                    <div class="silla bottom-2"></div>
+                                    <div class="tablero tablero-4">
+                                        M{{ i + 1 }}
+                                    </div>
+                                </div>
+                            </ng-container>
 
-                        <div class="mesa mesa-4" (click)="seleccionarMesa('mesa2')" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            <div class="silla top-1"></div>
-                            <div class="silla bottom-1"></div>
-                            <div class="silla top-2"></div>
-                            <div class="silla bottom-2"></div>
-                            <div class="tablero tablero-4">M2</div>
-                        </div>
-
-                        <div class="mesa mesa-4" (click)="seleccionarMesa('mesa3')" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            <div class="silla top-1"></div>
-                            <div class="silla bottom-1"></div>
-                            <div class="silla top-2"></div>
-                            <div class="silla bottom-2"></div>
-                            <div class="tablero tablero-4">M3</div>
-                        </div>
-
-                        <div class="mesa mesa-4" (click)="seleccionarMesa('mesa4')" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            <div class="silla top-1"></div>
-                            <div class="silla bottom-1"></div>
-                            <div class="silla top-2"></div>
-                            <div class="silla bottom-2"></div>
-                            <div class="tablero tablero-4">M4</div>
-                        </div>
-
-                        <div class="mesa mesa-4" (click)="seleccionarMesa('mesa5')" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            <div class="silla top-1"></div>
-                            <div class="silla bottom-1"></div>
-                            <div class="silla top-2"></div>
-                            <div class="silla bottom-2"></div>
-                            <div class="tablero tablero-4">M5</div>
-                        </div>
-
-                        <div class="mesa mesa-4" (click)="seleccionarMesa('mesa6')" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            <div class="silla top-1"></div>
-                            <div class="silla bottom-1"></div>
-                            <div class="silla top-2"></div>
-                            <div class="silla bottom-2"></div>
-                            <div class="tablero tablero-4">M6</div>
+                            <ng-template #mesaVacia>
+                                <div>
+                                    <div class="mesa-vacia">
+                                        <i class="material-icons icono">info</i>
+                                        <h4>Sin mesa</h4>
+                                        <p>Todavía no registró esta mesa.</p>
+                                    </div>
+                                </div>
+                            </ng-template>
                         </div>
                     </div>
 
@@ -139,48 +109,30 @@
                     </div>
 
                     <div class="card-6">
-                        <div class="mesa mesa-6" (click)="seleccionarMesa('mesa7')" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            <div class="silla top-1"></div>
-                            <div class="silla bottom-1"></div>
-                            <div class="silla top-2"></div>
-                            <div class="silla bottom-2"></div>
-                            <div class="silla left-1"></div>
-                            <div class="silla right-1"></div>
-                            <div class="tablero tablero-4">M7</div>
-                        </div>
+                        <div *ngFor="let _ of cantidadMesasSeis; let i = index">
+                            <ng-container *ngIf="mesaSeis[i]; else mesaVaciaSeis">
+                                <div class="mesa mesa-6" (click)="obtenerMesaPorId(mesaSeis[i].id )">
+                                    <div class="silla top-1"></div>
+                                    <div class="silla bottom-1"></div>
+                                    <div class="silla top-2"></div>
+                                    <div class="silla bottom-2"></div>
+                                    <div class="silla left-1"></div>
+                                    <div class="silla right-1"></div>
+                                    <div class="tablero tablero-4">
+                                        M{{ mesaCuatro.length + i + 1 }}
+                                    </div>
+                                </div>
+                            </ng-container>
 
-                        <div class="mesa mesa-6" (click)="seleccionarMesa('mesa8')" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            <div class="silla top-1"></div>
-                            <div class="silla bottom-1"></div>
-                            <div class="silla top-2"></div>
-                            <div class="silla bottom-2"></div>
-                            <div class="silla left-1"></div>
-                            <div class="silla right-1"></div>
-                            <div class="tablero tablero-4">M8</div>
-                        </div>
-
-                        <div class="mesa mesa-6" (click)="seleccionarMesa('mesa9')" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            <div class="silla top-1"></div>
-                            <div class="silla bottom-1"></div>
-                            <div class="silla top-2"></div>
-                            <div class="silla bottom-2"></div>
-                            <div class="silla left-1"></div>
-                            <div class="silla right-1"></div>
-                            <div class="tablero tablero-4">M9</div>
-                        </div>
-
-                        <div class="mesa mesa-6" (click)="seleccionarMesa('mesa10')" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            <div class="silla top-1"></div>
-                            <div class="silla bottom-1"></div>
-                            <div class="silla top-2"></div>
-                            <div class="silla bottom-2"></div>
-                            <div class="silla left-1"></div>
-                            <div class="silla right-1"></div>
-                            <div class="tablero tablero-4">M10</div>
+                            <ng-template #mesaVaciaSeis>
+                                <div>
+                                    <div class="mesa-vacia">
+                                        <i class="material-icons icono">info</i>
+                                        <h4>Sin mesa</h4>
+                                        <p>Todavía no registró esta mesa.</p>
+                                    </div>
+                                </div>
+                            </ng-template>
                         </div>
                     </div>
                 </div>
@@ -218,64 +170,34 @@
             <div class="area-mesas">
                 <div class="card-total">
                     <div class="card-10">
-                        <div class="mesa mesa-10" (click)="seleccionarMesa('mesa11')" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            <div class="silla top-1-10"></div>
-                            <div class="silla top-2-10"></div>
-                            <div class="silla bottom-1-10"></div>
-                            <div class="silla bottom-2-10"></div>
-                            <div class="silla left-1-10"></div>
-                            <div class="silla left-2-10"></div>
-                            <div class="silla left-3-10"></div>
-                            <div class="silla right-1-10"></div>
-                            <div class="silla right-2-10"></div>
-                            <div class="silla right-3-10"></div>
-                            <div class="tablero tablero-10">M11</div>
-                        </div>
+                        <div *ngFor="let _ of cantidadMesasDiez; let i = index">
+                            <ng-container *ngIf="mesaDiez[i]; else mesaVaciaDiez">
+                                <div class="mesa mesa-10" (click)="obtenerMesaPorId(mesaDiez[i].id )">
+                                    <div class="silla top-1-10"></div>
+                                    <div class="silla top-2-10"></div>
+                                    <div class="silla bottom-1-10"></div>
+                                    <div class="silla bottom-2-10"></div>
+                                    <div class="silla left-1-10"></div>
+                                    <div class="silla left-2-10"></div>
+                                    <div class="silla left-3-10"></div>
+                                    <div class="silla right-1-10"></div>
+                                    <div class="silla right-2-10"></div>
+                                    <div class="silla right-3-10"></div>
+                                    <div class="tablero tablero-10">
+                                        M{{ mesaCuatro.length + mesaSeis.length + i + 1 }}
+                                    </div>
+                                </div>
+                            </ng-container>
 
-                        <div class="mesa mesa-10" (click)="seleccionarMesa('mesa12')" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            <div class="silla top-1-10"></div>
-                            <div class="silla top-2-10"></div>
-                            <div class="silla bottom-1-10"></div>
-                            <div class="silla bottom-2-10"></div>
-                            <div class="silla left-1-10"></div>
-                            <div class="silla left-2-10"></div>
-                            <div class="silla left-3-10"></div>
-                            <div class="silla right-1-10"></div>
-                            <div class="silla right-2-10"></div>
-                            <div class="silla right-3-10"></div>
-                            <div class="tablero tablero-10">M12</div>
-                        </div>
-
-                        <div class="mesa mesa-10" (click)="seleccionarMesa('mesa13')" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            <div class="silla top-1-10"></div>
-                            <div class="silla top-2-10"></div>
-                            <div class="silla bottom-1-10"></div>
-                            <div class="silla bottom-2-10"></div>
-                            <div class="silla left-1-10"></div>
-                            <div class="silla left-2-10"></div>
-                            <div class="silla left-3-10"></div>
-                            <div class="silla right-1-10"></div>
-                            <div class="silla right-2-10"></div>
-                            <div class="silla right-3-10"></div>
-                            <div class="tablero tablero-10">M13</div>
-                        </div>
-
-                        <div class="mesa mesa-10" (click)="seleccionarMesa('mesa14')" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            <div class="silla top-1-10"></div>
-                            <div class="silla top-2-10"></div>
-                            <div class="silla bottom-1-10"></div>
-                            <div class="silla bottom-2-10"></div>
-                            <div class="silla left-1-10"></div>
-                            <div class="silla left-2-10"></div>
-                            <div class="silla left-3-10"></div>
-                            <div class="silla right-1-10"></div>
-                            <div class="silla right-2-10"></div>
-                            <div class="silla right-3-10"></div>
-                            <div class="tablero tablero-10">M14</div>
+                            <ng-template #mesaVaciaDiez>
+                                <div>
+                                    <div class="mesa-vacia">
+                                        <i class="material-icons icono">info</i>
+                                        <h4>Sin mesa</h4>
+                                        <p>Todavía no registró esta mesa.</p>
+                                    </div>
+                                </div>
+                            </ng-template>
                         </div>
                     </div>
 
@@ -284,82 +206,32 @@
                     </div>
 
                     <div class="card-8">
-                        <div class="mesa mesa-8" (click)="seleccionarMesa('mesa15')" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            <div class="silla top-1-8"></div>
-                            <div class="silla bottom-1-8"></div>
-                            <div class="silla left-1-10"></div>
-                            <div class="silla left-2-10"></div>
-                            <div class="silla left-3-10"></div>
-                            <div class="silla right-1-10"></div>
-                            <div class="silla right-2-10"></div>
-                            <div class="silla right-3-10"></div>
-                            <div class="tablero tablero-8">M15</div>
-                        </div>
+                        <div *ngFor="let _ of cantidadMesasOcho; let i = index">
+                            <ng-container *ngIf="mesaOcho[i]; else mesaVaciaOcho">
+                                <div class="mesa mesa-8" (click)="obtenerMesaPorId(mesaOcho[i].id )">
+                                    <div class="silla top-1-8"></div>
+                                    <div class="silla bottom-1-8"></div>
+                                    <div class="silla left-1-10"></div>
+                                    <div class="silla left-2-10"></div>
+                                    <div class="silla left-3-10"></div>
+                                    <div class="silla right-1-10"></div>
+                                    <div class="silla right-2-10"></div>
+                                    <div class="silla right-3-10"></div>
+                                    <div class="tablero tablero-8">
+                                        M{{ mesaCuatro.length + mesaSeis.length + mesaDiez.length + i + 1 }}
+                                    </div>
+                                </div>
+                            </ng-container>
 
-                        <div class="mesa mesa-8" (click)="seleccionarMesa('mesa16')" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            <div class="silla top-1-8"></div>
-                            <div class="silla bottom-1-8"></div>
-                            <div class="silla left-1-10"></div>
-                            <div class="silla left-2-10"></div>
-                            <div class="silla left-3-10"></div>
-                            <div class="silla right-1-10"></div>
-                            <div class="silla right-2-10"></div>
-                            <div class="silla right-3-10"></div>
-                            <div class="tablero tablero-8">M16</div>
-                        </div>
-
-                        <div class="mesa mesa-8" (click)="seleccionarMesa('mesa17')" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            <div class="silla top-1-8"></div>
-                            <div class="silla bottom-1-8"></div>
-                            <div class="silla left-1-10"></div>
-                            <div class="silla left-2-10"></div>
-                            <div class="silla left-3-10"></div>
-                            <div class="silla right-1-10"></div>
-                            <div class="silla right-2-10"></div>
-                            <div class="silla right-3-10"></div>
-                            <div class="tablero tablero-8">M17</div>
-                        </div>
-
-                        <div class="mesa mesa-8" (click)="seleccionarMesa('mesa18')" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            <div class="silla top-1-8"></div>
-                            <div class="silla bottom-1-8"></div>
-                            <div class="silla left-1-10"></div>
-                            <div class="silla left-2-10"></div>
-                            <div class="silla left-3-10"></div>
-                            <div class="silla right-1-10"></div>
-                            <div class="silla right-2-10"></div>
-                            <div class="silla right-3-10"></div>
-                            <div class="tablero tablero-8">M18</div>
-                        </div>
-
-                        <div class="mesa mesa-8" (click)="seleccionarMesa('mesa19')" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            <div class="silla top-1-8"></div>
-                            <div class="silla bottom-1-8"></div>
-                            <div class="silla left-1-10"></div>
-                            <div class="silla left-2-10"></div>
-                            <div class="silla left-3-10"></div>
-                            <div class="silla right-1-10"></div>
-                            <div class="silla right-2-10"></div>
-                            <div class="silla right-3-10"></div>
-                            <div class="tablero tablero-8">M19</div>
-                        </div>
-
-                        <div class="mesa mesa-8" (click)="seleccionarMesa('mesa20')" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">
-                            <div class="silla top-1-8"></div>
-                            <div class="silla bottom-1-8"></div>
-                            <div class="silla left-1-10"></div>
-                            <div class="silla left-2-10"></div>
-                            <div class="silla left-3-10"></div>
-                            <div class="silla right-1-10"></div>
-                            <div class="silla right-2-10"></div>
-                            <div class="silla right-3-10"></div>
-                            <div class="tablero tablero-8">M20</div>
+                            <ng-template #mesaVaciaOcho>
+                                <div>
+                                    <div class="mesa-vacia">
+                                        <i class="material-icons icono">info</i>
+                                        <h4>Sin mesa</h4>
+                                        <p>Todavía no registró esta mesa.</p>
+                                    </div>
+                                </div>
+                            </ng-template>
                         </div>
                     </div>
                 </div>
@@ -511,164 +383,120 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="d-flex justify-content-center">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Pedido de la Mesa</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Pedido Actual</h1>
                 </div>
 
                 <button type="button" class="btn-close btn-primary" style="border-radius: 50px; width: 25px;"
                     data-bs-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-                <div class="ml-2 mt-2">
-                    <button class="btn btn-primary boton-modal" (click)="pedidoActualTab()">Pedido
-                        Actual</button>&nbsp;
-                    <button class="btn btn-secondary boton-modal" (click)="nuevoPedidoTab()">Tomar Nuevo
-                        Pedido</button>
-                </div>
-                <div class="tab-content">
-                    <div [ngClass]="activeModal == 'pedidoActual' ? 'tab-pane fade show active' : 'tab-pane fade'">
-                        <div *ngIf="pedidoActual.length===0">
-                            <div class="seleccion-vacia">
-                                <i class="material-icons icono">info</i>
-                                <h4>Sin pedido todavía</h4>
-                                <p>Esta mesa todavía no tiene un pedido.</p>
-                            </div>
-                        </div>
+                <div *ngIf="pedidoActual.length===0">
+                    <button class="btn btn-danger boton-agregar-pedido" (click)="irRegistrarPedidoMesa(id)">+</button>
+                    <div class="seleccion-vacia">
+                        <i class="material-icons icono">info</i>
+                        <h4>Sin pedido todavía</h4>
+                        <p>Esta mesa todavía no tiene un pedido.</p>
                     </div>
+                </div>
 
-                    <div [ngClass]="activeModal == 'nuevoPedido' ? 'tab-pane fade show active' : 'tab-pane fade'">
-                        <div class="pedido-grid">
-                            <div class="pedido-izquierda container">
-                                <form>
-                                    <div class="form-group">
-                                        <label>Descripcion:</label>
-                                        <input type="text" class="form-control" id="descripcion"
-                                            [(ngModel)]="pedidoPresencial.descripcion" name="descripcion">
-                                    </div>
+                <div *ngIf="pedidoActual.length>0">
+                    <div *ngFor="let pa of pedidoActual">
+                        <div class="pedido-actual-card">
+                            <div class="pedido-header"
+                                [ngClass]="{'estado-pendiente': pa.estado=='Pendiente','estado-preparacion': pa.estado=='Preparando','estado-listo': pa.estado=='Listo'}">
+                                <div>
+                                    <h4>
+                                        <i class="material-icons">table_restaurant</i>
+                                        Mesa {{pa.mesa}}
+                                    </h4>
 
-                                    <div class="form-group">
-                                        <label>Cantidad</label>
-                                        <input type="text" class="form-control" id="cantidad"
-                                            [(ngModel)]="pedidoPresencial.cantidad" name="cantidad">
-                                    </div>
+                                    <span>{{pa.fecha}}</span>
+                                </div>
 
-                                    <div class="form-group">
-                                        <label>Total:</label>
-                                        <input type="text" class="form-control" id="total"
-                                            [(ngModel)]="pedidoPresencial.total" name="total">
-                                    </div>
-
-
-
-                                    <button class="btn btn-warning btn-sm p-2"
-                                        style="border-radius: 20px;">Preparar</button>
-                                </form>
+                                <span class="estado"
+                                    [ngClass]="{'pendiente': pa.estado=='Pendiente','preparacion': pa.estado=='Preparando','listo': pa.estado=='Listo'}">
+                                    {{pa.estado}}
+                                </span>
                             </div>
 
-                            <div class="pedido-derecha container">
-                                <div class="tab-content">
-                                    <div class=""
-                                        [ngClass]="activePlato == 'platoMesa' ? 'tab-pane fade show active' : 'tab-pane fade'">
-                                        <div>
-                                            <div class="d-flex justify-content-between">
-                                                <div>
-                                                    <button class="btn btn-primary"
-                                                        (click)="ofertasMesaTab()">Ofertas</button>
+                            <div class="pedido-body">
+                                <div class="info">
+                                    <div class="item">
+                                        <i class="material-icons">shopping_cart</i>
+
+                                        <div class="info-item">
+                                            <span>Cantidad:</span>
+                                            <strong>{{pa.cantidad}}</strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="item">
+                                        <i class="material-icons">payments</i>
+
+                                        <div class="info-item">
+                                            <span>Método de pago:</span>
+
+                                            <span class="badge"
+                                                [ngClass]="{'bg-success': pa.metodopago=='Efectivo','bg-primary': pa.metodopago=='Yape','bg-info': pa.metodopago=='Plin'}">
+                                                {{pa.metodopago}}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="item">
+                                        <i class="material-icons">receipt_long</i>
+
+                                        <div class="info-item">
+                                            <span>Total:</span>
+                                            <strong>S/. {{pa.total}}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="descripcion">
+                                    <h6>
+                                        <i class="material-icons">restaurant_menu</i>
+                                        Pedido
+                                    </h6>
+
+                                    <p>{{pa.descripcion}}</p>
+                                </div>
+
+                                <div class="observacion" *ngIf="pa.observacion">
+                                    <h6>
+                                        <i class="material-icons text-warning">warning</i>
+                                        Observación
+                                    </h6>
+                                    <p>{{pa.observacion}}</p>
+                                </div>
+                            </div>
+
+                            <div class="card-footer" *ngIf="pa.estado==='Listo'">
+                                <div class="grid-botones">
+                                    <div class="row">
+                                        <div class="col-md-4" *ngFor="let met of metodoPago">
+                                            <div class="metodo-card"
+                                                [class.seleccionado]="metodoPagoSeleccionado?.id === met.id"
+                                                (click)="seleccionarItem(met)">
+                                                <div *ngIf="met.nombre==='Yape'" class="metodo yape">
+                                                    <img src="yape.png">
+                                                    <span>{{met.nombre}}</span>
                                                 </div>
 
-                                                <div class="ml-2">
-                                                    <select class="form-control mb-2" name="platos" id="platos"
-                                                        [(ngModel)]="platoSeleccionado">
-                                                        <option [ngValue]="null">--Seleccione el plato--</option>
-                                                        <option *ngFor="let pla of platos" [ngValue]="pla">
-                                                            {{pla.nombre}}
-                                                        </option>
-                                                    </select>
+                                                <div *ngIf="met.nombre==='Efectivo'" class="metodo efectivo">
+                                                    <img src="efectivo.png">
+                                                    <span>{{met.nombre}}</span>
                                                 </div>
-                                            </div>
 
-                                            <div *ngIf="platoSeleccionado">
-                                                <div class="card oferta-card mt-4 border-0" style="height:65vh">
-                                                    <div class="img-container">
-                                                        <img [src]="platoSeleccionado.imagen" alt="Imagen del plato">
-                                                    </div>
-
-                                                    <div class="card-body">
-                                                        <span class="categoria">{{platoSeleccionado.categoria}}</span>
-                                                        <h4>{{platoSeleccionado.nombre}}</h4>
-                                                        <p class="text-muted mb-2">{{platoSeleccionado.descripcion}}</p>
-                                                        <h5 class="precio">S/. {{platoSeleccionado.precio}}</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div *ngIf="!platoSeleccionado">
-                                                <div class="seleccion-vacia">
-                                                    <i class="material-icons icono">info</i>
-                                                    <h4>Sin plato seleccionado</h4>
-                                                    <p>Seleccione un plato para saber su información.</p>
+                                                <div *ngIf="met.nombre==='Plin'" class="metodo plin">
+                                                    <img src="plin.png">
+                                                    <span>{{met.nombre}}</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div
-                                        [ngClass]="activePlato == 'ofertaMesa' ? 'tab-pane fade show active' : 'tab-pane fade'">
-                                        <div>
-                                            <div class="d-flex">
-                                                <div class="justify-content-first">
-                                                    <button class="btn btn-primary"
-                                                        (click)="platosMesaTab()">Platos</button>
-                                                </div>
-
-                                                <div class="ml-2">
-                                                    <select class="form-control mb-2" name="platos" id="platos"
-                                                        [(ngModel)]="ofertaSeleccionada">
-                                                        <option [ngValue]="null">--Seleccione la oferta--</option>
-                                                        <option *ngFor="let ofe of ofertas" [ngValue]="ofe">
-                                                            {{ofe.nombre}}
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div *ngIf="ofertaSeleccionada">
-                                                <div class="oferta-card mb-4">
-                                                    <div class="d-flex justify-content-center">
-                                                        <img src="../imagenes/promociones/promotueliges.png"
-                                                            alt="Imagen de la oferta" class="oferta-img">
-                                                    </div>
-
-                                                    <div class="oferta-body">
-                                                        <h5 class="text-center">{{ofertaSeleccionada.nombre}}</h5>
-
-                                                        <div class="oferta-info">
-                                                            <div class="info-item">
-                                                                <p>{{ofertaSeleccionada.descripcion}}</p>
-                                                            </div>
-
-                                                            <div class="info-item">
-                                                                <span>Precio</span>
-                                                                <strong>S/. {{ofertaSeleccionada.precio}}</strong>
-                                                            </div>
-
-                                                            <div class="info-item">
-                                                                <span>Platos</span>
-                                                                <strong>{{ofertaSeleccionada.cantidad}}</strong>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div *ngIf="!ofertaSeleccionada">
-                                                <div class="seleccion-vacia">
-                                                    <i class="material-icons icono">info</i>
-                                                    <h4>Sin oferta seleccionada</h4>
-                                                    <p>Seleccione una oferta para saber su información.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <button class="btn btn-success"
+                                        (click)="completarPedidoMesa(pa.mesa, pa.id)">Completar</button>
                                 </div>
                             </div>
                         </div>

@@ -9,6 +9,16 @@
                 <i class="material-icons">home</i>
                 <span>Inicio</span>
             </button>
+
+            <button class="menu-item" [class.active]="active==='mesas'" (click)="onMesasTab()">
+                <i class="material-icons">home</i>
+                <span>Mesas</span>
+            </button>
+
+            <button class="menu-item" [class.active]="active==='ventasHoy'" (click)="onVentasHoyTab()">
+                <i class="material-icons">point_of_sale</i>
+                <span>Ventas Hoy</span>
+            </button>
         </div>
     </aside>
 
@@ -19,24 +29,384 @@
                 <br>
                 <div class="kpi-grid">
                     <div class="kpi-card kpi-libre">
-                        <i class="material-icons">tag</i>
-                        <h3>0</h3>
+                        <i class="material-icons">table_restaurant</i>
+                        <h3>{{cantidadMesasLibres??0}}</h3>
                         <span>mesas libres</span>
                     </div>
 
-                    <div class="kpi-card kpi-esperando">
-                        <i class="material-icons">tag</i>
-                        <h3>0</h3>
+                    <div class="kpi-card kpi-pendiente">
+                        <i class="material-icons">table_restaurant</i>
+                        <h3>{{cantidadMesasPendientes??0}}</h3>
+                        <span>mesas libres</span>
+                    </div>
+
+                    <div class="kpi-card kpi-preparando">
+                        <i class="material-icons">table_restaurant</i>
+                        <h3>{{cantidadMesasEsperando??0}}</h3>
                         <span>mesas esperando</span>
                     </div>
 
-                    <div class="kpi-card kpi-ocupado">
-                        <i class="material-icons">tag</i>
-                        <h3>0</h3>
-                        <span>mesas ocupadas</span>
+                    <div class="kpi-card kpi-listo">
+                        <i class="material-icons">table_restaurant</i>
+                        <h3>{{cantidadMesasComiendo??0}}</h3>
+                        <span>mesas comiendo</span>
+                    </div>
+                </div>
+            </div>
+
+            <div [ngClass]="active == 'mesas' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                <h1>Mesas</h1>
+
+                <div class="menu-pedidos">
+                    <button class="menu-pedido btn-pedido-1" [class.active]="activeMesas==='cuatro'"
+                        (click)="onMesasCuatroTab()"><i class="material-icons">table_restaurant</i>Capacidad 4</button>
+                    <button class="menu-pedido btn-pedido-2" [class.active]="activeMesas==='seis'"
+                        (click)="onMesasSeisTab()"><i class="material-icons">table_restaurant</i>Capacidad 6</button>
+                    <button class="menu-pedido btn-pedido-3" [class.active]="activeMesas==='ocho'"
+                        (click)="onMesasOchoTab()"><i class="material-icons">table_restaurant</i>Capacidad 8</button>
+                    <button class="menu-pedido btn-pedido-4" [class.active]="activeMesas==='diez'"
+                        (click)="onMesasDiezTab()"><i class="material-icons">table_restaurant</i>Capacidad 10</button>
+                </div>
+                <br>
+                <div class="tab-content">
+                    <div [ngClass]="activeMesas == 'cuatro' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                        <div class="row">
+                            <div class="col-lg-4 mb-4" *ngFor="let m of mesasCuatro">
+                                <div class="mesa-card"
+                                    [ngClass]="{'mesa-libre': m.estado == 'Libre','mesa-pendiente': m.estado == 'Pendiente','mesa-preparando': m.estado == 'Preparando','mesa-listo': m.estado == 'Listo'}">
+                                    <div class="mesa-header">
+                                        <div class="mesa-icono">
+                                            <i class="material-icons">table_restaurant</i>
+                                        </div>
+
+                                        <div>
+                                            <h4>{{m.nombre}}</h4>
+                                            <span>{{m.ubicacion}}</span>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="mesa-info">
+                                        <div class="dato">
+                                            <i class="material-icons">groups</i>
+
+                                            <span>
+                                                {{m.capacidad}} personas
+                                            </span>
+                                        </div>
+
+                                        <div class="dato">
+                                            <i class="material-icons">info</i>
+                                            <span>{{m.estado}}</span>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-light w-100 mt-3" (click)="obtenerVentasPorMesaId(m.id)">Ver
+                                        ventas</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div [ngClass]="activeMesas == 'seis' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                        <div class="row">
+                            <div class="col-lg-4 mb-4" *ngFor="let m of mesasSeis">
+                                <div class="mesa-card"
+                                    [ngClass]="{'mesa-libre': m.estado == 'Libre','mesa-pendiente': m.estado == 'Pendiente','mesa-preparando': m.estado == 'Preparando','mesa-listo': m.estado == 'Listo'}">
+                                    <div class="mesa-header">
+                                        <div class="mesa-icono">
+                                            <i class="material-icons">table_restaurant</i>
+                                        </div>
+
+                                        <div>
+                                            <h4>{{m.nombre}}</h4>
+                                            <span>{{m.ubicacion}}</span>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="mesa-info">
+                                        <div class="dato">
+                                            <i class="material-icons">groups</i>
+
+                                            <span>
+                                                {{m.capacidad}} personas
+                                            </span>
+                                        </div>
+
+                                        <div class="dato">
+                                            <i class="material-icons">info</i>
+                                            <span>{{m.estado}}</span>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-light w-100 mt-3" (click)="obtenerVentasPorMesaId(m.id)">Ver
+                                        ventas</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div [ngClass]="activeMesas == 'ocho' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                        <div class="row">
+                            <div class="col-lg-4 mb-4" *ngFor="let m of mesasOcho">
+                                <div class="mesa-card"
+                                    [ngClass]="{'mesa-libre': m.estado == 'Libre','mesa-pendiente': m.estado == 'Pendiente','mesa-preparando': m.estado == 'Preparando','mesa-listo': m.estado == 'Listo'}">
+                                    <div class="mesa-header">
+                                        <div class="mesa-icono">
+                                            <i class="material-icons">table_restaurant</i>
+                                        </div>
+
+                                        <div>
+                                            <h4>{{m.nombre}}</h4>
+                                            <span>{{m.ubicacion}}</span>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="mesa-info">
+                                        <div class="dato">
+                                            <i class="material-icons">groups</i>
+
+                                            <span>
+                                                {{m.capacidad}} personas
+                                            </span>
+                                        </div>
+
+                                        <div class="dato">
+                                            <i class="material-icons">info</i>
+                                            <span>{{m.estado}}</span>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-light w-100 mt-3" (click)="obtenerVentasPorMesaId(m.id)">Ver
+                                        ventas</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div [ngClass]="activeMesas == 'diez' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                        <div class="row">
+                            <div class="col-lg-4 mb-4" *ngFor="let m of mesasDiez">
+                                <div class="mesa-card"
+                                    [ngClass]="{'mesa-libre': m.estado == 'Libre','mesa-pendiente': m.estado == 'Pendiente','mesa-preparando': m.estado == 'Preparando','mesa-listo': m.estado == 'Listo'}">
+                                    <div class="mesa-header">
+                                        <div class="mesa-icono">
+                                            <i class="material-icons">table_restaurant</i>
+                                        </div>
+
+                                        <div>
+                                            <h4>{{m.nombre}}</h4>
+                                            <span>{{m.ubicacion}}</span>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="mesa-info">
+                                        <div class="dato">
+                                            <i class="material-icons">groups</i>
+
+                                            <span>
+                                                {{m.capacidad}} personas
+                                            </span>
+                                        </div>
+
+                                        <div class="dato">
+                                            <i class="material-icons">info</i>
+                                            <span>{{m.estado}}</span>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-light w-100 mt-3" (click)="obtenerVentasPorMesaId(m.id)">Ver
+                                        ventas</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div [ngClass]="active == 'ventasHoy' ? 'tab-pane fade show active' : 'tab-pane fade'">
+                <h1>Ventas Hoy</h1>
+
+                <div class="kpi-grid">
+                    <div class="kpi-card kpi-libre">
+                        <i class="material-icons">point_of_sale</i>
+                        <h3>{{cantidadVentasMesa??0}}</h3>
+                        <span>ventas</span>
+                    </div>
+
+                    <div class="kpi-card kpi-libre">
+                        <i class="material-icons">attach_money</i>
+                        <h3>S/. {{(totalVentasMesa | number: '1.2-2')??0}}</h3>
+                        <span>total de ventas</span>
+                    </div>
+
+                    <div class="kpi-card kpi-platos">
+                        <i class="material-icons">flatware</i>
+                        <h3>{{cantidadPlatosMesa??0}}</h3>
+                        <span>platos</span>
+                    </div>
+
+                    <div class="kpi-card kpi-platos">
+                        <i class="material-icons">percent</i>
+                        <h3>{{cantidadOfertasMesa??0}}</h3>
+                        <span>ofertas</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 mb-4" *ngFor="let cv of cantidadesMesa">
+                        <div class="mesa-resumen">
+                            <div class="mesa-header" [ngClass]="{'mesa-libre': cv.estado=='Libre', 'mesa-pendiente': cv.estado=='Pendiente', 'mesa-preparando': cv.estado=='Preparando', 'mesa-listo': cv.estado=='Listo'}">
+                                <div>
+                                    <h4>
+                                        <i class="material-icons">table_restaurant</i>
+                                        {{cv.nombre}}
+                                    </h4>
+
+                                    <span>{{cv.ubicacion}}</span>
+                                </div>
+
+                                <span class="badge bg-light text-dark">
+                                    {{cv.capacidad}} Personas
+                                </span>
+                            </div>
+
+                            <div class="mesa-body">
+                                <div class="estado">
+                                    <i class="material-icons">info</i>
+                                    <span>{{cv.estado}}</span>
+                                </div>
+
+                                <div class="estadisticas">
+                                    <div class="stat">
+                                        <i class="material-icons">receipt_long</i>
+                                        <h4>{{cv.cantidad_ventas}}</h4>
+                                        <span>Ventas</span>
+                                    </div>
+
+                                    <div class="stat">
+                                        <i class="material-icons">restaurant_menu</i>
+                                        <h4>{{cv.cantidad_platos}}</h4>
+                                        <span>Platos</span>
+                                    </div>
+
+                                    <div class="stat">
+                                        <i class="material-icons">local_offer</i>
+                                        <h4>{{cv.cantidad_ofertas}}</h4>
+                                        <span>Ofertas</span>
+                                    </div>
+                                </div>
+
+                                <div class="total">
+                                    <span>Total vendido</span>
+                                    <h2>S/. {{cv.suma | number: '1.2-2'}}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="cantidadesMesa.length===0">
+                    <div class="seleccion-vacia">
+                        <i class="material-icons icono">info</i>
+                        <h4>Sin ventas todavía</h4>
+                        <p>No se encontró registró de ventas en ninguna venta.</p>
                     </div>
                 </div>
             </div>
         </div>
     </main>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="d-flex justify-content-center">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Pedido Actual</h1>
+                </div>
+
+                <button type="button" class="btn-close btn-primary" style="border-radius: 50px; width: 25px;"
+                    data-bs-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="ventasMesa.length>0">
+                    <div *ngFor="let pa of ventasMesa; let i = index">
+                        <div class="pedido-actual-card">
+                            <div class="pedido-header">
+                                <div>
+                                    <h4>
+                                        <i class="material-icons">table_restaurant</i>
+                                        Venta {{ventasMesa.length - i}}
+                                    </h4>
+
+                                    <span>{{pa.fecha}}</span>
+                                </div>
+                            </div>
+
+                            <div class="pedido-body">
+                                <div class="info">
+                                    <div class="item">
+                                        <i class="material-icons">shopping_cart</i>
+
+                                        <div class="info-item">
+                                            <span>Cantidad:</span>
+                                            <strong>{{pa.cantidad}}</strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="item">
+                                        <i class="material-icons">payments</i>
+
+                                        <div class="info-item">
+                                            <span>Método de pago:</span>
+
+                                            <span class="badge"
+                                                [ngClass]="{'efectivo': pa.metodopago=='Efectivo','yape': pa.metodopago=='Yape','plin': pa.metodopago=='Plin'}">
+                                                {{pa.metodopago}}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="item">
+                                        <i class="material-icons">receipt_long</i>
+
+                                        <div class="info-item">
+                                            <span>Total:</span>
+                                            <strong>S/. {{pa.total}}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="descripcion">
+                                    <h6>
+                                        <i class="material-icons">restaurant_menu</i>
+                                        Pedido
+                                    </h6>
+
+                                    <p>{{pa.descripcion}}</p>
+                                </div>
+
+                                <div class="observacion" *ngIf="pa.observacion">
+                                    <h6>
+                                        <i class="material-icons text-warning">warning</i>
+                                        Observación
+                                    </h6>
+                                    <p>{{pa.observacion}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+
+                <div *ngIf="ventasMesa.length===0">
+                    <div class="seleccion-vacia">
+                        <i class="material-icons icono">info</i>
+                        <h4>Sin ventas todavía</h4>
+                        <p>Esta mesa no tiene ninguna venta registrada.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
