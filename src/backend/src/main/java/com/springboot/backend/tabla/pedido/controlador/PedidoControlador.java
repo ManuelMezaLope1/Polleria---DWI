@@ -68,7 +68,7 @@ public class PedidoControlador {
         return ResponseEntity.ok(pedidoActualizado);
     }
 
-    @PutMapping("pedidos-preparados/{id}")
+    @PutMapping("/pedidos-preparados/{id}")
     public ResponseEntity<Pedido> actualizarPedidoPreparado(@PathVariable Long id, @RequestBody Pedido detallesPedidos) {
         Pedido pedidoExistente=pedidoRepositorio.findById(id).orElseThrow(()->new ResourceNotFoundException("No existe el pedido con el id: "+id));
   

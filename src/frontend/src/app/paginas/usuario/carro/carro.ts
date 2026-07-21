@@ -26,6 +26,7 @@ import { IngredienteServicio } from '../../../servicios/ingrediente/ingrediente-
 import { IIngrediente } from '../../../componentes/ingrediente/IIngrediente';
 import { IngredientePlatosServicio } from '../../../servicios/ingredienteplatos/ingrediente-platos-servicio';
 import { IngredientesPlato } from '../../../componentes/ingrediente/IngredientesPlatos';
+import { MesaServicio } from '../../../servicios/mesa/mesa-servicio';
 
 @Component({
   selector: 'app-carro',
@@ -102,7 +103,8 @@ export class Carro {
   constructor(private ofertaServicio: OfertaServicio, private platoServicio: PlatoServicio, private categoriaServicio: CategoriaServicio, private router: Router,
     private route: ActivatedRoute, private cd: ChangeDetectorRef, private usuarioServicio: UsuarioServicio, private metodoPagoServicio: MetodopagoServicio,
     private ventaServicio: VentaServicio, private detalleVentaServicio: DetalleVentaServicio, private detalleVentaPlatoServicio: DetalleVentaPlatosServicio,
-    private detalleVentaOfertaServicio: DetalleVentaOfertasServicio, private pedidoServicio: PedidoServicio, private ingredientePlatosServicio: IngredientePlatosServicio) { }
+    private detalleVentaOfertaServicio: DetalleVentaOfertasServicio, private pedidoServicio: PedidoServicio, private ingredientePlatosServicio: IngredientePlatosServicio,
+    private mesaServicio: MesaServicio) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -194,6 +196,11 @@ export class Carro {
         return of(null);
       })
     ).subscribe();
+
+    this.mesaServicio.obtenerTodasLasMesas().subscribe(datos=>{
+      this.venta.mesa=datos.find(m=>m.estado==='Sin estado');
+      this.cd.detectChanges();
+    })
   }
 
   decisionObservacionSi() {
@@ -1132,12 +1139,12 @@ export class Carro {
     }
 
     this.detalleVentaPlatoServicio.guardarLote(relacionesPlatos).subscribe({
-      next: () => console.log(relacionesPlatos),
+      next: () => console.log(''),
       error: err => console.error(err)
     });
 
     this.detalleVentaOfertaServicio.guardarLote(this.ofertasAgredadas).subscribe({
-      next: () => console.log(this.ofertasAgredadas),
+      next: () => console.log(''),
       error: err => console.error(err)
     })
   }

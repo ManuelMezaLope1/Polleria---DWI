@@ -10,4 +10,5 @@ export class Venta{
     metodopago: any;
     estado_venta: string;
     detalleVenta: DetalleVenta[];
+    mesa: any;
 }

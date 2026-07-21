@@ -60,13 +60,15 @@ export class IniciarSesionComponent {
         }).then((result) => {
           if (result.isConfirmed) {
             if(rol==='ROLE_USER'){
-              this.router.navigate(['/carta'])
+              this.router.navigate(['/inicio']).then(() => window.location.reload());
             } else if(rol==='ROLE_ADMIN'){
-              this.router.navigate(['/dashboard']);
+              this.router.navigate(['/dashboard']).then(() => window.location.reload());
             } else if(rol==='ROLE_COCINERO'){
-              this.router.navigate(['/dashboard-cocinero'])
+              this.router.navigate(['/dashboard-cocinero']).then(() => window.location.reload());
             } else if(rol==='ROLE_MESERO'){
-              this.router.navigate(['/dashboard-mesero']);
+              this.router.navigate(['/elegir-mesero']).then(() => window.location.reload());
+            } else {
+              this.router.navigate(['/inicio']).then(() => window.location.reload());
             }
           }
         })
@@ -102,7 +104,7 @@ export class IniciarSesionComponent {
     this.http.post('http://localhost:8080/auth/registro', usuario)
       .subscribe({
         next: () => {
-          alert('Usuario registrado correctamente');
+          Swal.fire('Felicidades','Se registró con éxito','success');
 
           this.active = 'login';
 
@@ -116,7 +118,7 @@ export class IniciarSesionComponent {
           this.router.navigate(['/iniciar-sesion']);
         },
         error: () => {
-          alert('Error al registrar el usuario');
+          Swal.fire('Oops...','Error al registrar el usuario','error');
         }
       })
   }

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { VentaServicio } from '../../../servicios/venta/venta-servicio';
 import { Venta } from '../../../componentes/venta/Venta';
 import { catchError, Observable, of, tap } from 'rxjs';
@@ -13,6 +13,9 @@ import { ConsultaMlServicio } from '../../../servicios/consultaml/consulta-ml-se
 import { FranjaMayor } from '../../../componentes/consultaml/FranjaMayor';
 import { CategoriaMayorMl } from '../../../componentes/consultaml/CategoriaMayorMl';
 import { PlatoCrecimientoMl } from '../../../componentes/consultaml/PlatoCrecimientoMl';
+import { MesaServicio } from '../../../servicios/mesa/mesa-servicio';
+import { IMesa } from '../../../componentes/pedido/IMesa';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-dashboard-cocinero',
@@ -31,9 +34,14 @@ export class DashboardCocinero {
   idPedido: any;
   idPedidoPreparado: any;
 
+  idMesa: any;
+  idMesaPreparado: any;
+  mesa: IMesa = new IMesa();
+
   ingredientes: any[] = [];
   venta: Venta = new Venta();
   ventaId: any;
+  ventaIdPreparado: any;
 
   cantidadPedidosPendientes: number = 0;
   cantidadPedidosPreparados: number = 0;
@@ -65,12 +73,197 @@ export class DashboardCocinero {
   categoriasMayores: any[] = []
   platoCrecimientoMayor!: PlatoCrecimientoMl;
   platosCrecimientosMayores: any[] = [];
-  pedidosSemanaPasada: any[]=[]
+  pedidosSemanaPasada: any[] = [];
 
-  constructor(private consultaServicio: ConsultaServicio, private consultaMlServicio: ConsultaMlServicio, private usuarioServicio: UsuarioServicio, private pedidoServicio: PedidoServicio, private ventaServicio: VentaServicio, private cd: ChangeDetectorRef) { }
+  constructor(private consultaServicio: ConsultaServicio, private consultaMlServicio: ConsultaMlServicio, private usuarioServicio: UsuarioServicio, private pedidoServicio: PedidoServicio, private ventaServicio: VentaServicio, private mesaServicio: MesaServicio, private cd: ChangeDetectorRef) { }
 
+  abierto = false;
   active: string = 'inicio';
   activePedido: string = 'pendiente';
+
+  @ViewChild('btnInfo')
+  btnInfo!: ElementRef;
+
+  @ViewChild('btnInfoInicio')
+  btnInfoInicio!: ElementRef;
+
+  @ViewChild('btnInfoPedidos')
+  btnInfoPedidos!: ElementRef;
+
+  @ViewChild('btnInfoIngredientes')
+  btnInfoIngredientes!: ElementRef;
+
+  @ViewChild('btnInfoPlatosPreparar')
+  btnInfoPlatosPreparar!: ElementRef;
+
+  @ViewChild('btnInfoRecomendaciones')
+  btnInfoRecomendaciones!: ElementRef;
+
+  @ViewChild('btnInfoPredicciones')
+  btnInfoPredicciones!: ElementRef;
+
+  @ViewChild('btnInfoEstadisticas')
+  btnInfoEstadisticas!: ElementRef;
+
+  mostrarTooltip() {
+    if (!this.btnInfo?.nativeElement) {
+      return;
+    }
+
+    const tooltip = bootstrap.Tooltip.getOrCreateInstance(
+      this.btnInfo.nativeElement
+    );
+
+    tooltip.show();
+
+    setTimeout(() => {
+      try {
+        tooltip.hide();
+      } catch (e) {
+        console.error(e);
+      }
+    }, 1000);
+  }
+
+  mostrarTooltipInicio() {
+    if (!this.btnInfoInicio?.nativeElement) {
+      return;
+    }
+
+    const tooltipInicio = bootstrap.Tooltip.getOrCreateInstance(
+      this.btnInfoInicio.nativeElement
+    );
+
+    tooltipInicio.show();
+
+    setTimeout(() => {
+      try {
+        tooltipInicio.hide();
+      } catch (e) {
+        console.error(e);
+      }
+    }, 1000);
+  }
+
+  mostrarTooltipPedidos() {
+    if (!this.btnInfoPedidos?.nativeElement) {
+      return;
+    }
+
+    const tooltipPedidos = bootstrap.Tooltip.getOrCreateInstance(
+      this.btnInfoPedidos.nativeElement
+    );
+
+    tooltipPedidos.show();
+
+    setTimeout(() => {
+      try {
+        tooltipPedidos.hide();
+      } catch (e) {
+        console.error(e);
+      }
+    }, 1000);
+  }
+
+  mostrarTooltipIngredientes() {
+    if (!this.btnInfoIngredientes?.nativeElement) {
+      return;
+    }
+
+    const tooltipIngredientes = bootstrap.Tooltip.getOrCreateInstance(
+      this.btnInfoIngredientes.nativeElement
+    );
+
+    tooltipIngredientes.show();
+
+    setTimeout(() => {
+      try {
+        tooltipIngredientes.hide();
+      } catch (e) {
+        console.error(e);
+      }
+    }, 1000);
+  }
+
+  mostrarTooltipPlatosPreparar() {
+    if (!this.btnInfoPlatosPreparar?.nativeElement) {
+      return;
+    }
+
+    const tooltipPlatosPreparar = bootstrap.Tooltip.getOrCreateInstance(
+      this.btnInfoPlatosPreparar.nativeElement
+    );
+
+    tooltipPlatosPreparar.show();
+
+    setTimeout(() => {
+      try {
+        tooltipPlatosPreparar.hide();
+      } catch (e) {
+        console.error(e);
+      }
+    }, 1000);
+  }
+
+  mostrarTooltipRecomendaciones() {
+    if (!this.btnInfoRecomendaciones?.nativeElement) {
+      return;
+    }
+
+    const tooltipRecomendacion = bootstrap.Tooltip.getOrCreateInstance(
+      this.btnInfoRecomendaciones.nativeElement
+    );
+
+    tooltipRecomendacion.show();
+
+    setTimeout(() => {
+      try {
+        tooltipRecomendacion.hide();
+      } catch (e) {
+        console.error(e);
+      }
+    }, 1000);
+  }
+
+  mostrarTooltipPredicciones() {
+    if (!this.btnInfoPredicciones?.nativeElement) {
+      return;
+    }
+
+    const tooltipPrediccion = bootstrap.Tooltip.getOrCreateInstance(
+      this.btnInfoPredicciones.nativeElement
+    );
+
+    tooltipPrediccion.show();
+
+    setTimeout(() => {
+      try {
+        tooltipPrediccion.hide();
+      } catch (e) {
+        console.error(e);
+      }
+    }, 1000);
+  }
+
+  mostrarTooltipEstadisticas() {
+    if (!this.btnInfoEstadisticas?.nativeElement) {
+      return;
+    }
+
+    const tooltipEstadisticas = bootstrap.Tooltip.getOrCreateInstance(
+      this.btnInfoEstadisticas.nativeElement
+    );
+
+    tooltipEstadisticas.show();
+
+    setTimeout(() => {
+      try {
+        tooltipEstadisticas.hide();
+      } catch (e) {
+        console.error(e);
+      }
+    }, 1000);
+  }
 
   onInicioTab() {
     this.active = "inicio";
@@ -117,6 +310,7 @@ export class DashboardCocinero {
 
     this.pedidoServicio.obtenerTodosLosPedidosPendientes().subscribe((dato: any) => {
       this.pedidosPendientes = dato;
+      console.log(this.pedidosPendientes)
       this.cd.detectChanges();
     });
 
@@ -178,70 +372,79 @@ export class DashboardCocinero {
     })
   }
 
-  actualizarPedidoPendiente(id: number) {
+  actualizarPedidoPendiente(id: number, idVenta: number, idMesa: number) {
     this.idPedido = id;
+    this.idMesa = idMesa;
+    this.ventaId = idVenta;
+    this.cd.detectChanges();
 
     this.pedido.fecha_creacion = new Date().toLocaleString();
 
-    this.pedidoServicio.obtenerPedidoPorId(this.idPedido).pipe(
-      tap(dato => {
-        this.ventaId = this.pedido.venta;
-      }),
-      catchError(err => {
-        console.error(err)
-        return of(null);
-      })
-    ).subscribe()
+    console.log(this.idPedido)
+    console.log(this.ventaId)
+    console.log(this.idMesa)
 
     this.pedidoServicio.actualizarPedidoPendiente(this.idPedido, this.pedido).pipe(
       tap(dato => {
-        this.ventaServicio.actualizarVentaPendiente(this.ventaId, this.venta).pipe(
-          tap(data => {
-            window.location.reload();
-          }),
-          catchError(err => {
-            console.error(err);
-            return of(null)
-          })
-        ).subscribe()
       }),
       catchError(err => {
         console.error(err);
         return of(null);
+      })
+    ).subscribe()
+
+    this.mesaServicio.actualizarMesaPendiente(this.idMesa, this.mesa).pipe(
+      tap(dato => {
+      }),
+      catchError(err => {
+        console.error(err);
+        return of(null);
+      })
+    ).subscribe()
+
+    this.ventaServicio.actualizarVentaPendiente(this.ventaId, this.venta).pipe(
+      tap(data => {
+        window.location.reload()
+      }),
+      catchError(err => {
+        console.error(err);
+        return of(null)
       })
     ).subscribe()
   }
 
-  actualizarPedidoPreparado(id: number) {
+  actualizarPedidoPreparado(id: number, idVenta: number, idMesa: number) {
     this.idPedidoPreparado = id;
+    this.idMesaPreparado = idMesa;
+    this.ventaIdPreparado = idVenta;
 
     this.pedido.fecha_entrega = new Date().toLocaleString();
 
-    this.pedidoServicio.obtenerPedidoPorId(this.idPedidoPreparado).pipe(
-      tap(dato => {
-        this.ventaId = this.pedido.venta;
-      }),
-      catchError(err => {
-        console.error(err)
-        return of(null);
-      })
-    ).subscribe()
-
     this.pedidoServicio.actualizarPedidoPreparado(this.idPedidoPreparado, this.pedido).pipe(
       tap(dato => {
-        this.ventaServicio.actualizarVentaPreparada(this.ventaId, this.venta).pipe(
-          tap(data => {
-            window.location.reload();
-          }),
-          catchError(err => {
-            console.error(err);
-            return of(null)
-          })
-        ).subscribe()
       }),
       catchError(err => {
         console.error(err);
         return of(null);
+      })
+    ).subscribe()
+
+    this.mesaServicio.actualizarMesaPreparado(this.idMesaPreparado, this.mesa).pipe(
+      tap(dato => {
+      }),
+      catchError(err => {
+        console.error(err);
+        return of(null);
+      })
+    ).subscribe()
+
+    this.ventaServicio.actualizarVentaPreparada(this.ventaIdPreparado, this.venta).pipe(
+      tap(data => {
+        window.location.reload()
+      }),
+      catchError(err => {
+        console.error(err);
+        return of(null)
       })
     ).subscribe()
   }

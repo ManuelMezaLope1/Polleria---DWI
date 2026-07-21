@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { IMesa } from '../../../componentes/pedido/IMesa';
 import Swal from 'sweetalert2';
 import { MesaServicio } from '../../../servicios/mesa/mesa-servicio';
-import { catchError, tap, throwError } from 'rxjs';
+import { catchError, of, tap, throwError } from 'rxjs';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-mesa',
@@ -13,23 +14,42 @@ import { catchError, tap, throwError } from 'rxjs';
   styleUrl: './mesa.css',
 })
 export class Mesa {
+  id: number;
+  idActualizar: number;
   mesaSeleccionada: string = '';
   mesa1: any;
   active: string = 'salaUno';
   abriendo = false;
+  mesaUbicacion: any;
+  mesaParaActualizar: any;
 
   mesa: IMesa = new IMesa();
+  mesaActualizar: IMesa = new IMesa();
   capacidadSeleccionada: any = null;
 
-  mesaCuatro: any[]=[];
+  mesaCuatro: any[] = [];
   cantidadMesas = Array(6).fill(0);
 
-  constructor(private mesaServicio: MesaServicio, private cd: ChangeDetectorRef) { }
+  mesaSeis: any[] = [];
+  cantidadMesasSeis = Array(4).fill(0);
+
+  mesaOcho: any[] = [];
+  cantidadMesasOcho = Array(6).fill(0);
+
+  mesaDiez: any[] = [];
+  cantidadMesasDiez = Array(4).fill(0);
+
+  constructor(private mesaServicio: MesaServicio, private cd: ChangeDetectorRef) {
+    this.mesaUbicacion = null;
+  }
 
   ngOnInit(): void {
-    this.mesa.estado = "Pendiente";
+    this.mesa.estado = "Libre";
 
     this.cargarMesasCuatro();
+    this.cargarMesasSeis();
+    this.cargarMesasOcho();
+    this.cargarMesasDiez();
   }
 
   onPuertaTab(): void {
@@ -56,19 +76,37 @@ export class Mesa {
     this.active = "salaTres";
   }
 
-  seleccionarMesa(piso: string, sala: string) {
-    this.mesa.ubicacion = piso + " - " + sala;
+  cargarMesasCuatro() {
+    this.mesaServicio.obtenerMesaCuatro().subscribe(datos => {
+      this.mesaCuatro = datos;
+      this.cd.detectChanges();
+    })
   }
 
-  cargarMesasCuatro(){
-    this.mesaServicio.obtenerMesaCuatro().subscribe(datos=>{
-      this.mesaCuatro=datos;
+  cargarMesasSeis() {
+    this.mesaServicio.obtenerMesaSeis().subscribe(datos => {
+      this.mesaSeis = datos;
+      this.cd.detectChanges();
+    })
+  }
+
+  cargarMesasOcho() {
+    this.mesaServicio.obtenerMesaOcho().subscribe(datos => {
+      this.mesaOcho = datos;
+      this.cd.detectChanges();
+    })
+  }
+
+  cargarMesasDiez() {
+    this.mesaServicio.obtenerMesaDiez().subscribe(datos => {
+      this.mesaDiez = datos;
       this.cd.detectChanges();
     })
   }
 
   onSubmit() {
     this.mesa.capacidad = this.capacidadSeleccionada;
+    this.mesa.ubicacion = this.mesaUbicacion;
 
     if (this.mesa.nombre === undefined) {
       Swal.fire('Oops...', 'Falta el nombre', 'warning');
@@ -80,6 +118,23 @@ export class Mesa {
 
     if (this.mesa.capacidad === undefined || this.mesa.capacidad === null) {
       Swal.fire('Oops...', 'Falta la capacidad', 'warning');
+      return;
+    } else if (this.mesaCuatro.length === 6) {
+      Swal.fire('Oops...', 'Ya no caben más mesas con capacidad 4', 'warning');
+      return;
+    } else if (this.mesaSeis.length === 4) {
+      Swal.fire('Oops...', 'Ya no caben más mesas con capacidad 6', 'warning');
+      return;
+    } else if (this.mesaOcho.length === 6) {
+      Swal.fire('Oops...', 'Ya no caben más mesas con capacidad 8', 'warning');
+      return;
+    } else if (this.mesaDiez.length === 4) {
+      Swal.fire('Oops...', 'Ya no caben más mesas con capacidad 10', 'warning');
+      return;
+    }
+
+    if (this.mesa.ubicacion === undefined || this.mesa.ubicacion === null) {
+      Swal.fire('Oops...', 'Falta la ubicacion', 'warning');
       return;
     }
 
@@ -108,5 +163,58 @@ export class Mesa {
         window.location.reload();
       }
     }))
+  }
+
+  obtenerMesaPorId(id: number) {
+    this.id = id;
+
+    this.mesaServicio.obtenerMesaPorId(id).subscribe({
+      next: (datos) => {
+        this.mesaParaActualizar = datos;
+
+        this.cd.detectChanges();
+
+        const modal = new bootstrap.Modal(
+          document.getElementById('mesaActualizarModal')!
+        );
+
+        modal.show();
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+  }
+
+  onSubmitActualizar() {
+    this.cd.detectChanges();
+    this.idActualizar = this.mesaParaActualizar.id;
+    this.mesaActualizar.nombre = this.mesaParaActualizar.nombre;
+    this.mesaActualizar.estado = "Pendiente";
+    this.mesaActualizar.capacidad = this.mesaParaActualizar.capacidad;
+    this.mesaActualizar.ubicacion = this.mesaParaActualizar.ubicacion;
+
+    this.mesaServicio.actualizarMesa(this.idActualizar, this.mesaActualizar).pipe(
+      tap(dato => {
+        this.actualizarPagina();
+      }),
+      catchError(err => {
+        console.error(err);
+        return of(null)
+      })
+    ).subscribe()
+  }
+
+  actualizarPagina() {
+    Swal.fire({
+      title: 'Mesa actualizada',
+      text: `La mesa ha sido actualizada con éxito`,
+      icon: 'success',
+      confirmButtonText: 'Ok'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.reload();
+      }
+    });
   }
 }

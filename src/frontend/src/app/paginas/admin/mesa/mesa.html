@@ -69,7 +69,7 @@
                     <div class="card-4">
                         <div *ngFor="let _ of cantidadMesas; let i = index">
                             <ng-container *ngIf="mesaCuatro[i]; else mesaVacia">
-                                <div class="mesa mesa-4">
+                                <div class="mesa mesa-4" (click)="obtenerMesaPorId(mesaCuatro[i].id )">
                                     <div class="silla top-1"></div>
                                     <div class="silla bottom-1"></div>
                                     <div class="silla top-2"></div>
@@ -82,10 +82,8 @@
 
                             <ng-template #mesaVacia>
                                 <div>
-                                    <div class="mesa-vacia" (click)="seleccionarMesa('Primer piso','Sala Uno')"
-                                        data-bs-toggle="modal" data-bs-target="#exampleModal">
-
-                                        <i class="material-icons icono">add</i>
+                                    <div class="mesa-vacia">
+                                        <i class="material-icons icono">info</i>
                                         <h4>Sin mesa</h4>
                                         <p>Cree una mesa</p>
                                     </div>
@@ -95,11 +93,37 @@
                     </div>
 
                     <div class="titulo-sala">
+                        <button class="btn btn-danger btn-crear-mesa" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">+</button>
                         <p class="nombre-sala">Sala Uno</p>
                     </div>
 
                     <div class="card-6">
-                        a
+                        <div *ngFor="let _ of cantidadMesasSeis; let i = index">
+                            <ng-container *ngIf="mesaSeis[i]; else mesaVaciaSeis">
+                                <div class="mesa mesa-6" (click)="obtenerMesaPorId(mesaSeis[i].id )">
+                                    <div class="silla top-1"></div>
+                                    <div class="silla bottom-1"></div>
+                                    <div class="silla top-2"></div>
+                                    <div class="silla bottom-2"></div>
+                                    <div class="silla left-1"></div>
+                                    <div class="silla right-1"></div>
+                                    <div class="tablero tablero-4">
+                                        M{{ mesaCuatro.length + i + 1 }}
+                                    </div>
+                                </div>
+                            </ng-container>
+
+                            <ng-template #mesaVaciaSeis>
+                                <div>
+                                    <div class="mesa-vacia">
+                                        <i class="material-icons icono">info</i>
+                                        <h4>Sin mesa</h4>
+                                        <p>Cree una mesa</p>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -136,7 +160,35 @@
             <div class="area-mesas">
                 <div class="card-total">
                     <div class="card-10">
+                        <div *ngFor="let _ of cantidadMesasDiez; let i = index">
+                            <ng-container *ngIf="mesaDiez[i]; else mesaVaciaDiez">
+                                <div class="mesa mesa-10" (click)="obtenerMesaPorId(mesaDiez[i].id )">
+                                    <div class="silla top-1-10"></div>
+                                    <div class="silla top-2-10"></div>
+                                    <div class="silla bottom-1-10"></div>
+                                    <div class="silla bottom-2-10"></div>
+                                    <div class="silla left-1-10"></div>
+                                    <div class="silla left-2-10"></div>
+                                    <div class="silla left-3-10"></div>
+                                    <div class="silla right-1-10"></div>
+                                    <div class="silla right-2-10"></div>
+                                    <div class="silla right-3-10"></div>
+                                    <div class="tablero tablero-10">
+                                        M{{ mesaCuatro.length + mesaSeis.length + i + 1 }}
+                                    </div>
+                                </div>
+                            </ng-container>
 
+                            <ng-template #mesaVaciaDiez>
+                                <div>
+                                    <div class="mesa-vacia">
+                                        <i class="material-icons icono">info</i>
+                                        <h4>Sin mesa</h4>
+                                        <p>Cree una mesa</p>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </div>
                     </div>
 
                     <div class="titulo-sala">
@@ -144,7 +196,33 @@
                     </div>
 
                     <div class="card-8">
+                        <div *ngFor="let _ of cantidadMesasOcho; let i = index">
+                            <ng-container *ngIf="mesaOcho[i]; else mesaVaciaOcho">
+                                <div class="mesa mesa-8" (click)="obtenerMesaPorId(mesaOcho[i].id )">
+                                    <div class="silla top-1-8"></div>
+                                    <div class="silla bottom-1-8"></div>
+                                    <div class="silla left-1-10"></div>
+                                    <div class="silla left-2-10"></div>
+                                    <div class="silla left-3-10"></div>
+                                    <div class="silla right-1-10"></div>
+                                    <div class="silla right-2-10"></div>
+                                    <div class="silla right-3-10"></div>
+                                    <div class="tablero tablero-8">
+                                        M{{ mesaCuatro.length + mesaSeis.length + mesaDiez.length + i + 1 }}
+                                    </div>
+                                </div>
+                            </ng-container>
 
+                            <ng-template #mesaVaciaOcho>
+                                <div>
+                                    <div class="mesa-vacia">
+                                        <i class="material-icons icono">info</i>
+                                        <h4>Sin mesa</h4>
+                                        <p>Cree una mesa</p>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -198,8 +276,12 @@
 
                             <div class="form-group">
                                 <label>Ubicacion:</label>
-                                <input type="text" class="form-control" id="ubicacion" [(ngModel)]="mesa.ubicacion"
-                                    name="ubicacion" readonly>
+                                <select class="form-control mb-2" name="ubicacion" id="ubicacion"
+                                    [(ngModel)]="mesaUbicacion">
+                                    <option [ngValue]="null">--Seleccione la ubicación--</option>
+                                    <option value="Primer Piso - Sala Uno">Primer Piso - Sala Uno</option>
+                                    <option value="Primer Piso - Sala Dos">Primer Piso - Sala Dos</option>
+                                </select>
                             </div>
 
                             <button class="btn btn-warning btn-sm p-2" style="border-radius: 20px;"
@@ -215,7 +297,7 @@
                                     <div class="silla bottom-1"></div>
                                     <div class="silla top-2"></div>
                                     <div class="silla bottom-2"></div>
-                                    <div class="tablero tablero-4">M1</div>
+                                    <div class="tablero tablero-4">M</div>
                                 </div>
                             </ng-container>
 
@@ -227,7 +309,7 @@
                                     <div class="silla bottom-2"></div>
                                     <div class="silla left-1"></div>
                                     <div class="silla right-1"></div>
-                                    <div class="tablero tablero-4">M7</div>
+                                    <div class="tablero tablero-4">M</div>
                                 </div>
                             </ng-container>
 
@@ -241,7 +323,7 @@
                                     <div class="silla right-1-10"></div>
                                     <div class="silla right-2-10"></div>
                                     <div class="silla right-3-10"></div>
-                                    <div class="tablero tablero-8">M20</div>
+                                    <div class="tablero tablero-8">M</div>
                                 </div>
                             </ng-container>
 
@@ -257,7 +339,7 @@
                                     <div class="silla right-1-10"></div>
                                     <div class="silla right-2-10"></div>
                                     <div class="silla right-3-10"></div>
-                                    <div class="tablero tablero-10">M14</div>
+                                    <div class="tablero tablero-10">M</div>
                                 </div>
                             </ng-container>
                         </div>
@@ -267,6 +349,126 @@
                                 <i class="material-icons icono">info</i>
                                 <h4>Sin capacidad</h4>
                                 <p>Seleccione la capacidad</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mesaActualizarModal" tabindex="-1" aria-labelledby="mesaActualizarModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="d-flex justify-content-center">
+                    <h1 class="modal-title fs-5" id="mesaActualizarModalLabel">Pedido de la Mesa</h1>
+                </div>
+
+                <button type="button" class="btn-close btn-primary" style="border-radius: 50px; width: 25px;"
+                    data-bs-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="mesaParaActualizar">
+                    <div class="registro-mesa">
+                        <div class="container">
+                            <form>
+                                <input type="hidden" name="id" id="id" [(ngModel)]="mesaParaActualizar.id">
+                                <div class="form-group">
+                                    <label>Nombre: </label>
+                                    <input type="text" class="form-control" id="nombre"
+                                        [(ngModel)]="mesaParaActualizar.nombre" name="nombre" required
+                                        placeholder="Digite el nombre" #nombre="ngModel" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Capacidad</label>
+                                    <select class="form-control mb-2" name="capacidad" id="capacidad"
+                                        [(ngModel)]="mesaParaActualizar.capacidad">
+                                        <option value="4">4</option>
+                                        <option value="6">6</option>
+                                        <option value="8">8</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Ubicacion:</label>
+                                    <select class="form-control mb-2" name="ubicacion" id="mesaParaActualizar.ubicacion"
+                                        [(ngModel)]="mesaParaActualizar.ubicacion">
+                                        <option value="Primer Piso - Sala Uno">Primer Piso - Sala Uno</option>
+                                        <option value="Primer Piso - Sala Dos">Primer Piso - Sala Dos</option>
+                                    </select>
+                                </div>
+
+                                <button class="btn btn-warning btn-sm p-2" style="border-radius: 20px;"
+                                    (click)="onSubmitActualizar()">Editar</button>
+                            </form>
+                        </div>
+
+                        <div class="container d-flex justify-content-center" style="align-items: center;">
+                            <div *ngIf="mesaParaActualizar.capacidad>0">
+                                <ng-container *ngIf="mesaParaActualizar.capacidad===4">
+                                    <div class="mesa mesa-4">
+                                        <div class="silla top-1"></div>
+                                        <div class="silla bottom-1"></div>
+                                        <div class="silla top-2"></div>
+                                        <div class="silla bottom-2"></div>
+                                        <div class="tablero tablero-4">M</div>
+                                    </div>
+                                </ng-container>
+
+                                <ng-container *ngIf="mesaParaActualizar.capacidad===6">
+                                    <div class="mesa mesa-6">
+                                        <div class="silla top-1"></div>
+                                        <div class="silla bottom-1"></div>
+                                        <div class="silla top-2"></div>
+                                        <div class="silla bottom-2"></div>
+                                        <div class="silla left-1"></div>
+                                        <div class="silla right-1"></div>
+                                        <div class="tablero tablero-4">M</div>
+                                    </div>
+                                </ng-container>
+
+                                <ng-container *ngIf="mesaParaActualizar.capacidad===8">
+                                    <div class="mesa mesa-8">
+                                        <div class="silla top-1-8"></div>
+                                        <div class="silla bottom-1-8"></div>
+                                        <div class="silla left-1-10"></div>
+                                        <div class="silla left-2-10"></div>
+                                        <div class="silla left-3-10"></div>
+                                        <div class="silla right-1-10"></div>
+                                        <div class="silla right-2-10"></div>
+                                        <div class="silla right-3-10"></div>
+                                        <div class="tablero tablero-8">M</div>
+                                    </div>
+                                </ng-container>
+
+                                <ng-container *ngIf="mesaParaActualizar.capacidad===10">
+                                    <div class="mesa mesa-10">
+                                        <div class="silla top-1-10"></div>
+                                        <div class="silla top-2-10"></div>
+                                        <div class="silla bottom-1-10"></div>
+                                        <div class="silla bottom-2-10"></div>
+                                        <div class="silla left-1-10"></div>
+                                        <div class="silla left-2-10"></div>
+                                        <div class="silla left-3-10"></div>
+                                        <div class="silla right-1-10"></div>
+                                        <div class="silla right-2-10"></div>
+                                        <div class="silla right-3-10"></div>
+                                        <div class="tablero tablero-10">M</div>
+                                    </div>
+                                </ng-container>
+                            </div>
+
+                            <div *ngIf="!mesaParaActualizar.capacidad">
+                                <div class="seleccion-vacia">
+                                    <i class="material-icons icono">info</i>
+                                    <h4>Sin capacidad</h4>
+                                    <p>Seleccione la capacidad</p>
+                                </div>
                             </div>
                         </div>
                     </div>
